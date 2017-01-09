@@ -175,6 +175,27 @@ static SMAthirdPartyLoginTool *g_instance = nil;
     [vc presentViewController:composeVc animated:YES completion:^{
         
     }];
+}
+
+- (void)loginToFacebookWithReadPermissions:(NSArray *)array controller:(UIViewController *)vc{
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login logOut];//这个一定要写，不然会出现换一个帐号就无法获取信息的错误
+    [login logInWithReadPermissions:@[@"public_profile", @"email", @"user_friends"] fromViewController:vc handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        if (error) {
+            NSLog(@"Process error");
+             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:self userInfo:[NSDictionary dictionaryWithObject:@"［FB］" forKey:@"LOGINTYPE"]];
+        } else if (result.isCancelled) {
+            NSLog(@"Cancelled");
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginCancelled object:self userInfo:[NSDictionary dictionaryWithObject:@"［FB］" forKey:@"LOGINTYPE"]];
+        }
+        else{
+            NSLog(@"succeed");
+            NSLog(@"%@",[FBSDKAccessToken currentAccessToken].appID);
+            NSLog(@"%@",[FBSDKAccessToken currentAccessToken].userID);
+            NSLog(@"%@",[FBSDKAccessToken currentAccessToken].tokenString);
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessed object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"［FB］" ,@"LOGINTYPE",[FBSDKAccessToken currentAccessToken].userID,@"OPENID",[FBSDKAccessToken currentAccessToken].tokenString,@"TOKEN", nil]];
+        }
+    }];
 
 }
 

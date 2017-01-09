@@ -29,9 +29,9 @@
     [SmaNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [SmaNotificationCenter addObserver:self selector:@selector(update) name:UIApplicationDidEnterBackgroundNotification object:nil];
     //监听登录通知
-    [SmaNotificationCenter addObserver:self selector:@selector(loginSuccessed:) name:kLoginSuccessed object:[SMAthirdPartyManager sharedManager]];
-    [SmaNotificationCenter addObserver:self selector:@selector(loginFailed:) name:kLoginFailed object:[SMAthirdPartyManager sharedManager]];
-    [SmaNotificationCenter addObserver:self selector:@selector(loginCancelled:) name:kLoginCancelled object:[SMAthirdPartyManager sharedManager]];
+    [SmaNotificationCenter addObserver:self selector:@selector(loginSuccessed:) name:kLoginSuccessed object:nil];
+    [SmaNotificationCenter addObserver:self selector:@selector(loginFailed:) name:kLoginFailed object:nil];
+    [SmaNotificationCenter addObserver:self selector:@selector(loginCancelled:) name:kLoginCancelled object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,23 +88,52 @@
     _loginBut.enabled = NO;
     _thiPartyLab.text = SMALocalizedString(@"login_hirdParty");
     
-    if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
-        [_QQBut setImage:[UIImage imageNamed:@"icon_qq_2"] forState:UIControlStateNormal];
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
+    NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
+    if (![preferredLang isEqualToString:@"zh"]) {
+        NSLog(@"e===%@  %@   %@",NSStringFromCGSize([UIImage imageNamed:@"home_facebook"].size),NSStringFromCGSize([UIImage imageNamed:@"home_twitter"].size),NSStringFromCGSize([UIImage imageNamed:@"LinkedIn"].size));
+        [_QQBut setImage:[UIImage imageNamed:@"home_twitter"] forState:UIControlStateNormal];
+        [_weChatBut setImage:[UIImage imageNamed:@"home_facebook"] forState:UIControlStateNormal];
+        [_weiboBut setImage:[UIImage imageNamed:@"LinkedIn"] forState:UIControlStateNormal];
+        
+        //        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+        //        [login logOut];//这个一定要写，不然会出现换一个帐号就无法获取信息的错误
+        //        [login logInWithReadPermissions:@[@"public_profile", @"email", @"user_friends"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+        //            if (error) {
+        //
+        //                NSLog(@"Process error");
+        //
+        //            } else if (result.isCancelled) {
+        //                NSLog(@"Cancelled");
+        //            }
+        //            else{
+        //                NSLog(@"succeed");
+        //                NSLog(@"%@",[FBSDKAccessToken currentAccessToken].appID);
+        //                NSLog(@"%@",[FBSDKAccessToken currentAccessToken].userID);
+        //                NSLog(@"%@",[FBSDKAccessToken currentAccessToken].tokenString);
+        //            }
+        //        }];
     }
     else{
-        [_QQBut setImage:[UIImage imageNamed:@"icon_qq"] forState:UIControlStateNormal];
-    }
-    if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
-        [_weChatBut setImage:[UIImage imageNamed:@"icon_weixin_2"] forState:UIControlStateNormal];
-    }
-    else{
-        [_weChatBut setImage:[UIImage imageNamed:@"icon_weixin"] forState:UIControlStateNormal];
-    }
-    if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
-        [_weiboBut setImage:[UIImage imageNamed:@"icon_weibo_2"] forState:UIControlStateNormal];
-    }
-    else{
-        [_weiboBut setImage:[UIImage imageNamed:@"icon_weibo"] forState:UIControlStateNormal];
+        if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
+            [_QQBut setImage:[UIImage imageNamed:@"icon_qq_2"] forState:UIControlStateNormal];
+        }
+        else{
+            [_QQBut setImage:[UIImage imageNamed:@"icon_qq"] forState:UIControlStateNormal];
+        }
+        if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
+            [_weChatBut setImage:[UIImage imageNamed:@"icon_weixin_2"] forState:UIControlStateNormal];
+        }
+        else{
+            [_weChatBut setImage:[UIImage imageNamed:@"icon_weixin"] forState:UIControlStateNormal];
+        }
+        if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
+            [_weiboBut setImage:[UIImage imageNamed:@"icon_weibo_2"] forState:UIControlStateNormal];
+        }
+        else{
+            [_weiboBut setImage:[UIImage imageNamed:@"icon_weibo"] forState:UIControlStateNormal];
+        }
     }
     CAGradientLayer * _gradientLayer = [CAGradientLayer layer];  // 设置渐变效果
     _gradientLayer.bounds = self.view.bounds;
@@ -132,15 +161,15 @@
     userAccount = [NSString stringWithFormat:@"%@%@",[[_codeLab.text stringByReplacingOccurrencesOfString:@"+" withString:@"00"] isEqualToString:@"0086"]?@"":[_codeLab.text stringByReplacingOccurrencesOfString:@"+" withString:@"00"],_accountField.text];
     //    }
     [webServict acloudLoginWithAccount:userAccount Password:_passwordField.text success:^(id dic) {
-
+        
         [webServict acloudDownLHeadUrlWithAccount:userAccount Success:^(id result) {
             
         } failure:^(NSError *error) {
         }];
         [webServict acloudDownLDataWithAccount:userAccount callBack:^(id finish) {
-//            dispatch_async(dispatch_get_main_queue(), ^{
+            //            dispatch_async(dispatch_get_main_queue(), ^{
             
-//            });
+            //            });
             if ([finish isEqualToString:@"finish"]) {
                 [SMADefaultinfos putInt:THIRDLOGIN andValue:NO];
                 SMAUserInfo *user = [[SMAUserInfo alloc] init];
@@ -172,47 +201,47 @@
                     [UIApplication sharedApplication].keyWindow.rootViewController=controller;
                     //            [self presentViewController:controller animated:YES completion:nil];
                 });
-//                NSNotification *updateNot = [NSNotification notificationWithName:@"updateData" object:@{@"UPDATE":@"updateUI"}];
-//                [SmaNotificationCenter postNotification:updateNot];
+                //                NSNotification *updateNot = [NSNotification notificationWithName:@"updateData" object:@{@"UPDATE":@"updateUI"}];
+                //                [SmaNotificationCenter postNotification:updateNot];
             }
             else{
-//                [MBProgressHUD hideHUD];
-//                [MBProgressHUD showError:SMALocalizedString(@"login_fail")];
+                //                [MBProgressHUD hideHUD];
+                //                [MBProgressHUD showError:SMALocalizedString(@"login_fail")];
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD hideHUD];
                     [MBProgressHUD showError:SMALocalizedString(@"login_fail")];
-//                    [MBProgressHUD showSuccess:SMALocalizedString(@"login_suc")];
+                    //                    [MBProgressHUD showSuccess:SMALocalizedString(@"login_suc")];
                 });
-//                SMAUserInfo *user = [[SMAUserInfo alloc] init];
-//                user.userName = [dic objectForKey:@"nickName"];
-//                user.userID = userAccount;
-//                user.userPass = _passwordField.text;
-//                user.userHeight = [[dic objectForKey:@"hight"] intValue] ? [dic objectForKey:@"hight"]:@"170";
-//                user.userWeigh =  [[dic objectForKey:@"weight"] intValue] ? [dic objectForKey:@"weight"]:@"60";
-//                user.userAge = [[dic objectForKey:@"age"] intValue] ? [dic objectForKey:@"age"]:@"26";
-//                user.userSex = [[dic objectForKey:@"sex"] intValue] ? [dic objectForKey:@"sex"]:@"1";
-//                user.userGoal = [[dic objectForKey:@"steps_Aim"] intValue] ? [dic objectForKey:@"steps_Aim"]:@"10000";
-//                user.userHeadUrl = [dic objectForKey:@"_avatar"];
-//                [SMAAccountTool saveUser:user];
-//
-//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                    SMATabbarController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SMAMainTabBarController"];
-//                    controller.isLogin = NO;
-//                    NSArray *itemArr = @[SMALocalizedString(@"device_title"),SMALocalizedString(@"rank_title"),SMALocalizedString(@"setting_title"),SMALocalizedString(@"me_title")];
-//                    NSArray *arrControllers = controller.viewControllers;
-//                    for (int i = 0; i < arrControllers.count; i ++) {
-//                        SMANavViewController *nav = [arrControllers objectAtIndex:i];
-//                        nav.tabBarItem.title = itemArr[i];
-//                    }
-//                    [UIApplication sharedApplication].keyWindow.rootViewController=controller;
-//                });
+                //                SMAUserInfo *user = [[SMAUserInfo alloc] init];
+                //                user.userName = [dic objectForKey:@"nickName"];
+                //                user.userID = userAccount;
+                //                user.userPass = _passwordField.text;
+                //                user.userHeight = [[dic objectForKey:@"hight"] intValue] ? [dic objectForKey:@"hight"]:@"170";
+                //                user.userWeigh =  [[dic objectForKey:@"weight"] intValue] ? [dic objectForKey:@"weight"]:@"60";
+                //                user.userAge = [[dic objectForKey:@"age"] intValue] ? [dic objectForKey:@"age"]:@"26";
+                //                user.userSex = [[dic objectForKey:@"sex"] intValue] ? [dic objectForKey:@"sex"]:@"1";
+                //                user.userGoal = [[dic objectForKey:@"steps_Aim"] intValue] ? [dic objectForKey:@"steps_Aim"]:@"10000";
+                //                user.userHeadUrl = [dic objectForKey:@"_avatar"];
+                //                [SMAAccountTool saveUser:user];
+                //
+                //                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                //                    SMATabbarController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SMAMainTabBarController"];
+                //                    controller.isLogin = NO;
+                //                    NSArray *itemArr = @[SMALocalizedString(@"device_title"),SMALocalizedString(@"rank_title"),SMALocalizedString(@"setting_title"),SMALocalizedString(@"me_title")];
+                //                    NSArray *arrControllers = controller.viewControllers;
+                //                    for (int i = 0; i < arrControllers.count; i ++) {
+                //                        SMANavViewController *nav = [arrControllers objectAtIndex:i];
+                //                        nav.tabBarItem.title = itemArr[i];
+                //                    }
+                //                    [UIApplication sharedApplication].keyWindow.rootViewController=controller;
+                //                });
             }
         }];
-
+        
     } failure:^(NSError *error) {
         [MBProgressHUD hideHUD];
         if ([error.userInfo objectForKey:@"errorInfo"]) {
-             [MBProgressHUD showError:[self errorInfoWithSerialNumber:error]];
+            [MBProgressHUD showError:[self errorInfoWithSerialNumber:error]];
         }
         else if (error.code == -1001) {
             [MBProgressHUD showError:SMALocalizedString(@"alert_request_timeout")];
@@ -225,15 +254,28 @@
 }
 
 - (IBAction)thirdPartySelector:(UIButton *)sender{
+    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+    NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
+    NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
     if (sender.tag == 101){
-        if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
-            [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
+        if (![preferredLang isEqualToString:@"zh"]) {
+            [[SMAthirdPartyLoginTool getinstance] loginToFacebookWithReadPermissions:@[@"public_profile", @"email", @"user_friends"] controller:self];
+            LoginProvider = ACAccountManagerLoginProviderFacebook;
             return;
         }
-        LoginProvider = ACAccountManagerLoginProviderWechat;
-        [[SMAthirdPartyLoginTool getinstance] WeChatLoginController:self];
+        else{
+            if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
+                [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
+                return;
+            }
+            LoginProvider = ACAccountManagerLoginProviderWechat;
+            [[SMAthirdPartyLoginTool getinstance] WeChatLoginController:self];
+        }
     }
     else if (sender.tag == 102) {
+        if (![preferredLang isEqualToString:@"zh"]) {
+            
+        }
         if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
             [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
             return;
@@ -242,12 +284,15 @@
         [[SMAthirdPartyLoginTool getinstance] QQlogin];
     }
     else{
+        if (![preferredLang isEqualToString:@"zh"]) {
+            
+        }
         if (![[SMAthirdPartyLoginTool getinstance] isWBAppInstalled]) {
             [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
             return;
         }
-         LoginProvider = ACAccountManagerLoginProviderWeibo;
-         [[SMAthirdPartyLoginTool getinstance] WeiboLogin];
+        LoginProvider = ACAccountManagerLoginProviderWeibo;
+        [[SMAthirdPartyLoginTool getinstance] WeiboLogin];
     }
     
 }
@@ -306,10 +351,10 @@
             [MBProgressHUD hideHUD];
         });
         
-//        [webServict acloudDownLHeadUrlWithAccount:systemVersion.userInfo[@"OPENID"] Success:^(id result) {
-//            
-//        } failure:^(NSError *error) {
-//        }];
+        //        [webServict acloudDownLHeadUrlWithAccount:systemVersion.userInfo[@"OPENID"] Success:^(id result) {
+        //
+        //        } failure:^(NSError *error) {
+        //        }];
         [SMADefaultinfos putInt:THIRDLOGIN andValue:YES];
         [webServict acloudDownFileWithsession: [result objectForKey:@"_avatar"] callBack:^(float progress, NSError *error) {
             
@@ -333,7 +378,7 @@
             });
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 SMANavViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SMANickViewController"];
-//                controller.leftItemHidden = YES;
+                //                controller.leftItemHidden = YES;
                 [UIApplication sharedApplication].keyWindow.rootViewController=controller;
             });
             

@@ -39,6 +39,7 @@
 - (BOOL)shareToWBWithShareImage:(UIImage *)image;
 - (void)shareToTwitterWithShareImage:(UIImage *)image;
 - (void)shareToTwitterWithShareImage:(UIImage *)image controller:(UIViewController *)vc;
+- (void)loginToFacebookWithReadPermissions:(NSArray *)array controller:(UIViewController *)vc;
 - (void)shareToFacebookWithShareImage:(UIImage *)image controller:(UIViewController *)vc;
 - (void)shareToInstagramWithShareImage:(UIImage *)image controller:(UIViewController *)vc;
 @end

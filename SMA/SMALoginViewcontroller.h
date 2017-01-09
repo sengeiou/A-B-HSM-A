@@ -16,4 +16,5 @@
 @property (nonatomic, weak) IBOutlet UILabel *codeLab, *thiPartyLab;
 @property (nonatomic, weak) IBOutlet UITextField *accountField, *passwordField;
 @property (nonatomic, weak) IBOutlet UIButton *countryBut,*resetPassBut, *backBut, *loginBut, *weChatBut, *QQBut, *weiboBut, *emailBut;
+@property (nonatomic, weak) IBOutlet FBSDKLoginButton *FBBut;
 @end

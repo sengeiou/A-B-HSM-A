@@ -97,7 +97,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupRefresh];
     
-    
 //    SDDemoItemView *roundView =[[SDDemoItemView alloc] initWithFrame:CGRectMake(20, 100, 100, 100)];
 //    [self.view addSubview:roundView];
 //    roundView.progressViewClass = [SDLoopProgressView class];
