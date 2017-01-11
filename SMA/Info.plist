@@ -69,6 +69,25 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.4</string>
+	<key>Fabric</key>
+	<dict>
+		<key>APIKey</key>
+		<string>dc332542e108134b2d39e529fb4a30d42366608e</string>
+		<key>Kits</key>
+		<array>
+			<dict>
+				<key>KitInfo</key>
+				<dict>
+					<key>consumerKey</key>
+					<string>oE5YGCKIh7MgiQN5eHXyFhCf3</string>
+					<key>consumerSecret</key>
+					<string>pYbHiymmzTa8P4B0M7HdngM43vur1VcWz4a0YOmvUHw1NlY22p</string>
+				</dict>
+				<key>KitName</key>
+				<string>Twitter</string>
+			</dict>
+		</array>
+	</dict>
 	<key>FacebookAppID</key>
 	<string>245927712508764</string>
 	<key>FacebookDisplayName</key>

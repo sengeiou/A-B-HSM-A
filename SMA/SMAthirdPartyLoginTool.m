@@ -155,6 +155,27 @@ static SMAthirdPartyLoginTool *g_instance = nil;
     return [WeiboSDK sendRequest:request];
 }
 
+- (void)loginToTwitter{
+    Twitter *loginTwitter = [Twitter sharedInstance];
+    [loginTwitter logInWithCompletion:^(TWTRSession * _Nullable session, NSError * _Nullable error) {
+//        NSLog(@"fwghhhh----%@",session);
+        NSLog(@"twterror==%@",error);
+        if (!error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessed object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"［TW］" ,@"LOGINTYPE",session.userID,@"OPENID",session.authToken,@"TOKEN", nil]];
+        }
+        else{
+            if (error.code == 1) {
+               [[NSNotificationCenter defaultCenter] postNotificationName:kLoginCancelled object:self userInfo:[NSDictionary dictionaryWithObject:@"［TW］" forKey:@"LOGINTYPE"]];
+            }
+            else{
+//                [NSDictionary dictionaryWithObject:@"［TW］" forKey:@"LOGINTYPE"]
+                [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"［TW］",@"LOGINTYPE",error,@"ERROR", nil]];
+            }
+        }
+    }];
+
+}
+
 - (void)shareToTwitterWithShareImage:(UIImage *)image controller:(UIViewController *)vc{
      SLComposeViewController *composeVc = (SLComposeViewController *)[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
     if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter] || !composeVc) {

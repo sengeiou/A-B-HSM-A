@@ -10,9 +10,8 @@
 #import "ACloudLib.h"
 #import "SMANavViewController.h"
 #import "SMATabbarController.h"
-//#import <TencentOpenAPI/TencentOAuth.h>
-//#import "WXApi.h"
-#import "SMAthirdPartyLoginTool.h"
+
+
 @interface AppDelegate ()
 
 @end
@@ -27,15 +26,22 @@
     [ACloudLib setMode:ACLoudLibModeRouter Region:ACLoudLibRegionChina];
     [ACloudLib setMajorDomain:@"lijunhu" majorDomainId:375]; //282
     
+    //微信初始化
     [WXApi registerApp:@"wxdce35a17f98972c9" withDescription:@"demo 2.0"];
     
+    //微博初始化
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:@"3736959518"];
+    
+    //facebook初始化
     [FBSDKLikeControl class];
     [FBSDKLoginButton class];
     [[FBSDKApplicationDelegate sharedInstance] application:application
                              didFinishLaunchingWithOptions:launchOptions];
     
-    [WeiboSDK enableDebugMode:YES];
-    [WeiboSDK registerApp:@"3736959518"];
+    //twitter初始化
+    [Fabric with:@[[Twitter class]]];
+    
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     

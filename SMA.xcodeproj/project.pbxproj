@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46495CBCBE14FCF45037209D /* Pods_SMA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F827C92C23048F37D5CC134 /* Pods_SMA.framework */; };
 		EE09ACE41DAA2B1000CA2EC5 /* SMADatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACE31DAA2B1000CA2EC5 /* SMADatabase.m */; };
 		EE09ACF11DAA2B2E00CA2EC5 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACE71DAA2B2E00CA2EC5 /* FMDatabase.m */; };
 		EE09ACF21DAA2B2E00CA2EC5 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACE91DAA2B2E00CA2EC5 /* FMDatabaseAdditions.m */; };
@@ -27,6 +28,7 @@
 		EE0E14181D6708590054BE87 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14171D6708590054BE87 /* libstdc++.tbd */; };
 		EE0FDD001DFE502D00A9ACB8 /* SMASleepDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0FDCFE1DFE502D00A9ACB8 /* SMASleepDetailCell.m */; };
 		EE0FDD011DFE502D00A9ACB8 /* SMASleepDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE0FDCFF1DFE502D00A9ACB8 /* SMASleepDetailCell.xib */; };
+		EE10229D1E24B7BC00E0A0DF /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10229C1E24B7BC00E0A0DF /* linkedin-sdk.framework */; };
 		EE10CE7A1DB5F7F000585B74 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10CE751DB5F7F000585B74 /* libCorePlot-CocoaTouch.a */; };
 		EE10CE7D1DB5F82A00585B74 /* ScattView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE10CE7C1DB5F82A00585B74 /* ScattView.m */; };
 		EE10CE801DB5F85100585B74 /* BaseTouchesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE10CE7F1DB5F85100585B74 /* BaseTouchesView.m */; };
@@ -340,6 +342,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1F827C92C23048F37D5CC134 /* Pods_SMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53EE3DBF028D25BCA2E09616 /* Pods-SMA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMA/Pods-SMA.debug.xcconfig"; sourceTree = "<group>"; };
 		EE09ACE21DAA2B1000CA2EC5 /* SMADatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMADatabase.h; sourceTree = "<group>"; };
 		EE09ACE31DAA2B1000CA2EC5 /* SMADatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMADatabase.m; sourceTree = "<group>"; };
 		EE09ACE61DAA2B2E00CA2EC5 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
@@ -371,6 +375,7 @@
 		EE0FDCFD1DFE502D00A9ACB8 /* SMASleepDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMASleepDetailCell.h; sourceTree = "<group>"; };
 		EE0FDCFE1DFE502D00A9ACB8 /* SMASleepDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMASleepDetailCell.m; sourceTree = "<group>"; };
 		EE0FDCFF1DFE502D00A9ACB8 /* SMASleepDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMASleepDetailCell.xib; sourceTree = "<group>"; };
+		EE10229C1E24B7BC00E0A0DF /* linkedin-sdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = "linkedin-sdk.framework"; sourceTree = "<group>"; };
 		EE10CE2B1DB5F7F000585B74 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		EE10CE2C1DB5F7F000585B74 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimation.h; sourceTree = "<group>"; };
 		EE10CE2D1DB5F7F000585B74 /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimationOperation.h; sourceTree = "<group>"; };
@@ -1103,6 +1108,7 @@
 		EEEDD2981D98FFEF009D6CA3 /* SMASedentaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMASedentaryCell.h; sourceTree = "<group>"; };
 		EEEDD2991D98FFEF009D6CA3 /* SMASedentaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMASedentaryCell.m; sourceTree = "<group>"; };
 		EEEDD29A1D98FFEF009D6CA3 /* SMASedentaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMASedentaryCell.xib; sourceTree = "<group>"; };
+		F68EDDC18441DF3C214E7665 /* Pods-SMA.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMA.release.xcconfig"; path = "Pods/Target Support Files/Pods-SMA/Pods-SMA.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1116,6 +1122,7 @@
 				EEB54D1D1E151B950059F8D0 /* ImageIO.framework in Frameworks */,
 				EEB54D1B1E151B800059F8D0 /* QuartzCore.framework in Frameworks */,
 				EEB54D011E14E96D0059F8D0 /* Social.framework in Frameworks */,
+				EE10229D1E24B7BC00E0A0DF /* linkedin-sdk.framework in Frameworks */,
 				EEB643851DEC067D00544FFE /* CoreLocation.framework in Frameworks */,
 				EE10CE831DB5F9E100585B74 /* Accelerate.framework in Frameworks */,
 				EEB54D181E151B3B0059F8D0 /* libWeiboSDK.a in Frameworks */,
@@ -1153,12 +1160,22 @@
 				EE57A7521E0B5FE10007BCC8 /* libConfiguration.a in Frameworks */,
 				EE34EE5B1E1F6C8600A8AABC /* Zip.framework in Frameworks */,
 				EE57A7501E0B5FE10007BCC8 /* libXlwDevice.a in Frameworks */,
+				46495CBCBE14FCF45037209D /* Pods_SMA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2ACBB9A042467E031B981C2E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				53EE3DBF028D25BCA2E09616 /* Pods-SMA.debug.xcconfig */,
+				F68EDDC18441DF3C214E7665 /* Pods-SMA.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		EE09ACE51DAA2B2E00CA2EC5 /* fmdb */ = {
 			isa = PBXGroup;
 			children = (
@@ -1286,6 +1303,7 @@
 		EE10CE811DB5F9E100585B74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE10229C1E24B7BC00E0A0DF /* linkedin-sdk.framework */,
 				EEB54D201E151BFD0059F8D0 /* CoreText.framework */,
 				EEB54D1E1E151BCF0059F8D0 /* Foundation.framework */,
 				EEB54D1C1E151B950059F8D0 /* ImageIO.framework */,
@@ -1297,6 +1315,7 @@
 				EEB54D001E14E96D0059F8D0 /* Social.framework */,
 				EEB643841DEC067D00544FFE /* CoreLocation.framework */,
 				EE10CE821DB5F9E100585B74 /* Accelerate.framework */,
+				1F827C92C23048F37D5CC134 /* Pods_SMA.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2603,6 +2622,7 @@
 				EEB9F68B1D64318B0011AA07 /* SMA */,
 				EEB9F68A1D64318B0011AA07 /* Products */,
 				EE10CE811DB5F9E100585B74 /* Frameworks */,
+				2ACBB9A042467E031B981C2E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2980,10 +3000,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EEB9F6A01D64318B0011AA07 /* Build configuration list for PBXNativeTarget "SMA" */;
 			buildPhases = (
+				92BE9A492AD7FC60DEBD3E33 /* [CP] Check Pods Manifest.lock */,
 				EEB9F6851D64318B0011AA07 /* Sources */,
 				EEB9F6861D64318B0011AA07 /* Frameworks */,
 				EEB9F6871D64318B0011AA07 /* Resources */,
 				EE34EE521E1F6AD000A8AABC /* Embed Frameworks */,
+				3A8B2F3B5FE9971D7657DF7C /* [CP] Embed Pods Frameworks */,
+				55129AAF17034980EA1E3FCA /* [CP] Copy Pods Resources */,
+				EEC20AF91E23ABE100AC325F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3081,6 +3105,67 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3A8B2F3B5FE9971D7657DF7C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SMA/Pods-SMA-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		55129AAF17034980EA1E3FCA /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SMA/Pods-SMA-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		92BE9A492AD7FC60DEBD3E33 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EEC20AF91E23ABE100AC325F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" dc332542e108134b2d39e529fb4a30d42366608e a2a9f10a9902b4ad08526b76de4e4e7463a4bf015f521cfbeb1ac18fb2da4cd8";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EEB9F6851D64318B0011AA07 /* Sources */ = {
@@ -3465,6 +3550,7 @@
 		};
 		EEB9F6A11D64318B0011AA07 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53EE3DBF028D25BCA2E09616 /* Pods-SMA.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3486,6 +3572,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PREFIX_HEADER = SMA/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+				);
 				INFOPLIST_FILE = SMA/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3514,8 +3604,9 @@
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
+					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.smacare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e7ef197a-dd9f-4072-b7e9-a8a17caeebe7";
 				PROVISIONING_PROFILE_SPECIFIER = All_development_text;
@@ -3524,6 +3615,7 @@
 		};
 		EEB9F6A21D64318B0011AA07 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F68EDDC18441DF3C214E7665 /* Pods-SMA.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -3543,6 +3635,10 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PREFIX_HEADER = SMA/PrefixHeader.pch;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+				);
 				INFOPLIST_FILE = SMA/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -3568,11 +3664,13 @@
 					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/UMessage_Sdk_1.4.0",
 					"$(PROJECT_DIR)/SMA/libWeiboSDK",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
+					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.smacare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "346dc691-b905-4bbf-9e06-c9be3ad5030f";
 				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_text;

@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SMAFirstLunViewController.h"
-#import "WeiboSDK.h"
+#import "SMAthirdPartyLoginTool.h"
+//#import "WeiboSDK.h"
+
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WeiboSDKDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

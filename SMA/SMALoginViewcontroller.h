@@ -12,6 +12,7 @@
 #import "SMAthirdPartyLoginTool.h"
 #import "SMATabbarController.h"
 #import "SMANickViewController.h"
+
 @interface SMALoginViewcontroller : UIViewController<SecondViewControllerDelegate,TencentSessionDelegate,UITextFieldDelegate>
 @property (nonatomic, weak) IBOutlet UILabel *codeLab, *thiPartyLab;
 @property (nonatomic, weak) IBOutlet UITextField *accountField, *passwordField;

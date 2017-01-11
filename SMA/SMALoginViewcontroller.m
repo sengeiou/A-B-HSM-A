@@ -10,6 +10,7 @@
 #import "ACAccountManager.h"
 #import "SMAthirdPartyManager.h"
 #import "SMANavViewController.h"
+
 @interface SMALoginViewcontroller (){
     NSString *LoginProvider;
 }
@@ -92,30 +93,13 @@
     NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
     if (![preferredLang isEqualToString:@"zh"]) {
-        NSLog(@"e===%@  %@   %@",NSStringFromCGSize([UIImage imageNamed:@"home_facebook"].size),NSStringFromCGSize([UIImage imageNamed:@"home_twitter"].size),NSStringFromCGSize([UIImage imageNamed:@"LinkedIn"].size));
         [_QQBut setImage:[UIImage imageNamed:@"home_twitter"] forState:UIControlStateNormal];
         [_weChatBut setImage:[UIImage imageNamed:@"home_facebook"] forState:UIControlStateNormal];
-        [_weiboBut setImage:[UIImage imageNamed:@"LinkedIn"] forState:UIControlStateNormal];
-        
-        //        FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
-        //        [login logOut];//这个一定要写，不然会出现换一个帐号就无法获取信息的错误
-        //        [login logInWithReadPermissions:@[@"public_profile", @"email", @"user_friends"] fromViewController:self handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
-        //            if (error) {
-        //
-        //                NSLog(@"Process error");
-        //
-        //            } else if (result.isCancelled) {
-        //                NSLog(@"Cancelled");
-        //            }
-        //            else{
-        //                NSLog(@"succeed");
-        //                NSLog(@"%@",[FBSDKAccessToken currentAccessToken].appID);
-        //                NSLog(@"%@",[FBSDKAccessToken currentAccessToken].userID);
-        //                NSLog(@"%@",[FBSDKAccessToken currentAccessToken].tokenString);
-        //            }
-        //        }];
+        _weiboBut.hidden = YES;
+
     }
     else{
+        _weiboBut.hidden = NO;
         if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
             [_QQBut setImage:[UIImage imageNamed:@"icon_qq_2"] forState:UIControlStateNormal];
         }
@@ -274,14 +258,20 @@
     }
     else if (sender.tag == 102) {
         if (![preferredLang isEqualToString:@"zh"]) {
-            
-        }
-        if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
-            [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
+             [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
+            LoginProvider = ACAccountManagerLoginProviderTwitter;
+            [[SMAthirdPartyLoginTool getinstance] loginToTwitter];
             return;
         }
-        LoginProvider = ACAccountManagerLoginProviderQQ;
-        [[SMAthirdPartyLoginTool getinstance] QQlogin];
+        else{
+            if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
+                [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
+                return;
+                
+            }
+            LoginProvider = ACAccountManagerLoginProviderQQ;
+            [[SMAthirdPartyLoginTool getinstance] QQlogin];
+        }
     }
     else{
         if (![preferredLang isEqualToString:@"zh"]) {
@@ -340,7 +330,9 @@
 {
     NSLog(@"登录成功   %@",systemVersion.userInfo);
     SmaAnalysisWebServiceTool *webServict = [[SmaAnalysisWebServiceTool alloc] init];
-    [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
+    if (![LoginProvider isEqualToString:ACAccountManagerLoginProviderTwitter]) {
+         [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
+    }
     //    [webServict acloudCheckExist:[NSString stringWithFormat:@"%@ %@",[systemVersion.userInfo objectForKey:@"LOGINTYPE"],[[[SMAthirdPartyLoginTool getinstance] oauth] openId]] success:^(bool exit) {
     //
     //    } failure:^(NSError *error) {
@@ -431,6 +423,19 @@
 - (void)loginFailed:(NSNotification *)systemVersion
 {
     NSLog(@"登录失败");
+       [MBProgressHUD hideHUD];
+    NSError *error = systemVersion.userInfo[@"ERROR"];
+    if (error.code == -1001) {
+        [MBProgressHUD showError:SMALocalizedString(@"login_timeout")];
+        NSLog(@"超时");
+    }
+    else if (error.code == -1009) {
+        [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
+    }
+    else{
+        [MBProgressHUD showError:SMALocalizedString(@"login_fail")];
+    }
+
 }
 
 - (void) loginCancelled:(NSNotification *)systemVersion
