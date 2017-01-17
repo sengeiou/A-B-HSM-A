@@ -173,7 +173,6 @@ static SMAthirdPartyLoginTool *g_instance = nil;
             }
         }
     }];
-
 }
 
 - (void)shareToTwitterWithShareImage:(UIImage *)image controller:(UIViewController *)vc{

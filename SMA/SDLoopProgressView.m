@@ -41,13 +41,16 @@
             CGContextAddArc(ctx1, xCenter, yCenter, radius + 1.5, - M_PI * 0.5 - 0.2, to1, 1);
             CGContextStrokePath(ctx1);
     }
-
+    NSLog(@"self.progress %f",self.progress);
     // 进度数字
 //    NSString *progressStr = [NSString stringWithFormat:@"%.0f", self.progress * 100];
 //    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
 //    attributes[NSFontAttributeName] = FontGothamLight(25 * SDProgressViewFontScale);
 //    attributes[NSForegroundColorAttributeName] = [UIColor lightGrayColor];
-    
+//    if (<#condition#>) {
+//        <#statements#>
+//    }
+    NSLog(@"fweggh===%@",self.titleLab);
     [self setCenterProgressText:self.titleLab uintText:self.titleLab.intValue > 1? SMALocalizedString(@"device_SP_steps"):SMALocalizedString(@"device_SP_step") textFont:self.titleLab.intValue>100000?FontGothamLight(17 * SDProgressViewFontScale):FontGothamLight(20 * SDProgressViewFontScale) uintFont:FontGothamLight(13 * SDProgressViewFontScale)];
 }
 

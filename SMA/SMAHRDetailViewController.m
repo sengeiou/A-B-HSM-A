@@ -255,7 +255,7 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
         layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width-1)/2, ([UIScreen mainScreen].bounds.size.width-1)/2);
         
         //创建collectionView 通过一个布局策略layout来创建
-        detailColView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 260 + 1, MainScreen.size.width, [UIScreen mainScreen].bounds.size.width-1) collectionViewLayout:layout];
+        detailColView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(WYLocalScrollView.frame) + 1, MainScreen.size.width, [UIScreen mainScreen].bounds.size.width-1) collectionViewLayout:layout];
         detailColView.backgroundColor = [SmaColor colorWithHexString:@"#FFFFFF" alpha:0];
         detailColView.delegate= self;
         detailColView.dataSource = self;

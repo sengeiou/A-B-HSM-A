@@ -133,9 +133,9 @@
 "device_syncFail" = "同步失败";
 "device_share_wechat" = "微信";
 "device_share_Timeline" = "朋友圈";
-"device_share_wechat" = "QQ";
-"device_share_wechat" = "QQ空间";
-"device_share_wechat" = "微博";
+"device_share_qq" = "QQ";
+"device_share_Qzone" = "QQ空间";
+"device_share_webo" = "微博";
 "device_share_shareTo" = "分享到";
 "device_share_WXNOInsta" = "请安装微信";
 "device_share_QQNOInsta" = "请安装QQ";

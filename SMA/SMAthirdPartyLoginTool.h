@@ -5,7 +5,7 @@
 //  Created by 有限公司 深圳市 on 16/8/24.
 //  Copyright © 2016年 SMA. All rights reserved.1105309779 1105552981
 //
-#define __TencentDemoAppid_  @"1105916662"
+#define __TencentDemoAppid_  @"1105889586"
 //login
 #define kLoginSuccessed @"loginSuccessed"
 #define kLoginFailed    @"loginFailed"

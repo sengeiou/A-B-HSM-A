@@ -29,7 +29,7 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>tencent1105916662</string>
+				<string>QQ41ea8932</string>
 			</array>
 		</dict>
 		<dict>
@@ -66,9 +66,17 @@
 				<string>wb3736959518</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tencent1105889586</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.4</string>
+	<string>1.0.5</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -137,6 +145,13 @@
 		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
+			<key>facebook.com</key>
+			<dict>
+				<key>NSExceptionRequiresForwardSecrecy</key>
+				<false/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 			<key>gtimg.cn</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>

@@ -333,7 +333,6 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
             
         } CompleteCallback:^(NSString *filePath) {
             if (filePath) {
-                [userInfoDic setValue:filePath forKey:user_he];
                 if (success) {
                     success(@"1");
                 }
@@ -350,8 +349,9 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
 - (void)acloudDownFileWithsession:(NSString *)url callBack:(void(^)(float progress,NSError * error))callback
                  CompleteCallback:(void (^)(NSString *filePath))completeCallback{
     ACFileManager *upManager = [[ACFileManager alloc] init];
+    NSLog(@"downLoadUrl: %@",url);
     [upManager downFileWithsession:url checkSum:0 callBack:^(float progress, NSError *error) {
-      NSLog(@"callBack==%f   error==%@  %@",progress,error,url);
+//      NSLog(@"callBack==%f   error==%@  %@",progress,error,url);
         if (error) {
             if (callback) {
                 callback(progress,error);

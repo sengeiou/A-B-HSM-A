@@ -96,7 +96,6 @@
         [_QQBut setImage:[UIImage imageNamed:@"home_twitter"] forState:UIControlStateNormal];
         [_weChatBut setImage:[UIImage imageNamed:@"home_facebook"] forState:UIControlStateNormal];
         _weiboBut.hidden = YES;
-
     }
     else{
         _weiboBut.hidden = NO;

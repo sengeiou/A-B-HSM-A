@@ -27,6 +27,7 @@
 #pragma mark *****TencentLoginDelegate（QQ登录反馈）
 - (void)tencentDidLogin
 {
+    NSLog(@"passData==%@",[[[SMAthirdPartyLoginTool getinstance] oauth] passData]);
     [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessed object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"［QQ］" ,@"LOGINTYPE",[[[SMAthirdPartyLoginTool getinstance] oauth] openId],@"OPENID",[[[SMAthirdPartyLoginTool getinstance] oauth] accessToken],@"TOKEN", nil]];
 }
 
@@ -40,6 +41,10 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:self userInfo:[NSDictionary dictionaryWithObject:@"［QQ］" forKey:@"LOGINTYPE"]];
 }
 
+- (void)getUserInfoResponse:(APIResponse*) response{
+    NSLog(@"fwghrh===%@",response);
+}
+
 - (void)wbLoginFinishWithUserID:(NSString *)userid accessToken:(NSString *)token{
     if (userid && token) {
          [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessed object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"［Weibo］" ,@"LOGINTYPE",userid,@"OPENID",token,@"TOKEN", nil]];
@@ -48,6 +53,11 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginFailed object:self userInfo:[NSDictionary dictionaryWithObject:@"［Weibo］" forKey:@"LOGINTYPE"]];
     }
 
+}
+
+- (NSArray *)getAuthorizedPermissions:(NSArray *)permissions withExtraParams:(NSDictionary *)extraParams{
+    NSLog(@"getAuthorizedPermissions -===%@",extraParams);
+    return permissions;
 }
 
 #pragma mark - WXApiDelegate (微信登录反馈)
@@ -60,7 +70,7 @@
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/html", @"text/json", @"text/javascript",@"text/plain", nil];
             manager.requestSerializer=[AFJSONRequestSerializer serializer];
-            [manager GET:[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxdce35a17f98972c9&secret=ab98e83eef1721bb2ff9be7f333082fe&code=%@&grant_type=authorization_code",authResp.code] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+            [manager GET:[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxdce35a17f98972c9&secret=cd0b576f7b1300b770c54c858530d0c9&code=%@&grant_type=authorization_code",authResp.code] parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
                 
             } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessed object:self userInfo:[NSDictionary dictionaryWithObjectsAndKeys:@"［WX］" ,@"LOGINTYPE",[responseObject objectForKey:@"openid"],@"OPENID",[responseObject objectForKey:@"access_token"],@"TOKEN", nil]];

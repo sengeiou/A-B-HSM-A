@@ -76,8 +76,6 @@ NSString * const SDRotationLoopProgressViewWaitingText = @"LOADING...";
     centreOval.path        = [self ovalPathect:centreOval.frame].CGPath;
     [self.layer addSublayer:centreOval];
     
-
-
 //    //中心图片
     CALayer *logoImalayer = [CALayer layer];
     logoImalayer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"main_heart"].CGImage);
@@ -115,7 +113,7 @@ NSString * const SDRotationLoopProgressViewWaitingText = @"LOADING...";
     self.unitText = [CATextLayer layer];
     self.unitText.frame           = CGRectMake(X1, Y1, unitFontsize.width, unitFontsize.height);
     self.unitText.contentsScale   = [[UIScreen mainScreen] scale];
-   self.unitText.string          =[[NSAttributedString alloc] initWithString:@"bpm" attributes:@{NSFontAttributeName : FontGothamLight(10 * SDProgressViewFontScale),NSForegroundColorAttributeName:[UIColor grayColor]}];
+    self.unitText.string          =[[NSAttributedString alloc] initWithString:@"bpm" attributes:@{NSFontAttributeName : FontGothamLight(10 * SDProgressViewFontScale),NSForegroundColorAttributeName:[UIColor grayColor]}];
     self.unitText.alignmentMode   = kCAAlignmentCenter;
     [self.layer addSublayer:self.unitText];
 
@@ -130,7 +128,6 @@ NSString * const SDRotationLoopProgressViewWaitingText = @"LOADING...";
     
     self.imageLayer.frame = CGRectMake(X2, Y2, self.imageLayer.frame.size.width, self.imageLayer.frame.size.height);
     self.imageLayer.transform =  CATransform3DMakeRotation(M_PI/180*(360.0*self.progress), 0, 0, 1);
-
 }
 
 - (void)changeAngle

@@ -62,7 +62,6 @@
 }
 
 - (IBAction)dfuSelector:(id)sender{
-
     NSString *filename = [_dfuInfoDic objectForKey:@"filename"];
     NSString *webFirmwareVer = [[filename substringWithRange:NSMakeRange(filename.length - 9, 5)] stringByReplacingOccurrencesOfString:@"." withString:@""];
     if ([_dfuLab.text isEqualToString:SMALocalizedString(@"setting_dfu_retry")]) {

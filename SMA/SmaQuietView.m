@@ -24,6 +24,7 @@
     self.titleLab.text = SMALocalizedString(@"device_HR_quiet");
     self.titleLab.textColor = [UIColor whiteColor];
     self.titleLab.font = FontGothamLight(15);
+    self.titleLab.numberOfLines = 2;
     [view addSubview:self.titleLab];
     self.dateLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(self.titleLab.frame)-1, 0, view.frame.size.width/2-10, 30)];
     
