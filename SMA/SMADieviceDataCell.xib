@@ -31,7 +31,7 @@
                                 <rect key="frame" x="152" y="0.0" width="152" height="163"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运动目标" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6zh-0S-HkD">
-                                        <rect key="frame" x="10" y="0.0" width="134" height="43"/>
+                                        <rect key="frame" x="5" y="0.0" width="142" height="43"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="43" id="Zi0-1U-tQP"/>
                                         </constraints>
@@ -69,19 +69,19 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="00h 32m" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9Z-xL-PUM">
-                                        <rect key="frame" x="76.5" y="75" width="67.5" height="15"/>
+                                        <rect key="frame" x="76.5" y="74.5" width="67.5" height="15"/>
                                         <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="00h 32m" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucb-07-P2T">
-                                        <rect key="frame" x="76.5" y="108" width="67.5" height="15"/>
+                                        <rect key="frame" x="76.5" y="107.5" width="67.5" height="15"/>
                                         <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="750" verticalHuggingPriority="251" text="00h 32m" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hXx-fa-q7P">
-                                        <rect key="frame" x="76.5" y="141" width="67.5" height="15"/>
+                                        <rect key="frame" x="76.5" y="140.5" width="67.5" height="15"/>
                                         <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="15"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -121,7 +121,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="6zh-0S-HkD" secondAttribute="trailing" constant="8" id="14K-Fn-Ngi"/>
+                                    <constraint firstAttribute="trailing" secondItem="6zh-0S-HkD" secondAttribute="trailing" constant="5" id="14K-Fn-Ngi"/>
                                     <constraint firstItem="mJG-7g-4ew" firstAttribute="leading" secondItem="Y7t-hr-wDV" secondAttribute="leading" constant="8" id="3Lh-hl-N1H"/>
                                     <constraint firstItem="hXx-fa-q7P" firstAttribute="centerY" secondItem="rau-3y-JK0" secondAttribute="centerY" id="52A-DM-sBI"/>
                                     <constraint firstItem="rrU-zT-ezi" firstAttribute="top" secondItem="iey-9m-Gbk" secondAttribute="bottom" constant="3" id="5RJ-hc-4gx"/>
@@ -132,7 +132,7 @@
                                     <constraint firstItem="6zh-0S-HkD" firstAttribute="top" secondItem="Y7t-hr-wDV" secondAttribute="top" id="Mia-c1-sZy"/>
                                     <constraint firstItem="R9Z-xL-PUM" firstAttribute="centerY" secondItem="rrU-zT-ezi" secondAttribute="centerY" id="TQZ-Ls-hFw"/>
                                     <constraint firstItem="rau-3y-JK0" firstAttribute="leading" secondItem="Y7t-hr-wDV" secondAttribute="leading" constant="8" id="U34-st-Ew5"/>
-                                    <constraint firstItem="6zh-0S-HkD" firstAttribute="leading" secondItem="Y7t-hr-wDV" secondAttribute="leading" constant="10" id="bqb-FB-fzm"/>
+                                    <constraint firstItem="6zh-0S-HkD" firstAttribute="leading" secondItem="Y7t-hr-wDV" secondAttribute="leading" constant="5" id="bqb-FB-fzm"/>
                                     <constraint firstItem="6oM-If-5kz" firstAttribute="trailing" secondItem="iey-9m-Gbk" secondAttribute="trailing" id="cLS-ue-6hG"/>
                                     <constraint firstItem="Ucb-07-P2T" firstAttribute="centerY" secondItem="mJG-7g-4ew" secondAttribute="centerY" id="cc7-E0-Gqi"/>
                                     <constraint firstItem="6oM-If-5kz" firstAttribute="leading" secondItem="UKg-Mi-ldk" secondAttribute="trailing" constant="4" id="eVB-ga-HhR"/>

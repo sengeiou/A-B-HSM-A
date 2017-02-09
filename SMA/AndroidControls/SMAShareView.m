@@ -87,7 +87,7 @@
                     [[SMAthirdPartyLoginTool getinstance] shareToWeChatScene:0 shareImage:shareIma];
                 }
                 else{
-                    [MBProgressHUD showError:SMALocalizedString(@"device_share_WXNOInsta")];
+                    [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
                 }
             }
         {
@@ -100,7 +100,7 @@
                     [[SMAthirdPartyLoginTool getinstance] shareToWeChatScene:1 shareImage:shareIma];
                 }
                 else{
-                    [MBProgressHUD showError:SMALocalizedString(@"device_share_WXNOInsta")];
+                    [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
                 }
             }
             else{
@@ -113,7 +113,7 @@
                     [[SMAthirdPartyLoginTool getinstance] shareToQQShareImage:shareIma];
                 }
                 else{
-                    [MBProgressHUD showError:SMALocalizedString(@"device_share_QQNOInsta")];
+                    [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
                 }
             }
             else{
@@ -127,7 +127,7 @@
                     [[SMAthirdPartyLoginTool getinstance] shareToQZoneShareImage:shareIma];
                 }
                 else{
-                    [MBProgressHUD showError:SMALocalizedString(@"device_share_QQNOInsta")];
+                    [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
                 }
             }
            
@@ -137,7 +137,7 @@
                 [[SMAthirdPartyLoginTool getinstance] shareToWBWithShareImage:shareIma];
             }
             else{
-                [MBProgressHUD showError:SMALocalizedString(@"device_share_WBNOInsta")];
+                [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
             }
             break;
         default:

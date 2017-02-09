@@ -75,6 +75,7 @@
     _geCodeBut.titleLabel.numberOfLines = 2;
     
     _protocolBut.titleLabel.numberOfLines = 2;
+    _protocolBut.titleLabel.textAlignment = NSTextAlignmentCenter;
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     [paragraphStyle setLineSpacing:6];
     [paragraphStyle setAlignment:NSTextAlignmentCenter];

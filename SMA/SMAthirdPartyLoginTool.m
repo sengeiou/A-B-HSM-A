@@ -177,11 +177,11 @@ static SMAthirdPartyLoginTool *g_instance = nil;
 
 - (void)shareToTwitterWithShareImage:(UIImage *)image controller:(UIViewController *)vc{
      SLComposeViewController *composeVc = (SLComposeViewController *)[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-    if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter] || !composeVc) {
+//    if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter] || !composeVc) {
         [MBProgressHUD showError:SMALocalizedString(@"device_share_TWNOInsta")];
         NSLog(@"平台不可用,或者没有配置相关的帐号");
         return;
-    }
+//    }
    
     composeVc.view.backgroundColor = [UIColor greenColor];
     // 2.1.添加分享的文字
@@ -245,7 +245,7 @@ static SMAthirdPartyLoginTool *g_instance = nil;
         UIViewController *vc = [UIApplication sharedApplication].keyWindow.rootViewController;
         [self.documentInteractionController presentOpenInMenuFromRect:CGRectMake(1, 1, 1, 1) inView:vc.view animated:YES];
     } else {
-        [MBProgressHUD showError:SMALocalizedString(@"device_share_INNOInsta")];
+        [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
     }
 }
 
@@ -260,7 +260,7 @@ static SMAthirdPartyLoginTool *g_instance = nil;
 {
     NSLog(@"************%ld sharing error:%@",error.code, error.localizedDescription);
     if (error.code == 2) {
-        [MBProgressHUD showError:SMALocalizedString(@"device_share_FBNOInsta")];
+        [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
     }
 }
 

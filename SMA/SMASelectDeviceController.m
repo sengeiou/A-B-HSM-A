@@ -40,7 +40,7 @@
 }
 
 - (void)initializeMethod{
-    deviceArr = @[@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"]];
+    deviceArr = @[@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"]];
 }
 - (void)createUI{
     self.title = SMALocalizedString(@"setting_band_title");
@@ -104,7 +104,9 @@
     if (indexPath.row == 1) {
         [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SM07"];
     }
-
+    if (indexPath.row == 2) {
+        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-A1"];
+    }
     self.navigationController.leftItemHidden = NO;
     [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAPairViewController"] animated:YES];
 }

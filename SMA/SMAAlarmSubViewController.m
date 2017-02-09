@@ -38,8 +38,13 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+      [self.navigationController.navigationBar setBackgroundImage:[UIImage buttonImageFromColors:@[[SmaColor colorWithHexString:@"#5790F9" alpha:1],[SmaColor colorWithHexString:@"#80C1F9" alpha:1]] ByGradientType:topToBottom size:CGSizeMake(MainScreen.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
+}
+
 - (void)createUI{
     self.title = SMALocalizedString(@"setting_alarm_set");
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:87/255.0 green:144/255.0 blue:249/255.0 alpha:1] size:CGSizeMake(MainScreen.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
 //    [_saveBut setTitle:SMALocalizedString(@"setting_sedentary_achieve") forState:UIControlStateNormal];
     _clockView.borderColor = [UIColor whiteColor];
     _clockView.borderWidth = 3;
@@ -52,7 +57,7 @@
     _clockView.enableDigit = YES;
     _clockView.hours = _alarmInfo.hour.integerValue ;
     _clockView.minutes = _alarmInfo.minute.integerValue ;
-    
+    _clockView.secondHandAlpha = 0;
     CAGradientLayer * _gradientLayer = [CAGradientLayer layer];  // 设置渐变效果
     _gradientLayer.bounds = self.view.bounds;
     _gradientLayer.borderWidth = 0;
@@ -118,7 +123,7 @@
         [formatter setTimeZone:GTMzone];
         [formatter setDateFormat:@"yyyyMMddHHmmss"];
         
-        NSTimeInterval timeIntervalSinceNow = [[formatter dateFromString:[NSString stringWithFormat:@"%@%@%@00",[formatter1 stringFromDate:now],_alarmInfo.hour.intValue<10?[NSString stringWithFormat:@"0%@",_alarmInfo.hour]:_alarmInfo.hour,_alarmInfo.minute.intValue < 10?[NSString stringWithFormat:@"0%@",_alarmInfo.minute]:_alarmInfo.minute]] timeIntervalSince1970];
+//        NSTimeInterval timeIntervalSinceNow = [[formatter dateFromString:[NSString stringWithFormat:@"%@%@%@00",[formatter1 stringFromDate:now],_alarmInfo.hour.intValue<10?[NSString stringWithFormat:@"0%@",_alarmInfo.hour]:_alarmInfo.hour,_alarmInfo.minute.intValue < 10?[NSString stringWithFormat:@"0%@",_alarmInfo.minute]:_alarmInfo.minute]] timeIntervalSince1970];
         _alarmInfo.isOpen = @"1";
         _alarmInfo.isWeb = @"0";
         [smaDal insertClockInfo:_alarmInfo account:[SMAAccountTool userInfo].userID callback:^(BOOL result) {

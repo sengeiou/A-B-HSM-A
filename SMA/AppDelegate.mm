@@ -10,7 +10,7 @@
 #import "ACloudLib.h"
 #import "SMANavViewController.h"
 #import "SMATabbarController.h"
-
+#import "SMALocatiuonManager.h"
 
 @interface AppDelegate ()
 
@@ -85,6 +85,7 @@
     if ([[[UIDevice currentDevice] model] rangeOfString:@"simulator"].location) {
 //     [self redirectNSLogToDocumentFolder];
     }
+    [self startLocation];
     return YES;
 }
 
@@ -248,5 +249,10 @@
         return [WeiboSDK handleOpenURL:url delegate:self];
     }
     return 0;
+}
+
+- (void)startLocation{
+    [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
+  
 }
 @end

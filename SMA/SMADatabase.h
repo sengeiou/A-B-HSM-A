@@ -68,5 +68,7 @@
 
 //获取所需要上传心率数据
 - (NSMutableArray *)readNeedUploadHRData;
+//插入轨迹数据
+- (void)insertLocatainDataArr:(NSMutableArray *)locationArr finish:(void (^)(id finish)) success;
 @end
 

@@ -30,6 +30,9 @@
             
             //睡眠
             result = [db executeUpdate:@"create table if not exists tb_sleep ( id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),sleep_id varchar(30),sleep_date varchar(30),sleep_time integer,sleep_mode integer,softly_action integer,strong_action integer,sleep_ident TEXT,sleep_waer integer,sleep_web integer);"];
+            
+            //定位
+            result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float);"];
 //            NSLog(@"创表 %d",result);
         }];
     }
@@ -892,6 +895,36 @@
         }
     }];
     return hrArr;
+}
+
+//插入轨迹数据
+- (void)insertLocatainDataArr:(NSMutableArray *)locationArr finish:(void (^)(id finish)) success{
+    [self.queue inDatabase:^(FMDatabase *db) {
+        __block BOOL result = false;
+        [db beginTransaction];
+        for (int i = 0; i < locationArr.count; i ++) {
+          NSDictionary *locationDic = [locationArr objectAtIndex:i];
+        
+         NSString *locatID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[locationDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+//         FMResultSet *rs = [db executeQuery:@"select * from tb_HRate where HR_date =? and HR_time=? and hr_mode=? and user_id=?",YTD,moment,[locationDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"USERID"]];
+        FMResultSet *reSet = [db executeQuery:@"select * from tb_location where loca_id = ? and user_id = ?",locatID,[locationDic objectForKey:@"USERID"]];
+        NSString *hisId;
+        while (reSet.next) {
+            hisId = [reSet stringForColumn:@"loca_id"];
+        }
+        if (hisId && [hisId isEqualToString:@""]) {
+            result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"]];
+            NSLog(@"更新定位数据 %d",result);
+        }
+        else{
+            result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude) values (?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"]];
+            NSLog(@"插入定位数据 %d",result);
+        }
+        }
+        [db commit];
+        success ([NSString stringWithFormat:@"%d",result]);
+        
+    }];
 }
 
 - (NSString *)getHourAndMin:(NSString *)time{

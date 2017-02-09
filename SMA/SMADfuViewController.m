@@ -71,6 +71,7 @@
         _dfuLab.textColor = [UIColor whiteColor];
         _dfuLab.font = FontGothamBold(30);
         _dfuLab.text = @"0%";
+        [self setPregress:0];
         coverView = [[UIView alloc] initWithFrame:MainScreen];
         coverView.backgroundColor = [UIColor clearColor];
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -78,6 +79,7 @@
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
         NSString *uniquePath=[[paths objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@",_dfuInfoDic[@"filename"]]];
         NSData *data = [NSData dataWithContentsOfFile:uniquePath];
+        
         if (!data) {
             SmaAnalysisWebServiceTool *web = [[SmaAnalysisWebServiceTool alloc] init];
             web.chaImageName = _dfuInfoDic[@"filename"];
@@ -129,7 +131,7 @@
         }
         return;
     }
-    if ([SmaBleMgr checkBLConnectState] && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue <= webFirmwareVer.intValue) {
+    if ([SmaBleMgr checkBLConnectState] && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue < webFirmwareVer.intValue) {
          [SmaBleMgr reunitonPeripheral:YES];
         [updateTimer invalidate];
         updateTimer = nil;
@@ -241,6 +243,8 @@
     switch (state) {
         case DFUStateStarting:
             [SmaBleMgr reunitonPeripheral:NO];
+            [updateTimer invalidate];
+            updateTimer = nil;
             break;
         case DFUStateUploading:
             tateStarting = YES;

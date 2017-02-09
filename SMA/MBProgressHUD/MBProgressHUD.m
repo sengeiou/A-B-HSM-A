@@ -446,7 +446,6 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     label.numberOfLines = 0;
     label.lineBreakMode = NSLineBreakByWordWrapping;
     //label.frame=CGRectMake(label.frame.origin.x, label.frame.origin.y, label.frame.size.width, 45);
-    
 	[self addSubview:label];
 	
 	detailsLabel = [[UILabel alloc] initWithFrame:self.bounds];
@@ -526,6 +525,8 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	
 	CGSize labelSize = [label.text sizeWithFont:label.font];
 	labelSize.width = MIN(labelSize.width, maxWidth);
+   CGRect labelRect = [label.text boundingRectWithSize:CGSizeMake(labelSize.width, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:label.font} context:nil];
+    labelSize = labelRect.size;
 	totalSize.width = MAX(totalSize.width, labelSize.width);
 	totalSize.height += labelSize.height;
 	if (labelSize.height > 0.f && indicatorF.size.height > 0.f) {
@@ -559,7 +560,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	CGRect labelF;
 	labelF.origin.y = yPos;
 	labelF.origin.x = roundf((bounds.size.width - labelSize.width) / 2) + xPos;
-	labelF.size =CGSizeMake(labelSize.width, labelSize.height*2) ;
+	labelF.size =CGSizeMake(labelSize.width, labelSize.height) ;
 	label.frame = labelF;
 	yPos += labelF.size.height;
 	

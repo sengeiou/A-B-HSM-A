@@ -16,7 +16,6 @@
     NSMutableArray *quietArr;
     NSMutableArray *sleepArr;
     UILabel *titleLab;
-    BOOL isAnimation;
     NSTimer *sportAni;
     BOOL firstLun;
     
@@ -33,7 +32,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     firstLun = YES;
-    isAnimation = YES;
     [self initializeMethod:NO];
 }
 
@@ -331,7 +329,7 @@
                     remindStr = SMALocalizedString(@"device_SP_sit");
                 }
                 remindSize = [self sizeWithText:remindStr];
-                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, 20) title:remindStr];
+                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
                 remindView.backIma.image = [UIImage imageNamed:@"home_yundong"];
                 [view addSubview:remindView];
             }];
@@ -371,32 +369,20 @@
                     remindStr = SMALocalizedString(@"device_HR_max");
                 }
                 remindSize = [self sizeWithText:remindStr];
-                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, 20) title:remindStr];
+                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
                 remindView.backIma.image = [UIImage imageNamed:@"home_xinlv"];
                 [view addSubview:remindView];
             }];
-            [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_heart_jingxi"] forState:UIControlStateNormal];
-            [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_heart-pingjun"] forState:UIControlStateNormal];
-            [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_heart_big"] forState:UIControlStateNormal];
+            [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_heart-pingjun"] forState:UIControlStateNormal];
+            [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_heart_big"] forState:UIControlStateNormal];
+            [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_heart_jingxi"] forState:UIControlStateNormal];
             }
         else if (indexPath.row == 2){
                 cell.pulldownView.hidden = YES;
-                cell.roundView.progressView.progress = 0.001;
-//                cell.roundView.progressView.startTime = [[sleepArr objectAtIndex:5] floatValue];
-//                cell.roundView.progressView.endTime = [[sleepArr objectAtIndex:6] floatValue];
-           isAnimation = !isAnimation;
-            if (isAnimation) {
-                
-//                [cell.roundView.progressView sleepTimeAnimaitonWtihStar:50 end:20 + 60];
-            }
-            else{
-//                [cell.roundView.progressView sleepTimeAnimaitonWtihStar:20 + 60 end:60];
-            }
-//            float start = [[sleepArr objectAtIndex:5] floatValue] - [[sleepArr objectAtIndex:5] intValue]/60 * 60;
-//            float end = [[sleepArr objectAtIndex:6] floatValue] - [[sleepArr objectAtIndex:6] intValue]/60 * 60;
-              [cell.roundView.progressView sleepTimeAnimaitonWtihStar:[[sleepArr objectAtIndex:5] floatValue] end:[[sleepArr objectAtIndex:6] floatValue]];
-//                cell.titLab.text = [sleepArr objectAtIndex:1];
+//                cell.roundView.progressView.progress = 0.001;
+               [cell.roundView.progressView sleepTimeAnimaitonWtihStar:[[sleepArr objectAtIndex:5] floatValue] end:[[sleepArr objectAtIndex:6] floatValue]];
                 cell.titLab.textColor = [UIColor colorWithRed:44/255.0 green:203/255.0 blue:111/255.0 alpha:1];
+               cell.titLab.text = [sleepArr objectAtIndex:1];
                 cell.stypeLab.text = @"";
                 cell.stypeLab.font = FontGothamLight(18);
                 cell.stypeLab.textColor = [SmaColor colorWithHexString:@"#2CCB6F" alpha:1];
@@ -418,13 +404,13 @@
                     remindStr = SMALocalizedString(@"device_SL_deep");
                 }
                 remindSize = [self sizeWithText:remindStr];
-                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, 20) title:remindStr];
+                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
                 remindView.backIma.image = [UIImage imageNamed:@"home_shuimian"];
                 [view addSubview:remindView];
             }];
-            [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_qingxin"] forState:UIControlStateNormal];
-            [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_qianshui"] forState:UIControlStateNormal];
-            [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_shenshui"] forState:UIControlStateNormal];
+            [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_qianshui"] forState:UIControlStateNormal];
+            [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_shenshui"] forState:UIControlStateNormal];
+            [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_qingxin"] forState:UIControlStateNormal];
             }
     return cell;
 }
@@ -708,7 +694,7 @@
         sleepState = SMALocalizedString(@"device_SL_typeF");
     }
     NSMutableArray *sleep = [NSMutableArray array];
-    [sleep addObject:[self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",sleepHour/60],@"h",[NSString stringWithFormat:@"%@%d",sleepHour%60 < 60 ? @"0":@"",sleepHour%60],@"m"] fontArr:@[FontGothamLight(20),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"2CCB6F" alpha:1],[UIColor blackColor]]]];
+    [sleep addObject:[self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",sleepHour/60],@"h",[NSString stringWithFormat:@"%@%d",sleepHour%60 < 10 ? @"0":@"",sleepHour%60],@"m"] fontArr:@[FontGothamLight(20),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"2CCB6F" alpha:1],[UIColor blackColor]]]];
     [sleep addObject:sleepState];
     [sleep addObject:[self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",deepSleepAmount/60],@"h",[NSString stringWithFormat:@"%@%d",deepSleepAmount%60 < 10 ? @"0": @"",deepSleepAmount%60],@"m"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"2CCB6F" alpha:1],[UIColor blackColor]]]];
     [sleep addObject:[self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",simpleSleepAmount/60],@"h",[NSString stringWithFormat:@"%@%d",simpleSleepAmount%60 < 10 ? @"0":@"",simpleSleepAmount%60],@"m"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"2CCB6F" alpha:1],[UIColor blackColor]]]];
@@ -784,7 +770,8 @@
 }
 
 - (CGSize )sizeWithText:(NSString *)text{
-    return [text sizeWithAttributes:@{NSFontAttributeName:FontGothamLight(12)}];
+    CGRect labelRect = [text boundingRectWithSize:CGSizeMake(MainScreen.size.width/2 - 60, 1000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:FontGothamLight(12)} context:nil];
+    return labelRect.size;
 }
 
 @end

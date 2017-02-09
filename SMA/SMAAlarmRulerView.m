@@ -53,7 +53,7 @@
         _clockRuler.multiple = _multiple;
         _clockRuler.textStyleDict = _textStyleDict;
         _clockRuler.delegate = self;
-        _clockRuler.backgroundColor = [SmaColor colorWithHexString:@"#86BFFA" alpha:1];
+        _clockRuler.backgroundColor = [SmaColor colorWithHexString:@"#86BFFA" alpha:0];
         self.contentSize = CGSizeMake(_clockRuler.frame.size.width, self.frame.size.height);
         [self addSubview:_clockRuler];
         //红色指示线

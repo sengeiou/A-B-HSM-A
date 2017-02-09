@@ -60,12 +60,12 @@
     _deviceTableView.dataSource = self;
     _searchBut.layer.masksToBounds = YES;
     _searchBut.layer.cornerRadius = 126/2;
-    _searchBut.titleLabel.numberOfLines = 2;
+    _searchBut.titleLabel.numberOfLines = 3;
     _searchBut.titleLabel.textAlignment = NSTextAlignmentCenter;
     _searchBut.selected = YES;
     [_searchBut setTitle:SMALocalizedString(@"setting_band_search") forState:UIControlStateNormal];
     [_searchBut setTitle:SMALocalizedString(@"setting_band_searching") forState:UIControlStateSelected];
-//    _ignoreLab.text = SMALocalizedString(@"setting_band_remind07");
+//  _ignoreLab.text = SMALocalizedString(@"setting_band_remind07");
     _nearLab.text = SMALocalizedString(@"setting_band_attention");
     _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment:[SMADefaultinfos getValueforKey:BANDDEVELIVE]];
     
@@ -273,9 +273,7 @@
         }];
         [aler addAction:canAction];
         [aler addAction:confAction];
-        //        [self presentViewController:aler animated:YES completion:^{
-        //
-        //        }];
+
         bondFailAler = [[SMABottomAlerView alloc] initWithMessage:SMALocalizedString(@"setting_band_failRemind") leftMess:SMALocalizedString(@"setting_band_unPair") rightMess:SMALocalizedString(@"setting_band_tryAgain")];
         bondFailAler.delegate = self;
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -340,6 +338,7 @@
     }
     else{
         [remindView removeFromSuperview];
+        _searchBut.selected = YES;
         [searchImalayer addAnimation:[self searchAnimation] forKey:nil];
         SmaBleMgr.scanName = [SMADefaultinfos getValueforKey:BANDDEVELIVE];
         [SmaBleMgr scanBL:12];

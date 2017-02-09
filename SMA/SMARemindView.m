@@ -25,6 +25,7 @@
     UILabel *titleLab = [[UILabel alloc] initWithFrame:CGRectMake(3, 3, self.frame.size.width - 6, self.frame.size.height - 6)];
     titleLab.text = tile;
     titleLab.font = FontGothamLight(12);
+    titleLab.numberOfLines = 0;
     titleLab.textColor = [UIColor whiteColor];
     [self addSubview:titleLab];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

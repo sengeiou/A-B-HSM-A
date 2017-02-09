@@ -53,7 +53,7 @@
     _ageDetalLab.text = user.userAge;
     _unitLab.text = SMALocalizedString(@"me_perso_unit");
     _unitDetalLab.text = user.unit.intValue?SMALocalizedString(@"me_perso_british"):SMALocalizedString(@"me_perso_metric");
-    [_saveBut setTitle:SMALocalizedString(@"setting_sedentary_achieve") forState:UIControlStateNormal];
+//    [_saveBut setTitle:SMALocalizedString(@"setting_sedentary_achieve") forState:UIControlStateNormal];
 }
 
 - (void)handleUserInfo{

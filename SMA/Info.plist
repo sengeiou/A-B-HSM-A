@@ -76,7 +76,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.5</string>
+	<string>1.0.6</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -203,6 +203,12 @@
 	<string>Allow the app use Bluetooth</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow this app to access your camera or not</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>YES</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Allow this app to access your location or not</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow this app to access your location or not</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow this app to access your album or not</string>
 	<key>UIAppFonts</key>
@@ -215,6 +221,7 @@
 	<array>
 		<string>bluetooth-central</string>
 		<string>bluetooth-peripheral</string>
+		<string>location</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

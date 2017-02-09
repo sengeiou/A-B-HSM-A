@@ -122,9 +122,8 @@ static id _instace;
 
 - (void)reunionTimer:(id)sender{
     NSLog(@"fwefwefwergrg==== %d  %d",SmaDfuManager.dfuMode,self.peripheral.state);
-   
+   self.mgr.delegate = self;//确保DFU升级后重设代理以确保通讯正常
     if (self.peripheral.state != CBPeripheralStateConnected && !SmaDfuManager.dfuMode) {
-        self.mgr.delegate = self;//确保DFU升级后重设代理以确保通讯正常
         if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] ) {
             NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:self.user.watchUUID]]];
             NSLog(@"2222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
@@ -160,7 +159,7 @@ static id _instace;
               [SmaDfuManager performDFUwithManager:self.mgr periphral:[SystemArr firstObject]];
         }
         else{
-          [self performSelector:@selector(scanPerformDFU) withObject:nil afterDelay:3.5f];
+           [self performSelector:@selector(scanPerformDFU) withObject:nil afterDelay:3.5f];
         }
         
     }

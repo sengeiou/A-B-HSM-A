@@ -14,6 +14,7 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WeiboSDKDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) UITextView *textview;
 
 @property (strong, nonatomic) NSString *wbtoken;
 @property (strong, nonatomic) NSString *wbRefreshToken;
