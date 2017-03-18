@@ -11,6 +11,8 @@
 
 @interface SMALocatiuonManager : NSObject<CLLocationManagerDelegate>
 @property (nonatomic, strong) CLLocationManager *manager;
+@property (nonatomic, assign) NSInteger runStep;
+@property (nonatomic, assign) BOOL gatherLocation;
 + (instancetype)sharedCoreBlueTool;
 - (void)startLocation;
 

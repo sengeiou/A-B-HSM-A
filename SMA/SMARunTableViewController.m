@@ -90,7 +90,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     SMATrackViewController *trackVC = [[SMATrackViewController alloc] init];
     trackVC.runDic = (NSMutableDictionary *)runDetailArr[indexPath.row];
-//    [self.navigationController pushViewController:trackVC animated:YES];
+    [self.navigationController pushViewController:trackVC animated:YES];
 }
 
 - (NSMutableArray *)getRunFullWithData:(NSMutableArray *)runData{
@@ -121,7 +121,7 @@
     float distance = [SMACalculate countKMWithHeigh:user.userHeight.intValue step:step];
     NSString *disStr = nil;
     NSString *unitStr = nil;
-    if (user.unit) {
+    if (user.unit.intValue) {
         disStr = [SMACalculate notRounding:[SMACalculate convertToMile:distance] afterPoint:1];
         unitStr = SMALocalizedString(@"device_SP_mile");
     }
@@ -162,12 +162,12 @@
     float distance = [SMACalculate countKMWithHeigh:user.userHeight.intValue step:step];
     NSString *perStr = nil;
     NSString *unitStr = nil;
-    if (user.unit) {
-        perStr = [SMACalculate notRounding:[SMACalculate convertToMile:distance]/(time/60.0) afterPoint:1];
+    if (user.unit.intValue) {
+        perStr = [SMACalculate notRounding:[SMACalculate convertToMile:distance]/(time/60.0) afterPoint:2];
         unitStr = SMALocalizedString(@"device_RU_per_brUnit");
     }
     else{
-        perStr = [SMACalculate notRounding:distance/(time/60.0) afterPoint:1];
+        perStr = [SMACalculate notRounding:distance/(time/60.0) afterPoint:2];
         unitStr = SMALocalizedString(@"device_RU_per_meUnit");
     }
 

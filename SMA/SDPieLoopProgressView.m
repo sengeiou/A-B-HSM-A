@@ -58,8 +58,6 @@
             CGFloat Y = center.y - (rect.size.width/2 -(fontsize.height +5)/2) *cos((M_PI/180)*i*(360.0 /(12))) - fontsize.height/2;//R*cosB(夹角)
             text.frame           = CGRectMake(X, Y, fontsize.width, fontsize.height);
             text.string    =  [[NSAttributedString alloc] initWithString:@"|" attributes:@{NSFontAttributeName : FontGothamBold(10 * SDProgressViewFontScale),NSForegroundColorAttributeName:[UIColor whiteColor]}];//whiteColor
-            NSLog(@"wghhh44444  %f  %f  %d \n histry: %f  %f",startTime/5.0,endTime/5.0,i,self.hisStartTime,self.hisEndTime);
-
             if ((int)self.endStartTime%60 > (int)self.endEndTime%60) {
                 if (startTime/5.0 > endTime/5.0) {
                     if (i < startTime/5.0 && i > endTime/5.0) {

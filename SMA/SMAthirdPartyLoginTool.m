@@ -177,13 +177,13 @@ static SMAthirdPartyLoginTool *g_instance = nil;
 
 - (void)shareToTwitterWithShareImage:(UIImage *)image controller:(UIViewController *)vc{
      SLComposeViewController *composeVc = (SLComposeViewController *)[SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
-//    if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter] || !composeVc) {
+    if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter] || !composeVc) {
         [MBProgressHUD showError:SMALocalizedString(@"device_share_TWNOInsta")];
         NSLog(@"平台不可用,或者没有配置相关的帐号");
         return;
-//    }
+    }
    
-    composeVc.view.backgroundColor = [UIColor greenColor];
+//    composeVc.view.backgroundColor = [UIColor greenColor];
     // 2.1.添加分享的文字
 //    [composeVc setInitialText:@"测试系统分享"];
     

@@ -80,7 +80,11 @@ static NSString * const reuseIdentifier = @"Cell";
                  }
             [self.collectionView footerEndRefreshing];
             self.collectionView.scrollEnabled = YES;
-            [self.collectionView reloadData];
+//               [self.collectionView reloadData];
+//                 [watchFaces addObjectsFromArray:watchFaces];
+//                 NSIndexPath *indexPath=[NSIndexPath indexPathForRow:15 inSection:0];
+//                 NSArray *indexArray=[NSArray arrayWithObject:indexPath];
+//                 [self.collectionView reloadItemsAtIndexPaths:indexArray];
             });
         }];
     });
@@ -115,6 +119,9 @@ static NSString * const reuseIdentifier = @"Cell";
             // cell.switchView.image  = cornerImage;
         });
     });
+    if (indexPath.row == 14) {
+        NSLog(@"fwghhhh");
+    }
     cell.watchDic = watchFaces[indexPath.row];
     return cell;
 }

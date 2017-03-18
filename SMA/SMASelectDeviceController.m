@@ -31,6 +31,7 @@
     if (_isSelect) {
         self.navigationController.leftItemHidden = YES;
     }
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage buttonImageFromColors:@[[SmaColor colorWithHexString:@"#5790F9" alpha:1],[SmaColor colorWithHexString:@"#80C1F9" alpha:1]] ByGradientType:topToBottom size:CGSizeMake(MainScreen.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -40,7 +41,7 @@
 }
 
 - (void)initializeMethod{
-    deviceArr = @[@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"]];
+    deviceArr = @[@[@"SMA-A1",SMALocalizedString(@"setting_band_07detail"),@"img_jiexie"],@[@"SMA-A2",SMALocalizedString(@"setting_band_07detail"),@"img_launcher"],@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"]];
 }
 - (void)createUI{
     self.title = SMALocalizedString(@"setting_band_title");
@@ -98,16 +99,19 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0){
-        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-Q2"];
-    }
-    if (indexPath.row == 1) {
-        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SM07"];
-    }
-    if (indexPath.row == 2) {
+    if (indexPath.row == 0) {
         [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-A1"];
     }
-    self.navigationController.leftItemHidden = NO;
+    if (indexPath.row == 1) {
+        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-A2"];
+    }
+    if (indexPath.row == 2){
+        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-Q2"];
+    }
+    if (indexPath.row == 3) {
+        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SM07"];
+    }
+       self.navigationController.leftItemHidden = NO;
     [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAPairViewController"] animated:YES];
 }
 /*

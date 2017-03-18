@@ -10,6 +10,7 @@
 #import "FMDB.h"
 #import "SMADateDaultionfos.h"
 #import "NSDate+Formatter.h"
+#import "TQLocationConverter.h"
 @interface SMADatabase : NSObject
 @property (nonatomic, strong) FMDatabaseQueue *queue;
 //插入闹钟
@@ -70,5 +71,7 @@
 - (NSMutableArray *)readNeedUploadHRData;
 //插入轨迹数据
 - (void)insertLocatainDataArr:(NSMutableArray *)locationArr finish:(void (^)(id finish)) success;
+//读取轨迹数据
+- (NSMutableArray *)readLocationDataWithDate:(NSString *)date toDate:(NSString *)todate;
 @end
 

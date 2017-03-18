@@ -84,7 +84,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     
-    return 40.0;
+    return 45.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
@@ -95,7 +95,7 @@
     UILabel *headerLab;
     headerLab = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 320, 20)];
     headerLab.font = FontGothamLight(14);
-    headerLab.numberOfLines = 2;
+    headerLab.numberOfLines = 3;
     headerLab.text = headerArr[section];
     headerLab.textColor = [SmaColor colorWithHexString:@"#AAABAD" alpha:1];
     if (section == 2) {

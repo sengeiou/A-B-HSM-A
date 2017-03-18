@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SMATrackDetailView.h"
 #import "SMARunHrViewController.h"
+#import "SMAMKMapView.h"
 @interface SMATrackViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableDictionary *runDic;
 @end

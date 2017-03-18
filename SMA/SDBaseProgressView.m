@@ -53,14 +53,12 @@ static int aniIndex;
     if (progress >= 1 ) {
         progress = 1;
     }
-    NSLog(@"fwghh44444hh==%f  %d  %@",progress,_isAnimation,self);
     _endProgress = progress;
     _endTitleLab = title;
     if (progress - _hisProgress != 0 || _endTitleLab.intValue - _hisTitleLab.intValue != 0) {
         [_animationTimer invalidate];
         _animationTimer = nil;
         aniIndex = 0;
-        NSLog(@"FWGGH==%F",1/(progress * 100));
         _animationTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(animationTimer:) userInfo:nil repeats:YES];
     }
     else{

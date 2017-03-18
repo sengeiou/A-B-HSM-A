@@ -22,6 +22,22 @@
 @synthesize wbRefreshToken;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+//    self.manager = [[CLLocationManager alloc] init];
+//    self.manager.delegate = self;
+//    self.manager.desiredAccuracy = kCLLocationAccuracyBest; //控制定位精度,越高耗电量越大。
+//    //    _manager.distanceFilter = 30; //控制定位服务更新频率。单位是“米”
+//    [self.manager requestAlwaysAuthorization];  //调用了这句,就会弹出允许框了.
+//    [self.manager requestWhenInUseAuthorization];
+//    self.manager.pausesLocationUpdatesAutomatically = NO; //该模式是抵抗ios在后台杀死程序设置，iOS会根据当前手机使用状况会自动关闭某些应用程序的后台刷新，该语句申明不能够被暂停，但是不一定iOS系统在性能不佳的情况下强制结束应用刷新kCLAuthorizationStatusAuthorizedAlways
+//    //        [CLLocationManager authorizationStatus] = kCLAuthorizationStatusAuthorizedAlways;
+//    //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0) {
+//    self.manager.allowsBackgroundLocationUpdates = YES;
+//    self.manager.distanceFilter = kCLDistanceFilterNone;  //不需要移动都可以刷新
+//    [self.manager startUpdatingLocation];
+    self.applica = application;
+    [SMALocatiuonManager sharedCoreBlueTool];
+    
     // Override point for customization after application launch.
     [ACloudLib setMode:ACLoudLibModeRouter Region:ACLoudLibRegionChina];
     [ACloudLib setMajorDomain:@"lijunhu" majorDomainId:375]; //282
@@ -102,12 +118,115 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
 
+- (void)locationAction{
+     [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
+}
+
+- (void) endBackgroundTask{
+    
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    
+    __weak AppDelegate *weakSelf = self;
+    
+    dispatch_async(mainQueue, ^(void) {
+        
+        AppDelegate *strongSelf = weakSelf;
+        
+        if (strongSelf != nil){
+            
+            [self.applica endBackgroundTask:self.backgroundTaskIdentifier];
+            self.backgroundTaskIdentifier = UIBackgroundTaskInvalid;
+            
+        }
+        
+    });
+}
+
+//- (void)requestBackgroundTask{
+//    NSLog(@"requestBackgroundTask");
+//    UIApplication*   app = [UIApplication sharedApplication];
+//    //    __block    UIBackgroundTaskIdentifier bgTask;
+//    _bgTask = [app beginBackgroundTaskWithExpirationHandler:^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (_bgTask != UIBackgroundTaskInvalid)
+//            {
+//                _bgTask = UIBackgroundTaskInvalid;
+//            }
+//            [self requestBackgroundTask];
+//        });
+//    }];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            if (_bgTask != UIBackgroundTaskInvalid)
+//            {
+//                _bgTask = UIBackgroundTaskInvalid;
+//            }
+//            [self requestBackgroundTask];
+//        });
+//    });
+//}
+
+- (void)requestBackgroundTask{
+      [self endBackgroundTask];
+    self.backgroundTaskIdentifier= [self.applica beginBackgroundTaskWithExpirationHandler:^(void) {
+        [self endBackgroundTask];
+    }];
+
+}
+
+- (void)getCell{
+    NSLog(@"获取电量");
+      [SmaBleSend getElectric];
+}
+
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+    
+//    self.backgroundTaskIdentifier=[application beginBackgroundTaskWithExpirationHandler:^(void) {
+//         [self endBackgroundTask];
+//    }];
+    if (_backgroundTimer) {
+        [_backgroundTimer invalidate];
+        _backgroundTimer = nil;
+    }
+//    _backgroundTimer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(getCell) userInfo:nil repeats:YES];
+
+    
+//    [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
+//    [self requestBackgroundTask];
+//    [NSTimer scheduledTimerWithTimeInterval:120 target:self selector:@selector(requestBackgroundTask) userInfo:nil repeats:NO];
+//    self.manager = [[CLLocationManager alloc] init];
+//    self.manager.delegate = self;
+//    self.manager.desiredAccuracy = kCLLocationAccuracyBest; //控制定位精度,越高耗电量越大。
+//    //    _manager.distanceFilter = 30; //控制定位服务更新频率。单位是“米”
+//    [self.manager requestAlwaysAuthorization];  //调用了这句,就会弹出允许框了.
+//    [self.manager requestWhenInUseAuthorization];
+//    self.manager.pausesLocationUpdatesAutomatically = NO; //该模式是抵抗ios在后台杀死程序设置，iOS会根据当前手机使用状况会自动关闭某些应用程序的后台刷新，该语句申明不能够被暂停，但是不一定iOS系统在性能不佳的情况下强制结束应用刷新kCLAuthorizationStatusAuthorizedAlways
+//    //        [CLLocationManager authorizationStatus] = kCLAuthorizationStatusAuthorizedAlways;
+////    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0) {
+//      self.manager.allowsBackgroundLocationUpdates = YES;
+//     self.manager.distanceFilter = kCLDistanceFilterNone;  //不需要移动都可以刷新
+//     [self.manager startUpdatingLocation];
+//    }
+
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray<CLLocation *> *)locations{
+    CLLocation * currLocation = [locations lastObject];
+    NSLog(@"locationManager");
+    NSLog(@"---%@",[NSString stringWithFormat:@"%f",currLocation.coordinate.latitude]);
+    
+    NSLog(@"+++%@",[NSString stringWithFormat:@"%f",currLocation.coordinate.longitude]);
+}
+
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    if (_backgroundTimer) {
+        [_backgroundTimer invalidate];
+        _backgroundTimer = nil;
+    }
+//    [self endBackgroundTask];
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
@@ -252,7 +371,13 @@
 }
 
 - (void)startLocation{
-    [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
-  
+//    [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
+//    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+//    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+//    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+//    [dateFormatter setDateFormat:@"yyyyMMdd"];
+//    SMADatabase *base = [[SMADatabase alloc] init];
+//    NSMutableArray *locationArr = [base readLocationDataWithDate:[NSString stringWithFormat:@"%@000000",[dateFormatter stringFromDate:[NSDate date]]] toDate:[NSString stringWithFormat:@"%@235959",[dateFormatter stringFromDate:[NSDate date]]]];
+//    NSLog(@"location ===%@",locationArr);
 }
 @end

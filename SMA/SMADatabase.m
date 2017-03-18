@@ -32,7 +32,7 @@
             result = [db executeUpdate:@"create table if not exists tb_sleep ( id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),sleep_id varchar(30),sleep_date varchar(30),sleep_time integer,sleep_mode integer,softly_action integer,strong_action integer,sleep_ident TEXT,sleep_waer integer,sleep_web integer);"];
             
             //定位
-            result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float);"];
+            result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float, runstep integer);"];
 //            NSLog(@"创表 %d",result);
         }];
     }
@@ -60,9 +60,9 @@
             date = [NSString stringWithFormat:@"%@%@%@%@%@00",info.year,info.mounth,info.day,info.hour,info.minute];
             NSTimeInterval timeInterval = [SMADateDaultionfos msecIntervalSince1970Withdate:date timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
             
-            NSString *updatesql=[NSString stringWithFormat:@"update tb_clock set dayFlags='%@',aid=%d,timeInterval='%@',isopen=%d,tagname='%@',clock_web=%d where user_id=\'%@\' and clock_id=%d",info.dayFlags,[info.aid intValue],[NSString stringWithFormat:@"%f",timeInterval],[info.isOpen intValue],info.tagname,[info.isWeb intValue],account,info.aid.intValue];
-            result = [db executeUpdate:updatesql];
-            NSLog(@"修改闹钟 == %d",result);
+            NSString *updatesql=[NSString stringWithFormat:@"update tb_clock set dayFlags='%@',timeInterval='%@',isopen=%d,tagname='%@',clock_web=%d where user_id=\'%@\' and clock_id=%d",info.dayFlags,[NSString stringWithFormat:@"%f",timeInterval],[info.isOpen intValue],info.tagname,[info.isWeb intValue],account,info.aid.intValue];
+            result = [db executeUpdate:updatesql]; //,aid=%d[info.aid intValue],
+            NSLog(@"修改闹钟 == %d  %@  %@",result,info.tagname,updatesql);
         }
         else{
             
@@ -913,11 +913,11 @@
             hisId = [reSet stringForColumn:@"loca_id"];
         }
         if (hisId && [hisId isEqualToString:@""]) {
-            result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"]];
+            result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?,runstep = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"]];
             NSLog(@"更新定位数据 %d",result);
         }
         else{
-            result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude) values (?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"]];
+            result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude, runstep) values (?,?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"]];
             NSLog(@"插入定位数据 %d",result);
         }
         }
@@ -925,6 +925,41 @@
         success ([NSString stringWithFormat:@"%d",result]);
         
     }];
+}
+
+//读取轨迹数据
+- (NSMutableArray *)readLocationDataWithDate:(NSString *)date toDate:(NSString *)todate{
+
+    NSMutableArray *locationArr = [NSMutableArray array];
+    [self.queue inDatabase:^(FMDatabase *db) {
+        NSString *sql = [NSString stringWithFormat:@"select *from tb_location where loca_date >=%@ and loca_date <=%@ and user_id = \'%@\'",date,todate,[SMAAccountTool userInfo].userID];
+        FMResultSet *rs = [db executeQuery:sql];
+        int outOfChina;
+        outOfChina = 3;
+        while (rs.next) {
+            NSString *date = [rs stringForColumn:@"loca_date"];
+            NSString *longitude = [rs stringForColumn:@"longitude"];
+            NSString *latitude = [rs stringForColumn:@"latitude"];
+            NSString *runStep = [rs stringForColumn:@"runstep"];
+            CLLocationCoordinate2D coord;
+            coord.latitude = latitude.doubleValue;
+            coord.longitude = longitude.doubleValue;
+            if (outOfChina == 3) {
+//                outOfChina = [WGS84TOGCJ02 isLocationOutOfChina:coord];
+                outOfChina = [TQLocationConverter isLocationOutOfChina:coord];
+            }
+            if (!outOfChina) {
+                //转换后的coord
+                NSLog(@"转换后的coord");
+                coord = [TQLocationConverter transformFromWGSToGCJ:coord];
+            }
+
+            NSDictionary *locaDic = [[NSDictionary alloc]initWithObjectsAndKeys:date,@"DATE",[NSString stringWithFormat:@"%f",coord.longitude],@"LONGITUDE",[NSString stringWithFormat:@"%f",coord.latitude],@"LATITUDE",runStep,@"STEP", nil];
+            [locationArr addObject:locaDic];
+        }
+    }];
+    
+    return locationArr;
 }
 
 - (NSString *)getHourAndMin:(NSString *)time{

@@ -54,10 +54,11 @@ static id _instace;
     return _user;
 }
 
-- (void)setScanName:(NSString *)scanName{
-    _scanName = scanName;
+- (void)setScanNameArr:(NSArray *)scanNameArr{
+    _scanNameArr = scanNameArr;
     SMAUserInfo *user = [SMAAccountTool userInfo];
-    user.scnaName = scanName;
+    //    user.scnaName = scanName;
+    user.scnaNameArr = scanNameArr;
     [SMAAccountTool saveUser:user];
 }
 
@@ -123,7 +124,7 @@ static id _instace;
 - (void)reunionTimer:(id)sender{
     NSLog(@"fwefwefwergrg==== %d  %d",SmaDfuManager.dfuMode,self.peripheral.state);
    self.mgr.delegate = self;//确保DFU升级后重设代理以确保通讯正常
-    if (self.peripheral.state != CBPeripheralStateConnected && !SmaDfuManager.dfuMode) {
+    if (self.peripheral.state != CBPeripheralStateConnected && !SmaDfuManager.dfuMode && !_repairDfu) {
         if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] ) {
             NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:self.user.watchUUID]]];
             NSLog(@"2222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
@@ -225,7 +226,7 @@ static id _instace;
         case CBCentralManagerStatePoweredOn:
         {
             NSLog( @"蓝牙已经成功开启，正在扫描蓝牙接口……");
-            if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""]) {
+            if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] && !_repairDfu) {
                 NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:self.user.watchUUID]]];
                  NSLog(@"222221111222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
                  [self connectBl:[allPer firstObject]];
@@ -271,8 +272,8 @@ static id _instace;
 
 //发现周边蓝牙设备
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
-    NSLog(@"搜索设备UUID：%@  记录UUID：%@  scanName: %@",peripheral.identifier.UUIDString,self.user.watchUUID,self.scanName);
-    if (self.user.watchUUID) {
+    NSLog(@"搜索设备UUID：%@  记录UUID：%@  scanName: %@",peripheral.identifier.UUIDString,self.user.watchUUID,self.scanNameArr);
+    if (self.user.watchUUID && !_repairDfu) {
         if ([self.user.watchUUID isEqualToString:peripheral.identifier.UUIDString]) {
             [self connectBl:peripheral];
         }
@@ -281,7 +282,7 @@ static id _instace;
         }
     }
     else{
-        if ([self.scanName isEqualToString:peripheral.name] && RSSI.intValue < 0) {
+        if ([self.scanNameArr containsObject:peripheral.name] && RSSI.intValue < 0) {
             NSLog(@"搜索出来的设备  %@  %d",peripheral,RSSI.intValue);
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (!peripherals) {
@@ -396,6 +397,10 @@ static id _instace;
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"连接问题 %@",error);
+     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]  && !SmaDfuManager.dfuMode && !_repairDfu && !_dfuUpdate) {
+        [self connectBl:peripheral];
+    }
+    
     if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleDisconnected:)]){
         [self.BLdelegate bleDisconnected:error.localizedDescription];
     }
@@ -409,7 +414,7 @@ static id _instace;
         NSString *customStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [SMADefaultinfos putKey:SMACUSTOM andValue:customStr];
     }
-
+//    NSLog(@"fwggghhhh===%@",characteristic.value);
     [SmaBleSend handleResponseValue:characteristic];
     if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleDidUpdateValue:)]) {
         [self.BLdelegate bleDidUpdateValue:characteristic];
@@ -559,6 +564,19 @@ static id _instace;
             break;
         case RUNMODE:
             NSLog(@"riunfjwfiow===%@",array);
+            if (array.count == 1 && [[[array firstObject] objectForKey:@"MODE"] intValue] == 34) {//代表运动中数据（用于激活定位后台，区别于下拉刷新中的运动数据）
+                SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
+                loca.runStep = [[[array firstObject] objectForKey:@"STEP"] integerValue];
+                loca.gatherLocation = YES;
+                return;
+            }
+            if ([[[array firstObject] objectForKey:@"MODE"] intValue] == 32) {
+                [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
+            }
+            else if ([[[array firstObject] objectForKey:@"MODE"] intValue] == 47){
+                [[SMALocatiuonManager sharedCoreBlueTool] stopLocation];
+            }
+            
             break;
         default:
             break;
@@ -630,11 +648,24 @@ static id _instace;
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
-    if (![preferredLang isEqualToString:@"zh"]) {
-        [SmaBleSend setLanguage:1];
+    if ([preferredLang isEqualToString:@"zh"]) {
+        [SmaBleSend setLanguage:0];
+    }
+    else if ([preferredLang isEqualToString:@"es"]) {
+        [SmaBleSend setLanguage:5];
+    }
+    else if ([preferredLang isEqualToString:@"it"]) {
+        [SmaBleSend setLanguage:6];
+    }
+    else if ([preferredLang isEqualToString:@"ko"]) {
+        [SmaBleSend setLanguage:7];
+    }
+    
+    else if ([preferredLang isEqualToString:@"ru"]) {
+        [SmaBleSend setLanguage:4];
     }
     else{
-        [SmaBleSend setLanguage:0];
+        [SmaBleSend setLanguage:1];
     }
 
 

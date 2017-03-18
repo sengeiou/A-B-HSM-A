@@ -8,10 +8,13 @@
 
 #import "SMATrackViewController.h"
 
-@interface SMATrackViewController ()
+@interface SMATrackViewController ()<MKMapViewDelegate>
 {
     NSMutableArray *hrArr;
     NSMutableArray *runArr;
+    SMAMKMapView *MKmapView;
+    NSMutableArray *locationArr;
+    SMATrackDetailView *trackview;
 }
 @property (nonatomic, strong) SMADatabase *dal;
 @end
@@ -42,17 +45,26 @@
     runArr = [self.dal readRunDetailDataWithDate:[_runDic objectForKey:@"DATE"] startTime:[self convertToMin:[_runDic objectForKey:@"STARTTIME"]] endTime:[self convertToMin:[self.runDic objectForKey:@"ENDTIME"]]];
     [self getFullDetailViewWithHrDic:dic];
     NSLog(@"gg===%@",hrArr);
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyyMMdd"];
+    SMADatabase *base = [[SMADatabase alloc] init];
+    locationArr = [base readLocationDataWithDate:[NSString stringWithFormat:@"%@%@%@00",[_runDic objectForKey:@"DATE"],[[[_runDic objectForKey:@"STARTTIME"] componentsSeparatedByString:@":"] firstObject],[[[_runDic objectForKey:@"STARTTIME"] componentsSeparatedByString:@":"] lastObject]] toDate:[NSString stringWithFormat:@"%@%@%@30",[_runDic objectForKey:@"DATE"],[[[_runDic objectForKey:@"ENDTIME"] componentsSeparatedByString:@":"] firstObject],[[[_runDic objectForKey:@"ENDTIME"] componentsSeparatedByString:@":"] lastObject]]];
 }
 
 - (void)createUI{
     
-    UITableView *tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 320, 568 - 64) style:UITableViewStyleGrouped];
-    tab.delegate = self;
-    tab.dataSource = self;
-    [self.view addSubview:tab];
+   MKmapView = [[SMAMKMapView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height - 300)];
+    UITapGestureRecognizer *mTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPress:)];
+//    mTap.numberOfTapsRequired = 1;
+    [MKmapView addGestureRecognizer:mTap];
+    [MKmapView drawOverlayWithPoints:[@[locationArr] mutableCopy]];
+    [self.view addSubview:MKmapView];
     
     self.view.backgroundColor = [UIColor whiteColor];
-    SMATrackDetailView *trackview = [SMATrackDetailView initializeView];
+    trackview = [SMATrackDetailView initializeView];
     [trackview updateUIwithData:_runDic];
     [trackview tapPushBut:^(UIButton *pushBut) {
         NSLog(@"tapPush");
@@ -60,35 +72,28 @@
         runHRVC.hrArr = hrArr;
         [self.navigationController pushViewController:runHRVC animated:YES];
     }];
+    [trackview tapGesture:^(BOOL gesture) {
+        if (gesture) {
+            [UIView animateWithDuration:0.5 animations:^{
+                MKmapView.frame = CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height - 104);
+            }];
+        }
+        else{
+            [UIView animateWithDuration:0.5 animations:^{
+                 MKmapView.frame = CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height - 300);
+            }];
+        }
+
+    }];
     [self.view addSubview:trackview];
-    
+   
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return runArr.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 30;
-}
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return [NSString stringWithFormat:@"mode: 开始 32  运动中 33  结束 47"];
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"time: %@  mode: %@",[runArr[indexPath.row] objectForKey:@"TIME"],[runArr[indexPath.row] objectForKey:@"MODE"]],[runArr[indexPath.row] objectForKey:@"MODE"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ steps",[runArr[indexPath.row] objectForKey:@"STEP"]];
-    
-    return cell;
+- (void)tapPress:(UIGestureRecognizer*)gestureRecognizer {
+        [trackview tapAction:nil];
 }
 
 - (void)getFullDetailViewWithHrDic:(NSDictionary *)dictionary{
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     int runTime = [self convertToMin:[_runDic objectForKey:@"ENDTIME"]] - [self convertToMin:[_runDic objectForKey:@"STARTTIME"]];
     [_runDic setObject:[self putPaceWithStep:[[_runDic objectForKey:@"ENDSTEP"] intValue] - [[_runDic objectForKey:@"STARTSTEP"] intValue] duration:[self convertToMin:[_runDic objectForKey:@"ENDTIME"]] - [self convertToMin:[_runDic objectForKey:@"STARTTIME"]]] forKey:@"PACE"];
     [_runDic setObject:[NSString stringWithFormat:@"%@%d:%@%d:00",runTime/60 < 10 ? @"0":@"",runTime/60,runTime%60 < 10 ? @"0":@"",runTime%60] forKey:@"RUNTIME"];
@@ -101,14 +106,12 @@
     return [[[time componentsSeparatedByString:@":"] firstObject] intValue] * 60 + [[[time componentsSeparatedByString:@":"] lastObject] intValue];
 }
 
-
-
 - (NSMutableAttributedString *)putPaceWithStep:(int)step duration:(int)time{
      SMAUserInfo *user = [SMAAccountTool userInfo];
     float distance = [SMACalculate countKMWithHeigh:user.userHeight.intValue step:step];
    NSString *paceStr = nil;
      NSString *unitStr = nil;
-    if (user.unit) {
+    if (user.unit.intValue) {
         int minute = time/[SMACalculate convertToMile:distance];
         paceStr = [NSString stringWithFormat:@"%d’%@%d‘’",minute/60,minute%60 < 10 ? @"0":@"",minute%60];
         if (time == 0 || distance == 0) {
