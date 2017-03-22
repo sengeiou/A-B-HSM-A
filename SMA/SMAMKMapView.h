@@ -9,6 +9,9 @@
 #import <MapKit/MapKit.h>
 #import "SMAPolyline.h"
 #import "MKMapView+ZoomLevel.h"
+#import "PointAnnotation.h"
 @interface SMAMKMapView : MKMapView<MKMapViewDelegate>
+@property (nonatomic, strong) NSMutableArray *pointImages;
 - (void)drawOverlayWithPoints:(NSMutableArray *)points;
+- (void)addAnnotationsWithPoints:(NSMutableArray *)points;
 @end

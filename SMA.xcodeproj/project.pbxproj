@@ -313,6 +313,8 @@
 		EED2F7C61D71ADCC00527FA7 /* UINavigationController+MTKNaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EED2F7C51D71ADCC00527FA7 /* UINavigationController+MTKNaVC.m */; };
 		EED44BAD1D73D40500BF7D07 /* SMAAgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED44BAC1D73D40500BF7D07 /* SMAAgeViewController.m */; };
 		EED44BB01D73D8B900BF7D07 /* SMAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED44BAF1D73D8B900BF7D07 /* SMAPickerView.m */; };
+		EEDC88071E7F750800EAF2AA /* PointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDC88061E7F750800EAF2AA /* PointAnnotation.m */; };
+		EEE433E81E80B8140017A9E1 /* SMASportStypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE433E71E80B8140017A9E1 /* SMASportStypeView.m */; };
 		EEE4AA2E1DF81586002644CD /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA241DF81586002644CD /* WMMenuItem.m */; };
 		EEE4AA2F1DF81586002644CD /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA261DF81586002644CD /* WMMenuView.m */; };
 		EEE4AA301DF81586002644CD /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA281DF81586002644CD /* WMProgressView.m */; };
@@ -1111,6 +1113,10 @@
 		EED44BAC1D73D40500BF7D07 /* SMAAgeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAAgeViewController.m; sourceTree = "<group>"; };
 		EED44BAE1D73D8B900BF7D07 /* SMAPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SMAPickerView.h; path = ../SMAPickerView.h; sourceTree = "<group>"; };
 		EED44BAF1D73D8B900BF7D07 /* SMAPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMAPickerView.m; path = ../SMAPickerView.m; sourceTree = "<group>"; };
+		EEDC88051E7F750800EAF2AA /* PointAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointAnnotation.h; sourceTree = "<group>"; };
+		EEDC88061E7F750800EAF2AA /* PointAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PointAnnotation.m; sourceTree = "<group>"; };
+		EEE433E61E80B8140017A9E1 /* SMASportStypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMASportStypeView.h; sourceTree = "<group>"; };
+		EEE433E71E80B8140017A9E1 /* SMASportStypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMASportStypeView.m; sourceTree = "<group>"; };
 		EEE4AA231DF81586002644CD /* WMMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuItem.h; sourceTree = "<group>"; };
 		EEE4AA241DF81586002644CD /* WMMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMMenuItem.m; sourceTree = "<group>"; };
 		EEE4AA251DF81586002644CD /* WMMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMMenuView.h; sourceTree = "<group>"; };
@@ -3037,6 +3043,10 @@
 				EEEC5E951DE42D710096DAF3 /* SMATrackDetailView.m */,
 				EEA8D9BA1DF577F600DAE4BA /* SMARemindView.h */,
 				EEA8D9BB1DF577F600DAE4BA /* SMARemindView.m */,
+				EEDC88051E7F750800EAF2AA /* PointAnnotation.h */,
+				EEDC88061E7F750800EAF2AA /* PointAnnotation.m */,
+				EEE433E61E80B8140017A9E1 /* SMASportStypeView.h */,
+				EEE433E71E80B8140017A9E1 /* SMASportStypeView.m */,
 			);
 			name = UIView;
 			sourceTree = "<group>";
@@ -3278,6 +3288,7 @@
 				EE57A7281E0B5FE00007BCC8 /* QNResolver.m in Sources */,
 				EE4B1C141D6469DD00825E2B /* SectionsViewController.m in Sources */,
 				EE83C1731DACF65D00A4FD88 /* SMAMeViewController.m in Sources */,
+				EEDC88071E7F750800EAF2AA /* PointAnnotation.m in Sources */,
 				EEE4AA301DF81586002644CD /* WMProgressView.m in Sources */,
 				EEE4AA3D1DF81608002644CD /* SMAWatchCollectionController.m in Sources */,
 				EE83CE3E1DD2AFB20031CF58 /* SDImageCache.m in Sources */,
@@ -3431,6 +3442,7 @@
 				EEB643831DEC05C600544FFE /* SMALocatiuonManager.m in Sources */,
 				EE57A72D1E0B5FE00007BCC8 /* QNIP.m in Sources */,
 				EE4B1C231D6476C500825E2B /* SmaColor.m in Sources */,
+				EEE433E81E80B8140017A9E1 /* SMASportStypeView.m in Sources */,
 				EE57A7371E0B5FE00007BCC8 /* QNUpToken.m in Sources */,
 				EE57A7141E0B5FE00007BCC8 /* GCDAsyncSocket.m in Sources */,
 				EE83CE481DD2AFB20031CF58 /* UIImage+WebP.m in Sources */,

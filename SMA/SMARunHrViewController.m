@@ -26,10 +26,47 @@
 }
 
 -(void)createUI{
-    UITableView *tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 320, 568 - 64) style:UITableViewStyleGrouped];
-    tab.delegate = self;
-    tab.dataSource = self;
-    [self.view addSubview:tab];
+//    UITableView *tab = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, 320, 568 - 64) style:UITableViewStyleGrouped];
+//    tab.delegate = self;
+//    tab.dataSource = self;
+//    [self.view addSubview:tab];
+    
+//    ScattView *scatView = [[ScattView alloc] initWithFrame:CGRectMake(10, 70, 300, 400)];
+//    scatView.backgroundColor = [UIColor greenColor];
+////    scatView.delegate = self;
+//    scatView.HRdataArr = [NSMutableArray array];
+//    scatView.YgiveLsat = YES;//隐藏Y轴数据最后一位
+//    scatView.DrawMode = CPTGraphScatterPlot;
+//    scatView.lineColors = @[[CPTColor whiteColor]];
+//    scatView.poinColors = [CPTColor whiteColor];
+//    scatView.identifiers = @[@""];  //随便定义
+//    sca`tView.showLegend = NO;
+//    scatView.xCoordinateDecimal = -1;
+//    scatView.hideYAxisLabels = NO;
+//    scatView.barOffset = 1.0;
+////    scatView.showBarGoap = _showBarGoap;
+////    scatView.barIntermeNumber = _barIntermeNumber;
+//    scatView.allowsUserInteraction = YES;
+//    scatView.hideYAxisLabels = YES;
+//    scatView.plotAreaFramePaddingLeft = 0;
+////    scatView.xRangeLength = _xRangeLength;
+////    scatView.selectColor = self.selectColor;
+//    scatView.ylabelLocation = 30;
+//    scatView.yAxisTexts = @[@"60",@"80",@"90",@"114",@"140",@"168"];
+//    scatView.xMajorIntervalLength = @"1";
+//    scatView.yValues = @[@[@"",@"92",@"85",@"124",@"76",@"143",@"86",@"101",@"88",@"86",@"109",@"89"]];
+//    scatView.xAxisTexts = @[@"92",@"85",@"124",@"76",@"143",@"86",@"101",@"88",@"86",@"109",@"89"];
+//    [self.view addSubview:scatView];
+//    [scatView initGraph];
+    
+    SMASportStypeView *stypeView = [[SMASportStypeView alloc] initWithFrame:CGRectMake(10, 70, 300, 400)];
+    stypeView.colors = @[[SmaColor colorWithHexString:@"#ed7220" alpha:1],[SmaColor colorWithHexString:@"#ffb017" alpha:1],[SmaColor colorWithHexString:@"#36cd27" alpha:1],[SmaColor colorWithHexString:@"#16dbb4" alpha:1],[SmaColor colorWithHexString:@"#2e81ed" alpha:1]];
+    stypeView.leftTits = @[@"168",@"140",@"114",@"90",@"80",@"60"];
+    stypeView.YleftTits = @[SMALocalizedString(@"剧烈运动"),SMALocalizedString(@"无氧运动"),SMALocalizedString(@"有氧运动"),SMALocalizedString(@"燃烧脂肪"),SMALocalizedString(@"热身阶段")];
+    stypeView.rightTits = @[@"100%",@"90%",@"80%",@"70%",@"60%",@"50%"];
+    stypeView.XbottomTits = @[SMALocalizedString(@"开始时间"),SMALocalizedString(@"结束时间")];
+    stypeView.hrDatas = _hrArr;
+    [self.view addSubview:stypeView];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{

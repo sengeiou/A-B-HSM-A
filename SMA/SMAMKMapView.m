@@ -11,6 +11,8 @@
 
 @interface SMAMKMapView ()
 @property (nonatomic, strong) NSMutableArray *polyliones;
+@property (nonatomic, strong) NSMutableArray *mapAnnotations;
+@property (nonatomic, assign) int imageIndex;
 @end
 
 @implementation SMAMKMapView
@@ -33,18 +35,20 @@
 
 - (void)commonInit{
     _polyliones = [NSMutableArray array];
-    self.region=MKCoordinateRegionMake(CLLocationCoordinate2DMake(22.574192, 113.856248), MKCoordinateSpanMake(1, 1));
+    _mapAnnotations = [NSMutableArray array];
     self.rotateEnabled = NO;
     self.delegate = self;
-    MKCoordinateRegion MKCoordinateRegionForMapRect(MKMapRect rect);
-//    self.region
-    
-  
+//    MKCoordinateRegion MKCoordinateRegionForMapRect(MKMapRect rect);
 }
 
 - (void)removeOverlayView{
     [self removeOverlays:_polyliones];
     [_polyliones removeAllObjects];
+}
+
+- (void)removeAnnotionsView{
+    [self removeAnnotations:_mapAnnotations];
+     [_mapAnnotations removeAllObjects];
 }
 
 //绘制轨迹
@@ -79,14 +83,19 @@
 }
 
 - (void)addAnnotationsWithPoints:(NSMutableArray *)points{
+    _imageIndex = 0;
     for (int i = 0; i < points.count; i ++) {
-//        MKPointAnnotation
-//        mk *annation=[[MKAnnotationView alloc]init];
-//        
-//        [annation setCoordinate:CLLocationCoordinate2DMake(30.23423,104.345354)];
-//        
-//        [_mapViewaddAnnotation:annation];
+//        PointAnnotation *annation=[[PointAnnotation alloc]init];
+//        [_mapAnnotations addObject:annation];
+            NSDictionary *locationDic = points[i];
+            MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+            CLLocationCoordinate2D code;
+            code.latitude = [locationDic[@"LATITUDE"] doubleValue];
+            code.longitude = [locationDic[@"LONGITUDE"] doubleValue];
+            point.coordinate = code;
+            [_mapAnnotations addObject:point];
     }
+    [self addAnnotations:_mapAnnotations];
 }
 
 //配置地图轨迹所有的点，计算地图显示轨迹区域
@@ -119,10 +128,9 @@
 }
 
 - (float)getZoomLevel:(MKMapView*)_mapView {
-    
     return 21 - round(log2(_mapView.region.span.longitudeDelta * MERCATOR_RADIUS * M_PI / (180.0 * _mapView.bounds.size.width)));
-    
 }
+
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id <MKOverlay>)overlay{
     if([overlay isKindOfClass:[SMAPolyline class]]){
@@ -135,5 +143,34 @@
     return nil;
 }
 
+- (nullable MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation{
+    static NSString *ID = @"anno";
+    // 如果返回nil，系统会按照默认方式显示，如果自定义，是无法直接显示的，并且点击大头针之后不会显示标题，需要自己手动设置显示
+    // 如果想要直接显示，应该调用MKPinAnnotationView
+    MKAnnotationView *annoView = [mapView dequeueReusableAnnotationViewWithIdentifier:ID];
+    
+    if (annoView == nil) {
+        annoView = [[MKAnnotationView alloc] initWithAnnotation:nil reuseIdentifier:ID];
+        // 大头针属性
+        //annoView.animatesDrop = YES; // MKPinAnnotaionView才有效，设置大头针坠落的动画
+         annoView.centerOffset = CGPointMake(0, -10); // 设置大头针的偏移
+        // 设置大头针气泡的左右视图、可以为任意UIView
+//        annoView.leftCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeContactAdd];
+//        annoView.rightCalloutAccessoryView = [[UISwitch alloc] init];
+        //[annoView setPinColor:MKPinAnnotationColorPurple]; // MKPinAnnotaionView才有效，设置大头针的颜色
+    }
+    
+    // 设置大头针的图片
+    annoView.image = [_pointImages objectAtIndex:_imageIndex];
+    annoView.canShowCallout = YES; // 设置点击大头针是否显示气泡
+    NSLog(@"fwgegr==%@", annoView.image);
+    annoView.annotation = annotation;
+    _imageIndex ++;
+    if (_imageIndex == _pointImages.count) {
+        _imageIndex = 0;
+    }
 
+    
+    return annoView;
+}
 @end

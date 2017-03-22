@@ -159,15 +159,15 @@
 
 - (NSMutableAttributedString *)putSpeedPerHourWithStep:(int)step duration:(int)time{
     SMAUserInfo *user = [SMAAccountTool userInfo];
-    float distance = [SMACalculate countKMWithHeigh:user.userHeight.intValue step:step];
+    NSString *distance = [SMACalculate notRounding:[SMACalculate countKMWithHeigh:user.userHeight.intValue step:step] * 1000 afterPoint:0];
     NSString *perStr = nil;
     NSString *unitStr = nil;
     if (user.unit.intValue) {
-        perStr = [SMACalculate notRounding:[SMACalculate convertToMile:distance]/(time/60.0) afterPoint:2];
+        perStr = [SMACalculate notRounding:[SMACalculate convertToMile:distance.intValue/1000.0]/(time/60.0) afterPoint:2];
         unitStr = SMALocalizedString(@"device_RU_per_brUnit");
     }
     else{
-        perStr = [SMACalculate notRounding:distance/(time/60.0) afterPoint:2];
+        perStr = [SMACalculate notRounding:distance.intValue/(time/60.0)/1000.0 afterPoint:2];
         unitStr = SMALocalizedString(@"device_RU_per_meUnit");
     }
 

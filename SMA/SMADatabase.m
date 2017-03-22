@@ -32,7 +32,7 @@
             result = [db executeUpdate:@"create table if not exists tb_sleep ( id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),sleep_id varchar(30),sleep_date varchar(30),sleep_time integer,sleep_mode integer,softly_action integer,strong_action integer,sleep_ident TEXT,sleep_waer integer,sleep_web integer);"];
             
             //定位
-            result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float, runstep integer);"];
+            result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float, runstep integer,loca_mode integer);"];
 //            NSLog(@"创表 %d",result);
         }];
     }
@@ -185,7 +185,7 @@
     NSMutableArray *spArr = [NSMutableArray array];
     [self.queue inDatabase:^(FMDatabase *db) {
         
-        NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where step > 0 and date >=\'%@\' and date <=\'%@\' and sp_mode != 32 and sp_mode != 33 and sp_mode != 47 and user_id = \'%@\' group by date",date,todate,[SMAAccountTool userInfo].userID];
+        NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where date >=\'%@\' and date <=\'%@\' and sp_mode != 32 and sp_mode != 33 and sp_mode != 47 and user_id = \'%@\' group by date",date,todate,[SMAAccountTool userInfo].userID];
         FMResultSet *rs = [db executeQuery:sql];
         NSString *sportT;
         NSString *sportD;
@@ -263,7 +263,7 @@
 - (NSMutableArray *)readRunSportDetailDataWithDate:(NSString *)date{
     NSMutableArray *runArr = [NSMutableArray array];
     [self.queue inDatabase:^(FMDatabase *db) {
-        NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where step > 0 and date = \'%@\' and (sp_mode = 32 or sp_mode = 47) and user_id = \'%@\' group by time",date,[SMAAccountTool userInfo].userID];
+        NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where date = \'%@\' and (sp_mode = 32 or sp_mode = 47) and user_id = \'%@\' group by time",date,[SMAAccountTool userInfo].userID];
         FMResultSet *rs = [db executeQuery:sql];
         int starMode = 0;
         //        NSMutableArray *modeArr = [NSMutableArray array];
@@ -306,7 +306,7 @@
 - (NSMutableArray *)readRunDetailDataWithDate:(NSString *)date startTime:(int)starT endTime:(int)endT{
     NSMutableArray *runDetailArr = [NSMutableArray array];
     [self.queue inDatabase:^(FMDatabase *db) {
-        NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where step > 0 and date = \'%@\' and sp_mode != 0 and time >= %d and time <= %d and user_id = \'%@\' group by time",date,starT ,endT,[SMAAccountTool userInfo].userID];
+        NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where date = \'%@\' and sp_mode != 0 and time >= %d and time <= %d and user_id = \'%@\' group by time",date,starT ,endT,[SMAAccountTool userInfo].userID];
         FMResultSet *rs = [db executeQuery:sql];
         while (rs.next) {
             NSMutableDictionary *modeDic = [NSMutableDictionary dictionary];
@@ -912,12 +912,12 @@
         while (reSet.next) {
             hisId = [reSet stringForColumn:@"loca_id"];
         }
-        if (hisId && [hisId isEqualToString:@""]) {
-            result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?,runstep = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"]];
+        if (hisId && ![hisId isEqualToString:@""]) {
+            result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?,runstep = ?, loca_mode = ? where loca_id = ? and user_id = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],locatID,[locationDic objectForKey:@"USERID"]];
             NSLog(@"更新定位数据 %d",result);
         }
         else{
-            result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude, runstep) values (?,?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"]];
+            result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude, runstep,loca_mode) values (?,?,?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"]];
             NSLog(@"插入定位数据 %d",result);
         }
         }

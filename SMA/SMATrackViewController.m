@@ -55,12 +55,16 @@
 }
 
 - (void)createUI{
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithIcon:@"icon-xinlv" highIcon:@"icon-xinlv" frame:CGRectMake(0, 0, 45, 45) target:self action:@selector(rightButton) transfrom:0];
     
    MKmapView = [[SMAMKMapView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height - 300)];
     UITapGestureRecognizer *mTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapPress:)];
-//    mTap.numberOfTapsRequired = 1;
     [MKmapView addGestureRecognizer:mTap];
-    [MKmapView drawOverlayWithPoints:[@[locationArr] mutableCopy]];
+    MKmapView.pointImages = [@[[UIImage imageNamed:@"map_location_blue"],[UIImage imageNamed:@"map_location_red"]] mutableCopy];
+    if (locationArr.count > 0) {
+        [MKmapView drawOverlayWithPoints:[@[locationArr] mutableCopy]];
+        [MKmapView addAnnotationsWithPoints:[@[[locationArr firstObject],[locationArr lastObject]] mutableCopy]];
+    }
     [self.view addSubview:MKmapView];
     
     self.view.backgroundColor = [UIColor whiteColor];
@@ -68,9 +72,9 @@
     [trackview updateUIwithData:_runDic];
     [trackview tapPushBut:^(UIButton *pushBut) {
         NSLog(@"tapPush");
-        SMARunHrViewController *runHRVC = [[SMARunHrViewController alloc] init];
-        runHRVC.hrArr = hrArr;
-        [self.navigationController pushViewController:runHRVC animated:YES];
+//        SMARunHrViewController *runHRVC = [[SMARunHrViewController alloc] init];
+//        runHRVC.hrArr = hrArr;
+//        [self.navigationController pushViewController:runHRVC animated:YES];
     }];
     [trackview tapGesture:^(BOOL gesture) {
         if (gesture) {
@@ -87,6 +91,12 @@
     }];
     [self.view addSubview:trackview];
    
+}
+
+- (void)rightButton{
+    SMARunHrViewController *runHRVC = [[SMARunHrViewController alloc] init];
+    runHRVC.hrArr = hrArr;
+    [self.navigationController pushViewController:runHRVC animated:YES];
 }
 
 - (void)tapPress:(UIGestureRecognizer*)gestureRecognizer {
@@ -108,11 +118,12 @@
 
 - (NSMutableAttributedString *)putPaceWithStep:(int)step duration:(int)time{
      SMAUserInfo *user = [SMAAccountTool userInfo];
-    float distance = [SMACalculate countKMWithHeigh:user.userHeight.intValue step:step];
+//    float distance = [SMACalculate countKMWithHeigh:user.userHeight.intValue step:step];
+    NSString *distance = [SMACalculate notRounding:[SMACalculate countKMWithHeigh:user.userHeight.intValue step:step] * 1000 afterPoint:0];
    NSString *paceStr = nil;
      NSString *unitStr = nil;
     if (user.unit.intValue) {
-        int minute = time/[SMACalculate convertToMile:distance];
+        int minute = time/[SMACalculate convertToMile:distance.intValue/1000.0];
         paceStr = [NSString stringWithFormat:@"%d’%@%d‘’",minute/60,minute%60 < 10 ? @"0":@"",minute%60];
         if (time == 0 || distance == 0) {
             paceStr = @"0’00’’";
@@ -121,7 +132,7 @@
        
     }
     else{
-        int minute = time/distance;
+        int minute = time/(distance.intValue/1000.0);
         paceStr = [NSString stringWithFormat:@"%d’%@%d’’",minute/60,minute%60 < 10 ? @"0":@"",minute%60];
         if (time == 0 || distance == 0) {
             paceStr = @"0’00’’";

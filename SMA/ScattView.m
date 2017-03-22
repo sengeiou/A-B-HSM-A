@@ -499,7 +499,7 @@
     // yAxis
     CPTMutableTextStyle *yTextStyle = [[CPTMutableTextStyle alloc] init];
     //    yTextStyle.fontName = @"EurostileExtended-Roman-DTC";
-    yTextStyle.color = self.hiddenAxis ?[CPTColor clearColor] : [CPTColor clearColor];
+    yTextStyle.color = self.hiddenAxis ? [CPTColor clearColor] : [CPTColor whiteColor];
     yTextStyle.fontSize = screenSize.size.width > 320 ? 8 :5;
     yTextStyle.fontName = @"Gotham-Medium";
     CPTMutableLineStyle *yGridLineStyle = [CPTMutableLineStyle lineStyle];
@@ -510,9 +510,19 @@
     yGridLineStyle.lineWidth = 0.5f;
     CPTXYAxis   *yAxis=axisSet.yAxis;
     CPTMutableLineStyle *yLineStyle=[[CPTMutableLineStyle alloc] init];
-    yLineStyle.lineColor= self.hiddenAxis ?[CPTColor clearColor] : [CPTColor clearColor];
+    yLineStyle.lineColor= self.hiddenAxis ?[CPTColor clearColor] : [CPTColor whiteColor];
     yAxis.axisLineStyle=yLineStyle;
     yAxis.labelTextStyle = yTextStyle;
+    
+//    yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
+//    yAxis.axisConstraints=[CPTConstraints constraintWithLowerOffset:0.0];// 加上这两句才能显示label
+    
+//    CPTMutableLineStyle *xGridLineStyle = [CPTMutableLineStyle lineStyle];
+//    xGridLineStyle.lineColor = [CPTColor clearColor] ;//虚线颜色
+//    xGridLineStyle.lineWidth = 0.5f;
+//    yAxis.majorGridLineStyle = xGridLineStyle; // 轴线是否显示或显示风格
+//    yAxis.minorGridLineStyle = xGridLineStyle;
+    
     yAxis.majorTickLineStyle=yLineStyle; //X轴大刻度线，线型设置
     yAxis.majorGridLineStyle = yGridLineStyle;
     yAxis.majorTickLength=5;  // 刻度线的长度
@@ -527,8 +537,8 @@
     yAxis.titleTextStyle = yTextStyle;
     if (self.hideYAxisLabels) {
         yAxis.labelingPolicy = CPTAxisLabelingPolicyNone;
-        yAxis.axisConstraints = [CPTConstraints constraintWithLowerOffset:0.5];
-        yAxis.titleOffset = 35;
+        yAxis.axisConstraints = [CPTConstraints constraintWithLowerOffset:25];
+      yAxis.titleOffset = 35;
     }
     // 小刻度线minor...
     yAxis.minorTickLineStyle=nil;  //  不显示小刻度线
@@ -539,6 +549,7 @@
         NSMutableArray *labelArray=[NSMutableArray arrayWithCapacity:7];
         NSMutableArray *locationLabels = [[NSMutableArray alloc] init];
         float labelLocation=self.ylabelLocation?self.ylabelLocation:10;
+//        labelLocation = 1;
         for(NSString *label in yAxisTexts){
             CPTTextStyle *ts = yAxis.labelTextStyle;
             CPTAxisLabel *newLabel=[[CPTAxisLabel alloc] initWithText:label textStyle:ts];
@@ -546,6 +557,7 @@
             [locationLabels addObject:[NSNumber numberWithInt:labelLocation]];
             newLabel.offset=yAxis.labelOffset+yAxis.majorTickLength;
             [labelArray addObject:newLabel];
+//             [labelArray addObject:[[CPTAxisLabel alloc] initWithText:@"" textStyle:yAxis.labelTextStyle]];
             labelLocation += self.ylabelLocation?self.ylabelLocation:10;
         }
         yAxis.axisLabels=[NSSet setWithArray:labelArray];

@@ -566,14 +566,23 @@ static id _instace;
             NSLog(@"riunfjwfiow===%@",array);
             if (array.count == 1 && [[[array firstObject] objectForKey:@"MODE"] intValue] == 34) {//代表运动中数据（用于激活定位后台，区别于下拉刷新中的运动数据）
                 SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
-                loca.runStep = [[[array firstObject] objectForKey:@"STEP"] integerValue];
+                loca.runStepDic = [array firstObject];
+                loca.firstRunDic = [array firstObject];
+                loca.allowLocation = YES;
                 loca.gatherLocation = YES;
                 return;
             }
             if ([[[array firstObject] objectForKey:@"MODE"] intValue] == 32) {
                 [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
+                SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
+                loca.runStepDic = [array firstObject];
+                loca.gatherLocation = YES;
+                
             }
             else if ([[[array firstObject] objectForKey:@"MODE"] intValue] == 47){
+                SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
+                loca.runStepDic = [array firstObject];
+                loca.gatherLocation = YES;
                 [[SMALocatiuonManager sharedCoreBlueTool] stopLocation];
             }
             
