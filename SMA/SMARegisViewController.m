@@ -223,7 +223,7 @@
             [MBProgressHUD showError:SMALocalizedString(@"login_timeout")];
             NSLog(@"超时");
         }
-        else if (erro.code == -1009) {
+        else if (erro.code == -1009 || erro.code == -1005) {
             [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
         }
         

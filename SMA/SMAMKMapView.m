@@ -71,11 +71,9 @@
                 
             } else {
                 zoomRect = MKMapRectUnion(zoomRect, rect1);
-                
             }
         }
         SMAPolyline *routeLine = [SMAPolyline polylineWithCoordinates:commonPolylineCoordss count:detailPoints.count];
-       
         [_polyliones addObject:routeLine];
     }
      [self addOverlays:_polyliones];

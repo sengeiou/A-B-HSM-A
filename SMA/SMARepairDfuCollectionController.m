@@ -10,8 +10,8 @@
 
 @interface SMARepairDfuCollectionController ()
 {
-    NSArray *imageArr;
-    NSArray *nameArr;
+    NSMutableArray *imageArr;
+    NSMutableArray *nameArr;
 }
 @end
 
@@ -30,6 +30,7 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
      [self.collectionView registerNib:[UINib nibWithNibName:@"SMAReoaurDfuReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:sectionHeaderIdentifier];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self initializeMethod];
+    self.title = SMALocalizedString(@"me_repairDfu");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,8 +39,25 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
 }
 
 - (void)initializeMethod{
-    imageArr = @[[UIImage imageWithName:@"img_jiexie"],[UIImage imageWithName:@"img_launcher"],[UIImage imageWithName:@"img_07"],[UIImage imageWithName:@"img_xiaoQerdai"]];
-    nameArr = @[@"SMA-A1",@"SMA-A2",@"SM07",@"ble_app_sma10b"];
+    nameArr = [NSMutableArray array];
+    imageArr = [NSMutableArray array];
+//    imageArr = [@[[UIImage imageWithName:@"img_jiexie"],[UIImage imageWithName:@"img_launcher"],[UIImage imageWithName:@"img_07"],[UIImage imageWithName:@"img_xiaoQerdai"]] mutableCopy];
+//    nameArr = [@[@"SMA-A1",@"SMA-A2",@"SM07",@"ble_app_sma10b"] mutableCopy];
+    
+    SmaAnalysisWebServiceTool *tool = [[SmaAnalysisWebServiceTool alloc] init];
+    [tool acloudDfuFileWithFirmwareType:firmware_smaProducts callBack:^(NSArray *finish, NSError *error) {
+        for (int i = 0; i < finish.count; i++) {
+            NSDictionary *firmareDic = finish[i];
+            if ([firmareDic[@"filename"] rangeOfString:@"(1)"].location != NSNotFound) {
+//                NSDictionary *firmareDic = @{@"downloadUrl":firmareDic[@"downloadUrl"],};
+                NSMutableDictionary *objectDic = [firmareDic[@"extendAttrs"][@"objectData"] mutableCopy];
+                [objectDic setObject:firmareDic[@"downloadUrl"] forKey:@"downloadUrl"];
+                [imageArr addObject:objectDic];
+            }
+        }
+        NSLog(@"gehhth   %@",finish);
+        [self.collectionView reloadData];
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -70,13 +88,13 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SMARepairDfuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
 //  cell.backgroundColor = [UIColor redColor];
-    // Configure the cell
-   
+   // Configure the cell
     if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2) {
-         cell.topShow = YES;
+       cell.topShow = YES;
     }
-    cell.imageView.image = [imageArr objectAtIndex:indexPath.row];
-    cell.titleLab.text = [nameArr objectAtIndex:indexPath.row];
+//  cell.imageView.image = [imageArr objectAtIndex:indexPath.row];
+    cell.titleLab.text = [imageArr objectAtIndex:indexPath.row][@"product_name"];
+    cell.imageUrl = [imageArr objectAtIndex:indexPath.row][@"downloadUrl"];
     cell.bottomShow = YES;
     if (indexPath.row%3 == 0) {
         cell.rightShow = YES;
@@ -120,26 +138,31 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     SMARepairTableViewController *repairDeviceVC = [[SMARepairTableViewController alloc] init];
-    if (indexPath.row == 0) {
-        repairDeviceVC.deviceName = @"SMA-A1";
-        repairDeviceVC.bleCustom = @"SmartCare";
-        repairDeviceVC.dfuName = @"DfuTarg";
-    }
-    if (indexPath.row == 1) {
-        repairDeviceVC.deviceName = @"SMA-A2";
-        repairDeviceVC.bleCustom = @"SmartCare";
-        repairDeviceVC.dfuName = @"DfuTarg";
-    }
-    if (indexPath.row == 2) {
-    repairDeviceVC.deviceName = @"SM07";
-    repairDeviceVC.bleCustom = @"SmartCare";
-        repairDeviceVC.dfuName = @"DfuTarg";
-    }
-    else{
-        repairDeviceVC.deviceName = @"SMA-Q2";
-        repairDeviceVC.bleCustom = @"SmartCare";
-        repairDeviceVC.dfuName = @"Dfu10B10";
-    }
+    
+    repairDeviceVC.deviceName = [[imageArr objectAtIndex:indexPath.row] objectForKey:@"firmware_prefix"];
+    repairDeviceVC.bleCustom = [[imageArr objectAtIndex:indexPath.row] objectForKey:@"firmware_prefix"];
+    repairDeviceVC.dfuName = [[imageArr objectAtIndex:indexPath.row] objectForKey:@"dfu_name"];
+    
+//    if (indexPath.row == 0) {
+//        repairDeviceVC.deviceName = @"SMA-A1";
+//        repairDeviceVC.bleCustom = @"SmartCare";
+//        repairDeviceVC.dfuName = @"DfuTarg";
+//    }
+//    if (indexPath.row == 1) {
+//        repairDeviceVC.deviceName = @"SMA-A2";
+//        repairDeviceVC.bleCustom = @"SmartCare";
+//        repairDeviceVC.dfuName = @"DfuTarg";
+//    }
+//    if (indexPath.row == 2) {
+//    repairDeviceVC.deviceName = @"SM07";
+//    repairDeviceVC.bleCustom = @"SmartCare";
+//        repairDeviceVC.dfuName = @"DfuTarg";
+//    }
+//    else{
+//        repairDeviceVC.deviceName = @"SMA-Q2";
+//        repairDeviceVC.bleCustom = @"SmartCare";
+//        repairDeviceVC.dfuName = @"Dfu10B10";
+//    }
     SmaBleMgr.repairDfu = YES;
     [self.navigationController pushViewController:repairDeviceVC animated:YES];
 }

@@ -88,7 +88,7 @@
 }
 
 //计算距离
-+ (float)countKMWithHeigh:(float)hight step:(int) step{
++ (double)countKMWithHeigh:(float)hight step:(int) step{
     return 45 * hight * step /10000000;
 }
 
@@ -103,11 +103,11 @@
 }
 
 //整理07运动，保证四舍不入
-+ (NSString *)notRounding:(float)price afterPoint:(int)position{
++ (NSString *)notRounding:(double)price afterPoint:(int)position{
     NSDecimalNumberHandler* roundingBehavior = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:NSRoundDown scale:position raiseOnExactness: NO  raiseOnOverflow: NO  raiseOnUnderflow: NO  raiseOnDivideByZero: NO ];
     NSDecimalNumber *ouncesDecimal;
     NSDecimalNumber *roundedOunces;
-    ouncesDecimal = [[NSDecimalNumber alloc] initWithFloat:price];
+    ouncesDecimal = [[NSDecimalNumber alloc] initWithDouble:price];
     roundedOunces = [ouncesDecimal decimalNumberByRoundingAccordingToBehavior:roundingBehavior];
     return  [NSString stringWithFormat: @"%@" ,roundedOunces];
 }

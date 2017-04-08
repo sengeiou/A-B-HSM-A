@@ -523,6 +523,7 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
     NSMutableArray *slArr = [dal readNeedUploadSLData];
     NSMutableArray *rhArr = [dal readNeedUploadHRData];
     NSMutableArray *alArr = [dal readNeedUploadALData];
+    NSMutableArray *laArr = [dal readNeedUploadLocationData];
     ACObject *hrSetObject = [SMAWebDataHandleInfo heartRateSetObject];
     ACObject *sedentObject = [SMAWebDataHandleInfo sedentarinessSetObject];
     
@@ -546,6 +547,9 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
     }
     if (rhArr.count > 0) {
         [dataObject put:@"rate_list" value:rhArr];
+    }
+    if (laArr.count > 0) {
+        [dataObject put:@"tracker_list" value:laArr];
     }
     if (alArr.count > 0) {
         [dataObject put:@"alarm_list" value:alArr];
@@ -576,6 +580,9 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
         [SMAWebDataHandleInfo updateALData:alArr finish:^(id finish) {
             
         }];
+        [SMAWebDataHandleInfo updateLAData:laArr finish:^(id finish) {
+            
+        }];
         
     }];
 }
@@ -600,11 +607,13 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
         NSMutableArray *slArr = [(NSMutableArray *)[backObject get:@"sleep_list"] mutableCopy];
         NSMutableArray *hrArr = [(NSMutableArray *)[backObject get:@"rate_list"] mutableCopy];
         NSMutableArray *alArr = [(NSMutableArray *)[backObject get:@"alarm_list"] mutableCopy];
+        NSMutableArray *laArr = [(NSMutableArray *)[backObject get:@"tracker_list"] mutableCopy];
         ACObject *sedentObject = [backObject getACObject:@"sedentariness_settings"];
         ACObject *hrObject = [backObject getACObject:@"heart_rate_settings"];
         if (backAccount == 0) {
              callback(@"finish");
         }
+//        dispatch_queue_t queue = dispatch_queue_create("ck", DISPATCH_QUEUE_SERIAL);
         if (sedentObject) {
             saveAccount ++;
             [SMAWebDataHandleInfo saveWebSedentarinessSetObject:sedentObject];
@@ -650,6 +659,15 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
         if (alArr.count > 0) {
             [SMAWebDataHandleInfo updateALData:alArr finish:^(id finish) {
                 NSLog(@"alArr===%@",finish);
+                saveAccount ++;
+                if (saveAccount == backAccount) {
+                    callback(@"finish");
+                }
+            }];
+        }
+        if (laArr.count > 0) {
+            [SMAWebDataHandleInfo updateLAData:laArr finish:^(id finish) {
+                NSLog(@"laArr===%@",finish);
                 saveAccount ++;
                 if (saveAccount == backAccount) {
                     callback(@"finish");

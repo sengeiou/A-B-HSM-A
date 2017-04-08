@@ -62,7 +62,7 @@
     _clockView.minuteHandAlpha = 0;
     
     _timeView.starTick = 0;
-    _timeView.stopTick = 13;
+    _timeView.stopTick = 12;
     _timeView.showTick = 6;
     _timeView.alarmDelegate = self;
     _timeView.backgroundColor = [SmaColor colorWithHexString:@"#86BFFA" alpha:0.5];
@@ -70,14 +70,14 @@
     
     self.title = SMALocalizedString(@"setting_timing_title");
     _remindLab.text = SMALocalizedString(@"setting_timing_remind");
-    _timeLab.text = SMALocalizedString(@"setting_timing_hour");
-    _timeDetailLab.text = @"6";
+    _timeLab.text = SMALocalizedString(@"setting_timing_hourRemind");
+    _timeDetailLab.text = [NSString stringWithFormat:@"6 %@",SMALocalizedString(@"setting_timing_hour")];
     [_nextBut setTitle:SMALocalizedString(@"user_nextStep") forState:UIControlStateNormal];
 }
 
 - (void)scrollDidEndDecelerating:(NSString *)ruler scrollView:(UIScrollView *)scrollview{
     _clockView.hours = ruler.integerValue ;
-    _timeDetailLab.text = ruler;
+    _timeDetailLab.text = [NSString stringWithFormat:@"%@ %@",ruler,SMALocalizedString(@"setting_timing_hour")];
     [_clockView updateTimeAnimated:NO];
 }
 

@@ -143,12 +143,12 @@ static id _instace;
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray<CLLocation *> *)locations{
     NSLog(@"locationManager  %d %lu",_gatherLocation,(unsigned long)_runStepDic.count);
-    if (!_gatherLocation || !_runStepDic) {
+    if (!_gatherLocation || !_runStepDic  || !_allowLocation) {
         return;
     }
     _gatherLocation = NO;
     CLLocation * currLocation = [locations lastObject];
-    NSDictionary *locationDic = [NSDictionary dictionaryWithObjectsAndKeys:[SMAAccountTool userInfo].userID,@"USERID",[_runStepDic objectForKey:@"DATE"],@"DATE",[NSString stringWithFormat:@"%f",currLocation.coordinate.longitude],@"LONGITUDE",[NSString stringWithFormat:@"%f",currLocation.coordinate.latitude],@"LATITUDE",[_runStepDic objectForKey:@"STEP"],@"STEP",[_runStepDic objectForKey:@"MODE"],@"MODE", nil];
+    NSDictionary *locationDic = [NSDictionary dictionaryWithObjectsAndKeys:[SMAAccountTool userInfo].userID,@"USERID",[_runStepDic objectForKey:@"DATE"],@"DATE",[NSString stringWithFormat:@"%f",currLocation.coordinate.longitude],@"LONGITUDE",[NSString stringWithFormat:@"%f",currLocation.coordinate.latitude],@"LATITUDE",[_runStepDic objectForKey:@"STEP"],@"STEP",[_runStepDic objectForKey:@"MODE"],@"MODE",@"0",@"WEB", nil];
     
     NSMutableArray *locationArr = [NSMutableArray arrayWithObject:locationDic];
     [_datebase insertLocatainDataArr:locationArr finish:^(id finish) {

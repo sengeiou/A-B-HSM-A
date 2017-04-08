@@ -128,7 +128,7 @@
             [MBProgressHUD showError:SMALocalizedString(@"alert_request_timeout")];
             NSLog(@"超时");
         }
-        else if (error.code == -1009) {
+        else if (error.code == -1009 || error.code == -1005) {
             [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
         }
     }];

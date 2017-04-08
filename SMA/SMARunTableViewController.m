@@ -37,6 +37,9 @@
 
 - (void)initializeMethod{
     NSMutableArray *runArr = [self.dal readRunSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate];
+//    [self.dal deleteLocationFromTime:@"20170324164043" finish:^(id finish) {
+    
+//    }];
     runDetailArr = [self getRunFullWithData:runArr];
 }
 
@@ -100,9 +103,9 @@
         NSMutableArray *mutable = [self.dal readRunHearReatDataWithDate:[modeDic objectForKey:@"DATE"] startTime:[[modeDic objectForKey:@"STARTTIME"] intValue] endTime:[[modeDic objectForKey:@"ENDTIME"] intValue] detail:NO];
         [modeDic setObject:[self putDistanceWithStep:[[modeDic objectForKey:@"ENDSTEP"] intValue] - [[modeDic objectForKey:@"STARTSTEP"] intValue]] forKey:@"DISTANCE"];
         [modeDic setObject:[self putCalWithStep:[[modeDic objectForKey:@"ENDSTEP"] intValue] - [[modeDic objectForKey:@"STARTSTEP"] intValue]] forKey:@"CAL"];
-        [modeDic setObject:[self putSpeedPerHourWithStep:[[modeDic objectForKey:@"ENDSTEP"] intValue] - [[modeDic objectForKey:@"STARTSTEP"] intValue] duration:[[modeDic objectForKey:@"ENDTIME"] intValue] - [[modeDic objectForKey:@"STARTTIME"] intValue]] forKey:@"PER"];
-        [modeDic setObject:[self putTimeWithMinute:[[modeDic objectForKey:@"STARTTIME"] intValue]] forKey:@"STARTTIME"];
-        [modeDic setObject:[self putTimeWithMinute:[[modeDic objectForKey:@"ENDTIME"] intValue]] forKey:@"ENDTIME"];
+        [modeDic setObject:[self putSpeedPerHourWithStep:[[modeDic objectForKey:@"ENDSTEP"] intValue] - [[modeDic objectForKey:@"STARTSTEP"] intValue] duration:[[modeDic objectForKey:@"PRECISEEND"] doubleValue] - [[modeDic objectForKey:@"PRECISESTART"] doubleValue]] forKey:@"PER"];
+        [modeDic setObject:[self putTimeWithMinute:[[modeDic objectForKey:@"PRECISESTART"] doubleValue]] forKey:@"STARTTIME"];
+        [modeDic setObject:[self putTimeWithMinute:[[modeDic objectForKey:@"PRECISEEND"] doubleValue]] forKey:@"ENDTIME"];
         [modeDic setObject:[self putHrWithReat:[[mutable firstObject] objectForKey:@"REAT"]] forKey:@"REAT"];
          [detailArr addObject:modeDic];
         NSLog(@"fwgegtrhth=j===%@",mutable);
@@ -110,10 +113,11 @@
     return detailArr;
 }
 
-- (NSString *)putTimeWithMinute:(int)minute{
-    NSString *hour = [NSString stringWithFormat:@"%@%d",minute/60 < 10 ? @"0":@"",minute/60];
-    NSString *min = [NSString stringWithFormat:@"%@%d",minute%60 < 10 ? @"0":@"",minute%60];
-    return [NSString stringWithFormat:@"%@:%@",hour,min];
+- (NSString *)putTimeWithMinute:(double)millisecond{
+//    NSString *hour = [NSString stringWithFormat:@"%@%.0f",minute/3600 < 10 ? @"0":@"",minute/3600];
+//    NSString *min = [NSString stringWithFormat:@"%@%d",minute%60 < 10 ? @"0":@"",minute%60];
+    NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:millisecond withFormatStr:@"HH:mm:ss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    return date;
 }
 
 - (NSMutableAttributedString *)putDistanceWithStep:(int)step{
@@ -157,17 +161,21 @@
     return disAttStr;
 }
 
-- (NSMutableAttributedString *)putSpeedPerHourWithStep:(int)step duration:(int)time{
+- (NSMutableAttributedString *)putSpeedPerHourWithStep:(int)step duration:(double)time{
+    time = time/1000.0/60.0;
     SMAUserInfo *user = [SMAAccountTool userInfo];
     NSString *distance = [SMACalculate notRounding:[SMACalculate countKMWithHeigh:user.userHeight.intValue step:step] * 1000 afterPoint:0];
     NSString *perStr = nil;
     NSString *unitStr = nil;
     if (user.unit.intValue) {
-        perStr = [SMACalculate notRounding:[SMACalculate convertToMile:distance.intValue/1000.0]/(time/60.0) afterPoint:2];
+        float speed = (distance.floatValue * 60)/((int)time * 1000);
+        perStr = [SMACalculate notRounding:((double)round(speed *1000.0)/1000) afterPoint:2];
         unitStr = SMALocalizedString(@"device_RU_per_brUnit");
     }
     else{
-        perStr = [SMACalculate notRounding:distance.intValue/(time/60.0)/1000.0 afterPoint:2];
+        NSLog(@"fwghh===%d",(int)time);
+        float speed = (distance.floatValue * 60)/((int)time * 1000);
+        perStr = [SMACalculate notRounding:((double)(round(speed*1000.0)/1000)) afterPoint:2];
         unitStr = SMALocalizedString(@"device_RU_per_meUnit");
     }
 

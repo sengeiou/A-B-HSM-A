@@ -20,7 +20,7 @@
 //删除闹钟
 - (void)deleteClockInfo:(NSString *)clockId callback:(void (^)(BOOL result))callBack;
 //删除所有闹钟
-- (void)deleteAllClockCallback:(void (^)(BOOL result))callBack;
+- (void)deleteAllClockWithAccount:(NSString *)account Callback:(void (^)(BOOL result))callBack;
 //获取所需要上传闹钟数据
 - (NSMutableArray *)readNeedUploadALData;
 //插入运动数据
@@ -73,5 +73,9 @@
 - (void)insertLocatainDataArr:(NSMutableArray *)locationArr finish:(void (^)(id finish)) success;
 //读取轨迹数据
 - (NSMutableArray *)readLocationDataWithDate:(NSString *)date toDate:(NSString *)todate;
+//删除指定轨迹数据
+- (void)deleteLocationFromTime:(NSString *)time finish:(void (^)(id finish)) success;
+//获取所需要上传轨迹数据
+- (NSMutableArray *)readNeedUploadLocationData;
 @end
 

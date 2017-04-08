@@ -10,6 +10,7 @@
 #import "BEMAnalogClockView.h"
 #import "SMAAlarmRulerView.h"
 #import "SMATimingSecondController.h"
+#import "SMATimingViewController.h"
 @interface SMATimingMinViewController : UIViewController<BEMAnalogClockDelegate,smaAlarmRulerScrollDelegate>
 @property (nonatomic, weak) IBOutlet BEMAnalogClockView *clockView;
 @property (nonatomic, weak) IBOutlet SMAAlarmRulerView *timeView;

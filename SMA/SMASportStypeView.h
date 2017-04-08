@@ -10,9 +10,9 @@
 
 @interface SMASportStypeView : UIView
 @property (nonatomic, strong) NSArray *colors;
-@property (nonatomic, strong) NSArray *leftTits;//左则标注
+@property (nonatomic, strong) NSMutableArray *leftTits;//左则标注
 @property (nonatomic, strong) NSArray *YleftTits;//左则坐标标注
-@property (nonatomic, strong) NSArray *rightTits;//左则标注
+@property (nonatomic, strong) NSMutableArray *rightTits;//左则标注
 @property (nonatomic, strong) NSArray *XbottomTits;//底部坐标标注
 @property (nonatomic, strong) NSMutableArray *hrDatas;//心率数据
 @property (strong, nonatomic) NSDictionary *textStyleDict;

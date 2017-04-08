@@ -17,6 +17,7 @@
     [super viewDidLoad];
     SmaBleMgr.repairDfu = YES;
     [self initializeMethod];
+    self.title = SMALocalizedString(@"me_repairDevice");
 }
 
 - (void)didReceiveMemoryWarning {
@@ -69,7 +70,7 @@
     
     return cell;
 }
-//
+
 //- (void)chectFirmwareVewsionWithWeb{
 //    SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
 //    [webSer acloudDfuFileWithFirmwareType:firmware_smav2 callBack:^(NSArray *finish, NSError *error) {

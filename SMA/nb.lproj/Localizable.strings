@@ -90,6 +90,15 @@
 "device_RU_per_brUnit"="mile / t";
 "device_RU_pace_meUnit"="min / km";
 "device_RU_pace_brUnit"="min / mil";
+"device_RU_traTit" = "运动轨迹";
+"device_RU_stype" = "运动状态";
+"device_RU_severe" = "剧烈运动";
+"device_RU_anaerobic" = "无氧运动";
+"device_RU_aerobic" = "有氧运动";
+"device_RU_burning" = "燃烧脂肪";
+"device_RU_Warmup" = "热身阶段";
+"device_RU_max" = "最大心率";
+"device_RU_min" = "最小心率";
 "device_HR_typeF"="Normal";
 "device_HR_typeS"="Lav";
 "device_HR_typeT"="Høy";
@@ -260,6 +269,10 @@
 "setting_dfu_fail"="oppgradering mislyktes";
 "setting_timing_title"="";
 "setting_timing_remind"="";
+"setting_timing_hourRemind" = "请将数字没到您手表时针的当前位置";
+"setting_timing_minRemind" = "请将数字没到您手表分针的当前位置";
+"setting_timing_secondRemind" = "请将数字没到您手表秒针的当前位置";
+"setting_timing_laterRemind" = "请确认下面表盘指针是否与您手表指针当前位置相同";
 "setting_timing_hour"="";
 "setting_timing_minute"="";
 "setting_timing_confirm"="";

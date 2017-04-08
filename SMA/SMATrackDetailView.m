@@ -143,7 +143,7 @@
     UILabel *calTitLab = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(calIma.frame) + 8, CGRectGetMaxY(calLab.frame) , CGRectGetWidth(calView.frame) - CGRectGetMaxX(calIma.frame) - 16, 26)];
     calTitLab.textAlignment = NSTextAlignmentCenter;
     calTitLab.font = FontGothamLight(14);
-    calTitLab.text = SMALocalizedString(@"device_SP_calorie");
+    calTitLab.text = SMALocalizedString(@"device_SP_cal");
     calTitLab.textColor = [SmaColor colorWithHexString:@"#596877" alpha:1];
     [calView addSubview:calIma];
     [calView addSubview:calLab];

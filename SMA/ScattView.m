@@ -499,7 +499,7 @@
     // yAxis
     CPTMutableTextStyle *yTextStyle = [[CPTMutableTextStyle alloc] init];
     //    yTextStyle.fontName = @"EurostileExtended-Roman-DTC";
-    yTextStyle.color = self.hiddenAxis ? [CPTColor clearColor] : [CPTColor whiteColor];
+    yTextStyle.color = self.hiddenAxis ? [CPTColor clearColor] : [CPTColor clearColor];
     yTextStyle.fontSize = screenSize.size.width > 320 ? 8 :5;
     yTextStyle.fontName = @"Gotham-Medium";
     CPTMutableLineStyle *yGridLineStyle = [CPTMutableLineStyle lineStyle];
@@ -510,7 +510,7 @@
     yGridLineStyle.lineWidth = 0.5f;
     CPTXYAxis   *yAxis=axisSet.yAxis;
     CPTMutableLineStyle *yLineStyle=[[CPTMutableLineStyle alloc] init];
-    yLineStyle.lineColor= self.hiddenAxis ?[CPTColor clearColor] : [CPTColor whiteColor];
+    yLineStyle.lineColor= self.hiddenAxis ?[CPTColor clearColor] : [CPTColor clearColor];
     yAxis.axisLineStyle=yLineStyle;
     yAxis.labelTextStyle = yTextStyle;
     

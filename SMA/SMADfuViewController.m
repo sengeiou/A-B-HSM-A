@@ -115,7 +115,7 @@
                         [MBProgressHUD showError:SMALocalizedString(@"login_timeout")];
                         NSLog(@"超时");
                     }
-                    else if (error.code == -1009) {
+                    else if (error.code == -1009  || error.code == -1005) {
                         [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
                     }
                     
@@ -165,7 +165,7 @@
         }
         return;
     }
-    if (((SmaBleMgr.repairDfu ? NO : [SmaBleMgr checkBLConnectState]) && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue < webFirmwareVer.intValue) || SmaBleMgr.repairDfu) {
+    if (((SmaBleMgr.repairDfu ? NO : [SmaBleMgr checkBLConnectState]) && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue <= webFirmwareVer.intValue) || SmaBleMgr.repairDfu) {
         [SmaBleMgr reunitonPeripheral:YES];
         [updateTimer invalidate];
         updateTimer = nil;
@@ -195,7 +195,7 @@
                         [MBProgressHUD showError:SMALocalizedString(@"login_timeout")];
                         NSLog(@"超时");
                     }
-                    else if (error.code == -1009) {
+                    else if (error.code == -1009  || error.code == -1005) {
                         [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
                     }
                     
@@ -268,13 +268,13 @@
                 [MBProgressHUD showError:SMALocalizedString(@"login_timeout")];
                 NSLog(@"超时");
             }
-            else if (error.code == -1009) {
+            else if (error.code == -1009 || error.code == -1005) {
                 [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
             }
         }
         for (int i = 0; i < finish.count; i ++) {
             NSString *filename = [[finish objectAtIndex:i] objectForKey:@"filename"];
-            NSString *filneNameNow = [NSString stringWithFormat:@"%@_%@_firmware_%@",self.repairDeviceName,self.repairBleCustom,[[filename componentsSeparatedByString:@"_"] lastObject]];
+            NSString *filneNameNow = [NSString stringWithFormat:@"%@_%@",self.repairBleCustom,[[filename componentsSeparatedByString:@"_"] lastObject]];
             if ([filneNameNow isEqualToString:filename]) {
                 [self downDfuWithFile:(NSMutableDictionary *)[finish objectAtIndex:i]];
                 haveFile = YES;

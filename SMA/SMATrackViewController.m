@@ -44,17 +44,19 @@
     NSDictionary *dic = [self.dal readSummaryHreatReatWithDate:[_runDic objectForKey:@"DATE"]startTime:[self convertToMin:[_runDic objectForKey:@"STARTTIME"]] endTime:[self convertToMin:[self.runDic objectForKey:@"ENDTIME"]]];
     runArr = [self.dal readRunDetailDataWithDate:[_runDic objectForKey:@"DATE"] startTime:[self convertToMin:[_runDic objectForKey:@"STARTTIME"]] endTime:[self convertToMin:[self.runDic objectForKey:@"ENDTIME"]]];
     [self getFullDetailViewWithHrDic:dic];
-    NSLog(@"gg===%@",hrArr);
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyyMMddHHmmss"];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"yyyyMMdd"];
     SMADatabase *base = [[SMADatabase alloc] init];
-    locationArr = [base readLocationDataWithDate:[NSString stringWithFormat:@"%@%@%@00",[_runDic objectForKey:@"DATE"],[[[_runDic objectForKey:@"STARTTIME"] componentsSeparatedByString:@":"] firstObject],[[[_runDic objectForKey:@"STARTTIME"] componentsSeparatedByString:@":"] lastObject]] toDate:[NSString stringWithFormat:@"%@%@%@30",[_runDic objectForKey:@"DATE"],[[[_runDic objectForKey:@"ENDTIME"] componentsSeparatedByString:@":"] firstObject],[[[_runDic objectForKey:@"ENDTIME"] componentsSeparatedByString:@":"] lastObject]]];
+//    locationArr = [base readLocationDataWithDate:[self converToDtae:[[_runDic objectForKey:@"PRECISESTART"] doubleValue]]] toDate:[NSString stringWithFormat:@"%@%@%@30",[_runDic objectForKey:@"DATE"],[[[_runDic objectForKey:@"ENDTIME"] componentsSeparatedByString:@":"] firstObject],[[[_runDic objectForKey:@"ENDTIME"] componentsSeparatedByString:@":"] lastObject]]];
+    locationArr = [base readLocationDataWithDate:[self converToDtae:[[_runDic objectForKey:@"PRECISESTART"] doubleValue]] toDate:[self converToDtae:[[_runDic objectForKey:@"PRECISEEND"] doubleValue]]];
 }
 
 - (void)createUI{
+    self.title = SMALocalizedString(@"device_RU_traTit");
+    
     self.navigationItem.rightBarButtonItem = [UIBarButtonItem itemWithIcon:@"icon-xinlv" highIcon:@"icon-xinlv" frame:CGRectMake(0, 0, 45, 45) target:self action:@selector(rightButton) transfrom:0];
     
    MKmapView = [[SMAMKMapView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height - 300)];
@@ -96,6 +98,7 @@
 - (void)rightButton{
     SMARunHrViewController *runHRVC = [[SMARunHrViewController alloc] init];
     runHRVC.hrArr = hrArr;
+    runHRVC.runDic = _runDic;
     [self.navigationController pushViewController:runHRVC animated:YES];
 }
 
@@ -104,37 +107,53 @@
 }
 
 - (void)getFullDetailViewWithHrDic:(NSDictionary *)dictionary{
-    int runTime = [self convertToMin:[_runDic objectForKey:@"ENDTIME"]] - [self convertToMin:[_runDic objectForKey:@"STARTTIME"]];
-    [_runDic setObject:[self putPaceWithStep:[[_runDic objectForKey:@"ENDSTEP"] intValue] - [[_runDic objectForKey:@"STARTSTEP"] intValue] duration:[self convertToMin:[_runDic objectForKey:@"ENDTIME"]] - [self convertToMin:[_runDic objectForKey:@"STARTTIME"]]] forKey:@"PACE"];
-    [_runDic setObject:[NSString stringWithFormat:@"%@%d:%@%d:00",runTime/60 < 10 ? @"0":@"",runTime/60,runTime%60 < 10 ? @"0":@"",runTime%60] forKey:@"RUNTIME"];
+    NSString *runTime = [self convertRunToMin:[[_runDic objectForKey:@"PRECISEEND"] doubleValue] - [[_runDic objectForKey:@"PRECISESTART"] doubleValue]];
+    [_runDic setObject:[self putPaceWithStep:[[_runDic objectForKey:@"ENDSTEP"] intValue] - [[_runDic objectForKey:@"STARTSTEP"] intValue] duration:[[_runDic objectForKey:@"PRECISEEND"] doubleValue] - [[_runDic objectForKey:@"PRECISESTART"] doubleValue]]  forKey:@"PACE"];
+    [_runDic setObject:runTime forKey:@"RUNTIME"];
     [_runDic setObject:[self putHrWithReat:[NSString stringWithFormat:@"%d",[[dictionary objectForKey:@"avgHR"] intValue]]] forKey:@"AVGHR"];
     [_runDic setObject:[self putHrWithReat:[dictionary objectForKey:@"maxHR"]] forKey:@"MAXHR"];
+    [_runDic setObject:[self putHrWithReat:[dictionary objectForKey:@"minHR"]] forKey:@"MINHR"];
     
 }
 
 - (int)convertToMin:(NSString *)time{
-    return [[[time componentsSeparatedByString:@":"] firstObject] intValue] * 60 + [[[time componentsSeparatedByString:@":"] lastObject] intValue];
+    NSLog(@"===%@   %d",[time componentsSeparatedByString:@":"],[[[time componentsSeparatedByString:@":"] objectAtIndex:0] intValue] * 60 + [[[time componentsSeparatedByString:@":"] objectAtIndex:1] intValue]);
+    return [[[time componentsSeparatedByString:@":"] objectAtIndex:0] intValue] * 60 + [[[time componentsSeparatedByString:@":"] objectAtIndex:1] intValue];
 }
 
-- (NSMutableAttributedString *)putPaceWithStep:(int)step duration:(int)time{
+- (NSString *)convertRunToMin:(double)time{
+    time = time/1000;
+    int hour = ((int)time)/3600;
+    int minute = ((int)time - hour * 3600)/60;
+    int seconds = ((int)time - hour * 3600)%60;
+    return [NSString stringWithFormat:@"%@%@:%@%@:%@%@",hour > 9 ? @"":@"0",[NSString stringWithFormat:@"%d",hour], minute > 9 ? @"":@"0",[NSString stringWithFormat:@"%d",minute],seconds > 9 ? @"":@"0",[NSString stringWithFormat:@"%d",seconds]];
+}
+
+- (NSString *)converToDtae:(double)millisecond{
+    NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:millisecond timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    return date;
+}
+
+- (NSMutableAttributedString *)putPaceWithStep:(int)step duration:(double)time{
+    time = time/1000.0/60.0;
      SMAUserInfo *user = [SMAAccountTool userInfo];
 //    float distance = [SMACalculate countKMWithHeigh:user.userHeight.intValue step:step];
     NSString *distance = [SMACalculate notRounding:[SMACalculate countKMWithHeigh:user.userHeight.intValue step:step] * 1000 afterPoint:0];
    NSString *paceStr = nil;
      NSString *unitStr = nil;
     if (user.unit.intValue) {
-        int minute = time/[SMACalculate convertToMile:distance.intValue/1000.0];
+        int minute = ((int)time)/[SMACalculate convertToMile:distance.intValue/1000.0];
         paceStr = [NSString stringWithFormat:@"%d’%@%d‘’",minute/60,minute%60 < 10 ? @"0":@"",minute%60];
-        if (time == 0 || distance == 0) {
+        if (time == 0 || distance.intValue == 0) {
             paceStr = @"0’00’’";
         }
        unitStr = SMALocalizedString(@"device_RU_pace_brUnit");
        
     }
     else{
-        int minute = time/(distance.intValue/1000.0);
+        int minute = (int)time/(distance.intValue/1000.0);
         paceStr = [NSString stringWithFormat:@"%d’%@%d’’",minute/60,minute%60 < 10 ? @"0":@"",minute%60];
-        if (time == 0 || distance == 0) {
+        if (time == 0 || distance.intValue == 0) {
             paceStr = @"0’00’’";
         }
         unitStr = SMALocalizedString(@"device_RU_pace_meUnit");

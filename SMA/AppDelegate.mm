@@ -99,10 +99,45 @@
     [SMADefaultinfos putKey:UPDATEDATE andValue:[NSDate date].yyyyMMddNoLineWithDate];
     //         真机测试时保存日志
     if ([[[UIDevice currentDevice] model] rangeOfString:@"simulator"].location) {
-//     [self redirectNSLogToDocumentFolder];
+       [self redirectNSLogToDocumentFolder];
     }
     [self startLocation];
+//    [self GCDDemo1];
+//    [self GCDDemo2];
+    
     return YES;
+}
+
+- (void)GCDDemo1{
+    // 创建串行队列
+    // 参数1 : 队列的标示符
+    // 参数2 : 队列的属性,决定了队列是串行的还是并行的 SERIAL : 串行
+    dispatch_queue_t queue = dispatch_queue_create("ck", DISPATCH_QUEUE_SERIAL);
+    for (int i = 0; i < 10; i++) {
+        // 创建任务
+        void (^task)() = ^{
+            NSLog(@"%d %@",i, [NSThread currentThread]);
+        };
+        // 将任务添加到队列
+        dispatch_async(queue, task);
+    }
+}
+
+#pragma mark - 串行队列+同步任务
+// 不开线程,因为任务是同步的,只在当前线程执行
+// 有序,因为队列是串行的.还因为任务是同步的
+- (void)GCDDemo2{
+    // 创建串行队列
+    dispatch_queue_t queue = dispatch_queue_create("ck", DISPATCH_QUEUE_SERIAL);
+    // 循环创建10个同步任务,将10个同步任务添加到串行队列中
+    for (int i = 0; i < 10; i++) {
+        // 创建任务
+        void (^task)() = ^{
+            NSLog(@"%d %@",i,[NSThread currentThread]);
+        };
+        // 将同步任务添加到串行队列
+        dispatch_sync(queue, task);
+    }
 }
 
 - (void)redirectNSLogToDocumentFolder{

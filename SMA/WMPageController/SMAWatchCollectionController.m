@@ -34,6 +34,7 @@ static NSString * const reuseIdentifier = @"Cell";
 }
 
 - (void)initializeMethod{
+    watchFaces = [NSMutableArray array];
      SmaBleMgr.BLdelegate = self;
      [SmaBleSend getSwitchNumber];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
@@ -41,7 +42,7 @@ static NSString * const reuseIdentifier = @"Cell";
         [tool acloudDownLoadWatchInfos:_watchBucket offset:0 callBack:^(NSArray *finish, NSError *error) {
             watchFaces = [(NSArray*)finish mutableCopy];
             [self.collectionView reloadData];
-        }
+          }
         ];
     });
 }

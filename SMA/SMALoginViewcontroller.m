@@ -136,7 +136,6 @@
     [self.view endEditing:YES];
     [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
     SmaAnalysisWebServiceTool *webServict = [[SmaAnalysisWebServiceTool alloc] init];
-    
     //    if ([_accountField.text rangeOfString:@"@"].location) {
     //        userAccount = _accountField.text;
     //    }
@@ -148,6 +147,17 @@
         [webServict acloudDownLHeadUrlWithAccount:userAccount Success:^(id result) {
             
         } failure:^(NSError *error) {
+//            [MBProgressHUD hideHUD];
+//            if ([error.userInfo objectForKey:@"errorInfo"]) {
+//                [MBProgressHUD showError:[self errorInfoWithSerialNumber:error]];
+//            }
+//            else if (error.code == -1001) {
+//                [MBProgressHUD showError:SMALocalizedString(@"alert_request_timeout")];
+//                NSLog(@"超时");
+//            }
+//            else if (error.code == -1009 || error.code == -1005) {
+//                [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
+//            }
         }];
         [webServict acloudDownLDataWithAccount:userAccount callBack:^(id finish) {
             //            dispatch_async(dispatch_get_main_queue(), ^{
@@ -231,7 +241,7 @@
             [MBProgressHUD showError:SMALocalizedString(@"alert_request_timeout")];
             NSLog(@"超时");
         }
-        else if (error.code == -1009) {
+        else if (error.code == -1009 || error.code == -1005) {
             [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
         }
     }];
@@ -413,7 +423,7 @@
                 [MBProgressHUD showError:SMALocalizedString(@"login_timeout")];
                 NSLog(@"超时");
             }
-            else if (error.code == -1009) {
+            else if (error.code == -1009 || error.code == -1005) {
                 [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
             }
         });
@@ -430,7 +440,7 @@
         [MBProgressHUD showError:SMALocalizedString(@"login_timeout")];
         NSLog(@"超时");
     }
-    else if (error.code == -1009) {
+    else if (error.code == -1009 || error.code == -1005) {
         [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
     }
     else{

@@ -397,6 +397,18 @@ static id _instace;
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     NSLog(@"连接问题 %@",error);
+    SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
+    loca.allowLocation = NO;
+    loca.gatherLocation = NO;
+    [loca stopLocation];
+    SMADatabase *db = [[SMADatabase alloc] init];
+    if (loca.firstRunDic) {
+        [db deleteLocationFromTime:[loca.firstRunDic objectForKey:@"DATE"] finish:^(id finish) {
+           
+        }];
+         loca.firstRunDic = nil;
+    }
+   
      if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]  && !SmaDfuManager.dfuMode && !_repairDfu && !_dfuUpdate) {
         [self connectBl:peripheral];
     }
@@ -537,26 +549,26 @@ static id _instace;
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
                     [dal insertHRDataArr:[self clearUpHRData:array] finish:^(id finish) {
                         //上传运动步数到排行榜
-                        SMADatabase *dal = [[SMADatabase alloc] init];
-                        NSMutableArray *spArr = [dal readSportDataWithDate:[NSDate date].yyyyMMddNoLineWithDate toDate:[NSDate date].yyyyMMddNoLineWithDate];
-                        int step = [[[spArr firstObject] objectForKey:@"STEP"] intValue];
-                        SmaAnalysisWebServiceTool *webTool = [[SmaAnalysisWebServiceTool alloc] init];
-                        NSDictionary *hisDic = [SMADefaultinfos getValueforKey:RUNKSTEP];
-                        if ([[hisDic objectForKey:@"RUNKDATE"] isEqualToString:[[spArr firstObject] objectForKey:@"DATE"]]) {
-                            if (step > [[hisDic objectForKey:@"RUNKSTEP"] intValue]){
-                                NSDictionary *runStep = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",step],@"RUNKSTEP",[NSDate date].yyyyMMddNoLineWithDate,@"RUNKDATE", nil];
-                                [SMADefaultinfos putKey:RUNKSTEP andValue:runStep];
-                                 [webTool acloudSetScore:step];
-                            }
-                        }
-                        else{
+                    }];
+                    SMADatabase *dal = [[SMADatabase alloc] init];
+                    NSMutableArray *spArr = [dal readSportDataWithDate:[NSDate date].yyyyMMddNoLineWithDate toDate:[NSDate date].yyyyMMddNoLineWithDate];
+                    int step = [[[spArr firstObject] objectForKey:@"STEP"] intValue];
+                    SmaAnalysisWebServiceTool *webTool = [[SmaAnalysisWebServiceTool alloc] init];
+                    NSDictionary *hisDic = [SMADefaultinfos getValueforKey:RUNKSTEP];
+                    if ([[hisDic objectForKey:@"RUNKDATE"] isEqualToString:[[spArr firstObject] objectForKey:@"DATE"]]) {
+                        if (step > [[hisDic objectForKey:@"RUNKSTEP"] intValue]){
                             NSDictionary *runStep = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",step],@"RUNKSTEP",[NSDate date].yyyyMMddNoLineWithDate,@"RUNKDATE", nil];
                             [SMADefaultinfos putKey:RUNKSTEP andValue:runStep];
-                             [webTool acloudSetScore:step];
+                            [webTool acloudSetScore:step];
                         }
-                        [webTool acloudSyncAllDataWithAccount:[SMAAccountTool userInfo].userID callBack:^(id finish) {
+                    }
+                    else{
+                        NSDictionary *runStep = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",step],@"RUNKSTEP",[NSDate date].yyyyMMddNoLineWithDate,@"RUNKDATE", nil];
+                        [SMADefaultinfos putKey:RUNKSTEP andValue:runStep];
+                        [webTool acloudSetScore:step];
+                    }
+                    [webTool acloudSyncAllDataWithAccount:[SMAAccountTool userInfo].userID callBack:^(id finish) {
                         
-                        }];
                     }];
                 });
             }
@@ -567,17 +579,16 @@ static id _instace;
             if (array.count == 1 && [[[array firstObject] objectForKey:@"MODE"] intValue] == 34) {//代表运动中数据（用于激活定位后台，区别于下拉刷新中的运动数据）
                 SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
                 loca.runStepDic = [array firstObject];
-                loca.firstRunDic = [array firstObject];
-                loca.allowLocation = YES;
                 loca.gatherLocation = YES;
                 return;
             }
             if ([[[array firstObject] objectForKey:@"MODE"] intValue] == 32) {
-                [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
                 SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
                 loca.runStepDic = [array firstObject];
                 loca.gatherLocation = YES;
-                
+                loca.allowLocation = YES;
+                loca.firstRunDic = [array firstObject];
+                [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
             }
             else if ([[[array firstObject] objectForKey:@"MODE"] intValue] == 47){
                 SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
@@ -750,7 +761,6 @@ static bool ishrMode;
         [hrDic setObject:@"0" forKey:@"WEB"];
         [hrDic setObject:[SMAAccountTool userInfo].userID forKey:@"USERID"];
         double nowInterval = [SMADateDaultionfos msecIntervalSince1970Withdate:[hrDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-
         [hr_arr addObject:hrDic];
         hrInterval = nowInterval;
         if (i == dataArr.count - 1) {

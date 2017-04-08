@@ -273,6 +273,10 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
     SMARunTableViewController *runVC = [[SMARunTableViewController alloc] init];
     runVC.date = dateRun;
     [self.navigationController pushViewController:runVC animated:YES];
+    
+//    SMATrackViewController *trackVC = [[SMATrackViewController alloc] init];
+//    trackVC.runDic = (NSMutableDictionary *)runDetailArr[indexPath.row];
+//    [self.navigationController pushViewController:trackVC animated:YES];
 }
 
 - (void)tapBut:(UIButton *)sender{

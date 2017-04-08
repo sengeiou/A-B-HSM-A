@@ -12,6 +12,7 @@
 {
     NSMutableArray *boundaryPoints;//纵坐标点
     NSMutableArray *bottomPoints;//横坐标点
+    float pointSize;
 }
 - (instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame: frame];
@@ -19,18 +20,18 @@
         self.backgroundColor = [UIColor whiteColor];
         boundaryPoints = [NSMutableArray array];
         bottomPoints = [NSMutableArray array];
+        pointSize = 8;
     }
     return self;
 }
 
-// An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
     
     for (int i = 0; i < _YleftTits.count; i ++) {
         //左则Y轴坐标
-        CGRect rect = CGRectMake(2, (self.frame.size.height - 25)/5 * i + 4, CGRectGetWidth(self.frame)/7.3 - 2, (self.frame.size.height - 25)/5 - 8);
+        CGRect rect = CGRectMake(2, (self.frame.size.height - 25)/5 * i + 1, CGRectGetWidth(self.frame)/7.3 , (self.frame.size.height - 25)/5 - 2);
         UILabel *yTextLab = [[UILabel alloc] initWithFrame:rect];
-        yTextLab.font = FontGothamLight(15);
+        yTextLab.font = MainScreen.size.height > 650 ? FontGothamLight(13) : FontGothamLight(12);
         yTextLab.numberOfLines = 0;
         yTextLab.text = [_YleftTits objectAtIndex:i];
         [self addSubview:yTextLab];
@@ -91,7 +92,7 @@
             textLab.frame = CGRectMake(CGRectGetWidth(self.frame) - (CGRectGetWidth(self.frame) - CGRectGetMidX(layer0.frame)) * 3.2 - 4, self.frame.size.height - 25, (CGRectGetWidth(self.frame) - CGRectGetMidX(layer0.frame)) * 3.2 - 0, 25);
             textLab.textAlignment = NSTextAlignmentRight;
         }
-        textLab.font = FontGothamLight(14);
+        textLab.font = MainScreen.size.height > 650 ? FontGothamLight(13) : FontGothamLight(12);
         textLab.text = _XbottomTits[k];
         textLab.numberOfLines = 0;
         layer0.backgroundColor = [UIColor whiteColor].CGColor;
@@ -104,18 +105,24 @@
     for (int l = 0; l < _hrDatas.count; l ++) {
         float y = [self toComparePoint:[[_hrDatas[l] objectForKey:@"REAT"] intValue]];
         float xInterval = [[bottomPoints objectAtIndex:1] floatValue] - [[bottomPoints objectAtIndex:0] floatValue];
-        float x = xInterval/(_hrDatas.count - 1) * l + [[bottomPoints firstObject] floatValue];
+        float x = xInterval/((_hrDatas.count - 1) > 0 ? (_hrDatas.count - 1):1) * l + [[bottomPoints firstObject] floatValue];
         if (l == 0) {
             [pathPath moveToPoint:CGPointMake(x, y)];
         }
         else{
             [pathPath addLineToPoint:CGPointMake(x, y)];
         }
-        NSLog(@"fw3gghfwfwghh===%@",pathPath);
+        
+        CAShapeLayer * centreOval1 = [CAShapeLayer layer];
+        centreOval1.frame       = CGRectMake(x - pointSize/2, y - pointSize/2, pointSize, pointSize);
+        centreOval1.opaque = YES;
+        centreOval1.fillColor   = [UIColor colorWithRed:1 green: 1 blue:1 alpha:1].CGColor;
+        centreOval1.strokeColor = [UIColor colorWithRed:0.937 green: 0.545 blue:0.788 alpha:0].CGColor;
+        centreOval1.path        = [self ovalPathect:centreOval1.frame].CGPath;
+        [self.layer addSublayer:centreOval1];
     }
     
     CAShapeLayer * path = [CAShapeLayer layer];
-//    path.backgroundColor = [UIColor blueColor].CGColor;
     path.frame       = self.bounds;
     path.lineCap     = kCALineCapSquare;
     path.fillColor   = nil;
@@ -126,6 +133,15 @@
 
 //判断心率在于哪个区间内
 - (float)toComparePoint:(int)point{
+    NSNumber *max = [_leftTits valueForKeyPath:@"@max.floatValue"];
+    NSNumber *min = [_leftTits valueForKeyPath:@"@min.floatValue"];
+    
+    if (point <= [min intValue]) {
+        point = [min intValue];
+    }
+    else if (point >= [max intValue]){
+        point = [max intValue] - 2;
+    }
     int interval = 0; //心率所在区间
     float hrPoor = 0.0;   //区间的心率差
     float intervalDis = 0.0; //区间的距离
@@ -144,7 +160,7 @@
     float di5 = [boundaryPoints[5] floatValue];
     if (point >= hr1 && point <= hr0) {
         interval = 0;
-        intervalDis = di1 - di0;
+        intervalDis = di1 - di0 + pointSize * 2;//用于调整圆点位置（显示于给力区域内）
         hrPoor = hr0 - hr1;
     }
     else if (point >= hr2 && point < hr1){
@@ -164,7 +180,7 @@
     }
     else if (point >= hr5 && point < hr4){
         interval = 4;
-        intervalDis = di5 - di4;
+        intervalDis = di5 - di4 - pointSize/2;//用于调整圆点位置（显示于给力区域内）
         hrPoor = hr4 - hr5;
     }
 
@@ -184,4 +200,8 @@
     return _textStyleDict;
 }
 
+- (UIBezierPath*)ovalPathect:(CGRect)rect{
+    UIBezierPath *ovalPath = [UIBezierPath bezierPathWithArcCenter:CGPointMake(rect.size.width/2, rect.size.height/2) radius:rect.size.width/2 startAngle:0 endAngle:M_PI*2 clockwise:YES];
+    return ovalPath;
+}
 @end

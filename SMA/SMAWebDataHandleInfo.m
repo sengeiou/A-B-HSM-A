@@ -138,7 +138,7 @@
 
 + (void)updateALData:(NSMutableArray *)alList finish:(void (^)(id finish)) callBack{
     SMADatabase *dal = [[SMADatabase alloc] init];
-    [dal deleteAllClockCallback:^(BOOL result) {
+    [dal deleteAllClockWithAccount:[[alList firstObject] objectForKey:@"account"] Callback:^(BOOL result) {
         
     }];
     __block int saveAccount = 0;
@@ -156,13 +156,32 @@
         info.isOpen = [NSString stringWithFormat:@"%d",[[dic objectForKey:@"isopen"] intValue]];
         info.isWeb = @"1";
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            [dal insertClockInfo:info account:[[alList objectAtIndex:i] objectForKey:@"account"] callback:^(BOOL result) {
+        [dal insertClockInfo:info account:[[alList objectAtIndex:i] objectForKey:@"account"] callback:^(BOOL result) {
                 saveAccount ++;
                 if (saveAccount == alList.count) {
                     callBack([NSString stringWithFormat:@"%d",result]);
                 }
             }];
+
         });
     }
+}
+
++ (void)updateLAData:(NSMutableArray *)alList finish:(void (^)(id finish)) callBack{
+    SMADatabase *dal = [[SMADatabase alloc] init];
+    NSMutableArray *locationArr = [NSMutableArray array];
+    for (int i = 0; i < alList.count; i ++) {
+         NSDictionary *dic = [alList objectAtIndex:i];
+        NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:[[dic objectForKey:@"time"] doubleValue] withFormatStr:@"yyyyMMddHHmmss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        NSDictionary *locationDic = [NSDictionary dictionaryWithObjectsAndKeys:[SMAAccountTool userInfo].userID,@"USERID",date,@"DATE",[NSString stringWithFormat:@"%lf",[[dic objectForKey:@"longitude"] floatValue]],@"LONGITUDE",[NSString stringWithFormat:@"%lf",[[dic objectForKey:@"latitude"] floatValue]],@"LATITUDE",[dic objectForKey:@"step"],@"STEP",@"34",@"MODE",@"1",@"WEB", nil];
+//        NSMutableArray *locationArr = [NSMutableArray arrayWithObject:locationDic];
+        [locationArr addObject:locationDic];
+
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    [dal insertLocatainDataArr:locationArr finish:^(id finish) {
+         callBack(finish);
+    }];
+ });
 }
 @end

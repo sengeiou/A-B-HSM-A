@@ -8,6 +8,30 @@
 
 #import "SMADatabase.h"
 @implementation SMADatabase
+static id _instace;
++ (id)allocWithZone:(struct _NSZone *)zone
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instace = [super allocWithZone:zone];
+    });
+    return _instace;
+}
+
++ (instancetype)sharedCoreBlueTool
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _instace = [[self alloc] init];
+    });
+    return _instace;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    return _instace;
+}
+
 - (FMDatabaseQueue *)createDataBase{
     NSString *filename = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SMAwatch.sqlite"];
     // 1.创建数据库队列
@@ -32,7 +56,7 @@
             result = [db executeUpdate:@"create table if not exists tb_sleep ( id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),sleep_id varchar(30),sleep_date varchar(30),sleep_time integer,sleep_mode integer,softly_action integer,strong_action integer,sleep_ident TEXT,sleep_waer integer,sleep_web integer);"];
             
             //定位
-            result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float, runstep integer,loca_mode integer);"];
+            result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float, runstep integer,loca_mode integer,location_web integer);"];
 //            NSLog(@"创表 %d",result);
         }];
     }
@@ -88,7 +112,7 @@
             SmaAlarmInfo *info=[[SmaAlarmInfo alloc]init];
             NSTimeInterval timeInterval = [[rs stringForColumn:@"timeInterval"] doubleValue];
             NSString *dateStr = [SMADateDaultionfos stringFormmsecIntervalSince1970:timeInterval timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-            info.aid=[rs stringForColumn:@"clock_id"];
+            info.aid = [rs stringForColumn:@"clock_id"];
             info.dayFlags=[rs stringForColumn:@"dayFlags"];
             info.minute=[dateStr substringWithRange:NSMakeRange(10, 2)];
             info.hour=[dateStr substringWithRange:NSMakeRange(8, 2)];
@@ -108,7 +132,6 @@
     [self.queue inDatabase:^(FMDatabase *db) {
         [db beginTransaction];
         NSString *updatesql=[NSString stringWithFormat:@"delete from tb_clock where clock_id=%d",[clockId intValue]];
-        
         BOOL result = [db executeUpdate:updatesql];
         NSLog(@"删除 %d",result);
         [db commit];
@@ -117,10 +140,10 @@
 }
 
 //删除所有闹钟
-- (void)deleteAllClockCallback:(void (^)(BOOL result))callBack{
+- (void)deleteAllClockWithAccount:(NSString *)account Callback:(void (^)(BOOL result))callBack{
     [self.queue inDatabase:^(FMDatabase *db) {
         [db beginTransaction];
-        BOOL result = [db executeUpdate:@"delete from tb_clock where user_id=?",[SMAAccountTool userInfo].userID];
+        BOOL result = [db executeUpdate:@"delete from tb_clock where user_id=?",account];
         NSLog(@"删除所有 %d",result);
         [db commit];
         callBack(result);
@@ -167,7 +190,7 @@
                 sportStep = [rs stringForColumn:@"time"];
             }
             if (sportStep && ![sportStep isEqualToString:@""]) {
-                result =   [db executeUpdate:@"update tb_CuffSport set Cuff_id=?, step=?, sp_mode=?, sp_web=? where date=? and time=? and user_id=?",spID,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"],YTD,moment,[spDic objectForKey:@"USERID"]];
+                result =   [db executeUpdate:@"update tb_CuffSport set Cuff_id=?, step=?, sp_mode=?, sp_web=? where sp_mode=? and date=? and time=? and user_id=?",spID,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"],[spDic objectForKey:@"MODE"],YTD,moment,[spDic objectForKey:@"USERID"]];
                 NSLog(@"步数更新  %d  步数  %@  模式  %@  时间 %@",result,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],moment);
             }
             else{
@@ -184,7 +207,7 @@
 - (NSMutableArray *)readSportDataWithDate:(NSString *)date toDate:(NSString *)todate{
     NSMutableArray *spArr = [NSMutableArray array];
     [self.queue inDatabase:^(FMDatabase *db) {
-        
+//        [db beginTransaction];
         NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where date >=\'%@\' and date <=\'%@\' and sp_mode != 32 and sp_mode != 33 and sp_mode != 47 and user_id = \'%@\' group by date",date,todate,[SMAAccountTool userInfo].userID];
         FMResultSet *rs = [db executeQuery:sql];
         NSString *sportT;
@@ -216,6 +239,7 @@
         //        if (spDetailArr.count > 0) {
         //            [spArr addObject:spDetailArr];
         //        }
+//        [db commit];
     }];
     return spArr;
 }
@@ -271,12 +295,13 @@
         while (rs.next) {
             int mode = [rs intForColumn:@"sp_mode"];
             if (mode == 32) {
-                if (starMode == 0) {
+                if (starMode == 0 || starMode == mode) {
                     starMode = mode;
                     modeDic = [NSMutableDictionary dictionary];
                     [modeDic setObject:[rs stringForColumn:@"date"] forKey:@"DATE"];
                     [modeDic setObject:[rs stringForColumn:@"time"] forKey:@"STARTTIME"];
                     [modeDic setObject:[rs stringForColumn:@"step"] forKey:@"STARTSTEP"];
+                    [modeDic setObject:[rs stringForColumn:@"Cuff_id"] forKey:@"PRECISESTART"];
                 }
             }
             else{
@@ -284,21 +309,13 @@
                 if (modeDic) { //确保有运动结束须有运动开始
                     [modeDic setObject:[rs stringForColumn:@"time"] forKey:@"ENDTIME"];
                     [modeDic setObject:[rs stringForColumn:@"step"] forKey:@"ENDSTEP"];
+                    [modeDic setObject:[rs stringForColumn:@"Cuff_id"] forKey:@"PRECISEEND"];
                     [runArr addObject:modeDic];
                     modeDic = nil;//保证若有多余结束时间以首个为准
                 }
             }
             NSLog(@"fwfgwgrg===  %@  %d %@",runArr,mode,[rs stringForColumn:@"time"]);
         }
-        //        for (int i = 0; i < modeArr.count; i ++) {
-        //            NSMutableArray *runDetailArr = [NSMutableArray array];
-        //            sql = [NSString stringWithFormat:@"selecet *from tb_CuffSport where step > 0 and date = \'%@\' and sp_mode != 0 and time >= %d and time <= %d and user_id = \'%@\' group by time",date,[[[modeArr objectAtIndex:i] objectForKey:@"STARTTIME"] intValue],[[[modeArr objectAtIndex:i] objectForKey:@"ENDTIME"] intValue],[SMAAccountTool userInfo].userID];
-        //            rs = [db executeQuery:sql];
-        //            int sumStep = 0;
-        //            while (rs.next) {
-        //
-        //            }
-        //        }
     }];
     return runArr;
 }
@@ -382,9 +399,10 @@
             
         }
         [db commit];
-        success ([NSString stringWithFormat:@"%d",result]);
+        success ( [NSString stringWithFormat:@"%d",result]);
     }];
 }
+
 
 //读取睡眠数据
 - (NSMutableArray *)readSleepDataWithDate:(NSString *)date{
@@ -666,7 +684,7 @@
             }
             
             if (HR_id && ![HR_id isEqualToString:@""]) {
-                result = [db executeUpdate:@"update tb_HRate set HR_id=?, HR_real=?,hr_mode=?,HR_web=? where HR_date =? and HR_time=? and user_id=?",hrID,[hrDic objectForKey:@"HEART"],[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"WEB"],YTD,moment,[hrDic objectForKey:@"USERID"]];
+                result = [db executeUpdate:@"update tb_HRate set HR_id=?, HR_real=?,hr_mode=?,HR_web=? where HR_date =? and HR_time=? and hr_mode=? and user_id=?",hrID,[hrDic objectForKey:@"HEART"],[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"WEB"],YTD,moment,[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"USERID"]];
                 NSLog(@"更新心率数据 %d ",result);
             }
             else{
@@ -906,6 +924,7 @@
           NSDictionary *locationDic = [locationArr objectAtIndex:i];
         
          NSString *locatID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[locationDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+            NSLog(@"定位数据时间 %@  %@",[locationDic objectForKey:@"DATE"],locatID);
 //         FMResultSet *rs = [db executeQuery:@"select * from tb_HRate where HR_date =? and HR_time=? and hr_mode=? and user_id=?",YTD,moment,[locationDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"USERID"]];
         FMResultSet *reSet = [db executeQuery:@"select * from tb_location where loca_id = ? and user_id = ?",locatID,[locationDic objectForKey:@"USERID"]];
         NSString *hisId;
@@ -913,11 +932,11 @@
             hisId = [reSet stringForColumn:@"loca_id"];
         }
         if (hisId && ![hisId isEqualToString:@""]) {
-            result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?,runstep = ?, loca_mode = ? where loca_id = ? and user_id = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],locatID,[locationDic objectForKey:@"USERID"]];
+            result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?,runstep = ?, loca_mode = ?, location_web = ? where loca_id = ? and user_id = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],[locationDic objectForKey:@"WEB"],locatID,[locationDic objectForKey:@"USERID"]];
             NSLog(@"更新定位数据 %d",result);
         }
         else{
-            result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude, runstep,loca_mode) values (?,?,?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"]];
+            result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude, runstep,loca_mode,location_web) values (?,?,?,?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],[locationDic objectForKey:@"WEB"]];
             NSLog(@"插入定位数据 %d",result);
         }
         }
@@ -950,7 +969,7 @@
             }
             if (!outOfChina) {
                 //转换后的coord
-                NSLog(@"转换后的coord");
+//                NSLog(@"转换后的coord");
                 coord = [TQLocationConverter transformFromWGSToGCJ:coord];
             }
 
@@ -960,6 +979,39 @@
     }];
     
     return locationArr;
+}
+
+- (void)deleteLocationFromTime:(NSString *)time finish:(void (^)(id finish)) success{
+    [self.queue inDatabase:^(FMDatabase *db) {
+        [db beginTransaction];
+        NSString *updatesql = [NSString stringWithFormat:@"delete from tb_location where loca_date >=%@ and user_id=\'%@\'",time,[SMAAccountTool userInfo].userID];
+        BOOL result = [db executeUpdate:updatesql];
+        NSLog(@"删除 %d %@",result , updatesql);
+        [db commit];
+        success([NSString stringWithFormat:@"%d",result]);
+    }];
+
+}
+
+//获取所需要上传轨迹数据
+- (NSMutableArray *)readNeedUploadLocationData{
+    NSMutableArray *locaArr = [NSMutableArray array];
+    [self.queue inDatabase:^(FMDatabase *db) {
+        NSString *sql = [NSString stringWithFormat:@"select *from tb_location where location_web=0 and user_id = \'%@\'",[SMAAccountTool userInfo].userID];
+        FMResultSet *rs = [db executeQuery:sql];
+        while (rs.next) {
+            NSMutableDictionary *locationDict = [NSMutableDictionary dictionary];
+            [locationDict setObject:[SMAAccountTool userInfo].userID forKey:@"account"];
+            [locationDict setObject:[rs stringForColumn:@"loca_id"] ? [NSNumber numberWithLongLong:[rs stringForColumn:@"loca_id"].longLongValue]:[NSNumber numberWithLongLong:@"".longLongValue] forKey:@"time"];
+            NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:[[rs stringForColumn:@"loca_id"] doubleValue] withFormatStr:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+            [locationDict setObject:date forKey:@"date"];
+            [locationDict setObject:[rs stringForColumn:@"latitude"] ? [NSNumber numberWithFloat:[[rs stringForColumn:@"latitude"] floatValue]]:[NSNumber numberWithFloat:@"".doubleValue] forKey:@"latitude"];
+            [locationDict setObject:[rs stringForColumn:@"longitude"] ? [NSNumber numberWithFloat:[[rs stringForColumn:@"longitude"] floatValue]]:[NSNumber numberWithFloat:@"".doubleValue] forKey:@"longitude"];
+            [locationDict setObject:[rs stringForColumn:@"runstep"] ? [NSNumber numberWithInt:[[rs stringForColumn:@"runstep"] intValue]]:[NSNumber numberWithInt:@"".intValue] forKey:@"step"];
+            [locaArr addObject:locationDict];
+        }
+    }];
+    return locaArr;
 }
 
 - (NSString *)getHourAndMin:(NSString *)time{
