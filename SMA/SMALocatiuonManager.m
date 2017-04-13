@@ -64,32 +64,13 @@ static id _instace;
 
 - (void)startLocation{
     _startSave = YES;
-    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    //    [app applicationDidEnterBackground:app.applica];
-    
-    //    NSLog(@"fwgghh====%d    %d    %d   %d",[CLLocationManager significantLocationChangeMonitoringAvailable],[CLLocationManager locationServicesEnabled],[CLLocationManager regionMonitoringAvailable],[ CLLocationManager authorizationStatus]);
-    //     [_manager startMonitoringSignificantLocationChanges];
+
     [_manager startUpdatingLocation];
-    //      NSLog(@"fwgghh333333====%d    %d    %d   %d",[CLLocationManager significantLocationChangeMonitoringAvailable],[CLLocationManager locationServicesEnabled],[CLLocationManager regionMonitoringAvailable],[ CLLocationManager authorizationStatus]);
-    //    if (_locationTimer) {
-    //        [_locationTimer invalidate];
-    //        _locationTimer = nil;
-    //    }
-    //    _locationTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(locationAction:) userInfo:nil repeats:NO];
 }
 
 - (void)stopLocation{
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    //      [app applicationDidEnterBackground:app.applica];
-    
-    //      NSLog(@"fwgghh444444====%d    %d    %d   %d",[CLLocationManager significantLocationChangeMonitoringAvailable],[CLLocationManager locationServicesEnabled],[CLLocationManager regionMonitoringAvailable],[ CLLocationManager authorizationStatus]);
-    //    [_manager stopMonitoringSignificantLocationChanges];
     [_manager stopUpdatingLocation];
-    //      NSLog(@"fwgghh5555555====%d    %d    %d   %d",[CLLocationManager significantLocationChangeMonitoringAvailable],[CLLocationManager locationServicesEnabled],[CLLocationManager regionMonitoringAvailable],[ CLLocationManager authorizationStatus]);
-    //    if (_locationTimer) {
-    //        [_locationTimer invalidate];
-    //        _locationTimer = nil;
-    //    }
     NSLog(@"FWGGHH====");
     _startSave = NO;
     

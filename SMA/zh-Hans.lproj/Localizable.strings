@@ -89,6 +89,8 @@
 "device_RU_per_brUnit" = "mile/h";
 "device_RU_pace_meUnit" = "min/km";
 "device_RU_pace_brUnit" = "min/mile";
+"device_RU_lunTime" = "运动时长";
+"device_RU_lastHR" = "最后一次心率值";
 "device_RU_traTit" = "运动轨迹";
 "device_RU_stype" = "运动状态";
 "device_RU_severe" = "剧烈运动";

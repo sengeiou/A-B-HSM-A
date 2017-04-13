@@ -55,7 +55,7 @@
     timeTitLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetMinX(timeLab.frame) - 10, 44)];
     timeTitLab.textColor = [UIColor whiteColor];
     timeTitLab.font = FontGothamLight(16);
-    timeTitLab.text = SMALocalizedString(@"运动时长");
+    timeTitLab.text = SMALocalizedString(@"device_RU_lunTime");
     
     [runTimeView addSubview:timeLab];
     [runTimeView addSubview:timeTitLab];
@@ -173,7 +173,7 @@
     UILabel *hrTitLab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, CGRectGetMinX(hrLab.frame) - 10, 44)];
     hrTitLab.textColor = [UIColor whiteColor];
     hrTitLab.font = FontGothamLight(16);
-    hrTitLab.text = SMALocalizedString(@"即时心率");
+    hrTitLab.text = SMALocalizedString(@"device_RU_lastHR");
     
     [hrTimeView addSubview:hrLab];
     [hrTimeView addSubview:hrTitLab];
