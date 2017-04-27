@@ -11,10 +11,12 @@
 #import "SMADfuView.h"
 @interface SMADfuViewController : UIViewController<BLConnectDelegate,DfuUpdateDelegate>
 @property (nonatomic, weak) IBOutlet UIButton *dfuBut;
-@property (nonatomic, weak) IBOutlet UILabel *remindLab, *nowVerTitLab, *nowVerLab, *dfuVerTitLab, *dfuVerLab, *upDfuVerTitLab, *upDfuVerLab, *dfuLab;
+@property (nonatomic, weak) IBOutlet UILabel *remindLab, *nowVerTitLab, *nowVerLab, *dfuVerTitLab, *dfuVerLab, *upDfuVerTitLab, *upDfuVerLab, *dfuLab, *fontLab, *fontVerLab;
 @property (nonatomic, weak) IBOutlet UIView *backView, *dfu, *upVerView;
 @property (nonatomic, weak) IBOutlet UITextView *repairTextView;
 @property (nonatomic, weak) IBOutlet SMADfuView *dfuView;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *fontH;
+
 @property (nonatomic, strong) NSString *dfuVersion;
 @property (nonatomic, strong) NSDictionary *dfuInfoDic;
 @property (nonatomic, strong) CBPeripheral *epairPeripheral;

@@ -28,6 +28,6 @@
 //是否开启提醒1
 @property (nonatomic,strong) NSString *isOpen1;
 //重复周
-@property (nonatomic,strong) NSString *repeatWeek;
+@property (nonatomic,strong) NSString *repeatWeek;//循环周期 @"124" (1111100 的十进制);代表周一到周六开启，周末关闭
 
 @end

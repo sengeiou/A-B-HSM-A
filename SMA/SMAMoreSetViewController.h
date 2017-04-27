@@ -10,6 +10,7 @@
 #import "SMACenterTabView.h"
 #import "SMAChangePassViewController.h"
 #import "SMARepairDfuCollectionController.h"
+#import "SMADfuViewController.h"
 @interface SMAMoreSetViewController : UITableViewController
 
 @end

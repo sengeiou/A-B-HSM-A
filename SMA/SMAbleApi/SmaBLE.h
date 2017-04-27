@@ -71,7 +71,7 @@ typedef enum {
                         STRONG：睡眠时剧动响应次数
  @param CUFFSWITCHS     反馈10系列手表表盘编号
  @param XMODEM          10系列进入XMODE模式（用于表盘切换）
- @param RUNMODE         反馈10系列运动模式下数据 MODE 32：开始 33：运动中  47：结束
+ @param RUNMODE         反馈10系列运动模式下数据 MODE 32：开始 33：运动中  47：结束 （&&&&**i-Med 定制项目 48：6m开始  49：12m开始 63：结束 **&&&&）
  */
 
 @protocol SmaCoreBlueToolDelegate <NSObject>
@@ -104,6 +104,7 @@ typedef enum {
 @property (nonatomic,strong)  CBCharacteristic*Write;//连接的设备的写特征
 @property (nonatomic, weak) id<SmaCoreBlueToolDelegate> delegate;
 @property (nonatomic, assign) BOOL isUPDateSwitch;
+@property (nonatomic, assign) BOOL isUPDateFont;
 + (instancetype)sharedCoreBlue; //创建对象
 
 /*处理设备反馈数据
@@ -240,7 +241,7 @@ typedef enum {
 - (void)setAppSportDataWithcal:(float)cal distance:(int)metre stepNnumber:(int)step;
 
 /*设置中英文(手环仅星期变化)
-  @param lanNumber  0：中文（fit coach韩文）  1：英文 2：土耳其文 3：未定义 4：俄文 5：西班牙文 
+  @param lanNumber  0：中文（fit coach韩文）  1：英文 2：土耳其文 3：未定义 4：俄文 5：西班牙文  6：意大利 7：韩文
  */
 - (void)setLanguage:(int)lanNumber;
 
@@ -323,6 +324,13 @@ typedef enum {
  */
 - (void)setCustomTimingHour:(int)hour minute:(int)min second:(int)second;
 
+/*设置用户姓名及团队设定
+ @param name 用户姓名
+ @param group 用户团队
+ @discussion i-Med 定制项目额外接口
+ */
+- (void)setNickName:(NSString *)name group:(NSString *)group;
+
 /*请求07运动数据
  @discussion 每次数据请求最多只能反馈20组数据，余下数据必须重新发送请求指令，直到获取到的数据少于20组
  */
@@ -404,9 +412,13 @@ typedef enum {
  */
 - (void)getSwitchNumber;
 
-/*进入XOMDEM模式（10-A）
+/*进入XOMDEM模式（10-A，07(指定固件)）
  */
 - (void)enterXmodem;
+
+/*结束XOMDEM模式（10-A，07(指定固件)）
+ */
+- (void)endXMODEM;
 
 /*计算路程
  @parmar height 用户身高（cm）
@@ -428,4 +440,9 @@ typedef enum {
 - (void)analySwitchs:(NSString *)name replace:(int )number;
 
 - (void)analySwitchsWithdata:(NSData *)data replace:(int)number;
+
+/*解析字库数据包
+ @parmar data 解析对应的bin文件的16进制数据
+ */
+- (void)setFontBin:(NSData *)data;
 @end

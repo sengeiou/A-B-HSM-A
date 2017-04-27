@@ -13,4 +13,5 @@
 @property (nonatomic, strong) NSString *bleCustom;
 @property (nonatomic, strong) NSString *deviceName;
 @property (nonatomic, strong) NSString *dfuName;
+@property (nonatomic, assign) BOOL repairFont;
 @end

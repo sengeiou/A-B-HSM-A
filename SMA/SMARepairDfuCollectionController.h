@@ -11,5 +11,5 @@
 #import "SMAReoaurDfuReusableView.h"
 #import "SMARepairTableViewController.h"
 @interface SMARepairDfuCollectionController : UICollectionViewController<UICollectionViewDelegateFlowLayout>
-
+@property (nonatomic, assign) BOOL repairFont;
 @end

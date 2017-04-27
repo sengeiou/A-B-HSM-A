@@ -27,6 +27,7 @@
 #define DEVICEMAC @"DEVICEMAC"//mac地址
 #define RUNKSTEP @"RUNKSTEP"//排行榜信息
 #define SMACUSTOM @"SMACUSTOM" //定制项目标志
+#define REPAIRUUID @"REPAIRUUID" //固件修复前连接设备UUID
 @interface SMADefaultinfos : NSObject
 +(void)putKey:(NSString *)key andValue:(NSObject *)value;
 +(void)putInt:(NSString *)key andValue:(int)value;

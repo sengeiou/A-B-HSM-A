@@ -35,8 +35,6 @@ static NSString * const reuseIdentifier = @"Cell";
 
 - (void)initializeMethod{
     watchFaces = [NSMutableArray array];
-     SmaBleMgr.BLdelegate = self;
-     [SmaBleSend getSwitchNumber];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         SmaAnalysisWebServiceTool *tool = [[SmaAnalysisWebServiceTool alloc] init];
         [tool acloudDownLoadWatchInfos:_watchBucket offset:0 callBack:^(NSArray *finish, NSError *error) {
@@ -45,6 +43,12 @@ static NSString * const reuseIdentifier = @"Cell";
           }
         ];
     });
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [oldFaces removeAllObjects];
+    SmaBleMgr.BLdelegate = self;
+    [SmaBleSend getSwitchNumber];
 }
 
 - (void)createUI{
@@ -150,7 +154,6 @@ static NSString * const reuseIdentifier = @"Cell";
             [SmaBleSend getSwitchNumber];
             return;
         }
-
         SMAWatchView *watch = [[SMAWatchView alloc] initWithWatchInfos:cell.watchDic watchImage:cell.switchView.image];
         watch.olSwitchArr = oldFaces;
         [watch didButSelect:^(NSMutableArray *switchArr) {

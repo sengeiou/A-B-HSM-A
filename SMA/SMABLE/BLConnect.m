@@ -124,7 +124,7 @@ static id _instace;
 - (void)reunionTimer:(id)sender{
     NSLog(@"fwefwefwergrg==== %d  %d",SmaDfuManager.dfuMode,self.peripheral.state);
    self.mgr.delegate = self;//确保DFU升级后重设代理以确保通讯正常
-    if (self.peripheral.state != CBPeripheralStateConnected && !SmaDfuManager.dfuMode && !_repairDfu) {
+    if (self.peripheral.state != CBPeripheralStateConnected && !SmaDfuManager.dfuMode && !_repairDfu && !_repairFont) {
         if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] ) {
             NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:self.user.watchUUID]]];
             NSLog(@"2222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
@@ -162,9 +162,10 @@ static id _instace;
         else{
            [self performSelector:@selector(scanPerformDFU) withObject:nil afterDelay:3.5f];
         }
-        
     }
-
+//    else if (_repairDfu && _repairFont){
+//        
+//    }
 }
 
 - (void)scanPerformDFU{
@@ -226,7 +227,7 @@ static id _instace;
         case CBCentralManagerStatePoweredOn:
         {
             NSLog( @"蓝牙已经成功开启，正在扫描蓝牙接口……");
-            if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] && !_repairDfu) {
+            if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] && !_repairDfu &&!_repairFont) {
                 NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:self.user.watchUUID]]];
                  NSLog(@"222221111222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
                  [self connectBl:[allPer firstObject]];
@@ -273,12 +274,32 @@ static id _instace;
 //发现周边蓝牙设备
 - (void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI {
     NSLog(@"搜索设备UUID：%@  记录UUID：%@  scanName: %@",peripheral.identifier.UUIDString,self.user.watchUUID,self.scanNameArr);
-    if (self.user.watchUUID && !_repairDfu) {
+    if (self.user.watchUUID && !_repairDfu && !_repairFont) {
         if ([self.user.watchUUID isEqualToString:peripheral.identifier.UUIDString]) {
             [self connectBl:peripheral];
         }
         if (SmaDfuManager.dfuMode) {
             [SmaDfuManager performDFUwithManager:self.mgr periphral:peripheral];
+        }
+           }
+    else if (_repairFont && _repairDfu){
+        if (SmaDfuManager.dfuMode) {
+            [SmaDfuManager performDFUwithManager:self.mgr periphral:peripheral];
+            return;
+        }
+        Byte *testByte = (Byte *)[(NSData *)[advertisementData objectForKey:@"kCBAdvDataManufacturerData"] bytes];
+        NSData *data = (NSData *)[advertisementData objectForKey:@"kCBAdvDataManufacturerData"];
+        NSString *str;
+        if (data) {
+            Byte byteFont[[data length] - 2];
+            memcpy(&byteFont, &testByte[2], [data length] - 2);
+            str = [[NSString alloc] initWithData:[NSData dataWithBytes:byteFont length:[data length] - 2] encoding:kCFStringEncodingUTF8];
+             NSLog(@"字库修复连接设备 %@  %@  %s  %@",[NSData dataWithBytes:byteFont length:[data length] - 2],str,byteFont,advertisementData);
+        }
+        if ( RSSI.intValue > -43 && [str isEqualToString:@"FixFont_07"]) {
+             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self connectBl:peripheral];
+        });
         }
     }
     else{
@@ -313,6 +334,11 @@ static id _instace;
                 }
             });
         }
+//        else{
+//            if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(reloadView)]) {
+//                [self.BLdelegate reloadView];
+//            }
+//        }
     }
     if (SmaDfuManager.dfuMode) {
         NSLog(@"fwggpghohp===%@",peripheral.name);
@@ -368,11 +394,11 @@ static id _instace;
         if ([characteristic.UUID.UUIDString isEqualToString:@"6E400002-B5A3-F393-E0A9-E50E24DCCA9E"]) {
             SmaBleSend.Write = characteristic;
             SMAUserInfo *user = [SMAAccountTool userInfo];
-            if (user.watchUUID) {
+            if (user.watchUUID && !_repairFont && !_repairDfu) {
                 [SmaBleSend setHighSpeed:YES];
                 [SmaBleSend LoginUserWithUserID:user.userID];
             }
-            else{
+            else if (!user.watchUUID && !_repairFont && !_repairDfu){
                 [SmaBleSend bindUserWithUserID:user.userID];
                 if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleBindState:)]){
                     [self.BLdelegate bleBindState:0];
@@ -389,9 +415,20 @@ static id _instace;
         }
 
     }
+    if (_repairFont && _repairDfu) {
+        NSLog(@"进入XMODE模式");
+        SmaBleSend.isUPDateSwitch = NO;
+        [self performSelector:@selector(getXmodem) withObject:nil afterDelay:3];
+        
+    }
     if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleDidConnect)] && !SmaDfuManager.dfuMode){
         [self.BLdelegate bleDidConnect];
     }
+}
+
+- (void)getXmodem{
+    SmaBleSend.isUPDateFont = YES;
+    [SmaBleSend enterXmodem];
 }
 
 - (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -409,7 +446,7 @@ static id _instace;
          loca.firstRunDic = nil;
     }
    
-     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]  && !SmaDfuManager.dfuMode && !_repairDfu && !_dfuUpdate) {
+     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]  && !SmaDfuManager.dfuMode && !_repairDfu && !_dfuUpdate && !_repairFont) {
         [self connectBl:peripheral];
     }
     

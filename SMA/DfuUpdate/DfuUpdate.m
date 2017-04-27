@@ -62,6 +62,9 @@ static id _instace;
 
 - (void)performDFUwithManager:(CBCentralManager *)manager periphral:(CBPeripheral *)p{
     NSLog(@"performDFUwithManager===%@",p);
+    if (!p) {
+        return;
+    }
     DFUServiceInitiator *initiator = [[DFUServiceInitiator alloc] initWithCentralManager:manager target:p];
     initiator.forceDfu = YES;
     initiator.packetReceiptNotificationParameter = 12;

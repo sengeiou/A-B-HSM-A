@@ -138,9 +138,9 @@
     }
     else{
         if (sender.selected) {
-            [self setSwitchBinData];
             if ([SmaBleMgr checkBLConnectState]) {
-                [SmaBleSend enterXmodem];
+                NSLog(@"enterXmodem");
+                [self setSwitchBinData];
             }
             else{
                 return;
@@ -269,7 +269,9 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSData *data = [NSData dataWithContentsOfFile:filePath];
                 if (filePath) {
+                    NSLog(@"enterXmodemfilePath");
                     [SmaBleSend analySwitchsWithdata:data replace:(int)switchIndex];
+                    [SmaBleSend enterXmodem];
                 }
                 else{
                     [self setSwitchFail];
@@ -278,7 +280,9 @@
         }];
     }
     else{
+        NSLog(@"enterXmodemdata");
         [SmaBleSend analySwitchsWithdata:data replace:(int)switchIndex];
+        [SmaBleSend enterXmodem];
     }
 }
 
@@ -348,7 +352,7 @@ static float i = 0.0;
 
 - (void)bleDisconnected:(NSString *)error{
         [self setSwitchFail];
-    SmaBleSend.isUPDateSwitch = NO;
+        SmaBleSend.isUPDateSwitch = NO;
 //    [MBProgressHUD showError:SMALocalizedString(@"device_syncFail")];
 }
 

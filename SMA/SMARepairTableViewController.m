@@ -15,8 +15,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    SmaBleMgr.repairDfu = YES;
-    [self initializeMethod];
+   
     self.title = SMALocalizedString(@"me_repairDevice");
 }
 
@@ -29,14 +28,26 @@
     [SmaBleMgr stopSearch];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+     [self initializeMethod];
+}
+
 - (void)initializeMethod{
     self.tableView.tableFooterView = [UIView new];
     SmaBleMgr.sortedArray = nil;
     SmaBleMgr.BLdelegate = self;
     SmaBleMgr.scanNameArr = @[self.dfuName];
-    [SmaBleMgr scanBL:12];
+    [self.tableView reloadData];
+    if (_repairFont) {
+        SmaBleMgr.repairFont = YES;
+    }
+    else{
+        SmaBleMgr.repairDfu = YES;
+    }
+    [SmaBleMgr scanBL:20];
 //    [self chectFirmwareVewsionWithWeb];
 }
+
 
 #pragma mark - Table view data source
 
@@ -90,7 +101,12 @@
         dfuVC.epairPeripheral = peripheral.peripheral;
         dfuVC.repairBleCustom = self.bleCustom;
         dfuVC.repairDeviceName = self.deviceName;
+    if (_repairFont) {
+        SmaBleMgr.repairFont = YES;
+    }
+    else{
         SmaBleMgr.repairDfu = YES;
+    }
         [self.navigationController pushViewController:dfuVC animated:YES];
   }
 

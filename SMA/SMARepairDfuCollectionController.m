@@ -22,12 +22,8 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"SMARepairDfuCell" bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
-//    [self.collectionView registerNib:[UINib nibWithNibName:@"SMAReoaurDfuReusableView" bundle:nil] forCellWithReuseIdentifier:sectionHeaderIdentifier];
-     [self.collectionView registerNib:[UINib nibWithNibName:@"SMAReoaurDfuReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:sectionHeaderIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"SMAReoaurDfuReusableView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:sectionHeaderIdentifier];
     self.collectionView.backgroundColor = [UIColor whiteColor];
     [self initializeMethod];
     self.title = SMALocalizedString(@"me_repairDfu");
@@ -35,32 +31,45 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
 
 - (void)initializeMethod{
     nameArr = [NSMutableArray array];
     imageArr = [NSMutableArray array];
-//    imageArr = [@[[UIImage imageWithName:@"img_jiexie"],[UIImage imageWithName:@"img_launcher"],[UIImage imageWithName:@"img_07"],[UIImage imageWithName:@"img_xiaoQerdai"]] mutableCopy];
-//    nameArr = [@[@"SMA-A1",@"SMA-A2",@"SM07",@"ble_app_sma10b"] mutableCopy];
     
     SmaAnalysisWebServiceTool *tool = [[SmaAnalysisWebServiceTool alloc] init];
-    [tool acloudDfuFileWithFirmwareType:firmware_smaProducts callBack:^(NSArray *finish, NSError *error) {
-        for (int i = 0; i < finish.count; i++) {
-            NSDictionary *firmareDic = finish[i];
-            if ([firmareDic[@"filename"] rangeOfString:@"(1)"].location != NSNotFound) {
-//                NSDictionary *firmareDic = @{@"downloadUrl":firmareDic[@"downloadUrl"],};
-                NSMutableDictionary *objectDic = [firmareDic[@"extendAttrs"][@"objectData"] mutableCopy];
-                [objectDic setObject:firmareDic[@"downloadUrl"] forKey:@"downloadUrl"];
-                [imageArr addObject:objectDic];
+    if (self.repairFont) {
+        [tool acloudDfuFileWithFirmwareType:firmware_smaProducts callBack:^(NSArray *finish, NSError *error) {
+            for (int i = 0; i < finish.count; i++) {
+                NSDictionary *firmareDic = finish[i];
+                if ([firmareDic[@"filename"] rangeOfString:@"(1)"].location != NSNotFound && [firmareDic[@"filename"] hasPrefix:@"a"]) {
+                    NSMutableDictionary *objectDic = [firmareDic[@"extendAttrs"][@"objectData"] mutableCopy];
+                    [objectDic setObject:firmareDic[@"downloadUrl"] forKey:@"downloadUrl"];
+                    [imageArr addObject:objectDic];
+                }
             }
-        }
-        NSLog(@"gehhth   %@",finish);
-        [self.collectionView reloadData];
-    }];
+            [self.collectionView reloadData];
+        }];
+    }
+    else{
+        [tool acloudDfuFileWithFirmwareType:firmware_smaProducts callBack:^(NSArray *finish, NSError *error) {
+            for (int i = 0; i < finish.count; i++) {
+                NSDictionary *firmareDic = finish[i];
+                if ([firmareDic[@"filename"] rangeOfString:@"(1)"].location != NSNotFound) {
+                    NSMutableDictionary *objectDic = [firmareDic[@"extendAttrs"][@"objectData"] mutableCopy];
+                    [objectDic setObject:firmareDic[@"downloadUrl"] forKey:@"downloadUrl"];
+                    [imageArr addObject:objectDic];
+                }
+            }
+            [self.collectionView reloadData];
+        }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
+    SmaBleMgr.repairDfu = NO;
+    SmaBleMgr.repairFont = NO;
     if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
         SmaBleMgr.scanNameArr = @[@"SMA-Q2"];
     }
@@ -87,12 +96,9 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     SMARepairDfuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
-//  cell.backgroundColor = [UIColor redColor];
-   // Configure the cell
     if (indexPath.row == 0 || indexPath.row == 1 || indexPath.row == 2) {
-       cell.topShow = YES;
+        cell.topShow = YES;
     }
-//  cell.imageView.image = [imageArr objectAtIndex:indexPath.row];
     cell.titleLab.text = [imageArr objectAtIndex:indexPath.row][@"product_name"];
     cell.imageUrl = [imageArr objectAtIndex:indexPath.row][@"downloadUrl"];
     cell.bottomShow = YES;
@@ -143,59 +149,65 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
     repairDeviceVC.bleCustom = [[imageArr objectAtIndex:indexPath.row] objectForKey:@"firmware_prefix"];
     repairDeviceVC.dfuName = [[imageArr objectAtIndex:indexPath.row] objectForKey:@"dfu_name"];
     
-//    if (indexPath.row == 0) {
-//        repairDeviceVC.deviceName = @"SMA-A1";
-//        repairDeviceVC.bleCustom = @"SmartCare";
-//        repairDeviceVC.dfuName = @"DfuTarg";
-//    }
-//    if (indexPath.row == 1) {
-//        repairDeviceVC.deviceName = @"SMA-A2";
-//        repairDeviceVC.bleCustom = @"SmartCare";
-//        repairDeviceVC.dfuName = @"DfuTarg";
-//    }
-//    if (indexPath.row == 2) {
-//    repairDeviceVC.deviceName = @"SM07";
-//    repairDeviceVC.bleCustom = @"SmartCare";
-//        repairDeviceVC.dfuName = @"DfuTarg";
-//    }
-//    else{
-//        repairDeviceVC.deviceName = @"SMA-Q2";
-//        repairDeviceVC.bleCustom = @"SmartCare";
-//        repairDeviceVC.dfuName = @"Dfu10B10";
-//    }
-    SmaBleMgr.repairDfu = YES;
+    //    if (indexPath.row == 0) {
+    //        repairDeviceVC.deviceName = @"SMA-A1";
+    //        repairDeviceVC.bleCustom = @"SmartCare";
+    //        repairDeviceVC.dfuName = @"DfuTarg";
+    //    }
+    //    if (indexPath.row == 1) {
+    //        repairDeviceVC.deviceName = @"SMA-A2";
+    //        repairDeviceVC.bleCustom = @"SmartCare";
+    //        repairDeviceVC.dfuName = @"DfuTarg";
+    //    }
+    //    if (indexPath.row == 2) {
+    //    repairDeviceVC.deviceName = @"SM07";
+    //    repairDeviceVC.bleCustom = @"SmartCare";
+    //        repairDeviceVC.dfuName = @"DfuTarg";
+    //    }
+    //    else{
+    //        repairDeviceVC.deviceName = @"SMA-Q2";
+    //        repairDeviceVC.bleCustom = @"SmartCare";
+    //        repairDeviceVC.dfuName = @"Dfu10B10";
+    //    }
+    if (_repairFont) {
+        SmaBleMgr.repairFont = YES;
+    }
+    else{
+        SmaBleMgr.repairDfu = YES;
+    }
+    repairDeviceVC.repairFont = _repairFont;
     [self.navigationController pushViewController:repairDeviceVC animated:YES];
 }
 
 #pragma mark <UICollectionViewDelegate>
 
 /*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
+ // Uncomment this method to specify if the specified item should be highlighted during tracking
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
 	return YES;
-}
-*/
+ }
+ */
 
 /*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
-}
-*/
+ // Uncomment this method to specify if the specified item should be selected
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+ return YES;
+ }
+ */
 
 /*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
+ // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
+ - (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
 	return NO;
-}
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+ }
+ 
+ - (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
 	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
+ }
+ 
+ - (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
 	
-}
-*/
+ }
+ */
 
 @end

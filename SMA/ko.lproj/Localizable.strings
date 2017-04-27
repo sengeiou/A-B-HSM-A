@@ -90,8 +90,8 @@
 "device_RU_per_brUnit"="mile/h";
 "device_RU_pace_meUnit"="min/km";
 "device_RU_pace_brUnit"="min/mile";
-"device_RU_lunTime" = "运动时长";
-"device_RU_lastHR" = "最后一次心率值";
+"device_RU_lunTime" = "운동 시간";
+"device_RU_lastHR" = "마지막 심박수 값";
 "device_RU_traTit" = "운동 트랙";
 "device_RU_stype" = "운동 단계";
 "device_RU_severe" = "격렬한";
@@ -271,10 +271,10 @@
 "setting_dfu_fail"="업그레이드 실패";
 "setting_timing_title" = "알람";
 "setting_timing_remind" = "";
-"setting_timing_hourRemind" = "请将数字没到您手表时针的当前位置";
-"setting_timing_minRemind" = "请将数字没到您手表分针的当前位置";
-"setting_timing_secondRemind" = "请将数字没到您手表秒针的当前位置";
-"setting_timing_laterRemind" = "请确认下面表盘指针是否与您手表指针当前位置相同";
+"setting_timing_hourRemind" = "Align the hour hand to the hour hand position of the watch.";
+"setting_timing_minRemind" = "Align the minute hand to the minute hand position of the watch.";
+"setting_timing_secondRemind" = "Align the second hand to the second hand position of the watch.";
+"setting_timing_laterRemind" = "Confirm if the pointer position as below is the same of the watch.";
 "setting_timing_hour" = "시";
 "setting_timing_minute" = "분";
 "setting_timing_confirm" = "";
