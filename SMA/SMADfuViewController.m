@@ -70,6 +70,7 @@
     _gradientLayer.startPoint = CGPointMake(0,0);
     _gradientLayer.endPoint = CGPointMake(0, 1);
     [_backView.layer insertSublayer:_gradientLayer atIndex:0];
+    _repairView.hidden = YES;
     if (SmaBleMgr.repairFont) {
         self.title = SMALocalizedString(@"me_repairFont");
         _dfuLab.textColor = [UIColor whiteColor];
@@ -86,6 +87,7 @@
         _upDfuVerLab.text = [NSString stringWithFormat:@"%lu bytes", fileData.length];
         _repairTextView.hidden = NO;
         _repairTextView.text = SMALocalizedString(@"me_repairFontPrompt");
+        _repairView.hidden = NO;
         _fontLab.text = SMALocalizedString(@"me_repairFontType");
         _fontVerLab.text = SMALocalizedString(@"setting_unband_dfuUpdate");
         [self dfuSelector:nil];
@@ -415,7 +417,9 @@
         for (int i = 0; i < finish.count; i ++) {
             NSString *filename = [[finish objectAtIndex:i] objectForKey:@"filename"];
             NSString *filneNameNow = [NSString stringWithFormat:@"%@_%@",self.repairBleCustom,[[filename componentsSeparatedByString:@"_"] lastObject]];
-            if ([filneNameNow isEqualToString:filename]) {
+            NSLog(@"超时 %@   %@",filename,filneNameNow);
+//            if ([filneNameNow isEqualToString:filename]) {
+            if ([filename hasPrefix:self.repairBleCustom]) {
                 [self downDfuWithFile:(NSMutableDictionary *)[finish objectAtIndex:i]];
                 haveFile = YES;
             }

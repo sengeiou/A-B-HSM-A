@@ -1361,7 +1361,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8J6-7x-uMi">
-                                <rect key="frame" x="83" y="518" width="210" height="45"/>
+                                <rect key="frame" x="82" y="518" width="212" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="fv4-71-9NO"/>
                                     <constraint firstAttribute="height" constant="45" id="z1k-rr-k2Q"/>
@@ -2808,7 +2808,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7wR-68-GZt">
-                                                    <rect key="frame" x="20" y="15" width="67" height="50"/>
+                                                    <rect key="frame" x="20" y="15" width="77" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="g1w-d5-EWI"/>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="67" id="wsn-jn-62L"/>
@@ -2842,7 +2842,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0t6-3N-c51">
-                                                    <rect key="frame" x="111" y="20" width="63" height="40"/>
+                                                    <rect key="frame" x="121" y="20" width="77" height="40"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="s8f-d6-NML"/>
                                                     </constraints>
@@ -2860,7 +2860,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="alk-qw-rmm">
-                                                    <rect key="frame" x="91" y="30" width="16" height="21"/>
+                                                    <rect key="frame" x="101" y="30" width="16" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="9jb-GR-4NY"/>
                                                         <constraint firstAttribute="height" constant="21" id="GFd-1V-92y"/>
@@ -2870,7 +2870,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="次日" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fMw-pZ-vbF">
-                                                    <rect key="frame" x="111" y="60" width="77" height="38"/>
+                                                    <rect key="frame" x="121" y="60" width="77" height="38"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="77" id="7lk-0v-ONq"/>
                                                     </constraints>
@@ -2925,7 +2925,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FlB-AV-BVN">
-                                                    <rect key="frame" x="20" y="15" width="67" height="50"/>
+                                                    <rect key="frame" x="20" y="15" width="77" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="67" id="rc0-Sg-uJb"/>
                                                         <constraint firstAttribute="height" constant="50" id="sis-Uv-wre"/>
@@ -2935,7 +2935,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="anc-Jr-AQt">
-                                                    <rect key="frame" x="111" y="15" width="63" height="50"/>
+                                                    <rect key="frame" x="121" y="15" width="77" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="42" id="Bj5-RK-oa5"/>
                                                     </constraints>
@@ -2953,7 +2953,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="次日" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcU-hI-Tck">
-                                                    <rect key="frame" x="111" y="65" width="77" height="29"/>
+                                                    <rect key="frame" x="121" y="65" width="77" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="77" id="k1L-6x-o5q"/>
                                                     </constraints>
@@ -2962,7 +2962,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n3u-Id-Mle">
-                                                    <rect key="frame" x="91" y="30" width="16" height="21"/>
+                                                    <rect key="frame" x="101" y="30" width="16" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="16" id="HX1-vK-st6"/>
                                                         <constraint firstAttribute="height" constant="21" id="MaH-A7-K4s"/>
@@ -3643,6 +3643,7 @@
                         <outlet property="nowVerTitLab" destination="Moh-yN-4he" id="JOo-Yo-mXU"/>
                         <outlet property="remindLab" destination="IHC-q9-FYf" id="lnz-WN-qT4"/>
                         <outlet property="repairTextView" destination="v4x-M3-UFZ" id="BaV-Pe-cTd"/>
+                        <outlet property="repairView" destination="xGB-TA-2GN" id="qdv-MR-Ha2"/>
                         <outlet property="upDfuVerLab" destination="tyV-jp-vRe" id="pdL-BU-55F"/>
                         <outlet property="upDfuVerTitLab" destination="uok-Kw-HYx" id="G6Z-2I-o23"/>
                         <outlet property="upVerView" destination="1EI-Lj-Bqe" id="vhM-ci-49t"/>

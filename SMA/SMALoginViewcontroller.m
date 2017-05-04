@@ -147,17 +147,17 @@
         [webServict acloudDownLHeadUrlWithAccount:userAccount Success:^(id result) {
             
         } failure:^(NSError *error) {
-//            [MBProgressHUD hideHUD];
-//            if ([error.userInfo objectForKey:@"errorInfo"]) {
-//                [MBProgressHUD showError:[self errorInfoWithSerialNumber:error]];
-//            }
-//            else if (error.code == -1001) {
-//                [MBProgressHUD showError:SMALocalizedString(@"alert_request_timeout")];
-//                NSLog(@"超时");
-//            }
-//            else if (error.code == -1009 || error.code == -1005) {
-//                [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
-//            }
+            //            [MBProgressHUD hideHUD];
+            //            if ([error.userInfo objectForKey:@"errorInfo"]) {
+            //                [MBProgressHUD showError:[self errorInfoWithSerialNumber:error]];
+            //            }
+            //            else if (error.code == -1001) {
+            //                [MBProgressHUD showError:SMALocalizedString(@"alert_request_timeout")];
+            //                NSLog(@"超时");
+            //            }
+            //            else if (error.code == -1009 || error.code == -1005) {
+            //                [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
+            //            }
         }];
         [webServict acloudDownLDataWithAccount:userAccount callBack:^(id finish) {
             //            dispatch_async(dispatch_get_main_queue(), ^{
@@ -268,7 +268,7 @@
     }
     else if (sender.tag == 102) {
         if (![preferredLang isEqualToString:@"zh"]) {
-             [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
+            [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
             LoginProvider = ACAccountManagerLoginProviderTwitter;
             [[SMAthirdPartyLoginTool getinstance] loginToTwitter];
             return;
@@ -341,7 +341,7 @@
     NSLog(@"登录成功   %@",systemVersion.userInfo);
     SmaAnalysisWebServiceTool *webServict = [[SmaAnalysisWebServiceTool alloc] init];
     if (![LoginProvider isEqualToString:ACAccountManagerLoginProviderTwitter]) {
-         [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
+        [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
     }
     //    [webServict acloudCheckExist:[NSString stringWithFormat:@"%@ %@",[systemVersion.userInfo objectForKey:@"LOGINTYPE"],[[[SMAthirdPartyLoginTool getinstance] oauth] openId]] success:^(bool exit) {
     //
@@ -349,9 +349,6 @@
     //
     //    }];
     [webServict acloudLoginWithOpenId:systemVersion.userInfo[@"OPENID"] provider:LoginProvider accessToken:systemVersion.userInfo[@"TOKEN"] success:^(id result) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUD];
-        });
         
         //        [webServict acloudDownLHeadUrlWithAccount:systemVersion.userInfo[@"OPENID"] Success:^(id result) {
         //
@@ -386,32 +383,44 @@
             
         }
         else{
-            SMAUserInfo *user = [[SMAUserInfo alloc]init];
-            user.userName = [result objectForKey:@"nickName"];
-            user.userID = systemVersion.userInfo[@"OPENID"];
-            user.userPass = _passwordField.text;
-            user.userHeight = [result objectForKey:@"hight"];
-            user.userWeigh = [result objectForKey:@"weight"];
-            user.userAge = [result objectForKey:@"age"];
-            user.userSex = [result objectForKey:@"sex"];
-            user.userGoal = [result objectForKey:@"steps_Aim"];
-            user.userHeadUrl = [result objectForKey:@"_avatar"];
-            user.unit = [result objectForKey:@"unit"];
-            [SMAAccountTool saveUser:user];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD showSuccess:SMALocalizedString(@"login_suc")];
-            });
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                SMATabbarController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SMAMainTabBarController"];
-                controller.isLogin = NO;
-                NSArray *itemArr = @[SMALocalizedString(@"device_title"),SMALocalizedString(@"rank_title"),SMALocalizedString(@"setting_title"),SMALocalizedString(@"me_title")];
-                NSArray *arrControllers = controller.viewControllers;
-                for (int i = 0; i < arrControllers.count; i ++) {
-                    SMANavViewController *nav = [arrControllers objectAtIndex:i];
-                    nav.tabBarItem.title = itemArr[i];
+            [webServict acloudDownLDataWithAccount:systemVersion.userInfo[@"OPENID"] callBack:^(id finish) {
+                if ([finish isEqualToString:@"finish"]) {
+                    SMAUserInfo *user = [[SMAUserInfo alloc]init];
+                    user.userName = [result objectForKey:@"nickName"];
+                    user.userID = systemVersion.userInfo[@"OPENID"];
+                    user.userPass = _passwordField.text;
+                    user.userHeight = [result objectForKey:@"hight"];
+                    user.userWeigh = [result objectForKey:@"weight"];
+                    user.userAge = [result objectForKey:@"age"];
+                    user.userSex = [result objectForKey:@"sex"];
+                    user.userGoal = [result objectForKey:@"steps_Aim"];
+                    user.userHeadUrl = [result objectForKey:@"_avatar"];
+                    user.unit = [result objectForKey:@"unit"];
+                    [SMAAccountTool saveUser:user];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD hideHUD];
+                        [MBProgressHUD showSuccess:SMALocalizedString(@"login_suc")];
+                    });
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        SMATabbarController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SMAMainTabBarController"];
+                        controller.isLogin = NO;
+                        NSArray *itemArr = @[SMALocalizedString(@"device_title"),SMALocalizedString(@"rank_title"),SMALocalizedString(@"setting_title"),SMALocalizedString(@"me_title")];
+                        NSArray *arrControllers = controller.viewControllers;
+                        for (int i = 0; i < arrControllers.count; i ++) {
+                            SMANavViewController *nav = [arrControllers objectAtIndex:i];
+                            nav.tabBarItem.title = itemArr[i];
+                        }
+                        [UIApplication sharedApplication].keyWindow.rootViewController=controller;
+                    });
                 }
-                [UIApplication sharedApplication].keyWindow.rootViewController=controller;
-            });
+                else{
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [MBProgressHUD hideHUD];
+                        [MBProgressHUD showError:SMALocalizedString(@"login_fail")];
+                        //                    [MBProgressHUD showSuccess:SMALocalizedString(@"login_suc")];
+                    });
+                }
+            }];
         }
     } failure:^(NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -434,7 +443,7 @@
 - (void)loginFailed:(NSNotification *)systemVersion
 {
     NSLog(@"登录失败");
-       [MBProgressHUD hideHUD];
+    [MBProgressHUD hideHUD];
     NSError *error = systemVersion.userInfo[@"ERROR"];
     if (error.code == -1001) {
         [MBProgressHUD showError:SMALocalizedString(@"login_timeout")];
@@ -446,7 +455,7 @@
     else{
         [MBProgressHUD showError:SMALocalizedString(@"login_fail")];
     }
-
+    
 }
 
 - (void) loginCancelled:(NSNotification *)systemVersion
