@@ -71,7 +71,7 @@
 "device_SP_running"="Juosta";
 "device_SP_km"="km";
 "device_SP_mile"="maili";
-"device_SP_cal"="kcal";
+"device_SP_cal"="Cal";
 "device_SP_calorie"="Cal";
 "device_SP_syncWait"="Tiedot eivät ole synchronized.Please odota!";
 "device_SP_day"="Päivä";

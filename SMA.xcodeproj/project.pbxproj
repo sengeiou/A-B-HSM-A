@@ -3766,7 +3766,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.smacare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e7ef197a-dd9f-4072-b7e9-a8a17caeebe7";
 				PROVISIONING_PROFILE_SPECIFIER = All_development_text;
@@ -3830,7 +3830,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.smacare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "346dc691-b905-4bbf-9e06-c9be3ad5030f";
 				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_text;

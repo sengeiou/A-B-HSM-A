@@ -71,7 +71,7 @@
 "device_SP_running"="Lauf";
 "device_SP_km"="Km";
 "device_SP_mile"="Meile";
-"device_SP_cal"="Kcal";
+"device_SP_cal"="Cal";
 "device_SP_calorie"="Cal";
 "device_SP_syncWait"="Die Daten werden nicht synchronisiert. Bitte warten!";
 "device_SP_day"="Tag";

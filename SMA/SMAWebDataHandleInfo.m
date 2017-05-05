@@ -173,8 +173,8 @@
     for (int i = 0; i < alList.count; i ++) {
          NSDictionary *dic = [alList objectAtIndex:i];
         NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:[[dic objectForKey:@"time"] doubleValue] withFormatStr:@"yyyyMMddHHmmss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-        NSDictionary *locationDic = [NSDictionary dictionaryWithObjectsAndKeys:[SMAAccountTool userInfo].userID,@"USERID",date,@"DATE",[NSString stringWithFormat:@"%lf",[[dic objectForKey:@"longitude"] floatValue]],@"LONGITUDE",[NSString stringWithFormat:@"%lf",[[dic objectForKey:@"latitude"] floatValue]],@"LATITUDE",[dic objectForKey:@"step"],@"STEP",@"34",@"MODE",@"1",@"WEB", nil];
-//        NSMutableArray *locationArr = [NSMutableArray arrayWithObject:locationDic];
+        NSDictionary *locationDic = [NSDictionary dictionaryWithObjectsAndKeys:[dic objectForKey:@"account"],@"USERID",date,@"DATE",[NSString stringWithFormat:@"%lf",[[dic objectForKey:@"longitude"] floatValue]],@"LONGITUDE",[NSString stringWithFormat:@"%lf",[[dic objectForKey:@"latitude"] floatValue]],@"LATITUDE",[dic objectForKey:@"step"],@"STEP",@"34",@"MODE",@"1",@"WEB", nil];
+        //        NSMutableArray *locationArr = [NSMutableArray arrayWithObject:locationDic];
         [locationArr addObject:locationDic];
 
     }
