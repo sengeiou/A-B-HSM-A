@@ -66,10 +66,10 @@
     _secBeDescLab.text = SMALocalizedString(@"setting_today");
     _firEndDescLab.text = SMALocalizedString(@"setting_today");
     _secEndDescLab.text = SMALocalizedString(@"setting_today");
-//    if (seat.endTime0.intValue < 8) {
-//        _firEndDescLab.text = SMALocalizedString(@"setting_tomorrow");
-//    }
-    if (seat.endTime1.intValue <= seat.endTime0.intValue) {
+    if (seat.beginTime0.intValue >= seat.endTime0.intValue) {
+        _firEndDescLab.text = SMALocalizedString(@"setting_tomorrow");
+    }
+    if (seat.beginTime1.intValue >= seat.endTime1.intValue) {
         _secEndDescLab.text = SMALocalizedString(@"setting_tomorrow");
     }
     _firSwitch.on = seat.isOpen0.intValue;
@@ -125,32 +125,38 @@
         
         __block NSInteger beginRow = seat.beginTime0.integerValue;
         __block NSInteger endRow = seat.endTime0.integerValue;
-        SMABottomPickView *pickView = [[SMABottomPickView alloc]initWithTitles:@[SMALocalizedString(@"setting_sedentary_star"),SMALocalizedString(@"setting_sedentary_end")] describes:@[SMALocalizedString(@"setting_today"),beginRow >= endRow ? SMALocalizedString(@"setting_tomorrow"):SMALocalizedString(@"setting_today")] buttonTitles:@[SMALocalizedString(@"setting_sedentary_cancel"),SMALocalizedString(@"setting_sedentary_confirm")] pickerMessage:@[messageArr,messageArr]];
-        [pickView.pickView selectRow:50 * 24 + seat.beginTime0.intValue inComponent:0 animated:NO];
-        [pickView.pickView selectRow:50 * 24 + seat.endTime0.intValue inComponent:1 animated:NO];
+        SMABottomPickView *pickView = [[SMABottomPickView alloc]initWithTitles:@[SMALocalizedString(@"setting_sedentary_star"),SMALocalizedString(@"setting_sedentary_end")] describes:@[SMALocalizedString(@"setting_today"),SMALocalizedString(@"setting_tomorrow")] buttonTitles:@[SMALocalizedString(@"setting_sedentary_cancel"),SMALocalizedString(@"setting_sedentary_confirm")] pickerMessage:@[messageArr,messageArr]];
+//        [pickView.pickView selectRow:50 * 24 + seat.beginTime0.intValue inComponent:0 animated:YES];
+//        [pickView.pickView selectRow:50 * 24 + seat.endTime0.intValue inComponent:1 animated:YES];
+          [pickView pickRowWithTime:@[seat.beginTime0,seat.endTime0]];
         [pickView selectConfirm:^(UIButton *confiBut) {
             _firTimeIma.transform = CGAffineTransformIdentity;
             if (confiBut.tag == 102) {
 //                if (beginRow != endRow) {
-                    seat.beginTime0 = [NSString stringWithFormat:@"%ld",beginRow];
-                    seat.endTime0 = [NSString stringWithFormat:@"%ld",endRow];
+                    seat.beginTime0 = [NSString stringWithFormat:@"%ld",(long)beginRow];
+                    seat.endTime0 = [NSString stringWithFormat:@"%ld",(long)endRow];
 //                }
 //                else{
 //                    [MBProgressHUD showError:SMALocalizedString(@"setting_timeRemind")];
 //                }
             }
-            _secBeginLab.text = [NSString stringWithFormat:@"%@%@:00",seat.beginTime1.intValue < 10 ? @"0":@"",seat.beginTime1];
-            _secEndnLab.text = [NSString stringWithFormat:@"%@%@:00",seat.endTime1.intValue < 10 ? @"0":@"",seat.endTime1];
+            _firBeginLab.text = [NSString stringWithFormat:@"%@%@:00",seat.beginTime0.intValue < 10 ? @"0":@"",seat.beginTime0];
+            _firEndLab.text = [NSString stringWithFormat:@"%@%@:00",seat.endTime0.intValue < 10 ? @"0":@"",seat.endTime0];
+            if (seat.beginTime0.intValue >= seat.endTime0.intValue) {
+                _firEndDescLab.text = SMALocalizedString(@"setting_tomorrow");
+            }
+            else{
+                _firEndDescLab.text = SMALocalizedString(@"setting_today");
+            }
         }];
         [pickView pickSelectCallBack:^(NSInteger row, NSInteger component) {
             if (component == 0) {
                 beginRow = row%24;
-                _firBeginLab.text = [NSString stringWithFormat:@"%@%ld:00",row%24 < 10 ? @"0":@"",row%24];
+                _firBeginLab.text = [NSString stringWithFormat:@"%@%d:00",row%24 < 10 ? @"0":@"",row%24];
             }
             else{
                 endRow = row%24;
-                
-                _firEndLab.text =  [NSString stringWithFormat:@"%@%ld:00",row%24 < 10 ? @"0":@"",row%24];
+                _firEndLab.text =  [NSString stringWithFormat:@"%@%d:00",row%24 < 10 ? @"0":@"",row%24];
                 if (beginRow >= row%24) {
                     _firEndDescLab.text = SMALocalizedString(@"setting_tomorrow");
                 }
@@ -180,9 +186,10 @@
         }
         __block NSInteger beginRow = seat.beginTime1.integerValue;
         __block NSInteger endRow = seat.endTime1.integerValue;
-        SMABottomPickView *pickView = [[SMABottomPickView alloc]initWithTitles:@[SMALocalizedString(@"setting_sedentary_star"),SMALocalizedString(@"setting_sedentary_end")] describes:@[SMALocalizedString(@"setting_today"),beginRow >= endRow ? SMALocalizedString(@"setting_tomorrow"):SMALocalizedString(@"setting_today")] buttonTitles:@[SMALocalizedString(@"setting_sedentary_cancel"),SMALocalizedString(@"setting_sedentary_confirm")] pickerMessage:@[messageArr,messageArr]];
-        [pickView.pickView selectRow:50 * 24 + seat.beginTime1.intValue inComponent:0 animated:NO];
-        [pickView.pickView selectRow:50 * 24 + seat.endTime1.intValue inComponent:1 animated:NO];
+        SMABottomPickView *pickView = [[SMABottomPickView alloc]initWithTitles:@[SMALocalizedString(@"setting_sedentary_star"),SMALocalizedString(@"setting_sedentary_end")] describes:@[SMALocalizedString(@"setting_today"),SMALocalizedString(@"setting_tomorrow")] buttonTitles:@[SMALocalizedString(@"setting_sedentary_cancel"),SMALocalizedString(@"setting_sedentary_confirm")] pickerMessage:@[messageArr,messageArr]];
+//        [pickView.pickView selectRow:50 * 24 + seat.beginTime1.intValue inComponent:0 animated:NO];
+//        [pickView.pickView selectRow:50 * 24 + seat.endTime1.intValue inComponent:1 animated:NO];
+        [pickView pickRowWithTime:@[seat.beginTime1,seat.endTime1]];
         [pickView selectConfirm:^(UIButton *confiBut) {
             _secTimeIma.transform = CGAffineTransformIdentity;
             if (confiBut.tag == 102) {
@@ -196,6 +203,11 @@
             }
             _secBeginLab.text = [NSString stringWithFormat:@"%@%@:00",seat.beginTime1.intValue < 10 ? @"0":@"",seat.beginTime1];
             _secEndnLab.text = [NSString stringWithFormat:@"%@%@:00",seat.endTime1.intValue < 10 ? @"0":@"",seat.endTime1];
+            _secEndDescLab.text = SMALocalizedString(@"setting_today");
+            if (seat.beginTime1.intValue >= seat.endTime1.intValue) {
+                _secEndDescLab.text = SMALocalizedString(@"setting_tomorrow");
+            }
+
         }];
         [pickView pickSelectCallBack:^(NSInteger row, NSInteger component) {
             if (component == 0) {

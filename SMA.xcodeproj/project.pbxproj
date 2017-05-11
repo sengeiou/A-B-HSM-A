@@ -289,13 +289,13 @@
 		EEB9F6BF1D64433B0011AA07 /* Gotham-Bold_0.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6BE1D64433B0011AA07 /* Gotham-Bold_0.otf */; };
 		EEB9F6C11D6443430011AA07 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6C01D6443430011AA07 /* Gotham-Medium.otf */; };
 		EEBA49641DFC3A0500FF6302 /* SMACalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBA49631DFC3A0500FF6302 /* SMACalendarView.m */; };
+		EEBA6B1B1EBC6AB00066A564 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; };
+		EEBA6B1C1EBC6AB00066A564 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
+		EEBA6B1D1EBC6B160066A564 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; };
+		EEBA6B1E1EBC6B160066A564 /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EEBA6B1F1EBC6B1A0066A564 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
+		EEBA6B201EBC6B1A0066A564 /* Zip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EEBAB5A61D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBAB5A51D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m */; };
-		EEBC48F11EBAD95B0084F12C /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBC48EF1EBAD95B0084F12C /* iOSDFULibrary.framework */; };
-		EEBC48F21EBAD95B0084F12C /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBC48F01EBAD95B0084F12C /* Zip.framework */; };
-		EEBC48F31EBAD9750084F12C /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBC48EF1EBAD95B0084F12C /* iOSDFULibrary.framework */; };
-		EEBC48F41EBAD9750084F12C /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBC48EF1EBAD95B0084F12C /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EEBC48F51EBAD9790084F12C /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBC48F01EBAD95B0084F12C /* Zip.framework */; };
-		EEBC48F61EBAD9790084F12C /* Zip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBC48F01EBAD95B0084F12C /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EEBC89861E0E106600793AC1 /* SMAAggregateTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBC89851E0E106600793AC1 /* SMAAggregateTool.m */; };
 		EEC3CD141DB0CE320034105B /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EEC3CD041DB0CE320034105B /* MJRefresh.bundle */; };
 		EEC3CD151DB0CE320034105B /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD071DB0CE320034105B /* MJRefreshBaseView.m */; };
@@ -360,8 +360,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EEBC48F61EBAD9790084F12C /* Zip.framework in Embed Frameworks */,
-				EEBC48F41EBAD9750084F12C /* iOSDFULibrary.framework in Embed Frameworks */,
+				EEBA6B201EBC6B1A0066A564 /* Zip.framework in Embed Frameworks */,
+				EEBA6B1E1EBC6B160066A564 /* iOSDFULibrary.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1076,10 +1076,10 @@
 		EEB9F6C01D6443430011AA07 /* Gotham-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Medium.otf"; sourceTree = "<group>"; };
 		EEBA49621DFC3A0500FF6302 /* SMACalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMACalendarView.h; sourceTree = "<group>"; };
 		EEBA49631DFC3A0500FF6302 /* SMACalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMACalendarView.m; sourceTree = "<group>"; };
+		EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = "<group>"; };
+		EEBA6B1A1EBC6AB00066A564 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Zip.framework; sourceTree = "<group>"; };
 		EEBAB5A41D6D2F8700AAC710 /* SMAthirdPartyLoginTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAthirdPartyLoginTool.h; sourceTree = "<group>"; };
 		EEBAB5A51D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAthirdPartyLoginTool.m; sourceTree = "<group>"; };
-		EEBC48EF1EBAD95B0084F12C /* iOSDFULibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = "<group>"; };
-		EEBC48F01EBAD95B0084F12C /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Zip.framework; sourceTree = "<group>"; };
 		EEBC89841E0E106600793AC1 /* SMAAggregateTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAAggregateTool.h; sourceTree = "<group>"; };
 		EEBC89851E0E106600793AC1 /* SMAAggregateTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAAggregateTool.m; sourceTree = "<group>"; };
 		EEC3CD041DB0CE320034105B /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
@@ -1195,8 +1195,8 @@
 				EEB54D211E151BFD0059F8D0 /* CoreText.framework in Frameworks */,
 				EEB54D1F1E151BCF0059F8D0 /* Foundation.framework in Frameworks */,
 				EEB54D1D1E151B950059F8D0 /* ImageIO.framework in Frameworks */,
-				EEBC48F51EBAD9790084F12C /* Zip.framework in Frameworks */,
-				EEBC48F21EBAD95B0084F12C /* Zip.framework in Frameworks */,
+				EEBA6B1F1EBC6B1A0066A564 /* Zip.framework in Frameworks */,
+				EEBA6B1C1EBC6AB00066A564 /* Zip.framework in Frameworks */,
 				EEB54D1B1E151B800059F8D0 /* QuartzCore.framework in Frameworks */,
 				EEB54D011E14E96D0059F8D0 /* Social.framework in Frameworks */,
 				EE10229D1E24B7BC00E0A0DF /* linkedin-sdk.framework in Frameworks */,
@@ -1210,7 +1210,7 @@
 				EE0E14181D6708590054BE87 /* libstdc++.tbd in Frameworks */,
 				EE57A73A1E0B5FE10007BCC8 /* libcrypto.a in Frameworks */,
 				EE0E14161D6708520054BE87 /* CoreTelephony.framework in Frameworks */,
-				EEBC48F31EBAD9750084F12C /* iOSDFULibrary.framework in Frameworks */,
+				EEBA6B1D1EBC6B160066A564 /* iOSDFULibrary.framework in Frameworks */,
 				EE10CE7A1DB5F7F000585B74 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				EE57A7531E0B5FE10007BCC8 /* libsmartlinklib_7x.a in Frameworks */,
 				EE0E14141D6708420054BE87 /* libsqlite3.tbd in Frameworks */,
@@ -1218,7 +1218,7 @@
 				EE0E14101D67082C0054BE87 /* SystemConfiguration.framework in Frameworks */,
 				EE57A7591E0B5FE10007BCC8 /* libAbleCloudLib.a in Frameworks */,
 				EE0E140E1D6708240054BE87 /* Security.framework in Frameworks */,
-				EEBC48F11EBAD95B0084F12C /* iOSDFULibrary.framework in Frameworks */,
+				EEBA6B1B1EBC6AB00066A564 /* iOSDFULibrary.framework in Frameworks */,
 				EE57A7381E0B5FE00007BCC8 /* libFTC_DEBUG_ARM_64.a in Frameworks */,
 				EEB54D071E14F8400059F8D0 /* FBSDKCoreKit.framework in Frameworks */,
 				EE0E140C1D6708190054BE87 /* libiconv.tbd in Frameworks */,
@@ -2441,8 +2441,8 @@
 			children = (
 				EE6783D31E1DFC0F00B0B6E7 /* DfuUpdate.h */,
 				EE6783D41E1DFC0F00B0B6E7 /* DfuUpdate.m */,
-				EEBC48EF1EBAD95B0084F12C /* iOSDFULibrary.framework */,
-				EEBC48F01EBAD95B0084F12C /* Zip.framework */,
+				EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */,
+				EEBA6B1A1EBC6AB00066A564 /* Zip.framework */,
 				EE6783D61E1DFC0F00B0B6E7 /* sma10b_firmware_v1.1.8.zip */,
 				EE05D6161EAB51FC00A8CA12 /* angsaz_U16.bin */,
 				EE34EE5F1E1F8C3600A8AABC /* sma07_app(pah8002)_v1.1.1.zip */,

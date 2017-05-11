@@ -29,7 +29,7 @@
 
 - (void)createUIWithMessage:(NSString *)message leftMess:(NSString *)left rightMess:(NSString *)right{
     UITapGestureRecognizer *tapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
-//    [self addGestureRecognizer:tapGR];
+//  [self addGestureRecognizer:tapGR];
    self.backgroundColor = [SmaColor colorWithHexString:@"#000000" alpha:0.5];
     CGFloat messageHeigh = [SMACalculate heightForLableWithText:message Font:FontGothamLight(17) AndlableWidth:MainScreen.size.width - 20] + 20;
     if (messageHeigh <= 90) {

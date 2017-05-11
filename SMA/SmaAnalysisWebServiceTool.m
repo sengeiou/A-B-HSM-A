@@ -577,10 +577,12 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
         [SMAWebDataHandleInfo updateHRData:rhArr finish:^(id finish) {
             
         }];
-        [SMAWebDataHandleInfo updateALData:alArr finish:^(id finish) {
+
+        [SMAWebDataHandleInfo updateLAData:laArr finish:^(id finish) {
             
         }];
-        [SMAWebDataHandleInfo updateLAData:laArr finish:^(id finish) {
+        
+        [SMAWebDataHandleInfo updateALData:alArr finish:^(id finish) {
             
         }];
         
@@ -656,18 +658,19 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
                 }
             }];
         }
-        if (alArr.count > 0) {
-            [SMAWebDataHandleInfo updateALData:alArr finish:^(id finish) {
-                NSLog(@"alArr===%@",finish);
+        if (laArr.count > 0) {
+            [SMAWebDataHandleInfo updateLAData:laArr finish:^(id finish) {
+                NSLog(@"laArr===%@",finish);
                 saveAccount ++;
                 if (saveAccount == backAccount) {
                     callback(@"finish");
                 }
             }];
         }
-        if (laArr.count > 0) {
-            [SMAWebDataHandleInfo updateLAData:laArr finish:^(id finish) {
-                NSLog(@"laArr===%@",finish);
+        
+        if (alArr.count > 0) {
+            [SMAWebDataHandleInfo updateALData:alArr finish:^(id finish) {
+                NSLog(@"alArr===%@",finish);
                 saveAccount ++;
                 if (saveAccount == backAccount) {
                     callback(@"finish");

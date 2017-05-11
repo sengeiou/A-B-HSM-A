@@ -331,6 +331,11 @@ typedef enum {
  */
 - (void)setNickName:(NSString *)name group:(NSString *)group;
 
+/**
+ @discussion ANCS配对请求
+ */
+- (void)setPairAncs;
+
 /*请求07运动数据
  @discussion 每次数据请求最多只能反馈20组数据，余下数据必须重新发送请求指令，直到获取到的数据少于20组
  */

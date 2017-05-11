@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "514539025.427565"
+            timestampString = "515905812.799601"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2487"
-            endingLineNumber = "2487"
+            startingLineNumber = "2502"
+            endingLineNumber = "2502"
             landmarkName = "-sendTimeOut"
             landmarkType = "7">
          </BreakpointContent>

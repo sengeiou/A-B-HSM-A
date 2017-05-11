@@ -17,4 +17,5 @@ typedef void (^pickerSelectRow)(NSInteger row,NSInteger component);
 - (instancetype)initWithTitles:(NSArray *)titles describes:(NSArray *)describe buttonTitles:(NSArray *)buttons pickerMessage:(NSArray *)mesArr;
 - (void)selectConfirm:(confiButton)confirmBlock;
 - (void)pickSelectCallBack:(pickerSelectRow)callBack;
+- (void)pickRowWithTime:(NSArray *)arr;
 @end

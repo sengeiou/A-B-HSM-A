@@ -1405,7 +1405,20 @@ static SmaBLE *_instace;
             NSData * data0 = [NSData dataWithBytes:arr length:(((degree-1)==i)?surplus:20)];
             [self arrangeBLData:data0 type:@"SET" sendNum:degree];
         }
+    }
+}
 
+
+/**
+ ANCS配对请求
+ */
+- (void)setPairAncs{
+    Byte results[13];
+    if(self.p && self.Write)
+    {
+        [SmaBusinessTool getSpliceCmd:0x02 Key:0x47 bytes1:nil len:0 results:results];//设定用户信息
+        NSData * data0 = [NSData dataWithBytes:results length:13];
+        [self arrangeBLData:data0 type:@"SET" sendNum:1];
     }
 }
 
