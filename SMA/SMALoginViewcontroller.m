@@ -144,21 +144,28 @@
     //    }
     [webServict acloudLoginWithAccount:userAccount Password:_passwordField.text success:^(id dic) {
         
-        [webServict acloudDownLHeadUrlWithAccount:userAccount Success:^(id result) {
+//        [webServict acloudDownLHeadUrlWithAccount:userAccount Success:^(id result) {
+//            
+//        } failure:^(NSError *error) {
+//            //            [MBProgressHUD hideHUD];
+//            //            if ([error.userInfo objectForKey:@"errorInfo"]) {
+//            //                [MBProgressHUD showError:[self errorInfoWithSerialNumber:error]];
+//            //            }
+//            //            else if (error.code == -1001) {
+//            //                [MBProgressHUD showError:SMALocalizedString(@"alert_request_timeout")];
+//            //                NSLog(@"超时");
+//            //            }
+//            //            else if (error.code == -1009 || error.code == -1005) {
+//            //                [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
+//            //            }
+//        }];
+         webServict.chaImageName = [NSString stringWithFormat:@"%@.jpg",_accountField.text];
+        [webServict acloudDownFileWithsession:[dic objectForKey:@"_avatar"] callBack:^(float progress, NSError *error) {
             
-        } failure:^(NSError *error) {
-            //            [MBProgressHUD hideHUD];
-            //            if ([error.userInfo objectForKey:@"errorInfo"]) {
-            //                [MBProgressHUD showError:[self errorInfoWithSerialNumber:error]];
-            //            }
-            //            else if (error.code == -1001) {
-            //                [MBProgressHUD showError:SMALocalizedString(@"alert_request_timeout")];
-            //                NSLog(@"超时");
-            //            }
-            //            else if (error.code == -1009 || error.code == -1005) {
-            //                [MBProgressHUD showError:SMALocalizedString(@"login_lostNet")];
-            //            }
+        } CompleteCallback:^(NSString *filePath) {
+            
         }];
+        
         [webServict acloudDownLDataWithAccount:userAccount callBack:^(id finish) {
             //            dispatch_async(dispatch_get_main_queue(), ^{
             
@@ -173,7 +180,7 @@
                 user.userHeight = [[dic objectForKey:@"hight"] intValue] ? [dic objectForKey:@"hight"]:@"170";
                 user.userWeigh =  [[dic objectForKey:@"weight"] intValue] ? [dic objectForKey:@"weight"]:@"60";
                 user.userAge = [[dic objectForKey:@"age"] intValue] ? [dic objectForKey:@"age"]:@"26";
-                user.userSex = [[dic objectForKey:@"sex"] intValue] ? [dic objectForKey:@"sex"]:@"1";
+                user.userSex =  [dic objectForKey:@"sex"];
                 user.userGoal = [[dic objectForKey:@"steps_Aim"] intValue] ? [dic objectForKey:@"steps_Aim"]:@"10000";
                 user.userHeadUrl = [dic objectForKey:@"_avatar"];
                 user.unit = [dic objectForKey:@"unit"];
@@ -248,6 +255,7 @@
 }
 
 - (IBAction)thirdPartySelector:(UIButton *)sender{
+    
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
@@ -348,6 +356,7 @@
     //    } failure:^(NSError *error) {
     //
     //    }];
+     webServict.chaImageName = [NSString stringWithFormat:@"%@.jpg",systemVersion.userInfo[@"OPENID"]];
     [webServict acloudLoginWithOpenId:systemVersion.userInfo[@"OPENID"] provider:LoginProvider accessToken:systemVersion.userInfo[@"TOKEN"] success:^(id result) {
         
         //        [webServict acloudDownLHeadUrlWithAccount:systemVersion.userInfo[@"OPENID"] Success:^(id result) {

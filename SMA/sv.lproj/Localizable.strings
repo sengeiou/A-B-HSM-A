@@ -34,7 +34,7 @@
 "register_getagain"="Skicka igen";
 "register_email"="e-postregistret";
 "register_protocol1"="Genom att klicka på Registrera, godkänner du\n";
-"register_protocol2"="Easysmart HR Användarvillkor";
+"register_protocol2"="SMA CARE Användarvillkor";
 "register_enterphone"="Konto Nej";
 "register_regpwd"="Lösenord kan inte vara tomt";
 "register_regcode"="Verifieringskod inte kan vara tom";
@@ -71,8 +71,8 @@
 "device_SP_running"="Springa";
 "device_SP_km"="km";
 "device_SP_mile"="mile";
-"device_SP_cal"="Cal";
-"device_SP_calorie"="cal";
+"device_SP_cal"="Kcal";
+"device_SP_calorie"="Kcal";
 "device_SP_syncWait"="Data inte synchronized.Please vänta!";
 "device_SP_day"="Dag";
 "device_SP_week"="Vecka";
@@ -173,7 +173,7 @@
 "setting_turnOff"="Stäng av";
 "setting_band_title"="pairing anordning";
 "setting_band_07detail"="Funktion: Omedelbar pulsmätare Samtal / SMS-avisering, aktivitet tracker, selfie etc.";
-"setting_band_buywatch"="Köp Easysmart HR";
+"setting_band_buywatch"="Köp SMA CARE";
 "setting_band_unPair"="ihopkopplingen Senare";
 "setting_band_tryAgain"="Försök igen";
 "setting_band_attention"="Se klockan är fulladdat och nära till telefonen";

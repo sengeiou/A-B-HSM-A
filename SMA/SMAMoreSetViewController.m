@@ -39,7 +39,7 @@
 - (void)initializeMethod{
     self.title = SMALocalizedString(@"me_more_set");
     user = [SMAAccountTool userInfo];
-    titleArr = @[@[SMALocalizedString(@"me_perso_unit")],[SMADefaultinfos getIntValueforKey:THIRDLOGIN] ? @[SMALocalizedString(@"me_set_version"),SMALocalizedString(@"me_set_feedback")]:@[SMALocalizedString(@"me_set_version"),SMALocalizedString(@"login_findPass"),SMALocalizedString(@"me_set_feedback")],@[SMALocalizedString(@"me_repairDfu")/*,SMALocalizedString(@"字库修复")*/,SMALocalizedString(@"me_set_about")]];
+    titleArr = @[@[SMALocalizedString(@"me_perso_unit")],[SMADefaultinfos getIntValueforKey:THIRDLOGIN] ? @[SMALocalizedString(@"me_set_version"),SMALocalizedString(@"me_set_feedback")]:@[SMALocalizedString(@"me_set_version"),SMALocalizedString(@"login_findPass"),SMALocalizedString(@"me_set_feedback")],@[SMALocalizedString(@"me_repairDfu"),SMALocalizedString(@"字库修复"),SMALocalizedString(@"me_set_about")]];
 }
 
 - (void)createUI{
@@ -116,11 +116,11 @@
          [self.navigationController pushViewController:[[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout] animated:YES];
      }
     else if (indexPath.section == 2 && indexPath.row == 1){
-//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-//        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-//        SMARepairDfuCollectionController *repairVC = [[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout];
-//        repairVC.repairFont = YES;
-//        [self.navigationController pushViewController:repairVC animated:YES];
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        SMARepairDfuCollectionController *repairVC = [[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout];
+        repairVC.repairFont = YES;
+        [self.navigationController pushViewController:repairVC animated:YES];
         
         
 //        SMADfuViewController *dfuVC = [MainStoryBoard instantiateViewControllerWithIdentifier:@"SMADfuViewController"];
@@ -131,7 +131,7 @@
 //        [self.navigationController pushViewController:dfuVC animated:YES];
 
         
-         [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAAboutUsViewController"] animated:YES];
+//         [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAAboutUsViewController"] animated:YES];
     }
     else if (indexPath.section == 2 && indexPath.row == 2){
         [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAAboutUsViewController"] animated:YES];

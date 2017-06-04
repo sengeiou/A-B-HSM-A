@@ -8,6 +8,9 @@
 
 #import "SMADatabase.h"
 @implementation SMADatabase
+{
+    NSString *filename;
+}
 static id _instace;
 + (id)allocWithZone:(struct _NSZone *)zone
 {
@@ -33,7 +36,7 @@ static id _instace;
 }
 
 - (FMDatabaseQueue *)createDataBase{
-    NSString *filename = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SMAwatch.sqlite"];
+    filename = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"SMAwatch.sqlite"];
     // 1.创建数据库队列
     FMDatabaseQueue *queue = [FMDatabaseQueue databaseQueueWithPath:filename];
     // 2.创表
@@ -57,7 +60,7 @@ static id _instace;
             
             //定位
             result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float, runstep integer,loca_mode integer,location_web integer);"];
-//            NSLog(@"创表 %d",result);
+            //            NSLog(@"创表 %d",result);
         }];
     }
     return queue;
@@ -173,41 +176,107 @@ static id _instace;
 }
 //插入运动数据
 - (void)insertSportDataArr:(NSMutableArray *)sportData finish:(void (^)(id finish)) success {
-    [self.queue inDatabase:^(FMDatabase *db) {
-        [db beginTransaction];
-        BOOL result = false;
-        for (int i = 0; i < sportData.count; i ++) {
-            
-            NSDictionary *spDic = (NSDictionary *)[sportData objectAtIndex:i];
-            NSString *spID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[spDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
-            NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:spID.doubleValue timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-            NSString *YTD = [date substringToIndex:8];
-            NSString *moment = [SMADateDaultionfos minuteFormDate:date];
-            NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where date=\'%@\' and sp_mode=%d and time=%d and user_id=\'%@\'",YTD,[[spDic objectForKey:@"MODE"] intValue],moment.intValue,[spDic objectForKey:@"USERID"]];
-            NSString *sportStep;
-            FMResultSet *rs = [db executeQuery:sql];
-            while (rs.next) {
-                sportStep = [rs stringForColumn:@"time"];
-            }
-            if (sportStep && ![sportStep isEqualToString:@""]) {
-                result =   [db executeUpdate:@"update tb_CuffSport set Cuff_id=?, step=?, sp_mode=?, sp_web=? where sp_mode=? and date=? and time=? and user_id=?",spID,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"],[spDic objectForKey:@"MODE"],YTD,moment,[spDic objectForKey:@"USERID"]];
+    
+//    FMDatabase *db = [FMDatabase databaseWithPath:filename];
+//    if ([db open]) {
+//        [db beginTransaction];
+//        __block BOOL result = false;
+//        @try {
+//        for (int i = 0; i < sportData.count; i ++) {
+//            NSDictionary *spDic = (NSDictionary *)[sportData objectAtIndex:i];
+//            NSString *spID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[spDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+//            NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:spID.doubleValue timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+//            NSString *YTD = [date substringToIndex:8];
+//            NSString *moment = [SMADateDaultionfos minuteFormDate:date];
+//            result =    [db executeUpdate:@" INSERT OR REPLACE INTO tb_CuffSport (user_id,Cuff_id,date,time,step,ident,sp_mode,sp_web) values(?,?,?,?,?,?,?,?)",[spDic objectForKey:@"USERID"],spID,YTD,moment,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"INDEX"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"]];
+//            NSLog(@"步数更新  %d  步数  %@  模式  %@  时间 %@",result,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],moment);
+//
+//        }
+////        [db commit];
+//        success ([NSString stringWithFormat:@"%d",result]);
+//            
+//        } @catch (NSException *exception) {
+//            [db rollback];
+//        } @finally {
+//              [db commit];
+//        }
+//    }
+    
+//        [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+//            sqlite3_exec((__bridge sqlite3 *)(db),"PRAGMA synchronous = OFF; ",0,0,0);
+//          [db shouldCacheStatements];
+//            BOOL result = false;
+//            for (int i = 0; i < sportData.count; i ++) {
+//                NSDictionary *spDic = (NSDictionary *)[sportData objectAtIndex:i];
+//                NSString *spID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[spDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+//                NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:spID.doubleValue timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+//                NSString *YTD = [date substringToIndex:8];
+//                NSString *moment = [SMADateDaultionfos minuteFormDate:date];
+//                NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where date=\'%@\' and sp_mode=%d and time=%d and user_id=\'%@\'",YTD,[[spDic objectForKey:@"MODE"] intValue],moment.intValue,[spDic objectForKey:@"USERID"]];
+//                NSString *sportStep;
+//                FMResultSet *rs = [db executeQuery:sql];
+//                while (rs.next) {
+//                    sportStep = [rs stringForColumn:@"time"];
+//                }
+//                if (sportStep && ![sportStep isEqualToString:@""]) {
+//                    result =   [db executeUpdate:@"update tb_CuffSport set Cuff_id=?, step=?, sp_mode=?, sp_web=? where sp_mode=? and date=? and time=? and user_id=?",spID,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"],[spDic objectForKey:@"MODE"],YTD,moment,[spDic objectForKey:@"USERID"]];
+//                    NSLog(@"步数更新  %d  步数  %@  模式  %@  时间 %@",result,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],moment);
+//                }
+//                else{
+//                    result =   [db executeUpdate:@"insert into tb_CuffSport (user_id,Cuff_id,date,time,step,ident,sp_mode,sp_web) values(?,?,?,?,?,?,?,?)",[spDic objectForKey:@"USERID"],spID,YTD,moment,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"INDEX"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"]];
+//                    NSLog(@"步数插入  %d  步数  %@ 模式  %@ 时间 %@",result,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],moment);
+//                }
+//            }
+//    //        [db commit];
+//            success ([NSString stringWithFormat:@"%d",result]);
+//    
+//        }];
+    
+    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [self.queue inDatabase:^(FMDatabase *db) {
+            //         [db shouldCacheStatements];
+            [db beginTransaction];
+            //        sqlite3_exec((__bridge sqlite3 *)(db),"PRAGMA synchronous = OFF; ",0,0,0);
+            __block BOOL result = false;
+            for (int i = 0; i < sportData.count; i ++) {
+                
+                NSDictionary *spDic = (NSDictionary *)[sportData objectAtIndex:i];
+                NSString *spID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[spDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+                NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:spID.doubleValue timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+                NSString *YTD = [date substringToIndex:8];
+                NSString *moment = [SMADateDaultionfos minuteFormDate:date];
+                //                NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where date=\'%@\' and sp_mode=%d and time=%d and user_id=\'%@\'",YTD,[[spDic objectForKey:@"MODE"] intValue],moment.intValue,[spDic objectForKey:@"USERID"]];
+                //                NSString *sportStep;
+                //                FMResultSet *rs = [db executeQuery:sql];
+                //                while (rs.next) {
+                //                    sportStep = [rs stringForColumn:@"time"];
+                //                }
+                //                if (sportStep && ![sportStep isEqualToString:@""]) {
+                //                    result =   [db executeUpdate:@"update tb_CuffSport set Cuff_id=?, step=?, sp_mode=?, sp_web=? where sp_mode=? and date=? and time=? and user_id=?",spID,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"],[spDic objectForKey:@"MODE"],YTD,moment,[spDic objectForKey:@"USERID"]];
+                //                    //                NSLog(@"步数更新  %d  步数  %@  模式  %@  时间 %@",result,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],moment);
+                //                }
+                //                else{
+                //                    result =   [db executeUpdate:@"insert into tb_CuffSport (user_id,Cuff_id,date,time,step,ident,sp_mode,sp_web) values(?,?,?,?,?,?,?,?)",[spDic objectForKey:@"USERID"],spID,YTD,moment,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"INDEX"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"]];
+                //                    //                NSLog(@"步数插入  %d  步数  %@ 模式  %@ 时间 %@",result,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],moment);
+                //                }
+                
+                result =    [db executeUpdate:@" INSERT OR REPLACE INTO tb_CuffSport (user_id,Cuff_id,date,time,step,ident,sp_mode,sp_web) values(?,?,?,?,?,?,?,?)",[spDic objectForKey:@"USERID"],spID,YTD,moment,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"INDEX"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"]];
                 NSLog(@"步数更新  %d  步数  %@  模式  %@  时间 %@",result,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],moment);
+                
             }
-            else{
-                result =   [db executeUpdate:@"insert into tb_CuffSport (user_id,Cuff_id,date,time,step,ident,sp_mode,sp_web) values(?,?,?,?,?,?,?,?)",[spDic objectForKey:@"USERID"],spID,YTD,moment,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"INDEX"],[spDic objectForKey:@"MODE"],[spDic objectForKey:@"WEB"]];
-                NSLog(@"步数插入  %d  步数  %@ 模式  %@ 时间 %@",result,[spDic objectForKey:@"STEP"],[spDic objectForKey:@"MODE"],moment);
-            }
-        }
-        [db commit];
-        success ([NSString stringWithFormat:@"%d",result]);
-    }];
+            [db commit];
+            success ([NSString stringWithFormat:@"%d",result]);
+            
+        }];
+//    });
 }
 
 //获取运动数据
 - (NSMutableArray *)readSportDataWithDate:(NSString *)date toDate:(NSString *)todate{
     NSMutableArray *spArr = [NSMutableArray array];
     [self.queue inDatabase:^(FMDatabase *db) {
-//        [db beginTransaction];
+        [db beginTransaction];
         NSString *sql = [NSString stringWithFormat:@"select *from tb_CuffSport where date >=\'%@\' and date <=\'%@\' and sp_mode != 32 and sp_mode != 33 and sp_mode != 47 and user_id = \'%@\' group by date",date,todate,[SMAAccountTool userInfo].userID];
         FMResultSet *rs = [db executeQuery:sql];
         NSString *sportT;
@@ -239,7 +308,7 @@ static id _instace;
         //        if (spDetailArr.count > 0) {
         //            [spArr addObject:spDetailArr];
         //        }
-//        [db commit];
+        [db commit];
     }];
     return spArr;
 }
@@ -373,6 +442,7 @@ static id _instace;
 -(void)insertSleepDataArr:(NSMutableArray *)sleepData finish:(void (^)(id finish)) success
 {
     [self.queue inDatabase:^(FMDatabase *db) {
+        //         [db shouldCacheStatements];
         [db beginTransaction];
         BOOL result = false;
         for (int i=0; i<sleepData.count; i++) {
@@ -390,11 +460,11 @@ static id _instace;
             if (sleepTime && ![sleepTime isEqualToString:@""]) {
                 NSString *updatesql=[NSString stringWithFormat:@"update tb_sleep set sleep_id='%@', sleep_mode=%d,softly_action=%d,strong_action=%d,sleep_ident='%@',sleep_waer=%d,sleep_web=%d where sleep_date=\'%@\' and sleep_time=%d and user_id=\'%@\';",spID,[[slDic objectForKey:@"MODE"] intValue],[[slDic objectForKey:@"SOFTLY"] intValue],[[slDic objectForKey:@"STRONG"] intValue],[slDic objectForKey:@"INDEX"],[[slDic objectForKey:@"WEAR"] intValue],[[slDic objectForKey:@"WEB"] intValue],YTD,moment.intValue,[slDic objectForKey:@"USERID"]];
                 result = [db executeUpdate:updatesql];
-                NSLog(@"睡眠更新  %d",result);
+                //                NSLog(@"睡眠更新  %d",result);
             }
             else{
                 result=  [db executeUpdate:@"INSERT INTO tb_sleep (user_id,sleep_id,sleep_date,sleep_time,sleep_mode,softly_action,strong_action,sleep_ident,sleep_waer,sleep_web) VALUES (?,?,?,?,?,?,?,?,?,?);",[slDic objectForKey:@"USERID"],spID,YTD,moment,[slDic objectForKey:@"MODE"],[slDic objectForKey:@"SOFTLY"],[slDic objectForKey:@"STRONG"],[slDic objectForKey:@"INDEX"],[slDic objectForKey:@"WEAR"],[slDic objectForKey:@"WEB"]];
-                NSLog(@"插入睡眠数据 %d",result);
+                //                NSLog(@"插入睡眠数据 %d",result);
             }
             
         }
@@ -667,6 +737,7 @@ static id _instace;
 //插入心率数据
 - (void)insertHRDataArr:(NSMutableArray *)HRarr finish:(void (^)(id finish)) success{
     [self.queue inDatabase:^(FMDatabase *db) {
+        //         [db shouldCacheStatements];
         [db beginTransaction];
         __block BOOL result = false;
         for (int i = 0; i < HRarr.count; i ++) {
@@ -685,11 +756,11 @@ static id _instace;
             
             if (HR_id && ![HR_id isEqualToString:@""]) {
                 result = [db executeUpdate:@"update tb_HRate set HR_id=?, HR_real=?,hr_mode=?,HR_web=? where HR_date =? and HR_time=? and hr_mode=? and user_id=?",hrID,[hrDic objectForKey:@"HEART"],[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"WEB"],YTD,moment,[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"USERID"]];
-                NSLog(@"更新心率数据 %d ",result);
+                //                NSLog(@"更新心率数据 %d ",result);
             }
             else{
                 result = [db executeUpdate:@"insert into tb_HRate(user_id,HR_id,HR_date,HR_time,HR_real,hr_mode,HR_ident,HR_web) values(?,?,?,?,?,?,?,?)",[hrDic objectForKey:@"USERID"],hrID,YTD,moment,[hrDic objectForKey:@"HEART"],[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"INDEX"],[hrDic objectForKey:@"WEB"]];
-                NSLog(@"插入心率数据 %d",result);
+                //                NSLog(@"插入心率数据 %d",result);
             }
         }
         [db commit];
@@ -718,6 +789,7 @@ static id _instace;
 //插入静息心率数据
 - (void)insertQuietHRDataArr:(NSMutableArray *)HRarr finish:(void (^)(id finish)) success{
     [self.queue inDatabase:^(FMDatabase *db) {
+        //        [db shouldCacheStatements];
         [db beginTransaction];
         __block BOOL result = false;
         for (int i = 0; i < HRarr.count; i ++) {
@@ -736,11 +808,11 @@ static id _instace;
             
             if (HR_id && ![HR_id isEqualToString:@""]) {
                 result = [db executeUpdate:@"update tb_HRate set HR_id=?, HR_real=?,hr_mode=?,HR_web=? and HR_time=? where HR_date =? and user_id=?",hrID,[hrDic objectForKey:@"HEART"],[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"WEB"],moment,YTD,[hrDic objectForKey:@"USERID"]];
-                NSLog(@"更新静息心率数据 %d ",result);
+                //                NSLog(@"更新静息心率数据 %d ",result);
             }
             else{
                 result = [db executeUpdate:@"insert into tb_HRate(user_id,HR_id,HR_date,HR_time,HR_real,hr_mode,HR_ident,HR_web) values(?,?,?,?,?,?,?,?)",[hrDic objectForKey:@"USERID"],hrID,YTD,moment,[hrDic objectForKey:@"HEART"],[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"INDEX"],[hrDic objectForKey:@"WEB"]];
-                NSLog(@"插入静息心率数据 %d",result);
+                //                NSLog(@"插入静息心率数据 %d",result);
             }
         }
         [db commit];
@@ -867,9 +939,9 @@ static id _instace;
 
 //读取每天静息心率数据
 - (NSMutableArray *)readQuietHearReatDataWithDate:(NSString *)date toDate:(NSString *)toDate{
-     NSMutableArray *hrArr = [NSMutableArray array];
+    NSMutableArray *hrArr = [NSMutableArray array];
     [self.queue inDatabase:^(FMDatabase *db) {
-       FMResultSet *rsChart = [db executeQuery:@"select *from tb_HRate where HR_date>=? and HR_date<=? and hr_mode=1 and user_id=? group by HR_date order by HR_date DESC",date,toDate,[SMAAccountTool userInfo].userID];
+        FMResultSet *rsChart = [db executeQuery:@"select *from tb_HRate where HR_date>=? and HR_date<=? and hr_mode=1 and user_id=? group by HR_date order by HR_date DESC",date,toDate,[SMAAccountTool userInfo].userID];
         while (rsChart.next) {
             NSDictionary *dict;
             NSString *date = [rsChart stringForColumn:@"HR_date"];
@@ -921,24 +993,24 @@ static id _instace;
         __block BOOL result = false;
         [db beginTransaction];
         for (int i = 0; i < locationArr.count; i ++) {
-          NSDictionary *locationDic = [locationArr objectAtIndex:i];
-        
-         NSString *locatID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[locationDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+            NSDictionary *locationDic = [locationArr objectAtIndex:i];
+            
+            NSString *locatID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[locationDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
             NSLog(@"定位数据时间 %@  %@",[locationDic objectForKey:@"DATE"],locatID);
-//         FMResultSet *rs = [db executeQuery:@"select * from tb_HRate where HR_date =? and HR_time=? and hr_mode=? and user_id=?",YTD,moment,[locationDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"USERID"]];
-        FMResultSet *reSet = [db executeQuery:@"select * from tb_location where loca_id = ? and user_id = ?",locatID,[locationDic objectForKey:@"USERID"]];
-        NSString *hisId;
-        while (reSet.next) {
-            hisId = [reSet stringForColumn:@"loca_id"];
-        }
-        if (hisId && ![hisId isEqualToString:@""]) {
-            result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?,runstep = ?, loca_mode = ?, location_web = ? where loca_id = ? and user_id = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],[locationDic objectForKey:@"WEB"],locatID,[locationDic objectForKey:@"USERID"]];
-            NSLog(@"更新定位数据 %d",result);
-        }
-        else{
-            result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude, runstep,loca_mode,location_web) values (?,?,?,?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],[locationDic objectForKey:@"WEB"]];
-            NSLog(@"插入定位数据 %d",result);
-        }
+            //         FMResultSet *rs = [db executeQuery:@"select * from tb_HRate where HR_date =? and HR_time=? and hr_mode=? and user_id=?",YTD,moment,[locationDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"USERID"]];
+            FMResultSet *reSet = [db executeQuery:@"select * from tb_location where loca_id = ? and user_id = ?",locatID,[locationDic objectForKey:@"USERID"]];
+            NSString *hisId;
+            while (reSet.next) {
+                hisId = [reSet stringForColumn:@"loca_id"];
+            }
+            if (hisId && ![hisId isEqualToString:@""]) {
+                result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?,runstep = ?, loca_mode = ?, location_web = ? where loca_id = ? and user_id = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],[locationDic objectForKey:@"WEB"],locatID,[locationDic objectForKey:@"USERID"]];
+                NSLog(@"更新定位数据 %d",result);
+            }
+            else{
+                result = [db executeUpdate:@"insert into tb_location (user_id, loca_id, loca_date, longitude, latitude, runstep,loca_mode,location_web) values (?,?,?,?,?,?,?,?)",[locationDic objectForKey:@"USERID"],locatID,[locationDic objectForKey:@"DATE"],[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],[locationDic objectForKey:@"WEB"]];
+                NSLog(@"插入定位数据 %d",result);
+            }
         }
         [db commit];
         success ([NSString stringWithFormat:@"%d",result]);
@@ -948,7 +1020,7 @@ static id _instace;
 
 //读取轨迹数据
 - (NSMutableArray *)readLocationDataWithDate:(NSString *)date toDate:(NSString *)todate{
-
+    
     NSMutableArray *locationArr = [NSMutableArray array];
     [self.queue inDatabase:^(FMDatabase *db) {
         NSString *sql = [NSString stringWithFormat:@"select *from tb_location where loca_date >=%@ and loca_date <=%@ and user_id = \'%@\'",date,todate,[SMAAccountTool userInfo].userID];
@@ -964,15 +1036,15 @@ static id _instace;
             coord.latitude = latitude.doubleValue;
             coord.longitude = longitude.doubleValue;
             if (outOfChina == 3) {
-//                outOfChina = [WGS84TOGCJ02 isLocationOutOfChina:coord];
+                //                outOfChina = [WGS84TOGCJ02 isLocationOutOfChina:coord];
                 outOfChina = [TQLocationConverter isLocationOutOfChina:coord];
             }
             if (!outOfChina) {
                 //转换后的coord
-//                NSLog(@"转换后的coord");
+                //                NSLog(@"转换后的coord");
                 coord = [TQLocationConverter transformFromWGSToGCJ:coord];
             }
-
+            
             NSDictionary *locaDic = [[NSDictionary alloc]initWithObjectsAndKeys:date,@"DATE",[NSString stringWithFormat:@"%f",coord.longitude],@"LONGITUDE",[NSString stringWithFormat:@"%f",coord.latitude],@"LATITUDE",runStep,@"STEP", nil];
             [locationArr addObject:locaDic];
         }
@@ -990,7 +1062,7 @@ static id _instace;
         [db commit];
         success([NSString stringWithFormat:@"%d",result]);
     }];
-
+    
 }
 
 //获取所需要上传轨迹数据

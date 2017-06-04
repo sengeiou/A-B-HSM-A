@@ -34,7 +34,7 @@
 "register_getagain"="Yeniden gönder";
 "register_email"="E-posta yazar";
 "register_protocol1"="Kayıt'ı tıklatarak,\n";
-"register_protocol2"="Easysmart HR Kullanıcı Koşulları";
+"register_protocol2"="SMA CARE Kullanıcı Koşulları";
 "register_enterphone"="Hesap No";
 "register_regpwd"="Şifre boş olamaz";
 "register_regcode"="Doğrulama kodu boş olamaz";
@@ -71,8 +71,8 @@
 "device_SP_running"="koş";
 "device_SP_km"="Km";
 "device_SP_mile"="mil";
-"device_SP_cal"="Cal";
-"device_SP_calorie"="Cal";
+"device_SP_cal"="Kcal";
+"device_SP_calorie"="Kcal";
 "device_SP_syncWait"="Veriler senkronize edilmemiştir. Lütfen bekleyin!";
 "device_SP_day"="Gün";
 "device_SP_week"="Hafta";
@@ -173,7 +173,7 @@
 "setting_turnOff"="Kapat";
 "setting_band_title"="Eşleştirme aygıtı";
 "setting_band_07detail"="İşlev: Anlık kalp atış hızı izleyicisi, Çağrı / SMS bildirimi, etkinlik izleyici, selfie vb.";
-"setting_band_buywatch"="Easysmart HR Satın Alın";
+"setting_band_buywatch"="SMA CARE Satın Alın";
 "setting_band_unPair"="Eşleştirme Daha Sonra";
 "setting_band_tryAgain"="Yeniden dene";
 "setting_band_attention"="Lütfen saatin tamamen dolduğundan ve telefonun yakınında olduğundan emin olun";

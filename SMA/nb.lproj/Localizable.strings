@@ -34,7 +34,7 @@
 "register_getagain"="Send igjen";
 "register_email"="E-post register";
 "register_protocol1"="Ved å klikke på Registrer, samtykker du til\n";
-"register_protocol2"="Easysmart HR brukervilkårene";
+"register_protocol2"="SMA CARE brukervilkårene";
 "register_enterphone"="Kontonr";
 "register_regpwd"="Passordet kan ikke være tomt";
 "register_regcode"="Bekreftelseskode kan ikke være tomt";
@@ -71,8 +71,8 @@
 "device_SP_running"="Løpe";
 "device_SP_km"="km";
 "device_SP_mile"="mil";
-"device_SP_cal"="Cal";
-"device_SP_calorie"="Cal";
+"device_SP_cal"="Kcal";
+"device_SP_calorie"="Kcal";
 "device_SP_syncWait"="Dataene er ikke synchronized.Please ventetiden!";
 "device_SP_day"="Dag";
 "device_SP_week"="Uke";
@@ -173,7 +173,7 @@
 "setting_turnOff"="Skru av";
 "setting_band_title"="sammenkobling enhet";
 "setting_band_07detail"="Funksjon: Instant pulsklokke, Call / SMS-varsling, aktivitet tracker, selfie etc.";
-"setting_band_buywatch"="Kjøp Easysmart HR";
+"setting_band_buywatch"="Kjøp SMA CARE";
 "setting_band_unPair"="paring senere";
 "setting_band_tryAgain"="Prøv på nytt";
 "setting_band_attention"="Sørg for at klokken er fulladet og i nærheten av telefonen";

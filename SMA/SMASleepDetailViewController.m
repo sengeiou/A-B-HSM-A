@@ -596,15 +596,10 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
             if ([obj1[@"TIME"] intValue]<[obj2[@"TIME"] intValue]) {
                 return NSOrderedAscending;
             }
-    
-            else if ([obj1[@"TIME"] intValue]==[obj2[@"TIME"] intValue])
-    
+                else if ([obj1[@"TIME"] intValue]==[obj2[@"TIME"] intValue])
                 return NSOrderedSame;
-    
             else
-    
                 return NSOrderedDescending;
-    
         }];
     NSMutableArray *sortArr = [arr mutableCopy];
     if (sortArr.count > 2) {//筛选同一状态数据

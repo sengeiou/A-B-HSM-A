@@ -122,7 +122,7 @@ static id _instace;
 }
 
 - (void)reunionTimer:(id)sender{
-    NSLog(@"fwefwefwergrg==== %d  %d",SmaDfuManager.dfuMode,self.peripheral.state);
+    NSLog(@"fwefwefwergrg==== %d  %ld",SmaDfuManager.dfuMode,(long)self.peripheral.state);
    self.mgr.delegate = self;//确保DFU升级后重设代理以确保通讯正常
     if (self.peripheral.state != CBPeripheralStateConnected && !SmaDfuManager.dfuMode && !_repairDfu && !_repairFont) {
         if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] ) {
@@ -232,6 +232,10 @@ static id _instace;
                  NSLog(@"222221111222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
                  [self connectBl:[allPer firstObject]];
             }
+            else if(_repairFont && !SmaDfuManager.dfuMode){
+                 NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"]]];
+//                if
+            }
             else{
                 [self.peripherals removeAllObjects];
                 self.peripherals = nil;
@@ -296,7 +300,7 @@ static id _instace;
             str = [[NSString alloc] initWithData:[NSData dataWithBytes:byteFont length:[data length] - 2] encoding:kCFStringEncodingUTF8];
              NSLog(@"字库修复连接设备 %@  %@  %s  %@",[NSData dataWithBytes:byteFont length:[data length] - 2],str,byteFont,advertisementData);
         }
-        if ( RSSI.intValue > -43 && [str isEqualToString:@"FixFont_07"]) {
+        if ( RSSI.intValue > -43 && [str isEqualToString:@"FixFont"]) {
              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self connectBl:peripheral];
         });
@@ -421,6 +425,9 @@ static id _instace;
         [self performSelector:@selector(getXmodem) withObject:nil afterDelay:3];
         
     }
+    SMAUserInfo *user = [SMAAccountTool userInfo];
+    user.scnaName = peripheral.name;
+    [SMAAccountTool saveUser:user];
     if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleDidConnect)] && !SmaDfuManager.dfuMode){
         [self.BLdelegate bleDidConnect];
     }
@@ -557,12 +564,12 @@ static id _instace;
             break;
         case CUFFSPORTDATA:
             /****
-             静坐开始 10
+             静坐开始 10 
              步行开始 11
              跑步开始 12
-             运动模式开始 20
-             运动中数据   21
-             运动模式结束 2F
+             运动模式开始 20 -> 32
+             运动中数据   21 -> 33
+             运动模式结束 2F -> 47
              *****/
             if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
 //                SmaAnalysisWebServiceTool *webTool = [[SmaAnalysisWebServiceTool alloc] init];

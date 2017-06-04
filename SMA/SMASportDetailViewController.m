@@ -229,7 +229,7 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
         [mainScroll addSubview:stateView];
         
         //        detailTabView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(stateView.frame)+1, MainScreen.size.width, ((MainScreen.size.height - 64 - self.tabBarController.tabBar.frame.size.height) + 145) - CGRectGetHeight(WYLocalScrollView.frame) - CGRectGetHeight(stateView.frame)) style:UITableViewStylePlain];
-        detailTabView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(stateView.frame)+1, MainScreen.size.width, (MainScreen.size.height - 64 - self.tabBarController.tabBar.frame.size.height) - CGRectGetHeight(WYLocalScrollView.frame) - CGRectGetHeight(stateView.frame)) style:UITableViewStylePlain];
+        detailTabView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(stateView.frame)+1, MainScreen.size.width, (MainScreen.size.height - 64 - self.tabBarController.tabBar.frame.size.height) - CGRectGetHeight(WYLocalScrollView.frame) - CGRectGetHeight(stateView.frame) - CGRectGetHeight(calView.frame)) style:UITableViewStylePlain];
         
         detailTabView.separatorStyle = UITableViewCellSeparatorStyleNone;
         detailTabView.backgroundColor = [UIColor whiteColor];
@@ -1029,6 +1029,7 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
                 if (atMode.intValue != 0) {
                     prevMode = dic[@"MODE"];
                     prevTime = dic[@"TIME"] ;
+                atTypeStep = [dic[@"STEP"] intValue] ;
                 }
             }
             else{
@@ -1252,7 +1253,7 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
     NSString *calStr = nil;
     NSString *unitStr = nil;
     
-    calStr = [SMACalculate notRounding:cal afterPoint:1];
+    calStr = [SMACalculate notRounding:cal afterPoint:0];
     unitStr = SMALocalizedString(@"device_SP_cal");
     NSDictionary *disDic = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:FontGothamLight(22)};
     NSDictionary *unitDic = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:FontGothamLight(14)};

@@ -70,7 +70,7 @@
 "device_SP_running" = "跑步";
 "device_SP_km" = "km";
 "device_SP_mile" = "mile";
-"device_SP_cal" = "Cal";
+"device_SP_cal" = "Kcal";
 "device_SP_calorie" = "卡路里";
 "device_SP_syncWait" = "数据未完成同步，请稍候!";
 "device_SP_day" = "日";

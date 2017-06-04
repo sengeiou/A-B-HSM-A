@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     SmaBleMgr.dfuUpdate = YES;
+    SmaBleMgr.dfuUpdate = YES;
     [self createUI];
     
 }
@@ -260,7 +260,7 @@
         }
         return;
     }
-    if ((((SmaBleMgr.repairDfu || SmaBleMgr.repairFont) ? NO : [SmaBleMgr checkBLConnectState]) && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue <= webFirmwareVer.intValue) || SmaBleMgr.repairDfu || SmaBleMgr.repairFont) {
+    if ((((SmaBleMgr.repairDfu || SmaBleMgr.repairFont) ? NO : [SmaBleMgr checkBLConnectState]) && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue < webFirmwareVer.intValue) || SmaBleMgr.repairDfu || SmaBleMgr.repairFont) {
         [SmaBleMgr reunitonPeripheral:YES];
         [updateTimer invalidate];
         updateTimer = nil;
@@ -639,6 +639,28 @@
             }
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 [coverView removeFromSuperview];
+                SmaBleMgr.dfuUpdate = NO;
+                SmaBleMgr.repairDfu = NO;
+                
+                if (SmaBleMgr.repairFont) {
+                    if (repairFontState == 0 || repairFontState == 2) {
+                        [SmaDfuManager abort];
+                    }
+                    if (repairFontState == 1) {
+                        [SmaBleSend endXMODEM];
+                    }
+                    if (repairFontState == 2) {
+                        SMAUserInfo *uer = [SMAAccountTool userInfo];
+                        NSString *uuid = [SMADefaultinfos getValueforKey:REPAIRUUID];
+                        user.watchUUID = uuid;
+                        if (!uuid && [uuid isEqualToString:@""]) {
+                            user.watchUUID = nil;
+                        }
+                        [SMAAccountTool saveUser:uer];
+                    }
+                }
+                SmaBleMgr.repairFont = NO;
+
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });
         }

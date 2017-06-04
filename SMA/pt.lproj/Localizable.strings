@@ -71,8 +71,8 @@
 "device_SP_running" = "跑步";
 "device_SP_km" = "km";
 "device_SP_mile" = "milha";
-"device_SP_cal" = "Cal.";
-"device_SP_calorie" = "Cal.";
+"device_SP_cal" = "Kcal";
+"device_SP_calorie" = "Kcal";
 "device_SP_syncWait" = "A sincronização dos dados do telefone ainda não está concluída, aguarde";
 "device_SP_day" = "Dia";
 "device_SP_week" = "Semana";

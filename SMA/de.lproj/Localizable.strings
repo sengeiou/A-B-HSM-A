@@ -34,7 +34,7 @@
 "register_getagain"="Erneut senden";
 "register_email"="E-Mail-Anmeldung";
 "register_protocol1"="Wenn Sie auf Registrieren klicken, stimmen Sie zu\n";
-"register_protocol2"="Easysmart HR Benutzerbedingungen";
+"register_protocol2"="SMA CARE Benutzerbedingungen";
 "register_enterphone"="Konto Nr";
 "register_regpwd"="Passwort kann nicht leer sein";
 "register_regcode"="Der Bestätigungscode darf nicht leer sein";
@@ -71,8 +71,8 @@
 "device_SP_running"="Lauf";
 "device_SP_km"="Km";
 "device_SP_mile"="Meile";
-"device_SP_cal"="Cal";
-"device_SP_calorie"="Cal";
+"device_SP_cal"="Kcal";
+"device_SP_calorie"="Kcal";
 "device_SP_syncWait"="Die Daten werden nicht synchronisiert. Bitte warten!";
 "device_SP_day"="Tag";
 "device_SP_week"="Woche";
@@ -173,7 +173,7 @@
 "setting_turnOff"="Abschalten";
 "setting_band_title"="Pairing-Gerät";
 "setting_band_07detail"="Funktion: Sofortiger Herzfrequenzmonitor, Anruf- / SMS-Benachrichtigung, Aktivitätsverfolger, Selfie etc.";
-"setting_band_buywatch"="Kaufen Easysmart HR";
+"setting_band_buywatch"="Kaufen SMA CARE";
 "setting_band_unPair"="Später kampieren";
 "setting_band_tryAgain"="Wiederholen";
 "setting_band_attention"="Bitte stellen Sie sicher, dass die Uhr voll aufgeladen ist und in der Nähe des Telefons liegt";

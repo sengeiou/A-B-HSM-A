@@ -229,9 +229,11 @@
             NSString *fileType = [[filename componentsSeparatedByString:@"_"] objectAtIndex:1];
            
 //            if ([fileType isEqualToString:[SMADefaultinfos getValueforKey:BANDDEVELIVE]]) {
+            NSLog(@"fjwoigogjog === %@ __ %@ ___ %@ ___ %@ ",fileType,[SMADefaultinfos getValueforKey:SMACUSTOM],deviceName,[SMAAccountTool userInfo].scnaName);
             if ([fileType isEqualToString:[SMADefaultinfos getValueforKey:SMACUSTOM]] && [deviceName isEqualToString:[SMAAccountTool userInfo].scnaName]) {
                 NSString *webFirmwareVer = [[filename substringWithRange:NSMakeRange(filename.length - 9, 5)] stringByReplacingOccurrencesOfString:@"." withString:@""];
-                if ([[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue <= webFirmwareVer.intValue) {
+                NSLog(@"fwgohjiohi  %@  __ %@",[[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""],webFirmwareVer);
+                if ([[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue < webFirmwareVer.intValue) {
                     _updateView.hidden = NO;
                     webFirmwareDic = [finish objectAtIndex:i];
                 }

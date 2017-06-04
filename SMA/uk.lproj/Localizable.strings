@@ -71,8 +71,8 @@
 "device_SP_running" = "跑步";
 "device_SP_km" = "км";
 "device_SP_mile" = "миля";
-"device_SP_cal" = "Cal.";
-"device_SP_calorie" = "Cal.";
+"device_SP_cal" = "Kcal";
+"device_SP_calorie" = "Kcal";
 "device_SP_syncWait" = "Синхронізація даних телефону ще не завершена, будь ласка, зачекайте";
 "device_SP_day" = "День";
 "device_SP_week" = "Тиждень";

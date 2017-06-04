@@ -34,7 +34,7 @@
 "register_getagain"="Uudelleen lähettää";
 "register_email"="Sähköposti rekisteri";
 "register_protocol1"="Painamalla Liity hyväksyt\n";
-"register_protocol2"="Easysmart HR User Ehdot";
+"register_protocol2"="SMA CARE User Ehdot";
 "register_enterphone"="Tilinumero";
 "register_regpwd"="Salasana ei voi olla tyhjä";
 "register_regcode"="Vahvistuskoodi voi olla tyhjä";
@@ -71,8 +71,8 @@
 "device_SP_running"="Juosta";
 "device_SP_km"="km";
 "device_SP_mile"="maili";
-"device_SP_cal"="Cal";
-"device_SP_calorie"="Cal";
+"device_SP_cal"="Kcal";
+"device_SP_calorie"="Kcal";
 "device_SP_syncWait"="Tiedot eivät ole synchronized.Please odota!";
 "device_SP_day"="Päivä";
 "device_SP_week"="Viikko";
@@ -173,7 +173,7 @@
 "setting_turnOff"="Sammuttaa";
 "setting_band_title"="Pairing laite";
 "setting_band_07detail"="Tehtävä: Instant sykemittari, Call / tekstiviesti-ilmoituksen, toiminta tracker, selfie jne";
-"setting_band_buywatch"="Osta Easysmart HR";
+"setting_band_buywatch"="Osta SMA CARE";
 "setting_band_unPair"="Pairing Myöhemmin";
 "setting_band_tryAgain"="Yritä uudelleen";
 "setting_band_attention"="Varmista kello on ladattu täyteen ja lähellä puhelimeen";

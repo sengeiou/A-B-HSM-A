@@ -259,7 +259,7 @@ typedef enum {
  @parmar open   YES开启，NO关闭
  */
 - (void)setVertical:(BOOL)open;
-
+                                                              
 /* 设置勿扰时间（07）
  @parmar info  勿扰设置对像（各参数请参考该对象参数）
  */

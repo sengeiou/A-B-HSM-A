@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		46495CBCBE14FCF45037209D /* Pods_SMA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F827C92C23048F37D5CC134 /* Pods_SMA.framework */; };
-		EE05D6151EAB056300A8CA12 /* sma07_app(FixFont).zip in Resources */ = {isa = PBXBuildFile; fileRef = EE05D6141EAB056300A8CA12 /* sma07_app(FixFont).zip */; };
 		EE05D6171EAB51FC00A8CA12 /* angsaz_U16.bin in Resources */ = {isa = PBXBuildFile; fileRef = EE05D6161EAB51FC00A8CA12 /* angsaz_U16.bin */; };
 		EE09ACE41DAA2B1000CA2EC5 /* SMADatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACE31DAA2B1000CA2EC5 /* SMADatabase.m */; };
 		EE09ACF11DAA2B2E00CA2EC5 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACE71DAA2B2E00CA2EC5 /* FMDatabase.m */; };
@@ -256,6 +255,7 @@
 		EE9C002A1DA8D52100DF050D /* SMAAlarmRulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9C00291DA8D52100DF050D /* SMAAlarmRulerView.m */; };
 		EE9C00331DA8D99000DF050D /* SMARulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9C00321DA8D99000DF050D /* SMARulerView.m */; };
 		EE9C00361DA8DA0800DF050D /* SMAClockRulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9C00351DA8DA0800DF050D /* SMAClockRulerView.m */; };
+		EEA487EE1EDEA6B000AC6AB0 /* sma07_app(FixFont).zip in Resources */ = {isa = PBXBuildFile; fileRef = EEA487ED1EDEA6B000AC6AB0 /* sma07_app(FixFont).zip */; };
 		EEA834001D96765800AF4CA9 /* SMAFindPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA833FF1D96765800AF4CA9 /* SMAFindPassViewController.m */; };
 		EEA8D9BC1DF577F600DAE4BA /* SMARemindView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA8D9BB1DF577F600DAE4BA /* SMARemindView.m */; };
 		EEAD86561DE2BF07000D9DB7 /* SMATabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAD86551DE2BF07000D9DB7 /* SMATabbarController.m */; };
@@ -371,7 +371,6 @@
 /* Begin PBXFileReference section */
 		1F827C92C23048F37D5CC134 /* Pods_SMA.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SMA.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		53EE3DBF028D25BCA2E09616 /* Pods-SMA.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SMA.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SMA/Pods-SMA.debug.xcconfig"; sourceTree = "<group>"; };
-		EE05D6141EAB056300A8CA12 /* sma07_app(FixFont).zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "sma07_app(FixFont).zip"; sourceTree = "<group>"; };
 		EE05D6161EAB51FC00A8CA12 /* angsaz_U16.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = angsaz_U16.bin; sourceTree = "<group>"; };
 		EE09ACE21DAA2B1000CA2EC5 /* SMADatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMADatabase.h; sourceTree = "<group>"; };
 		EE09ACE31DAA2B1000CA2EC5 /* SMADatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMADatabase.m; sourceTree = "<group>"; };
@@ -1008,6 +1007,7 @@
 		EE9C00321DA8D99000DF050D /* SMARulerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMARulerView.m; sourceTree = SOURCE_ROOT; };
 		EE9C00341DA8DA0800DF050D /* SMAClockRulerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAClockRulerView.h; sourceTree = "<group>"; };
 		EE9C00351DA8DA0800DF050D /* SMAClockRulerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAClockRulerView.m; sourceTree = "<group>"; };
+		EEA487ED1EDEA6B000AC6AB0 /* sma07_app(FixFont).zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "sma07_app(FixFont).zip"; sourceTree = "<group>"; };
 		EEA833FE1D96765800AF4CA9 /* SMAFindPassViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAFindPassViewController.h; sourceTree = "<group>"; };
 		EEA833FF1D96765800AF4CA9 /* SMAFindPassViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAFindPassViewController.m; sourceTree = "<group>"; };
 		EEA8D9BA1DF577F600DAE4BA /* SMARemindView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMARemindView.h; sourceTree = "<group>"; };
@@ -2447,7 +2447,7 @@
 				EE05D6161EAB51FC00A8CA12 /* angsaz_U16.bin */,
 				EE34EE5F1E1F8C3600A8AABC /* sma07_app(pah8002)_v1.1.1.zip */,
 				EEED9AA91EA85BAC00F4652B /* arialuni_U16(SMA07).bin */,
-				EE05D6141EAB056300A8CA12 /* sma07_app(FixFont).zip */,
+				EEA487ED1EDEA6B000AC6AB0 /* sma07_app(FixFont).zip */,
 			);
 			path = DfuUpdate;
 			sourceTree = "<group>";
@@ -3215,11 +3215,11 @@
 				EE6061491DEEDECC008A7786 /* SMASelectCell.xib in Resources */,
 				EEED9AAA1EA85BAC00F4652B /* arialuni_U16(SMA07).bin in Resources */,
 				EE4B1C171D646A0500825E2B /* country.plist in Resources */,
+				EEA487EE1EDEA6B000AC6AB0 /* sma07_app(FixFont).zip in Resources */,
 				EEB9F6C11D6443430011AA07 /* Gotham-Medium.otf in Resources */,
 				EEAF8A671DA9F14B00E1FE83 /* SMARepeatCell.xib in Resources */,
 				EE05D6171EAB51FC00A8CA12 /* angsaz_U16.bin in Resources */,
 				EE0FDD011DFE502D00A9ACB8 /* SMASleepDetailCell.xib in Resources */,
-				EE05D6151EAB056300A8CA12 /* sma07_app(FixFont).zip in Resources */,
 				EEB9F6991D64318B0011AA07 /* Assets.xcassets in Resources */,
 				EE733EC91DBDE41B00CF2887 /* SMAQuietHRViewController.xib in Resources */,
 				EE0E14091D6707E40054BE87 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,

@@ -70,8 +70,8 @@
 "device_SP_running"="correr";
 "device_SP_km"="Km";
 "device_SP_mile"="millas";
-"device_SP_cal"="Cal";
-"device_SP_calorie"="Cal";
+"device_SP_cal"="Kcal";
+"device_SP_calorie"="Kcal";
 "device_SP_syncWait"="La información está sincronizada. Por favor, espere";
 "device_SP_day"="Día";
 "device_SP_week"="Semana";
@@ -81,7 +81,7 @@
 "device_SP_avgStep"="Pasos medios";
 "device_SP_sumDista"="Distancia";
 "device_SP_avgCal"="Calorías medias";
-"device_SP_heat" = "Cal.";
+"device_SP_heat" = "Kcal";
 "device_RU_per"="Velocidad";
 "device_RU_title"="Registro ejercicio";
 "device_RU_pace"="Ritmo";

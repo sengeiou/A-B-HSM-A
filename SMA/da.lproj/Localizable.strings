@@ -34,7 +34,7 @@
 "register_getagain"="Send igen";
 "register_email"="E-mail register";
 "register_protocol1"="Ved at klikke på Tilmeld, accepterer du";
-"register_protocol2"="Easysmart HR Bruger Betingelser";
+"register_protocol2"="SMA CARE Bruger Betingelser";
 "register_enterphone"="konto nr";
 "register_regpwd"="Password kan ikke være tom";
 "register_regcode"="Bekræftelseskode kan ikke være tom";
@@ -71,8 +71,8 @@
 "device_SP_running"="Løb";
 "device_SP_km"="km";
 "device_SP_mile"="mil";
-"device_SP_cal"="Cal";
-"device_SP_calorie"="Cal";
+"device_SP_cal"="Kcal";
+"device_SP_calorie"="Kcal";
 "device_SP_syncWait"="Dataene er ikke synchronized.Please vente!";
 "device_SP_day"="Dag";
 "device_SP_week"="Uge";
@@ -173,7 +173,7 @@
 "setting_turnOff"="Sluk";
 "setting_band_title"="Parring enhed";
 "setting_band_07detail"="Funktion: Øjeblikkelig pulsmåler, Call / SMS notifikation, aktivitet tracker, selfie etc.";
-"setting_band_buywatch"="Køb Easysmart HR";
+"setting_band_buywatch"="Køb SMA CARE";
 "setting_band_unPair"="Parring Senere";
 "setting_band_tryAgain"="Prøve igen";
 "setting_band_attention"="Sørg for, at uret er fuldt opladet og tæt på telefonen";

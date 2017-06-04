@@ -34,7 +34,7 @@
 "register_getagain"="opnieuw te verzenden";
 "register_email"="E-register";
 "register_protocol1"="Door te klikken op Register, gaat u akkoord met\n";
-"register_protocol2"="Easysmart HR Gebruiksvoorwaarden";
+"register_protocol2"="SMA CARE Gebruiksvoorwaarden";
 "register_enterphone"="Account nummer";
 "register_regpwd"="Wachtwoord mag niet leeg zijn";
 "register_regcode"="Verificatiecode mag niet leeg zijn";
@@ -71,8 +71,8 @@
 "device_SP_running"="Rennen";
 "device_SP_km"="km";
 "device_SP_mile"="mijl";
-"device_SP_cal"="Cal";
-"device_SP_calorie"="Cal";
+"device_SP_cal"="Kcal";
+"device_SP_calorie"="Kcal";
 "device_SP_syncWait"="De gegevens worden niet synchronized.Please wachten!";
 "device_SP_day"="Dag";
 "device_SP_week"="Week";
@@ -173,7 +173,7 @@
 "setting_turnOff"="Uitschakelen";
 "setting_band_title"="pairing apparaat";
 "setting_band_07detail"="Functie: Instant hartslagmeter, Call / SMS-melding, activiteit tracker, selfie etc.";
-"setting_band_buywatch"="Koop Easysmart HR";
+"setting_band_buywatch"="Koop SMA CARE";
 "setting_band_unPair"="koppelen Later";
 "setting_band_tryAgain"="opnieuw proberen";
 "setting_band_attention"="Zorg ervoor dat het horloge volledig is opgeladen en in de buurt van de telefoon";
