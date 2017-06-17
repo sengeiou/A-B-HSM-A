@@ -67,8 +67,12 @@
     [_passwordField resignFirstResponder];
 }
 
-#pragma mark *******创建UI
+#pragma mark *******创建UI#imageLiteral(resourceName: "xingzhuang")
 - (void)createUI{
+//    UIImage *image = [UIImage imageNamed:@"xingzhuang"];
+//    image = [image stretchableImageWithLeftCapWidth:image.size.width/2 topCapHeight:image.size.height/2];
+    
+    
     [_accountField setValue:FontGothamLight(14) forKeyPath:@"_placeholderLabel.font"];
     _accountField.placeholder = SMALocalizedString(@"register_accplace");
     [_passwordField setValue:FontGothamLight(14) forKeyPath:@"_placeholderLabel.font"];

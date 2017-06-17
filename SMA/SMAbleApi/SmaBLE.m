@@ -159,7 +159,7 @@ static SmaBLE *_instace;
             [self sendBLInstruction];
         }
         if (_delegate && [_delegate respondsToSelector:@selector(sendIdentifier:)]) {
-//            NSLog(@"jgrighh==%@",[NSData dataWithBytes:testByte length:len]);
+            //            NSLog(@"jgrighh==%@",[NSData dataWithBytes:testByte length:len]);
             [_delegate sendIdentifier:(testByte[len - 2]<<8) + (testByte[len - 1]<<0)];
         }
     }
@@ -992,24 +992,24 @@ static SmaBLE *_instace;
 
 -(void)setOTAstate
 {
-//    Byte buf[13];
-//    buf[0] = 0xAB;
-//    buf[1] = 0x00;
-//    buf[2] = 0x00;
-//    buf[3] = 0x05;
-//    buf[4] = 0x00;
-//    buf[5] = 0x6C;
-//    buf[6] = 0x00;
-//    buf[7] = 0x00;
-//    buf[8] = 0x01;
-//    buf[9] = 0x00;
-//    buf[10] = 0x01;
-//    buf[11] = 0x00;
-//    buf[12] = 0x00;
+    //    Byte buf[13];
+    //    buf[0] = 0xAB;
+    //    buf[1] = 0x00;
+    //    buf[2] = 0x00;
+    //    buf[3] = 0x05;
+    //    buf[4] = 0x00;
+    //    buf[5] = 0x6C;
+    //    buf[6] = 0x00;
+    //    buf[7] = 0x00;
+    //    buf[8] = 0x01;
+    //    buf[9] = 0x00;
+    //    buf[10] = 0x01;
+    //    buf[11] = 0x00;
+    //    buf[12] = 0x00;
     if(self.p && self.Write)
     {
         NSData * data01 = [SmaBusinessTool getOTAdata];
-//        [self.p writeValue:data01 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+        //        [self.p writeValue:data01 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
         [self arrangeBLData:data01 type:@"SET" sendNum:1];
     }
 }
@@ -1357,7 +1357,7 @@ static SmaBLE *_instace;
         NSData * data0 = [NSData dataWithBytes:results length:17];
         [self arrangeBLData:data0 type:@"SET" sendNum:1];
     }
-
+    
 }
 
 //指定时间校时
@@ -1384,10 +1384,10 @@ static SmaBLE *_instace;
     NSMutableData *data = [[NSMutableData alloc] init];
     [data appendData:nameData];
     [data appendData:groupData];
-     Byte nameByte[32];
-     Byte groupByte[32];
+    Byte nameByte[32];
+    Byte groupByte[32];
     [nameData getBytes:(void *)nameByte range:NSMakeRange(0, nameData.length)];
-     [groupData getBytes:(void *)groupByte range:NSMakeRange(0, groupData.length)];
+    [groupData getBytes:(void *)groupByte range:NSMakeRange(0, groupData.length)];
     Byte all[64];
     memcpy(&all[0], &nameByte, 32);
     memcpy(&all[32], &groupByte, 32);
@@ -2144,7 +2144,7 @@ typedef union{
         burntheplanks_week_union_t week_t1;
         week_t1.week=user_clock.alarm.day_repeat_flag;
         
-//        NSString *str=[NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d",week_t1.bit_week.monday,week_t1.bit_week.tuesday,week_t1.bit_week.wednesday,week_t1.bit_week.thursday,week_t1.bit_week.friday,week_t1.bit_week.saturday,week_t1.bit_week.sunday];
+        //        NSString *str=[NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d",week_t1.bit_week.monday,week_t1.bit_week.tuesday,week_t1.bit_week.wednesday,week_t1.bit_week.thursday,week_t1.bit_week.friday,week_t1.bit_week.saturday,week_t1.bit_week.sunday];
         alarInfo.dayFlags=[NSString stringWithFormat:@"%d",user_clock.alarm.day_repeat_flag];
         //        alarInfo.dayFlags=str;
         
@@ -2202,20 +2202,27 @@ static NSMutableArray *sportArr;
     [formatter setTimeZone:GTMzone];
     int dataLen = byte[11]*pow(16, 2) + byte[12];
     if (dataLen == 0) {
-        NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
-        [allSpArr addObject:dic];
+        if (sportArr.count == 0) {
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+            [allSpArr addObject:dic];
+        }
+        else{
+            allSpArr = [sportArr mutableCopy];
+            [sportArr removeAllObjects];
+            sportArr = nil;
+        }
     }
     NSString *step;
     NSString *mode;
     NSInteger time;
-        NSLog(@"sportdata = %@",[NSData dataWithBytes:byte length:len]);
+    NSLog(@"sportdata = %@",[NSData dataWithBytes:byte length:len]);
     for (int i = 0; i<dataLen/8; i++) {
         time = byte[13+8*i]*pow(16, 6) + byte[14+8*i]*pow(16, 4) + byte[15+8*i]*pow(16, 2) + byte[16+8*i];
         mode = [NSString stringWithFormat:@"%d",byte[17+8*i]];
         step = [NSString stringWithFormat:@"%.0f",/*byte[17+8*i]*pow(16, 6) +*/ byte[18+8*i]*pow(16, 4) + byte[19+8*i]*pow(16, 2) + byte[20+8*i]];
         NSDate *date = [[NSDate alloc] initWithTimeInterval:time sinceDate:[formatter dateFromString:@"20000101000000"]];
         NSString *timestr = [formatter stringFromDate:date];
-                NSLog(@"time =%@ \n mode==%@ \n step ==%@",timestr,mode,step);
+        NSLog(@"time =%@ \n mode==%@ \n step ==%@",timestr,mode,step);
         NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:timestr,@"DATE",step,@"STEP",mode,@"MODE", nil];
         [sportArr addObject:dic];
         if (i==dataLen/8-1&&dataLen==160) {
@@ -2243,13 +2250,20 @@ static NSMutableArray *runArr;
     [formatter setTimeZone:GTMzone];
     int dataLen = byte[11]*pow(16, 2) + byte[12];
     if (dataLen == 0) {
-        NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
-        [allSpArr addObject:dic];
+        if (runArr.count == 0) {
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+            [allSpArr addObject:dic];
+        }
+        else{
+            allSpArr = [runArr mutableCopy];
+            [runArr removeAllObjects];
+            runArr = nil;
+        }
     }
     NSString *step;
     NSString *mode;
     NSInteger time;
-        NSLog(@"runArrsportdata = %@",[NSData dataWithBytes:byte length:len]);
+    NSLog(@"runArrsportdata = %@",[NSData dataWithBytes:byte length:len]);
     for (int i = 0; i<dataLen/8; i++) {
         time = byte[13+8*i]*pow(16, 6) + byte[14+8*i]*pow(16, 4) + byte[15+8*i]*pow(16, 2) + byte[16+8*i];
         mode = [NSString stringWithFormat:@"%d",byte[17+8*i]];
@@ -2347,10 +2361,17 @@ static NSMutableArray *infos;
     NSMutableArray *allSlArr = [NSMutableArray array];
     int dataLen = byte[11]*pow(16, 2) + byte[12];
     if (dataLen == 0) {
-        NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
-        [allSlArr addObject:dic];
+        if (infos.count == 0) {
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+            [allSlArr addObject:dic];
+        }
+        else{
+            allSlArr = [infos mutableCopy];
+            [infos removeAllObjects];
+            infos = nil;
+        }
     }
-        NSLog(@"slArrdata = %@",[NSData dataWithBytes:byte length:len]);
+    NSLog(@"slArrdata = %@",[NSData dataWithBytes:byte length:len]);
     NSInteger time;
     for (int i = 0; i<dataLen/7; i++) {
         time = byte[13+7*i]*pow(16, 6) + byte[14+7*i]*pow(16, 4) + byte[15+7*i]*pow(16, 2) + byte[16+7*i];
@@ -2389,10 +2410,18 @@ static NSMutableArray *hrArr;
     [format1 setTimeZone:GTMzone];
     int dataLen = byte[11]*pow(16, 2) + byte[12];
     if (dataLen == 0) {
-        NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
-        [allHrArr addObject:dic];
+        if (hrArr.count == 0) {
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+            [allHrArr addObject:dic];
+        }
+        else{
+            allHrArr = [hrArr mutableCopy];
+            [hrArr removeAllObjects];
+            hrArr = nil;
+            
+        }
     }
-        NSLog(@"hrArrdata = %@",[NSData dataWithBytes:byte length:len]);
+    NSLog(@"hrArrdata = %@",[NSData dataWithBytes:byte length:len]);
     NSString *hr;
     NSInteger time;
     NSString *mode;
@@ -2406,7 +2435,7 @@ static NSMutableArray *hrArr;
         NSDate *date = [[NSDate alloc] initWithTimeInterval:time sinceDate:[formatter dateFromString:@"20000101000000"]];
         NSString *timestr = [formatter stringFromDate:date];
         NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:timestr,@"DATE",hr,@"HEART",mode,@"HRMODE", nil];
-                NSLog(@"hrtime =%@ \n mode==%@ \n step ==%@",timestr,mode,hr);
+        NSLog(@"hrtime =%@ \n mode==%@ \n step ==%@",timestr,mode,hr);
         [hrArr addObject:dic];
         if (i==dataLen/5-1&&dataLen==100) {
             [self requestCuffHRData];
@@ -2659,7 +2688,7 @@ static NSString *senProgr;
     }
     if (NUM < self.BinArr.count) {
         NSData *result = [self.BinArr objectAtIndex:NUM];
-//        NSLog(@"fwgrgh==%@",self.BinArr);
+        //        NSLog(@"fwgrgh==%@",self.BinArr);
         Byte result_sub[20];
         int datNum = [NSString stringWithFormat:@"%lu",(unsigned long)result.length].intValue/20;
         int modNum = result.length%20;
