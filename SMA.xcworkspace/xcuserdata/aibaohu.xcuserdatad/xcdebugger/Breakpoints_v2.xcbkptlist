@@ -185,22 +185,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMA/SMADfuViewController.m"
-            timestampString = "515502242.761701"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
-            landmarkName = "-dfuSelector:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMA/SMAEmailRegisViewController.m"
             timestampString = "518497232.554294"
             startingColumnNumber = "9223372036854775807"
@@ -218,7 +202,7 @@
                   moduleName = "SMA"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aibaohu/Desktop/SMA%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99/SMA%20NEW/%E6%BA%90%E7%A0%81/SMA/SMA/SMAEmailRegisViewController.m"
-                  timestampString = "519202015.315282"
+                  timestampString = "519543280.379724"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "111"
@@ -233,7 +217,7 @@
                   moduleName = "SMA"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/aibaohu/Desktop/SMA%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99/SMA%20NEW/%E6%BA%90%E7%A0%81/SMA/SMA/SMAEmailRegisViewController.m"
-                  timestampString = "519202015.317563"
+                  timestampString = "519543280.382528"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "111"

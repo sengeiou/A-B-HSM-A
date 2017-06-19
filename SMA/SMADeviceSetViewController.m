@@ -34,7 +34,7 @@
 - (void)viewWillAppear:(BOOL)animated{
      [self.navigationController.navigationBar setBackgroundImage:[UIImage buttonImageFromColors:@[[SmaColor colorWithHexString:@"#5790F9" alpha:1],[SmaColor colorWithHexString:@"#80C1F9" alpha:1]] ByGradientType:topToBottom size:CGSizeMake(MainScreen.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
     [self updateUI];
-    if (SmaBleMgr.peripheral.state == CBPeripheralStateConnected) {
+    if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]) {
         [self chectFirmwareVewsionWithWeb];
     }
 }

@@ -16,6 +16,7 @@
     NSTimer *updateTimer;
     int repairFontState;//1，2，3分别代表完成第一、二、三阶段修复
     BOOL repairFirst; //由于固件受限，因此第一阶段修复如果失败，再次重试会导致设备重启而无法再次升级固件
+    NSString *newVer;
 }
 @end
 
@@ -123,6 +124,7 @@
             NSString *webFirmwareVer = [filename substringWithRange:NSMakeRange(filename.length - 9, 5)] ;
             _upDfuVerTitLab.text = SMALocalizedString(@"setting_dfu_newsetVer");
             _upDfuVerLab.text = [NSString stringWithFormat:@"V%@",webFirmwareVer];
+            newVer = webFirmwareVer;
         }
     }
 }
@@ -156,27 +158,27 @@
                     NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(FixFont)" ofType:@"zip"];
                     NSURL *url=[[NSURL alloc]initWithString:fontFile];
                     SmaDfuManager.fileUrl = url;
-                     [self repairDeviceDfuWith:self.epairPeripheral];
+                    [self repairDeviceDfuWith:self.epairPeripheral];
                 }
                 if (repairFontState == 1) {
-                     [self repairTwo];
+                    [self repairTwo];
                 }
                 _dfuBut.enabled = NO;
                 if (repairFontState != 2) {
-                     return;
+                    return;
                 }
-//                else if (repairFontState == 0 && tateStarting){
-//                    tateStarting = NO;
-//                    NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(FixFont)" ofType:@"zip"];
-//                    NSURL *url=[[NSURL alloc]initWithString:fontFile];
-//                    SmaDfuManager.fileUrl = url;
-//                    [self repairDeviceDfuWith:self.epairPeripheral];
-//                }
-               
+                //                else if (repairFontState == 0 && tateStarting){
+                //                    tateStarting = NO;
+                //                    NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(FixFont)" ofType:@"zip"];
+                //                    NSURL *url=[[NSURL alloc]initWithString:fontFile];
+                //                    SmaDfuManager.fileUrl = url;
+                //                    [self repairDeviceDfuWith:self.epairPeripheral];
+                //                }
+                
             }
             
-         if (SmaBleMgr.repairDfu && !SmaDfuManager.dfuMode) {
-                 [_remindLab setText:SMALocalizedString(@"me_repairMessage")];
+            if (SmaBleMgr.repairDfu && !SmaDfuManager.dfuMode) {
+                [_remindLab setText:SMALocalizedString(@"me_repairMessage")];
                 _nowVerLab.text = [[filename componentsSeparatedByString:@"_"] firstObject];
                 [self chectFirmwareVewsionWithWeb];
                 return;
@@ -227,25 +229,25 @@
                     NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(FixFont)" ofType:@"zip"];
                     NSURL *url=[[NSURL alloc]initWithString:fontFile];
                     SmaDfuManager.fileUrl = url;
-                     [self repairDeviceDfuWith:self.epairPeripheral];
+                    [self repairDeviceDfuWith:self.epairPeripheral];
                 }
                 if (repairFontState == 1) {
                     [self repairTwo];
                 }
                 _dfuBut.enabled = NO;
-//                else if (repairFontState == 0 && tateStarting){
-//                    tateStarting = NO;
-//                    NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(FixFont)" ofType:@"zip"];
-//                    NSURL *url=[[NSURL alloc]initWithString:fontFile];
-//                    SmaDfuManager.fileUrl = url;
-//                    [self repairDeviceDfuWith:self.epairPeripheral];
-//                }
+                //                else if (repairFontState == 0 && tateStarting){
+                //                    tateStarting = NO;
+                //                    NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(FixFont)" ofType:@"zip"];
+                //                    NSURL *url=[[NSURL alloc]initWithString:fontFile];
+                //                    SmaDfuManager.fileUrl = url;
+                //                    [self repairDeviceDfuWith:self.epairPeripheral];
+                //                }
                 if (repairFontState != 2) {
                     return;
                 }
             }
             if (SmaBleMgr.repairDfu && !SmaDfuManager.dfuMode) {
-                 [_remindLab setText:SMALocalizedString(@"me_repairMessage")];
+                [_remindLab setText:SMALocalizedString(@"me_repairMessage")];
                 _nowVerLab.text = [[filename componentsSeparatedByString:@"_"] firstObject];
                 _upDfuVerLab.text = [NSString stringWithFormat:@"%.0fKB",data.length/1024.0];
                 [self repairDeviceDfuWith:self.epairPeripheral];
@@ -280,9 +282,9 @@
         if (!data) {
             if (SmaBleMgr.repairFont) {
                 if (repairFontState == 0) {
-                     [_remindLab setText:SMALocalizedString(@"")];
+                    [_remindLab setText:SMALocalizedString(@"")];
                     NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(FixFont)" ofType:@"zip"];
-//                     NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(HERA)_v0.1.1" ofType:@"zip"];
+                    //                     NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(HERA)_v0.1.1" ofType:@"zip"];
                     NSURL *url=[[NSURL alloc]initWithString:fontFile];
                     SmaDfuManager.fileUrl = url;
                     [self repairDeviceDfuWith:self.epairPeripheral];
@@ -296,7 +298,7 @@
                 }
             }
             if (SmaBleMgr.repairDfu && !SmaDfuManager.dfuMode) {
-                 [_remindLab setText:SMALocalizedString(@"me_repairMessage")];
+                [_remindLab setText:SMALocalizedString(@"me_repairMessage")];
                 _nowVerLab.text = [[filename componentsSeparatedByString:@"_"] firstObject];
                 [self chectFirmwareVewsionWithWeb];
                 return;
@@ -353,7 +355,7 @@
                 }
             }
             if (SmaBleMgr.repairDfu && !SmaDfuManager.dfuMode) {
-                 [_remindLab setText:SMALocalizedString(@"me_repairMessage")];
+                [_remindLab setText:SMALocalizedString(@"me_repairMessage")];
                 _nowVerLab.text = [[filename componentsSeparatedByString:@"_"] firstObject];
                 _upDfuVerLab.text = [NSString stringWithFormat:@"%.0fKB",data.length/1024.0];
                 [self repairDeviceDfuWith:self.epairPeripheral];
@@ -386,7 +388,7 @@
         _dfuLab.text = SMALocalizedString(@"me_repairFail");
     }
     else{
-    _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
+        _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
     }
     [coverView removeFromSuperview];
     [SmaBleMgr reunitonPeripheral:YES];
@@ -418,7 +420,7 @@
             NSString *filename = [[finish objectAtIndex:i] objectForKey:@"filename"];
             NSString *filneNameNow = [NSString stringWithFormat:@"%@_%@",self.repairBleCustom,[[filename componentsSeparatedByString:@"_"] lastObject]];
             NSLog(@"超时 %@   %@",filename,filneNameNow);
-//            if ([filneNameNow isEqualToString:filename]) {
+            //            if ([filneNameNow isEqualToString:filename]) {
             if ([filename hasPrefix:self.repairBleCustom]) {
                 [self downDfuWithFile:(NSMutableDictionary *)[finish objectAtIndex:i]];
                 haveFile = YES;
@@ -427,7 +429,7 @@
         if (!haveFile) {
             [self updateTimeOut];
         }
-
+        
     }];
 }
 
@@ -436,7 +438,7 @@
     web.chaImageName = fileDic[@"filename"];
     [web acloudDownFileWithsession:[fileDic objectForKey:@"downloadUrl"] callBack:^(float progress, NSError *error) {
         if (error) {
-              [self updateTimeOut];
+            [self updateTimeOut];
         }
     } CompleteCallback:^(NSString *filePath) {
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -475,7 +477,7 @@
                 [updateTimer invalidate];
                 updateTimer = nil;
                 if (repairFontState == 2) {
-//                    [SmaBleMgr scanBL:58];
+                    //                    [SmaBleMgr scanBL:58];
                     [SmaBleMgr reunitonPeripheral:YES];
                 }
             }
@@ -495,7 +497,7 @@
                 [SmaBleMgr reunitonPeripheral:YES];
             }
             break;
-          case XMODEM:
+        case XMODEM:
             if ([data.firstObject intValue]) {
                 [updateTimer invalidate];
                 updateTimer = nil;
@@ -574,10 +576,10 @@
     switch (state) {
         case DFUStateStarting:
             if (SmaBleMgr.repairDfu) {
-             [_remindLab setText:SMALocalizedString(@"me_repairDfuMessage")];
+                [_remindLab setText:SMALocalizedString(@"me_repairDfuMessage")];
             }
             if (SmaBleMgr.repairFont && repairFontState == 0) {
-            self.title = @"DfuTarg";
+                self.title = @"DfuTarg";
                 [_remindLab setText:SMALocalizedString(@"me_repairFontFile")];
                 if (repairFirst) {
                     [self.navigationController popViewControllerAnimated:YES];
@@ -610,6 +612,7 @@
                 _upVerView.hidden = YES;
                 tateStarting = NO;
             }
+            [SmaBleMgr scanBL:1];
             [SmaBleMgr reunitonPeripheral:YES];
             if (SmaBleMgr.repairDfu) {
                 [_remindLab setText:SMALocalizedString(@"me_repairFinish")];
@@ -638,6 +641,10 @@
                 return;
             }
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (!SmaBleMgr.repairFont && !SmaBleMgr.repairDfu) {
+                    user.watchVersion = newVer;
+                    [SMAAccountTool saveUser:user];
+                }
                 [coverView removeFromSuperview];
                 SmaBleMgr.dfuUpdate = NO;
                 SmaBleMgr.repairDfu = NO;
@@ -660,7 +667,6 @@
                     }
                 }
                 SmaBleMgr.repairFont = NO;
-
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });
         }
@@ -682,7 +688,7 @@
     _remindLab.text = SMALocalizedString(@"me_repairFontFont");
     _fontVerLab.text = SMALocalizedString(@"me_repairFont");
     self.title = @"XMODE";
-//    NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"arialuni_U16(SMA07)" ofType:@"bin"];
+    //    NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"arialuni_U16(SMA07)" ofType:@"bin"];
     NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"angsaz_U16" ofType:@"bin"];
     NSURL *url=[[NSURL alloc]initWithString:fontFile];
     NSString *selectedFileName = [[url path]lastPathComponent];
@@ -732,12 +738,12 @@
         [_remindLab setText:SMALocalizedString(@"me_repairFontFail")];
         if (repairFontState == 0) {
             repairFirst = YES;
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                [self.navigationController popViewControllerAnimated:YES];
-//            });
+            //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //                [self.navigationController popViewControllerAnimated:YES];
+            //            });
         }
     }
-
+    
 }
 
 /*

@@ -247,6 +247,7 @@
 - (void)headerRereshing{
     self.tableView.scrollEnabled = NO;
     if ([SmaBleMgr checkBLConnectState]) {
+         NSLog(@"bledidDisposeMode %d == %d",SmaBleSend.serialNum,SmaBleMgr.sendIdentifier);
         if (SmaBleSend.serialNum == SmaBleMgr.sendIdentifier) {
             self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncing");
             SmaBleMgr.syncing = YES;

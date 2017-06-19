@@ -86,13 +86,16 @@ static id _instace;
     if (self.mgr) {
         self.mgr = nil;
     }
-    if (_firstInitilize) {
-        self.mgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
-        
-        self.firstInitilize = NO;
-    }
-    else{
-        self.mgr =  [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:@{CBCentralManagerOptionShowPowerAlertKey:@NO}];
+    if (!self.mgr) {
+        NSLog(@"wgerijopehijp +++++0000000000000000000000");
+        if (_firstInitilize) {
+            self.mgr = [[CBCentralManager alloc] initWithDelegate:self queue:nil];
+            
+            self.firstInitilize = NO;
+        }
+        else{
+            self.mgr =  [[CBCentralManager alloc] initWithDelegate:self queue:dispatch_get_main_queue() options:@{CBCentralManagerOptionShowPowerAlertKey:@NO}];
+        }
     }
     [self stopSearch];
     if (time) {
@@ -123,32 +126,32 @@ static id _instace;
 
 - (void)reunionTimer:(id)sender{
     NSLog(@"fwefwefwergrg==== %d  %ld",SmaDfuManager.dfuMode,(long)self.peripheral.state);
-   self.mgr.delegate = self;//确保DFU升级后重设代理以确保通讯正常
+    self.mgr.delegate = self;//确保DFU升级后重设代理以确保通讯正常
     if (self.peripheral.state != CBPeripheralStateConnected && !SmaDfuManager.dfuMode && !_repairDfu && !_repairFont) {
         if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] ) {
             NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:self.user.watchUUID]]];
             NSLog(@"2222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
-              [self connectBl:[allPer firstObject]];
+            [self connectBl:[allPer firstObject]];
         }
-//        NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"],[CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"]]];
-//        NSLog(@"重连系统连接设备====%@  %@",SystemArr,self.user.watchUUID);
-//        if (SystemArr.count > 0) {
-//            [SystemArr enumerateObjectsUsingBlock:^(CBPeripheral *obj, NSUInteger idx, BOOL *stop) {
-//                if ([obj.identifier.UUIDString isEqual:self.user.watchUUID]) {
-//                    NSLog(@"重连系统设备");
-//                    [self connectBl:obj];
-//                }
-//                else{
-//                    [self stopSearch];
-//                    [self scanBL:0];
-//                }
-//            }];
-//        }
-//        else{
-//            NSLog(@"外部搜索设备");
-//            [self stopSearch];
-//            [self scanBL:0];
-//        }
+        //        NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"],[CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"]]];
+        //        NSLog(@"重连系统连接设备====%@  %@",SystemArr,self.user.watchUUID);
+        //        if (SystemArr.count > 0) {
+        //            [SystemArr enumerateObjectsUsingBlock:^(CBPeripheral *obj, NSUInteger idx, BOOL *stop) {
+        //                if ([obj.identifier.UUIDString isEqual:self.user.watchUUID]) {
+        //                    NSLog(@"重连系统设备");
+        //                    [self connectBl:obj];
+        //                }
+        //                else{
+        //                    [self stopSearch];
+        //                    [self scanBL:0];
+        //                }
+        //            }];
+        //        }
+        //        else{
+        //            NSLog(@"外部搜索设备");
+        //            [self stopSearch];
+        //            [self scanBL:0];
+        //        }
     }
     else if(SmaDfuManager.dfuMode){
         [self.peripherals removeAllObjects];
@@ -157,15 +160,15 @@ static id _instace;
         NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:@"00001530-1212-EFDE-1523-785FEABCD123"]]];
         NSLog(@"fwgwggh===%@ \n SystemArr %@",allPer,SystemArr);
         if (SystemArr.count > 0) {
-              [SmaDfuManager performDFUwithManager:self.mgr periphral:[SystemArr firstObject]];
+            [SmaDfuManager performDFUwithManager:self.mgr periphral:[SystemArr firstObject]];
         }
         else{
-           [self performSelector:@selector(scanPerformDFU) withObject:nil afterDelay:3.5f];
+            [self performSelector:@selector(scanPerformDFU) withObject:nil afterDelay:3.5f];
         }
     }
-//    else if (_repairDfu && _repairFont){
-//        
-//    }
+    //    else if (_repairDfu && _repairFont){
+    //
+    //    }
 }
 
 - (void)scanPerformDFU{
@@ -199,7 +202,7 @@ static id _instace;
 //断开链接
 - (void)disconnectBl{
     if (self.peripheral) {
-         [self.mgr cancelPeripheralConnection:self.peripheral];
+        [self.mgr cancelPeripheralConnection:self.peripheral];
     }
 }
 
@@ -229,45 +232,45 @@ static id _instace;
             NSLog( @"蓝牙已经成功开启，正在扫描蓝牙接口……");
             if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] && !_repairDfu &&!_repairFont) {
                 NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:self.user.watchUUID]]];
-                 NSLog(@"222221111222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
-                 [self connectBl:[allPer firstObject]];
+                NSLog(@"222221111222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
+                [self connectBl:[allPer firstObject]];
             }
             else if(_repairFont && !SmaDfuManager.dfuMode){
-                 NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"]]];
-//                if
+                NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"]]];
+                //                if
             }
             else{
                 [self.peripherals removeAllObjects];
                 self.peripherals = nil;
                 [self.mgr scanForPeripheralsWithServices:nil options:nil];
             }
-//            NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"],[CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"]]];
-//            NSLog(@"扫描系统连接设备====%@",SystemArr);
-//            __block int blNum = 0;
-//            if (SystemArr.count > 0) {
-//                [SystemArr enumerateObjectsUsingBlock:^(CBPeripheral *obj, NSUInteger idx, BOOL *stop) {
-//                    blNum ++;
-//                    if ([obj.identifier.UUIDString isEqual:self.user.watchUUID]) {
-//                        NSLog(@"重连系统设备");
-//                        [self connectBl:obj];
-//                        blNum --;
-//                    }
-//                    else{
-//                        NSLog(@"搜索外部设备 = %d",blNum);
-//                        if (blNum == SystemArr.count) {
-//                            [self.peripherals removeAllObjects];
-//                            self.peripherals = nil;
-//                            [self.mgr scanForPeripheralsWithServices:nil options:nil];
-//                        }
-//                    }
-//                }];
-//            }
-//            else{
-//                NSLog(@"扫描外部搜索设备");
-//                [self.peripherals removeAllObjects];
-//                self.peripherals = nil;
-//                [self.mgr scanForPeripheralsWithServices:nil options:nil];
-//            }
+            //            NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"],[CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"]]];
+            //            NSLog(@"扫描系统连接设备====%@",SystemArr);
+            //            __block int blNum = 0;
+            //            if (SystemArr.count > 0) {
+            //                [SystemArr enumerateObjectsUsingBlock:^(CBPeripheral *obj, NSUInteger idx, BOOL *stop) {
+            //                    blNum ++;
+            //                    if ([obj.identifier.UUIDString isEqual:self.user.watchUUID]) {
+            //                        NSLog(@"重连系统设备");
+            //                        [self connectBl:obj];
+            //                        blNum --;
+            //                    }
+            //                    else{
+            //                        NSLog(@"搜索外部设备 = %d",blNum);
+            //                        if (blNum == SystemArr.count) {
+            //                            [self.peripherals removeAllObjects];
+            //                            self.peripherals = nil;
+            //                            [self.mgr scanForPeripheralsWithServices:nil options:nil];
+            //                        }
+            //                    }
+            //                }];
+            //            }
+            //            else{
+            //                NSLog(@"扫描外部搜索设备");
+            //                [self.peripherals removeAllObjects];
+            //                self.peripherals = nil;
+            //                [self.mgr scanForPeripheralsWithServices:nil options:nil];
+            //            }
         }
             break;
         default:
@@ -285,7 +288,7 @@ static id _instace;
         if (SmaDfuManager.dfuMode) {
             [SmaDfuManager performDFUwithManager:self.mgr periphral:peripheral];
         }
-           }
+    }
     else if (_repairFont && _repairDfu){
         if (SmaDfuManager.dfuMode) {
             [SmaDfuManager performDFUwithManager:self.mgr periphral:peripheral];
@@ -298,12 +301,12 @@ static id _instace;
             Byte byteFont[[data length] - 2];
             memcpy(&byteFont, &testByte[2], [data length] - 2);
             str = [[NSString alloc] initWithData:[NSData dataWithBytes:byteFont length:[data length] - 2] encoding:kCFStringEncodingUTF8];
-             NSLog(@"字库修复连接设备 %@  %@  %s  %@",[NSData dataWithBytes:byteFont length:[data length] - 2],str,byteFont,advertisementData);
+            NSLog(@"字库修复连接设备 %@  %@  %s  %@",[NSData dataWithBytes:byteFont length:[data length] - 2],str,byteFont,advertisementData);
         }
         if ( RSSI.intValue > -43 && [str isEqualToString:@"FixFont"]) {
-             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self connectBl:peripheral];
-        });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self connectBl:peripheral];
+            });
         }
     }
     else{
@@ -338,20 +341,20 @@ static id _instace;
                 }
             });
         }
-//        else{
-//            if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(reloadView)]) {
-//                [self.BLdelegate reloadView];
-//            }
-//        }
+        //        else{
+        //            if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(reloadView)]) {
+        //                [self.BLdelegate reloadView];
+        //            }
+        //        }
     }
     if (SmaDfuManager.dfuMode) {
         NSLog(@"fwggpghohp===%@",peripheral.name);
     }
     if (SmaDfuManager.dfuMode && [peripheral.name isEqualToString:@"Dfu10B10"]) {
-//        [self stopSearch];
-//        [self connectBl:peripheral];
+        //        [self stopSearch];
+        //        [self connectBl:peripheral];
     }
-
+    
 }
 
 //连接上蓝牙后调用
@@ -370,7 +373,7 @@ static id _instace;
         if ([s.UUID.UUIDString isEqualToString:@"00001530-1212-EFDE-1523-785FEABCD123"]) {
             
             //通过通知中心发送通知
-//            [SmaDfuManager OTAnotPeripheralWithMgr:self.mgr peripheral:peripheral];
+            //            [SmaDfuManager OTAnotPeripheralWithMgr:self.mgr peripheral:peripheral];
         }
         [peripheral discoverCharacteristics:nil forService:s];
     }
@@ -417,7 +420,7 @@ static id _instace;
         else if ([characteristic.UUID.UUIDString isEqualToString:@"2A29"]){
             [self.peripheral readValueForCharacteristic:characteristic];
         }
-
+        
     }
     if (_repairFont && _repairDfu) {
         NSLog(@"进入XMODE模式");
@@ -448,12 +451,12 @@ static id _instace;
     SMADatabase *db = [[SMADatabase alloc] init];
     if (loca.firstRunDic) {
         [db deleteLocationFromTime:[loca.firstRunDic objectForKey:@"DATE"] finish:^(id finish) {
-           
+            
         }];
-         loca.firstRunDic = nil;
+        loca.firstRunDic = nil;
     }
-   
-     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]  && !SmaDfuManager.dfuMode && !_repairDfu && !_dfuUpdate && !_repairFont) {
+    
+    if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]  && !SmaDfuManager.dfuMode && !_repairDfu && !_dfuUpdate && !_repairFont) {
         [self connectBl:peripheral];
     }
     
@@ -470,7 +473,7 @@ static id _instace;
         NSString *customStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         [SMADefaultinfos putKey:SMACUSTOM andValue:customStr];
     }
-//    NSLog(@"fwggghhhh===%@",characteristic.value);
+    //    NSLog(@"fwggghhhh===%@",characteristic.value);
     [SmaBleSend handleResponseValue:characteristic];
     if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleDidUpdateValue:)]) {
         [self.BLdelegate bleDidUpdateValue:characteristic];
@@ -503,9 +506,9 @@ static id _instace;
     //    }];
     //    NSLog(@"排序后的数组：%@",_sortedArray);
     //
-        if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(searchTimeOut)]) {
-            [self.BLdelegate searchTimeOut];
-        }
+    if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(searchTimeOut)]) {
+        [self.BLdelegate searchTimeOut];
+    }
     //    [self.mgr scanForPeripheralsWithServices:nil options:nil];
     //    [self.peripherals removeAllObjects];
 }
@@ -564,7 +567,7 @@ static id _instace;
             break;
         case CUFFSPORTDATA:
             /****
-             静坐开始 10 
+             静坐开始 10
              步行开始 11
              跑步开始 12
              运动模式开始 20 -> 32
@@ -572,10 +575,10 @@ static id _instace;
              运动模式结束 2F -> 47
              *****/
             if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
-//                SmaAnalysisWebServiceTool *webTool = [[SmaAnalysisWebServiceTool alloc] init];
-//                [webTool acloudSetScore:[[[array lastObject] objectForKey:@"STEP"] intValue]];
+                //                SmaAnalysisWebServiceTool *webTool = [[SmaAnalysisWebServiceTool alloc] init];
+                //                [webTool acloudSetScore:[[[array lastObject] objectForKey:@"STEP"] intValue]];
                 [dal insertSportDataArr: [self clearUpSportData:array] finish:^(id finish) {
-//
+                    //
                 }];
             }
             [SmaBleSend requestCuffHRData];
@@ -701,9 +704,9 @@ static id _instace;
     
     SmaSeatInfo *setInfo = [SMAAccountTool seatInfo];
     if (setInfo) {
-         [SmaBleSend seatLongTimeInfoV2:setInfo];
+        [SmaBleSend seatLongTimeInfoV2:setInfo];
     }
-
+    
     [SmaBleSend setBacklight:[SMADefaultinfos getIntValueforKey:BACKLIGHTSET]];
     SmaVibrationInfo *vibration = [[SmaVibrationInfo alloc] init];
     vibration.type = @"5";
@@ -731,8 +734,8 @@ static id _instace;
     else{
         [SmaBleSend setLanguage:1];
     }
-
-
+    
+    
     if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
         [SmaBleSend setVertical:[SMADefaultinfos getIntValueforKey:SCREENSET]];
         //获取系统是24小时制或者12小时制
