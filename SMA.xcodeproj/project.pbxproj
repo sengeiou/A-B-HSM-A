@@ -279,7 +279,7 @@
 		EEB643851DEC067D00544FFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB643841DEC067D00544FFE /* CoreLocation.framework */; };
 		EEB9F68E1D64318B0011AA07 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F68D1D64318B0011AA07 /* main.m */; };
 		EEB9F6911D64318B0011AA07 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6901D64318B0011AA07 /* AppDelegate.mm */; };
-		EEB9F6941D64318B0011AA07 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6931D64318B0011AA07 /* ViewController.m */; };
+		EEB9F6941D64318B0011AA07 /* ZENFITMain.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6931D64318B0011AA07 /* ZENFITMain.m */; };
 		EEB9F6971D64318B0011AA07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6951D64318B0011AA07 /* Main.storyboard */; };
 		EEB9F6991D64318B0011AA07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6981D64318B0011AA07 /* Assets.xcassets */; };
 		EEB9F69C1D64318B0011AA07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F69A1D64318B0011AA07 /* LaunchScreen.storyboard */; };
@@ -340,6 +340,352 @@
 		EEE7D83F1DEFC9EE00D46512 /* SMABottomAlerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE7D83E1DEFC9EE00D46512 /* SMABottomAlerView.m */; };
 		EEE7D8421DEFFDB100D46512 /* SMACenterAlerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE7D8411DEFFDB100D46512 /* SMACenterAlerView.m */; };
 		EEE7D8471DF0112000D46512 /* SMABottomPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE7D8461DF0112000D46512 /* SMABottomPickView.m */; };
+		EEEB84481EF7C07D00DDE316 /* SmaAnalysisWebServiceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1DD81D648A7500825E2B /* SmaAnalysisWebServiceTool.m */; };
+		EEEB84491EF7C07D00DDE316 /* QNResumeUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A62F1E0B5FE00007BCC8 /* QNResumeUpload.m */; };
+		EEEB844A1EF7C07D00DDE316 /* SMADfuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8B3F401DFE96F400500664 /* SMADfuButton.m */; };
+		EEEB844B1EF7C07D00DDE316 /* EasyLinkForAXZWifiLink.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6461E0B5FE00007BCC8 /* EasyLinkForAXZWifiLink.m */; };
+		EEEB844C1EF7C07D00DDE316 /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5A81E0B5FE00007BCC8 /* aes_cbc.c */; };
+		EEEB844D1EF7C07D00DDE316 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5B61E0B5FE00007BCC8 /* AFURLRequestSerialization.m */; };
+		EEEB844E1EF7C07D00DDE316 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5B81E0B5FE00007BCC8 /* AFURLResponseSerialization.m */; };
+		EEEB844F1EF7C07D00DDE316 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6711E0B5FE00007BCC8 /* AsyncSocket.m */; };
+		EEEB84501EF7C07D00DDE316 /* ESPTouchTask.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A65A1E0B5FE00007BCC8 /* ESPTouchTask.m */; };
+		EEEB84511EF7C07D00DDE316 /* QNNetworkInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6001E0B5FE00007BCC8 /* QNNetworkInfo.m */; };
+		EEEB84521EF7C07D00DDE316 /* SmaSeatInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE76343A1EAA137F0043FEC3 /* SmaSeatInfo.m */; };
+		EEEB84531EF7C07D00DDE316 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE1C1DD2AFB20031CF58 /* MKAnnotationView+WebCache.m */; };
+		EEEB84541EF7C07D00DDE316 /* QNTxtResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6141E0B5FE00007BCC8 /* QNTxtResolver.m */; };
+		EEEB84551EF7C07D00DDE316 /* UIBarButtonItem+CKQ.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1C1C1D646D9500825E2B /* UIBarButtonItem+CKQ.m */; };
+		EEEB84561EF7C07D00DDE316 /* QNDnspodFree.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6091E0B5FE00007BCC8 /* QNDnspodFree.m */; };
+		EEEB84571EF7C07D00DDE316 /* SMADialMainView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6160351D77BFC600FA1626 /* SMADialMainView.m */; };
+		EEEB84581EF7C07D00DDE316 /* SMASleepDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0FDCFE1DFE502D00A9ACB8 /* SMASleepDetailCell.m */; };
+		EEEB84591EF7C07D00DDE316 /* QNResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6101E0B5FE00007BCC8 /* QNResolver.m */; };
+		EEEB845A1EF7C07D00DDE316 /* SectionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1C131D6469DD00825E2B /* SectionsViewController.m */; };
+		EEEB845B1EF7C07D00DDE316 /* SMAMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83C1721DACF65D00A4FD88 /* SMAMeViewController.m */; };
+		EEEB845C1EF7C07D00DDE316 /* PointAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = EEDC88061E7F750800EAF2AA /* PointAnnotation.m */; };
+		EEEB845D1EF7C07D00DDE316 /* WMProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA281DF81586002644CD /* WMProgressView.m */; };
+		EEEB845E1EF7C07D00DDE316 /* SMAWatchCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA391DF81608002644CD /* SMAWatchCollectionController.m */; };
+		EEEB845F1EF7C07D00DDE316 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE201DD2AFB20031CF58 /* SDImageCache.m */; };
+		EEEB84601EF7C07D00DDE316 /* MJRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD0D1DB0CE320034105B /* MJRefreshHeaderView.m */; };
+		EEEB84611EF7C07D00DDE316 /* SmaLocalizeableInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1DC91D6487F700825E2B /* SmaLocalizeableInfo.m */; };
+		EEEB84621EF7C07D00DDE316 /* SMARepairTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8E32C71E6E9C1B002FB81E /* SMARepairTableViewController.m */; };
+		EEEB84631EF7C07D00DDE316 /* SMAAlarmRulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9C00291DA8D52100DF050D /* SMAAlarmRulerView.m */; };
+		EEEB84641EF7C07D00DDE316 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE261DD2AFB20031CF58 /* SDWebImageDownloader.m */; };
+		EEEB84651EF7C07D00DDE316 /* NSDate+Formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE5825B1DB22E5D005C2B0E /* NSDate+Formatter.m */; };
+		EEEB84661EF7C07D00DDE316 /* SMASelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6061461DEEDECC008A7786 /* SMASelectCell.m */; };
+		EEEB84671EF7C07D00DDE316 /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE1E1DD2AFB20031CF58 /* NSData+ImageContentType.m */; };
+		EEEB84681EF7C07D00DDE316 /* MXCHIPAirlink.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6491E0B5FE00007BCC8 /* MXCHIPAirlink.m */; };
+		EEEB84691EF7C07D00DDE316 /* SmaCommonStudio.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1DDE1D648BC600825E2B /* SmaCommonStudio.m */; };
+		EEEB846A1EF7C07D00DDE316 /* QNFile.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5EE1E0B5FE00007BCC8 /* QNFile.m */; };
+		EEEB846B1EF7C07D00DDE316 /* SMAHeartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83C1681DACCB8A00A4FD88 /* SMAHeartViewController.m */; };
+		EEEB846C1EF7C07D00DDE316 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5C81E0B5FE00007BCC8 /* UIImageView+AFNetworking.m */; };
+		EEEB846D1EF7C07D00DDE316 /* SMARankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE438B401DDC2D4D0066D5A6 /* SMARankTableViewCell.m */; };
+		EEEB846E1EF7C07D00DDE316 /* ESP_CRC8.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6661E0B5FE00007BCC8 /* ESP_CRC8.m */; };
+		EEEB846F1EF7C07D00DDE316 /* QNEtag.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5EC1E0B5FE00007BCC8 /* QNEtag.m */; };
+		EEEB84701EF7C07D00DDE316 /* SMARepairDfuCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8E32BA1E6E48C1002FB81E /* SMARepairDfuCollectionController.m */; };
+		EEEB84711EF7C07D00DDE316 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD131DB0CE320034105B /* UIView+MJExtension.m */; };
+		EEEB84721EF7C07D00DDE316 /* QNUserAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6231E0B5FE00007BCC8 /* QNUserAgent.m */; };
+		EEEB84731EF7C07D00DDE316 /* SMANickViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC582131DED6A2100980DDA /* SMANickViewController.m */; };
+		EEEB84741EF7C07D00DDE316 /* DfuUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE6783D41E1DFC0F00B0B6E7 /* DfuUpdate.m */; };
+		EEEB84751EF7C07D00DDE316 /* SMAClockRulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9C00351DA8DA0800DF050D /* SMAClockRulerView.m */; };
+		EEEB84761EF7C07D00DDE316 /* SMARemindView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA8D9BB1DF577F600DAE4BA /* SMARemindView.m */; };
+		EEEB84771EF7C07D00DDE316 /* QN_GTM_Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5E41E0B5FE00007BCC8 /* QN_GTM_Base64.m */; };
+		EEEB84781EF7C07D00DDE316 /* AFAutoPurgingImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5BD1E0B5FE00007BCC8 /* AFAutoPurgingImageCache.m */; };
+		EEEB84791EF7C07D00DDE316 /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5C51E0B5FE00007BCC8 /* UIButton+AFNetworking.m */; };
+		EEEB847A1EF7C07D00DDE316 /* KSMHand.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32B61DA8BD060077C813 /* KSMHand.m */; };
+		EEEB847B1EF7C07D00DDE316 /* SDPieLoopProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE91FAB81D83DCBF0064A5A5 /* SDPieLoopProgressView.m */; };
+		EEEB847C1EF7C07D00DDE316 /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5AA1E0B5FE00007BCC8 /* aes_core.c */; };
+		EEEB847D1EF7C07D00DDE316 /* SMAWatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA3F1DF82AB1002644CD /* SMAWatchView.m */; };
+		EEEB847E1EF7C07D00DDE316 /* ESP_NetUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6681E0B5FE00007BCC8 /* ESP_NetUtil.m */; };
+		EEEB847F1EF7C07D00DDE316 /* SmaHRHisInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7634361EAA137F0043FEC3 /* SmaHRHisInfo.m */; };
+		EEEB84801EF7C07D00DDE316 /* UINavigationController+MTKNaVC.m in Sources */ = {isa = PBXBuildFile; fileRef = EED2F7C51D71ADCC00527FA7 /* UINavigationController+MTKNaVC.m */; };
+		EEEB84811EF7C07D00DDE316 /* QNSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6211E0B5FE00007BCC8 /* QNSessionManager.m */; };
+		EEEB84821EF7C07D00DDE316 /* SMADeviceSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EECC9DC31D88F3150019CAD8 /* SMADeviceSetViewController.m */; };
+		EEEB84831EF7C07D00DDE316 /* ESPGuideCode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6551E0B5FE00007BCC8 /* ESPGuideCode.m */; };
+		EEEB84841EF7C07D00DDE316 /* QNCrc32.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5EA1E0B5FE00007BCC8 /* QNCrc32.m */; };
+		EEEB84851EF7C07D00DDE316 /* ESPUDPSocketServer.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6611E0B5FE00007BCC8 /* ESPUDPSocketServer.m */; };
+		EEEB84861EF7C07D00DDE316 /* QNDnsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5FC1E0B5FE00007BCC8 /* QNDnsManager.m */; };
+		EEEB84871EF7C07D00DDE316 /* QNHosts.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A60E1E0B5FE00007BCC8 /* QNHosts.m */; };
+		EEEB84881EF7C07D00DDE316 /* SMAPolyline.m in Sources */ = {isa = PBXBuildFile; fileRef = EED15FFF1E5D6AF800B8DA93 /* SMAPolyline.m */; };
+		EEEB84891EF7C07D00DDE316 /* SMAGoalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7A86E81DB08A5F0089BA70 /* SMAGoalViewController.m */; };
+		EEEB848A1EF7C07D00DDE316 /* NSDictionary-DeepMutableCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1C101D6469C900825E2B /* NSDictionary-DeepMutableCopy.m */; };
+		EEEB848B1EF7C07D00DDE316 /* ESP_WifiUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A66A1E0B5FE00007BCC8 /* ESP_WifiUtil.m */; };
+		EEEB848C1EF7C07D00DDE316 /* SMASpGoalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE60613D1DEEC1BB008A7786 /* SMASpGoalViewController.m */; };
+		EEEB848D1EF7C07D00DDE316 /* SMAPickLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83C16B1DACDAAB00A4FD88 /* SMAPickLineView.m */; };
+		EEEB848E1EF7C07D00DDE316 /* BaseTouchesView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE10CE7F1DB5F85100585B74 /* BaseTouchesView.m */; };
+		EEEB848F1EF7C07D00DDE316 /* SmaBusinessTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7634341EAA137F0043FEC3 /* SmaBusinessTool.m */; };
+		EEEB84901EF7C07D00DDE316 /* SMAQuietHRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE733EC61DBDE41B00CF2887 /* SMAQuietHRViewController.m */; };
+		EEEB84911EF7C07D00DDE316 /* SmaDialSwitchView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0B08F31DF948D80026ABD8 /* SmaDialSwitchView.m */; };
+		EEEB84921EF7C07D00DDE316 /* SMADetailCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC6CC461DB4EE5C00A6CD9C /* SMADetailCollectionCell.m */; };
+		EEEB84931EF7C07D00DDE316 /* SMASedentaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEDD2991D98FFEF009D6CA3 /* SMASedentaryCell.m */; };
+		EEEB84941EF7C07D00DDE316 /* SMASelectCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F2EE1D8E42A600869CF9 /* SMASelectCoachViewController.m */; };
+		EEEB84951EF7C07D00DDE316 /* SDRotationLoopProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE91FABA1D83DCBF0064A5A5 /* SDRotationLoopProgressView.m */; };
+		EEEB84961EF7C07D00DDE316 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5C31E0B5FE00007BCC8 /* UIActivityIndicatorView+AFNetworking.m */; };
+		EEEB84971EF7C07D00DDE316 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE2F1DD2AFB20031CF58 /* UIButton+WebCache.m */; };
+		EEEB84981EF7C07D00DDE316 /* SMACalculate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE62D2C51DAB95120047FC6B /* SMACalculate.m */; };
+		EEEB84991EF7C07D00DDE316 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE241DD2AFB20031CF58 /* SDWebImageDecoder.m */; };
+		EEEB849A1EF7C07D00DDE316 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5B21E0B5FE00007BCC8 /* AFNetworkReachabilityManager.m */; };
+		EEEB849B1EF7C07D00DDE316 /* SMASelectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F2F11D8E42C000869CF9 /* SMASelectViewCell.m */; };
+		EEEB849C1EF7C07D00DDE316 /* SMAthirdPartyManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9AB5C61D6EFB540028F8DA /* SMAthirdPartyManager.m */; };
+		EEEB849D1EF7C07D00DDE316 /* SMAHRDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC84CF91DB9B98D0013D991 /* SMAHRDetailViewController.m */; };
+		EEEB849E1EF7C07D00DDE316 /* SMAMKMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2229601E4C165C003453DF /* SMAMKMapView.m */; };
+		EEEB849F1EF7C07D00DDE316 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = EE89AF181E60052C007B442D /* MKMapView+ZoomLevel.m */; };
+		EEEB84A01EF7C07D00DDE316 /* SMADetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC6CC411DB4D02800A6CD9C /* SMADetailCell.m */; };
+		EEEB84A11EF7C07D00DDE316 /* SmaVibrationInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE76343C1EAA137F0043FEC3 /* SmaVibrationInfo.m */; };
+		EEEB84A21EF7C07D00DDE316 /* SMARunHrViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE796C4B1DE6F01100DCA2BA /* SMARunHrViewController.m */; };
+		EEEB84A31EF7C07D00DDE316 /* SMAGenderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED2F7BD1D71964900527FA7 /* SMAGenderViewController.m */; };
+		EEEB84A41EF7C07D00DDE316 /* CKCacheContent.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5D51E0B5FE00007BCC8 /* CKCacheContent.m */; };
+		EEEB84A51EF7C07D00DDE316 /* SMADfuView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8B3F431DFEA8D900500664 /* SMADfuView.m */; };
+		EEEB84A61EF7C07D00DDE316 /* SMACenterLabView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE755DDD1DF15774005D340A /* SMACenterLabView.m */; };
+		EEEB84A71EF7C07D00DDE316 /* SMAShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7E73C31E135DB7002D19BA /* SMAShareView.m */; };
+		EEEB84A81EF7C07D00DDE316 /* SMAHighViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE227CCE1D7433A900B9387D /* SMAHighViewController.m */; };
+		EEEB84A91EF7C07D00DDE316 /* SMAAgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED44BAC1D73D40500BF7D07 /* SMAAgeViewController.m */; };
+		EEEB84AA1EF7C07D00DDE316 /* SMARunTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC5E8D1DE420290096DAF3 /* SMARunTableViewController.m */; };
+		EEEB84AB1EF7C07D00DDE316 /* ZENFITMain.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6931D64318B0011AA07 /* ZENFITMain.m */; };
+		EEEB84AC1EF7C07D00DDE316 /* SMANavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED2F7C11D719BF300527FA7 /* SMANavViewController.m */; };
+		EEEB84AD1EF7C07D00DDE316 /* SMABottomPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE7D8461DF0112000D46512 /* SMABottomPickView.m */; };
+		EEEB84AE1EF7C07D00DDE316 /* SDDemoItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE91FAB11D83DBF60064A5A5 /* SDDemoItemView.m */; };
+		EEEB84AF1EF7C07D00DDE316 /* SMADefaultinfos.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1DDA1D648A7500825E2B /* SMADefaultinfos.m */; };
+		EEEB84B01EF7C07D00DDE316 /* UIImage+MultiFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE331DD2AFB20031CF58 /* UIImage+MultiFormat.m */; };
+		EEEB84B11EF7C07D00DDE316 /* SMACenterAlerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE7D8411DEFFDB100D46512 /* SMACenterAlerView.m */; };
+		EEEB84B21EF7C07D00DDE316 /* SMALoginViewcontroller.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6B81D64386A0011AA07 /* SMALoginViewcontroller.m */; };
+		EEEB84B31EF7C07D00DDE316 /* SMAWatchCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA361DF81608002644CD /* SMAWatchCollectionCell.m */; };
+		EEEB84B41EF7C07D00DDE316 /* SMAPairViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8169981D8E801B003BEDDF /* SMAPairViewController.m */; };
+		EEEB84B51EF7C07D00DDE316 /* WMPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA2D1DF81586002644CD /* WMPageController.m */; };
+		EEEB84B61EF7C07D00DDE316 /* QNHijackingDetectWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A60C1E0B5FE00007BCC8 /* QNHijackingDetectWrapper.m */; };
+		EEEB84B71EF7C07D00DDE316 /* SMARulerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE227CF71D74381C00B9387D /* SMARulerScrollView.m */; };
+		EEEB84B81EF7C07D00DDE316 /* QNPHAssetResource.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5F31E0B5FE00007BCC8 /* QNPHAssetResource.m */; };
+		EEEB84B91EF7C07D00DDE316 /* SMAAccountTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1DD21D648A6E00825E2B /* SMAAccountTool.m */; };
+		EEEB84BA1EF7C07D00DDE316 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD0F1DB0CE320034105B /* UIScrollView+MJExtension.m */; };
+		EEEB84BB1EF7C07D00DDE316 /* QNDnspodEnterprise.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6071E0B5FE00007BCC8 /* QNDnspodEnterprise.m */; };
+		EEEB84BC1EF7C07D00DDE316 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8652DD1D6557F000A051C2 /* MBProgressHUD+MJ.m */; };
+		EEEB84BD1EF7C07D00DDE316 /* SMARegisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8652D91D65468900A051C2 /* SMARegisViewController.m */; };
+		EEEB84BE1EF7C07D00DDE316 /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6941E0B5FE00007BCC8 /* YYClassInfo.m */; };
+		EEEB84BF1EF7C07D00DDE316 /* SDLoopProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE91FAB41D83DC200064A5A5 /* SDLoopProgressView.m */; };
+		EEEB84C01EF7C07D00DDE316 /* QNFormUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A62D1E0B5FE00007BCC8 /* QNFormUpload.m */; };
+		EEEB84C11EF7C07D00DDE316 /* SMACenterTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5193781DF10B17007DC2A2 /* SMACenterTabView.m */; };
+		EEEB84C21EF7C07D00DDE316 /* SMAFindPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEA833FF1D96765800AF4CA9 /* SMAFindPassViewController.m */; };
+		EEEB84C31EF7C07D00DDE316 /* MJRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD0B1DB0CE320034105B /* MJRefreshFooterView.m */; };
+		EEEB84C41EF7C07D00DDE316 /* SMAUnPaierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE59C7411DE7D5C20064D19F /* SMAUnPaierViewController.m */; };
+		EEEB84C51EF7C07D00DDE316 /* SMAMoreSetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE49566B1DF590AE0094B5C2 /* SMAMoreSetViewController.m */; };
+		EEEB84C61EF7C07D00DDE316 /* SMASedentaryController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEDD2961D98C93B009D6CA3 /* SMASedentaryController.m */; };
+		EEEB84C71EF7C07D00DDE316 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACE71DAA2B2E00CA2EC5 /* FMDatabase.m */; };
+		EEEB84C81EF7C07D00DDE316 /* SMABottomSelView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC582161DED6CB400980DDA /* SMABottomSelView.m */; };
+		EEEB84C91EF7C07D00DDE316 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5AF1E0B5FE00007BCC8 /* AFHTTPSessionManager.m */; };
+		EEEB84CA1EF7C07D00DDE316 /* SMATimingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7249711E45CD0F00C089DB /* SMATimingViewController.m */; };
+		EEEB84CB1EF7C07D00DDE316 /* UIImage+CKQ.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1C1F1D64767C00825E2B /* UIImage+CKQ.m */; };
+		EEEB84CC1EF7C07D00DDE316 /* CKFileCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5D71E0B5FE00007BCC8 /* CKFileCache.m */; };
+		EEEB84CD1EF7C07D00DDE316 /* NSObject+YYModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6921E0B5FE00007BCC8 /* NSObject+YYModel.m */; };
+		EEEB84CE1EF7C07D00DDE316 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8652E01D6557F000A051C2 /* MBProgressHUD.m */; };
+		EEEB84CF1EF7C07D00DDE316 /* SMARunTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC5E901DE4206B0096DAF3 /* SMARunTableViewCell.m */; };
+		EEEB84D01EF7C07D00DDE316 /* ZXPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CE2BB1DD47D9100AB66A6 /* ZXPageControl.m */; };
+		EEEB84D11EF7C07D00DDE316 /* SMADatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACE31DAA2B1000CA2EC5 /* SMADatabase.m */; };
+		EEEB84D21EF7C07D00DDE316 /* QNConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A62B1E0B5FE00007BCC8 /* QNConfiguration.m */; };
+		EEEB84D31EF7C07D00DDE316 /* BLConnect.m in Sources */ = {isa = PBXBuildFile; fileRef = EE81699C1D8E9E8C003BEDDF /* BLConnect.m */; };
+		EEEB84D41EF7C07D00DDE316 /* SmaQuietView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEECE0BF1DBDF3BC00B8F041 /* SmaQuietView.m */; };
+		EEEB84D51EF7C07D00DDE316 /* SMAAlarmSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32BA1DA8BDB80077C813 /* SMAAlarmSubViewController.m */; };
+		EEEB84D61EF7C07D00DDE316 /* SmaNoDisInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7634381EAA137F0043FEC3 /* SmaNoDisInfo.m */; };
+		EEEB84D71EF7C07D00DDE316 /* AFImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5BF1E0B5FE00007BCC8 /* AFImageDownloader.m */; };
+		EEEB84D81EF7C07D00DDE316 /* QNALAssetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5E61E0B5FE00007BCC8 /* QNALAssetFile.m */; };
+		EEEB84D91EF7C07D00DDE316 /* CKNullCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5DB1E0B5FE00007BCC8 /* CKNullCache.m */; };
+		EEEB84DA1EF7C07D00DDE316 /* GCDAsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5E01E0B5FE00007BCC8 /* GCDAsyncUdpSocket.m */; };
+		EEEB84DB1EF7C07D00DDE316 /* QNDes.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6171E0B5FE00007BCC8 /* QNDes.m */; };
+		EEEB84DC1EF7C07D00DDE316 /* SMATimePickView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE79A891D9CF252005683BA /* SMATimePickView.m */; };
+		EEEB84DD1EF7C07D00DDE316 /* QNSystem.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5F51E0B5FE00007BCC8 /* QNSystem.m */; };
+		EEEB84DE1EF7C07D00DDE316 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5CB1E0B5FE00007BCC8 /* UIProgressView+AFNetworking.m */; };
+		EEEB84DF1EF7C07D00DDE316 /* SMAChangeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8063901DF66B90005D6863 /* SMAChangeCell.m */; };
+		EEEB84E01EF7C07D00DDE316 /* SMAPhotoSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE648C5C1DFABE170090DD02 /* SMAPhotoSelectView.m */; };
+		EEEB84E11EF7C07D00DDE316 /* SMATimingMinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE72496B1E45CB3800C089DB /* SMATimingMinViewController.m */; };
+		EEEB84E21EF7C07D00DDE316 /* QNResolvUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6121E0B5FE00007BCC8 /* QNResolvUtil.m */; };
+		EEEB84E31EF7C07D00DDE316 /* SMADieviceDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE12EF291D7D6BCB0096F811 /* SMADieviceDataCell.m */; };
+		EEEB84E41EF7C07D00DDE316 /* SmaBLE.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7634321EAA137F0043FEC3 /* SmaBLE.m */; };
+		EEEB84E51EF7C07D00DDE316 /* SMASwitchScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE648C551DFA88A90090DD02 /* SMASwitchScrollView.m */; };
+		EEEB84E61EF7C07D00DDE316 /* CKMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5D91E0B5FE00007BCC8 /* CKMemoryCache.m */; };
+		EEEB84E71EF7C07D00DDE316 /* ESPUDPSocketClient.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A65F1E0B5FE00007BCC8 /* ESPUDPSocketClient.m */; };
+		EEEB84E81EF7C07D00DDE316 /* SMAEmailRegisViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED2F7B41D7167CB00527FA7 /* SMAEmailRegisViewController.m */; };
+		EEEB84E91EF7C07D00DDE316 /* WMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA241DF81586002644CD /* WMMenuItem.m */; };
+		EEEB84EA1EF7C07D00DDE316 /* QNAsyncRun.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5E81E0B5FE00007BCC8 /* QNAsyncRun.m */; };
+		EEEB84EB1EF7C07D00DDE316 /* SMAWeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED21B021D76AF0400BB8770 /* SMAWeightViewController.m */; };
+		EEEB84EC1EF7C07D00DDE316 /* QNRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6021E0B5FE00007BCC8 /* QNRecord.m */; };
+		EEEB84ED1EF7C07D00DDE316 /* BEMAnalogClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32B41DA8BD060077C813 /* BEMAnalogClockView.m */; };
+		EEEB84EE1EF7C07D00DDE316 /* QNUploadOption.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6341E0B5FE00007BCC8 /* QNUploadOption.m */; };
+		EEEB84EF1EF7C07D00DDE316 /* SMACalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBA49631DFC3A0500FF6302 /* SMACalendarView.m */; };
+		EEEB84F01EF7C07D00DDE316 /* SMAReoaurDfuReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8E32C21E6E5593002FB81E /* SMAReoaurDfuReusableView.m */; };
+		EEEB84F11EF7C07D00DDE316 /* ZXRollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CE2BC1DD47D9100AB66A6 /* ZXRollView.m */; };
+		EEEB84F21EF7C07D00DDE316 /* ESPDatumCode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6531E0B5FE00007BCC8 /* ESPDatumCode.m */; };
+		EEEB84F31EF7C07D00DDE316 /* SMADialView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED21B051D76BC5700BB8770 /* SMADialView.m */; };
+		EEEB84F41EF7C07D00DDE316 /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD091DB0CE320034105B /* MJRefreshConst.m */; };
+		EEEB84F51EF7C07D00DDE316 /* ESP_ByteUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6641E0B5FE00007BCC8 /* ESP_ByteUtil.m */; };
+		EEEB84F61EF7C07D00DDE316 /* SMADfuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8B3F3D1DFE96DC00500664 /* SMADfuViewController.m */; };
+		EEEB84F71EF7C07D00DDE316 /* SMATimingSecondController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE72496E1E45CC9800C089DB /* SMATimingSecondController.m */; };
+		EEEB84F81EF7C07D00DDE316 /* SMALocatiuonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB643821DEC05C600544FFE /* SMALocatiuonManager.m */; };
+		EEEB84F91EF7C07D00DDE316 /* QNIP.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A61B1E0B5FE00007BCC8 /* QNIP.m */; };
+		EEEB84FA1EF7C07D00DDE316 /* SmaColor.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1C221D6476C500825E2B /* SmaColor.m */; };
+		EEEB84FB1EF7C07D00DDE316 /* SMASportStypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE433E71E80B8140017A9E1 /* SMASportStypeView.m */; };
+		EEEB84FC1EF7C07D00DDE316 /* QNUpToken.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6361E0B5FE00007BCC8 /* QNUpToken.m */; };
+		EEEB84FD1EF7C07D00DDE316 /* GCDAsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5DE1E0B5FE00007BCC8 /* GCDAsyncSocket.m */; };
+		EEEB84FE1EF7C07D00DDE316 /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE351DD2AFB20031CF58 /* UIImage+WebP.m */; };
+		EEEB84FF1EF7C07D00DDE316 /* SmaAlarmInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7634301EAA137F0043FEC3 /* SmaAlarmInfo.m */; };
+		EEEB85001EF7C07D00DDE316 /* SMAAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55CFD61DFEC70F008A0F64 /* SMAAboutUsViewController.m */; };
+		EEEB85011EF7C07D00DDE316 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACEB1DAA2B2E00CA2EC5 /* FMDatabasePool.m */; };
+		EEEB85021EF7C07D00DDE316 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE2D1DD2AFB20031CF58 /* SDWebImagePrefetcher.m */; };
+		EEEB85031EF7C07D00DDE316 /* ESPTouchTaskParameter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A65C1E0B5FE00007BCC8 /* ESPTouchTaskParameter.m */; };
+		EEEB85041EF7C07D00DDE316 /* SMAFirstLunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5F82591DFBFC750045B5C3 /* SMAFirstLunViewController.m */; };
+		EEEB85051EF7C07D00DDE316 /* SMAPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8086741DAF55E00075C705 /* SMAPersonalViewController.m */; };
+		EEEB85061EF7C07D00DDE316 /* AsyncUdpSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6731E0B5FE00007BCC8 /* AsyncUdpSocket.m */; };
+		EEEB85071EF7C07D00DDE316 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5CF1E0B5FE00007BCC8 /* UIWebView+AFNetworking.m */; };
+		EEEB85081EF7C07D00DDE316 /* SMASportDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC6CC3E1DB4C6D200A6CD9C /* SMASportDetailViewController.m */; };
+		EEEB85091EF7C07D00DDE316 /* ScannedPeripheral.m in Sources */ = {isa = PBXBuildFile; fileRef = EE81699E1D8E9E8C003BEDDF /* ScannedPeripheral.m */; };
+		EEEB850A1EF7C07D00DDE316 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE3B1DD2AFB20031CF58 /* UIView+WebCacheOperation.m */; };
+		EEEB850B1EF7C07D00DDE316 /* SMAthirdPartyLoginTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBAB5A51D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m */; };
+		EEEB850C1EF7C07D00DDE316 /* ESPTouchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6591E0B5FE00007BCC8 /* ESPTouchResult.m */; };
+		EEEB850D1EF7C07D00DDE316 /* SMAAggregateTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBC89851E0E106600793AC1 /* SMAAggregateTool.m */; };
+		EEEB850E1EF7C07D00DDE316 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACE91DAA2B2E00CA2EC5 /* FMDatabaseAdditions.m */; };
+		EEEB850F1EF7C07D00DDE316 /* SMADeviceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8420ED1D93AAC5007DA9C6 /* SMADeviceCell.m */; };
+		EEEB85101EF7C07D00DDE316 /* SMARepeatCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAF8A641DA9F14B00E1FE83 /* SMARepeatCell.m */; };
+		EEEB85111EF7C07D00DDE316 /* SMAUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4B1DD41D648A6E00825E2B /* SMAUserInfo.m */; };
+		EEEB85121EF7C07D00DDE316 /* QNDomain.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5FE1E0B5FE00007BCC8 /* QNDomain.m */; };
+		EEEB85131EF7C07D00DDE316 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5C11E0B5FE00007BCC8 /* AFNetworkActivityIndicatorManager.m */; };
+		EEEB85141EF7C07D00DDE316 /* SMATabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAD86551DE2BF07000D9DB7 /* SMATabbarController.m */; };
+		EEEB85151EF7C07D00DDE316 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5BA1E0B5FE00007BCC8 /* AFURLSessionManager.m */; };
+		EEEB85161EF7C07D00DDE316 /* CKCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5D31E0B5FE00007BCC8 /* CKCache.m */; };
+		EEEB85171EF7C07D00DDE316 /* SMAWatchChangeController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA341DF81608002644CD /* SMAWatchChangeController.m */; };
+		EEEB85181EF7C07D00DDE316 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD111DB0CE320034105B /* UIScrollView+MJRefresh.m */; };
+		EEEB85191EF7C07D00DDE316 /* SMADeviceDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB09AAE1D79214500E34B9D /* SMADeviceDataTableViewController.m */; };
+		EEEB851A1EF7C07D00DDE316 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE2A1DD2AFB20031CF58 /* SDWebImageManager.m */; };
+		EEEB851B1EF7C07D00DDE316 /* SMARepairDfuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8E32BD1E6E4900002FB81E /* SMARepairDfuCell.m */; };
+		EEEB851C1EF7C07D00DDE316 /* SmaSliderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0B08F51DF948D80026ABD8 /* SmaSliderButton.m */; };
+		EEEB851D1EF7C07D00DDE316 /* SDWebImageCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE221DD2AFB20031CF58 /* SDWebImageCompat.m */; };
+		EEEB851E1EF7C07D00DDE316 /* SMAPersonalPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8086771DAF918D0075C705 /* SMAPersonalPickView.m */; };
+		EEEB851F1EF7C07D00DDE316 /* SMABindRemindView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAE8F191D952ED4008F82CE /* SMABindRemindView.m */; };
+		EEEB85201EF7C07D00DDE316 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACED1DAA2B2E00CA2EC5 /* FMDatabaseQueue.m */; };
+		EEEB85211EF7C07D00DDE316 /* ESPTouchGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6571E0B5FE00007BCC8 /* ESPTouchGenerator.m */; };
+		EEEB85221EF7C07D00DDE316 /* SDBaseProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE91FABF1D83DEAE0064A5A5 /* SDBaseProgressView.m */; };
+		EEEB85231EF7C07D00DDE316 /* MarvellSmartConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A67C1E0B5FE00007BCC8 /* MarvellSmartConfig.m */; };
+		EEEB85241EF7C07D00DDE316 /* SMAAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE48F7C31DA881850086CB57 /* SMAAlarmViewController.m */; };
+		EEEB85251EF7C07D00DDE316 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE391DD2AFB20031CF58 /* UIImageView+WebCache.m */; };
+		EEEB85261EF7C07D00DDE316 /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE281DD2AFB20031CF58 /* SDWebImageDownloaderOperation.m */; };
+		EEEB85271EF7C07D00DDE316 /* QNUrlSafeBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5F71E0B5FE00007BCC8 /* QNUrlSafeBase64.m */; };
+		EEEB85281EF7C07D00DDE316 /* UIRefreshControl+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5CD1E0B5FE00007BCC8 /* UIRefreshControl+AFNetworking.m */; };
+		EEEB85291EF7C07D00DDE316 /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD071DB0CE320034105B /* MJRefreshBaseView.m */; };
+		EEEB852A1EF7C07D00DDE316 /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A68C1E0B5FE00007BCC8 /* SRWebSocket.m */; };
+		EEEB852B1EF7C07D00DDE316 /* SMADeviceAggregate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE486C921DD9DCA200E3E385 /* SMADeviceAggregate.m */; };
+		EEEB852C1EF7C07D00DDE316 /* WYScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE181DD2AF0A0031CF58 /* WYScrollView.m */; };
+		EEEB852D1EF7C07D00DDE316 /* SMARankTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE155BCD1DC34FD400AD4900 /* SMARankTableViewController.m */; };
+		EEEB852E1EF7C07D00DDE316 /* ScattView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE10CE7C1DB5F82A00585B74 /* ScattView.m */; };
+		EEEB852F1EF7C07D00DDE316 /* UIImage+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE311DD2AFB20031CF58 /* UIImage+GIF.m */; };
+		EEEB85301EF7C07D00DDE316 /* SMADateDaultionfos.m in Sources */ = {isa = PBXBuildFile; fileRef = EE1748FF1DAC7A6D004A892D /* SMADateDaultionfos.m */; };
+		EEEB85311EF7C07D00DDE316 /* ESPDataCode.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6511E0B5FE00007BCC8 /* ESPDataCode.m */; };
+		EEEB85321EF7C07D00DDE316 /* SMASelectDeviceController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE60614E1DEEEC45008A7786 /* SMASelectDeviceController.m */; };
+		EEEB85331EF7C07D00DDE316 /* MTKSleepView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE63AD9D1DC08ABE00ABA94D /* MTKSleepView.m */; };
+		EEEB85341EF7C07D00DDE316 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6901D64318B0011AA07 /* AppDelegate.mm */; };
+		EEEB85351EF7C07D00DDE316 /* SMAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EED44BAF1D73D8B900BF7D07 /* SMAPickerView.m */; };
+		EEEB85361EF7C07D00DDE316 /* SMAEmailLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7CB58C1DEC539800AB5E7D /* SMAEmailLoginViewController.m */; };
+		EEEB85371EF7C07D00DDE316 /* SMACalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE7249631E4582B400C089DB /* SMACalibrationViewController.m */; };
+		EEEB85381EF7C07D00DDE316 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5B41E0B5FE00007BCC8 /* AFSecurityPolicy.m */; };
+		EEEB85391EF7C07D00DDE316 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = EE09ACF01DAA2B2E00CA2EC5 /* FMResultSet.m */; };
+		EEEB853A1EF7C07D00DDE316 /* SMARulerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE9C00321DA8D99000DF050D /* SMARulerView.m */; };
+		EEEB853B1EF7C07D00DDE316 /* SMABottomAlerView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE7D83E1DEFC9EE00D46512 /* SMABottomAlerView.m */; };
+		EEEB853C1EF7C07D00DDE316 /* QNResponseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A61F1E0B5FE00007BCC8 /* QNResponseInfo.m */; };
+		EEEB853D1EF7C07D00DDE316 /* QNPHAssetFile.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5F11E0B5FE00007BCC8 /* QNPHAssetFile.m */; };
+		EEEB853E1EF7C07D00DDE316 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE371DD2AFB20031CF58 /* UIImageView+HighlightedWebCache.m */; };
+		EEEB853F1EF7C07D00DDE316 /* SMAWebDataHandleInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0DDAE91DE020A900F2CDF0 /* SMAWebDataHandleInfo.m */; };
+		EEEB85401EF7C07D00DDE316 /* SMASedentEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAD8E981D9A1997009128BB /* SMASedentEditCell.m */; };
+		EEEB85411EF7C07D00DDE316 /* SMATrackDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC5E951DE42D710096DAF3 /* SMATrackDetailView.m */; };
+		EEEB85421EF7C07D00DDE316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F68D1D64318B0011AA07 /* main.m */; };
+		EEEB85431EF7C07D00DDE316 /* TQLocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C573C1E5EBBDF00FEE9F4 /* TQLocationConverter.m */; };
+		EEEB85441EF7C07D00DDE316 /* QNUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6311E0B5FE00007BCC8 /* QNUploadManager.m */; };
+		EEEB85451EF7C07D00DDE316 /* QNFileRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6271E0B5FE00007BCC8 /* QNFileRecorder.m */; };
+		EEEB85461EF7C07D00DDE316 /* SMAOpinion ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8B3F461DFEAE6600500664 /* SMAOpinion ViewController.m */; };
+		EEEB85471EF7C07D00DDE316 /* WMScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA2A1DF81586002644CD /* WMScrollView.m */; };
+		EEEB85481EF7C07D00DDE316 /* SMAChangePassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE80638D1DF66946005D6863 /* SMAChangePassViewController.m */; };
+		EEEB85491EF7C07D00DDE316 /* SMASleepDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE63AD9A1DC07EFB00ABA94D /* SMASleepDetailViewController.m */; };
+		EEEB854A1EF7C07D00DDE316 /* WMMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE4AA261DF81586002644CD /* WMMenuView.m */; };
+		EEEB854B1EF7C07D00DDE316 /* SMATrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC5E981DE434D70096DAF3 /* SMATrackViewController.m */; };
+		EEEB854C1EF7C07D00DDE316 /* QNHex.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6191E0B5FE00007BCC8 /* QNHex.m */; };
+		EEEB854E1EF7C07D00DDE316 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D051E14F8400059F8D0 /* FBSDKShareKit.framework */; };
+		EEEB854F1EF7C07D00DDE316 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D201E151BFD0059F8D0 /* CoreText.framework */; };
+		EEEB85501EF7C07D00DDE316 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D1E1E151BCF0059F8D0 /* Foundation.framework */; };
+		EEEB85511EF7C07D00DDE316 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D1C1E151B950059F8D0 /* ImageIO.framework */; };
+		EEEB85521EF7C07D00DDE316 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
+		EEEB85531EF7C07D00DDE316 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
+		EEEB85541EF7C07D00DDE316 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D1A1E151B800059F8D0 /* QuartzCore.framework */; };
+		EEEB85551EF7C07D00DDE316 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D001E14E96D0059F8D0 /* Social.framework */; };
+		EEEB85561EF7C07D00DDE316 /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10229C1E24B7BC00E0A0DF /* linkedin-sdk.framework */; };
+		EEEB85571EF7C07D00DDE316 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB643841DEC067D00544FFE /* CoreLocation.framework */; };
+		EEEB85581EF7C07D00DDE316 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10CE821DB5F9E100585B74 /* Accelerate.framework */; };
+		EEEB85591EF7C07D00DDE316 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D0B1E151B3B0059F8D0 /* libWeiboSDK.a */; };
+		EEEB855A1EF7C07D00DDE316 /* libiot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6871E0B5FE00007BCC8 /* libiot.a */; };
+		EEEB855B1EF7C07D00DDE316 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5C31D6EF6170028F8DA /* libsqlite3.0.tbd */; };
+		EEEB855C1EF7C07D00DDE316 /* libBLEasyConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A66E1E0B5FE00007BCC8 /* libBLEasyConfig.a */; };
+		EEEB855D1EF7C07D00DDE316 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4B1DCF1D64898700825E2B /* libz.tbd */; };
+		EEEB855E1EF7C07D00DDE316 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14171D6708590054BE87 /* libstdc++.tbd */; };
+		EEEB855F1EF7C07D00DDE316 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A63E1E0B5FE00007BCC8 /* libcrypto.a */; };
+		EEEB85601EF7C07D00DDE316 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14151D6708520054BE87 /* CoreTelephony.framework */; };
+		EEEB85611EF7C07D00DDE316 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; };
+		EEEB85621EF7C07D00DDE316 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10CE751DB5F7F000585B74 /* libCorePlot-CocoaTouch.a */; };
+		EEEB85631EF7C07D00DDE316 /* libsmartlinklib_7x.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6841E0B5FE00007BCC8 /* libsmartlinklib_7x.a */; };
+		EEEB85641EF7C07D00DDE316 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14131D6708420054BE87 /* libsqlite3.tbd */; };
+		EEEB85651EF7C07D00DDE316 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14111D6708350054BE87 /* CoreGraphics.framework */; };
+		EEEB85661EF7C07D00DDE316 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E140F1D67082C0054BE87 /* SystemConfiguration.framework */; };
+		EEEB85671EF7C07D00DDE316 /* libAbleCloudLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6961E0B5FE00007BCC8 /* libAbleCloudLib.a */; };
+		EEEB85681EF7C07D00DDE316 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E140D1D6708240054BE87 /* Security.framework */; };
+		EEEB85691EF7C07D00DDE316 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; };
+		EEEB856A1EF7C07D00DDE316 /* libFTC_DEBUG_ARM_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A63A1E0B5FE00007BCC8 /* libFTC_DEBUG_ARM_64.a */; };
+		EEEB856B1EF7C07D00DDE316 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D031E14F8400059F8D0 /* FBSDKCoreKit.framework */; };
+		EEEB856C1EF7C07D00DDE316 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E140B1D6708190054BE87 /* libiconv.tbd */; };
+		EEEB856D1EF7C07D00DDE316 /* libcooee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A63D1E0B5FE00007BCC8 /* libcooee.a */; };
+		EEEB856E1EF7C07D00DDE316 /* libLibSimpleConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6741E0B5FE00007BCC8 /* libLibSimpleConfig.a */; };
+		EEEB856F1EF7C07D00DDE316 /* libAbleCloudLib_simulator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6971E0B5FE00007BCC8 /* libAbleCloudLib_simulator.a */; };
+		EEEB85701EF7C07D00DDE316 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4B1DCD1D64898000825E2B /* libresolv.tbd */; };
+		EEEB85711EF7C07D00DDE316 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4B1DCB1D64897000825E2B /* libicucore.tbd */; };
+		EEEB85721EF7C07D00DDE316 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14081D6707E40054BE87 /* TencentOpenAPI.framework */; };
+		EEEB85731EF7C07D00DDE316 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE9AB5BA1D6EF5EA0028F8DA /* libWeChatSDK.a */; };
+		EEEB85741EF7C07D00DDE316 /* EasyConfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6401E0B5FE00007BCC8 /* EasyConfig.a */; };
+		EEEB85751EF7C07D00DDE316 /* libEasyLink.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6471E0B5FE00007BCC8 /* libEasyLink.a */; };
+		EEEB85761EF7C07D00DDE316 /* libUMessage_Sdk_1.4.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A68E1E0B5FE00007BCC8 /* libUMessage_Sdk_1.4.0.a */; };
+		EEEB85771EF7C07D00DDE316 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D021E14F8400059F8D0 /* Bolts.framework */; };
+		EEEB85781EF7C07D00DDE316 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D041E14F8400059F8D0 /* FBSDKLoginKit.framework */; };
+		EEEB85791EF7C07D00DDE316 /* libConfiguration.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A67E1E0B5FE00007BCC8 /* libConfiguration.a */; };
+		EEEB857A1EF7C07D00DDE316 /* libXlwDevice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6781E0B5FE00007BCC8 /* libXlwDevice.a */; };
+		EEEB857B1EF7C07D00DDE316 /* Pods_SMA.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F827C92C23048F37D5CC134 /* Pods_SMA.framework */; };
+		EEEB857D1EF7C07D00DDE316 /* sma10b_firmware_v1.1.8.zip in Resources */ = {isa = PBXBuildFile; fileRef = EE6783D61E1DFC0F00B0B6E7 /* sma10b_firmware_v1.1.8.zip */; };
+		EEEB857E1EF7C07D00DDE316 /* Gotham-Light_0.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6BC1D6443340011AA07 /* Gotham-Light_0.otf */; };
+		EEEB857F1EF7C07D00DDE316 /* SMADieviceDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE12EF2A1D7D6BCB0096F811 /* SMADieviceDataCell.xib */; };
+		EEEB85811EF7C07D00DDE316 /* SMARankTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE438B411DDC2D4D0066D5A6 /* SMARankTableViewCell.xib */; };
+		EEEB85821EF7C07D00DDE316 /* SMAChangeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8063911DF66B90005D6863 /* SMAChangeCell.xib */; };
+		EEEB85831EF7C07D00DDE316 /* SMARunTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEEC5E911DE4206B0096DAF3 /* SMARunTableViewCell.xib */; };
+		EEEB85841EF7C07D00DDE316 /* SMASedentEditCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEAD8E991D9A1997009128BB /* SMASedentEditCell.xib */; };
+		EEEB85851EF7C07D00DDE316 /* SMAWatchCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEE4AA371DF81608002644CD /* SMAWatchCollectionCell.xib */; };
+		EEEB85861EF7C07D00DDE316 /* SMAReoaurDfuReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8E32C31E6E5593002FB81E /* SMAReoaurDfuReusableView.xib */; };
+		EEEB85871EF7C07D00DDE316 /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EEC3CD041DB0CE320034105B /* MJRefresh.bundle */; };
+		EEEB85881EF7C07D00DDE316 /* sma07_app(pah8002)_v1.1.1.zip in Resources */ = {isa = PBXBuildFile; fileRef = EE34EE5F1E1F8C3600A8AABC /* sma07_app(pah8002)_v1.1.1.zip */; };
+		EEEB85891EF7C07D00DDE316 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE9AB5BC1D6EF5EA0028F8DA /* README.txt */; };
+		EEEB858A1EF7C07D00DDE316 /* SMASedentaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEEDD29A1D98FFEF009D6CA3 /* SMASedentaryCell.xib */; };
+		EEEB858B1EF7C07D00DDE316 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EEB54D151E151B3B0059F8D0 /* WeiboSDK.bundle */; };
+		EEEB858C1EF7C07D00DDE316 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6A81D6431F30011AA07 /* Localizable.strings */; };
+		EEEB858D1EF7C07D00DDE316 /* SMASelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE6061471DEEDECC008A7786 /* SMASelectCell.xib */; };
+		EEEB858E1EF7C07D00DDE316 /* arialuni_U16(SMA07).bin in Resources */ = {isa = PBXBuildFile; fileRef = EEED9AA91EA85BAC00F4652B /* arialuni_U16(SMA07).bin */; };
+		EEEB858F1EF7C07D00DDE316 /* country.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE4B1C191D646A0500825E2B /* country.plist */; };
+		EEEB85901EF7C07D00DDE316 /* sma07_app(FixFont).zip in Resources */ = {isa = PBXBuildFile; fileRef = EEA487ED1EDEA6B000AC6AB0 /* sma07_app(FixFont).zip */; };
+		EEEB85911EF7C07D00DDE316 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6C01D6443430011AA07 /* Gotham-Medium.otf */; };
+		EEEB85921EF7C07D00DDE316 /* SMARepeatCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEAF8A651DA9F14B00E1FE83 /* SMARepeatCell.xib */; };
+		EEEB85931EF7C07D00DDE316 /* angsaz_U16.bin in Resources */ = {isa = PBXBuildFile; fileRef = EE05D6161EAB51FC00A8CA12 /* angsaz_U16.bin */; };
+		EEEB85941EF7C07D00DDE316 /* SMASleepDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE0FDCFF1DFE502D00A9ACB8 /* SMASleepDetailCell.xib */; };
+		EEEB85961EF7C07D00DDE316 /* SMAQuietHRViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE733EC71DBDE41B00CF2887 /* SMAQuietHRViewController.xib */; };
+		EEEB85971EF7C07D00DDE316 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE0E14071D6707E40054BE87 /* TencentOpenApi_IOS_Bundle.bundle */; };
+		EEEB85981EF7C07D00DDE316 /* SMADetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEC6CC421DB4D02800A6CD9C /* SMADetailCell.xib */; };
+		EEEB85991EF7C07D00DDE316 /* SMARepairDfuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8E32BE1E6E4900002FB81E /* SMARepairDfuCell.xib */; };
+		EEEB859A1EF7C07D00DDE316 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE8652DE1D6557F000A051C2 /* MBProgressHUD.bundle */; };
+		EEEB859C1EF7C07D00DDE316 /* SMADetailCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEC6CC471DB4EE5C00A6CD9C /* SMADetailCollectionCell.xib */; };
+		EEEB859D1EF7C07D00DDE316 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE9AB5BB1D6EF5EA0028F8DA /* read_me.txt */; };
+		EEEB859E1EF7C07D00DDE316 /* Gotham-Bold_0.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6BE1D64433B0011AA07 /* Gotham-Bold_0.otf */; };
+		EEEB859F1EF7C07D00DDE316 /* SMADeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8420EE1D93AAC5007DA9C6 /* SMADeviceCell.xib */; };
+		EEEB85A11EF7C07D00DDE316 /* Zip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EEEB85A21EF7C07D00DDE316 /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EEEB85B11EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEEB85B01EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard */; };
+		EEEB85B81EF7CD7200DDE316 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEEB85B71EF7CD7200DDE316 /* Media.xcassets */; };
+		EEEB85B91EF7CF7200DDE316 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6981D64318B0011AA07 /* Assets.xcassets */; };
+		EEEB85BA1EF7D35B00DDE316 /* ZEN FITInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = EEEB85AA1EF7C07D00DDE316 /* ZEN FITInfo.plist */; };
+		EEEB85BC1EF7D6EA00DDE316 /* ZENFITMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEEB85BB1EF7D6EA00DDE316 /* ZENFITMain.storyboard */; };
 		EEEC5E8E1DE420290096DAF3 /* SMARunTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC5E8D1DE420290096DAF3 /* SMARunTableViewController.m */; };
 		EEEC5E921DE4206B0096DAF3 /* SMARunTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC5E901DE4206B0096DAF3 /* SMARunTableViewCell.m */; };
 		EEEC5E931DE4206B0096DAF3 /* SMARunTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEEC5E911DE4206B0096DAF3 /* SMARunTableViewCell.xib */; };
@@ -362,6 +708,18 @@
 			files = (
 				EEBA6B201EBC6B1A0066A564 /* Zip.framework in Embed Frameworks */,
 				EEBA6B1E1EBC6B160066A564 /* iOSDFULibrary.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEEB85A01EF7C07D00DDE316 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EEEB85A11EF7C07D00DDE316 /* Zip.framework in Embed Frameworks */,
+				EEEB85A21EF7C07D00DDE316 /* iOSDFULibrary.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1054,7 +1412,7 @@
 		EEB9F68F1D64318B0011AA07 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EEB9F6901D64318B0011AA07 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		EEB9F6921D64318B0011AA07 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		EEB9F6931D64318B0011AA07 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		EEB9F6931D64318B0011AA07 /* ZENFITMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZENFITMain.m; sourceTree = "<group>"; };
 		EEB9F6961D64318B0011AA07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EEB9F6981D64318B0011AA07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEB9F69B1D64318B0011AA07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1166,6 +1524,11 @@
 		EEE7D8411DEFFDB100D46512 /* SMACenterAlerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SMACenterAlerView.m; path = ../SMACenterAlerView.m; sourceTree = "<group>"; };
 		EEE7D8451DF0112000D46512 /* SMABottomPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMABottomPickView.h; sourceTree = "<group>"; };
 		EEE7D8461DF0112000D46512 /* SMABottomPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMABottomPickView.m; sourceTree = "<group>"; };
+		EEEB85A91EF7C07D00DDE316 /* ZEN FIT.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZEN FIT.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EEEB85AA1EF7C07D00DDE316 /* ZEN FITInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ZEN FITInfo.plist"; path = "/Users/aibaohu/Desktop/SMA项目资料/SMA NEW/源码/SMA/ZEN FITInfo.plist"; sourceTree = "<absolute>"; };
+		EEEB85B01EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZENFITLaunchScreen.storyboard; sourceTree = "<group>"; };
+		EEEB85B71EF7CD7200DDE316 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		EEEB85BB1EF7D6EA00DDE316 /* ZENFITMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ZENFITMain.storyboard; sourceTree = "<group>"; };
 		EEEC5E8C1DE420290096DAF3 /* SMARunTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMARunTableViewController.h; sourceTree = "<group>"; };
 		EEEC5E8D1DE420290096DAF3 /* SMARunTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMARunTableViewController.m; sourceTree = "<group>"; };
 		EEEC5E8F1DE4206B0096DAF3 /* SMARunTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMARunTableViewCell.h; sourceTree = "<group>"; };
@@ -1237,6 +1600,59 @@
 				EE57A7521E0B5FE10007BCC8 /* libConfiguration.a in Frameworks */,
 				EE57A7501E0B5FE10007BCC8 /* libXlwDevice.a in Frameworks */,
 				46495CBCBE14FCF45037209D /* Pods_SMA.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEEB854D1EF7C07D00DDE316 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEEB854E1EF7C07D00DDE316 /* FBSDKShareKit.framework in Frameworks */,
+				EEEB854F1EF7C07D00DDE316 /* CoreText.framework in Frameworks */,
+				EEEB85501EF7C07D00DDE316 /* Foundation.framework in Frameworks */,
+				EEEB85511EF7C07D00DDE316 /* ImageIO.framework in Frameworks */,
+				EEEB85521EF7C07D00DDE316 /* Zip.framework in Frameworks */,
+				EEEB85531EF7C07D00DDE316 /* Zip.framework in Frameworks */,
+				EEEB85541EF7C07D00DDE316 /* QuartzCore.framework in Frameworks */,
+				EEEB85551EF7C07D00DDE316 /* Social.framework in Frameworks */,
+				EEEB85561EF7C07D00DDE316 /* linkedin-sdk.framework in Frameworks */,
+				EEEB85571EF7C07D00DDE316 /* CoreLocation.framework in Frameworks */,
+				EEEB85581EF7C07D00DDE316 /* Accelerate.framework in Frameworks */,
+				EEEB85591EF7C07D00DDE316 /* libWeiboSDK.a in Frameworks */,
+				EEEB855A1EF7C07D00DDE316 /* libiot.a in Frameworks */,
+				EEEB855B1EF7C07D00DDE316 /* libsqlite3.0.tbd in Frameworks */,
+				EEEB855C1EF7C07D00DDE316 /* libBLEasyConfig.a in Frameworks */,
+				EEEB855D1EF7C07D00DDE316 /* libz.tbd in Frameworks */,
+				EEEB855E1EF7C07D00DDE316 /* libstdc++.tbd in Frameworks */,
+				EEEB855F1EF7C07D00DDE316 /* libcrypto.a in Frameworks */,
+				EEEB85601EF7C07D00DDE316 /* CoreTelephony.framework in Frameworks */,
+				EEEB85611EF7C07D00DDE316 /* iOSDFULibrary.framework in Frameworks */,
+				EEEB85621EF7C07D00DDE316 /* libCorePlot-CocoaTouch.a in Frameworks */,
+				EEEB85631EF7C07D00DDE316 /* libsmartlinklib_7x.a in Frameworks */,
+				EEEB85641EF7C07D00DDE316 /* libsqlite3.tbd in Frameworks */,
+				EEEB85651EF7C07D00DDE316 /* CoreGraphics.framework in Frameworks */,
+				EEEB85661EF7C07D00DDE316 /* SystemConfiguration.framework in Frameworks */,
+				EEEB85671EF7C07D00DDE316 /* libAbleCloudLib.a in Frameworks */,
+				EEEB85681EF7C07D00DDE316 /* Security.framework in Frameworks */,
+				EEEB85691EF7C07D00DDE316 /* iOSDFULibrary.framework in Frameworks */,
+				EEEB856A1EF7C07D00DDE316 /* libFTC_DEBUG_ARM_64.a in Frameworks */,
+				EEEB856B1EF7C07D00DDE316 /* FBSDKCoreKit.framework in Frameworks */,
+				EEEB856C1EF7C07D00DDE316 /* libiconv.tbd in Frameworks */,
+				EEEB856D1EF7C07D00DDE316 /* libcooee.a in Frameworks */,
+				EEEB856E1EF7C07D00DDE316 /* libLibSimpleConfig.a in Frameworks */,
+				EEEB856F1EF7C07D00DDE316 /* libAbleCloudLib_simulator.a in Frameworks */,
+				EEEB85701EF7C07D00DDE316 /* libresolv.tbd in Frameworks */,
+				EEEB85711EF7C07D00DDE316 /* libicucore.tbd in Frameworks */,
+				EEEB85721EF7C07D00DDE316 /* TencentOpenAPI.framework in Frameworks */,
+				EEEB85731EF7C07D00DDE316 /* libWeChatSDK.a in Frameworks */,
+				EEEB85741EF7C07D00DDE316 /* EasyConfig.a in Frameworks */,
+				EEEB85751EF7C07D00DDE316 /* libEasyLink.a in Frameworks */,
+				EEEB85761EF7C07D00DDE316 /* libUMessage_Sdk_1.4.0.a in Frameworks */,
+				EEEB85771EF7C07D00DDE316 /* Bolts.framework in Frameworks */,
+				EEEB85781EF7C07D00DDE316 /* FBSDKLoginKit.framework in Frameworks */,
+				EEEB85791EF7C07D00DDE316 /* libConfiguration.a in Frameworks */,
+				EEEB857A1EF7C07D00DDE316 /* libXlwDevice.a in Frameworks */,
+				EEEB857B1EF7C07D00DDE316 /* Pods_SMA.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1481,7 +1897,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB9F6921D64318B0011AA07 /* ViewController.h */,
-				EEB9F6931D64318B0011AA07 /* ViewController.m */,
+				EEB9F6931D64318B0011AA07 /* ZENFITMain.m */,
 				EEB9F6B71D64386A0011AA07 /* SMALoginViewcontroller.h */,
 				EEB9F6B81D64386A0011AA07 /* SMALoginViewcontroller.m */,
 				EE7CB58B1DEC539800AB5E7D /* SMAEmailLoginViewController.h */,
@@ -2726,6 +3142,7 @@
 				EEB9F68A1D64318B0011AA07 /* Products */,
 				EE10CE811DB5F9E100585B74 /* Frameworks */,
 				2ACBB9A042467E031B981C2E /* Pods */,
+				EEEB85AC1EF7C13C00DDE316 /* ZEN FIT */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2733,6 +3150,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB9F6891D64318B0011AA07 /* SMA.app */,
+				EEEB85A91EF7C07D00DDE316 /* ZEN FIT.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3108,6 +3526,17 @@
 			path = AndroidControls;
 			sourceTree = "<group>";
 		};
+		EEEB85AC1EF7C13C00DDE316 /* ZEN FIT */ = {
+			isa = PBXGroup;
+			children = (
+				EEEB85BB1EF7D6EA00DDE316 /* ZENFITMain.storyboard */,
+				EEEB85B01EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard */,
+				EEEB85AA1EF7C07D00DDE316 /* ZEN FITInfo.plist */,
+				EEEB85B71EF7CD7200DDE316 /* Media.xcassets */,
+			);
+			path = "ZEN FIT";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -3133,6 +3562,28 @@
 			productReference = EEB9F6891D64318B0011AA07 /* SMA.app */;
 			productType = "com.apple.product-type.application";
 		};
+		EEEB84451EF7C07D00DDE316 /* ZEN FIT */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EEEB85A61EF7C07D00DDE316 /* Build configuration list for PBXNativeTarget "ZEN FIT" */;
+			buildPhases = (
+				EEEB84461EF7C07D00DDE316 /* [CP] Check Pods Manifest.lock */,
+				EEEB84471EF7C07D00DDE316 /* Sources */,
+				EEEB854D1EF7C07D00DDE316 /* Frameworks */,
+				EEEB857C1EF7C07D00DDE316 /* Resources */,
+				EEEB85A01EF7C07D00DDE316 /* Embed Frameworks */,
+				EEEB85A31EF7C07D00DDE316 /* [CP] Embed Pods Frameworks */,
+				EEEB85A41EF7C07D00DDE316 /* [CP] Copy Pods Resources */,
+				EEEB85A51EF7C07D00DDE316 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ZEN FIT";
+			productName = SMA;
+			productReference = EEEB85A91EF7C07D00DDE316 /* ZEN FIT.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -3151,6 +3602,9 @@
 								enabled = 1;
 							};
 						};
+					};
+					EEEB84451EF7C07D00DDE316 = {
+						DevelopmentTeam = VHVLE5FL92;
 					};
 				};
 			};
@@ -3187,6 +3641,7 @@
 			projectRoot = "";
 			targets = (
 				EEB9F6881D64318B0011AA07 /* SMA */,
+				EEEB84451EF7C07D00DDE316 /* ZEN FIT */,
 			);
 		};
 /* End PBXProject section */
@@ -3231,6 +3686,50 @@
 				EE9AB5C11D6EF5EA0028F8DA /* read_me.txt in Resources */,
 				EEB9F6BF1D64433B0011AA07 /* Gotham-Bold_0.otf in Resources */,
 				EE8420F01D93AAC5007DA9C6 /* SMADeviceCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEEB857C1EF7C07D00DDE316 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEEB857D1EF7C07D00DDE316 /* sma10b_firmware_v1.1.8.zip in Resources */,
+				EEEB857E1EF7C07D00DDE316 /* Gotham-Light_0.otf in Resources */,
+				EEEB857F1EF7C07D00DDE316 /* SMADieviceDataCell.xib in Resources */,
+				EEEB85811EF7C07D00DDE316 /* SMARankTableViewCell.xib in Resources */,
+				EEEB85BA1EF7D35B00DDE316 /* ZEN FITInfo.plist in Resources */,
+				EEEB85821EF7C07D00DDE316 /* SMAChangeCell.xib in Resources */,
+				EEEB85831EF7C07D00DDE316 /* SMARunTableViewCell.xib in Resources */,
+				EEEB85841EF7C07D00DDE316 /* SMASedentEditCell.xib in Resources */,
+				EEEB85851EF7C07D00DDE316 /* SMAWatchCollectionCell.xib in Resources */,
+				EEEB85861EF7C07D00DDE316 /* SMAReoaurDfuReusableView.xib in Resources */,
+				EEEB85871EF7C07D00DDE316 /* MJRefresh.bundle in Resources */,
+				EEEB85BC1EF7D6EA00DDE316 /* ZENFITMain.storyboard in Resources */,
+				EEEB85881EF7C07D00DDE316 /* sma07_app(pah8002)_v1.1.1.zip in Resources */,
+				EEEB85891EF7C07D00DDE316 /* README.txt in Resources */,
+				EEEB858A1EF7C07D00DDE316 /* SMASedentaryCell.xib in Resources */,
+				EEEB858B1EF7C07D00DDE316 /* WeiboSDK.bundle in Resources */,
+				EEEB858C1EF7C07D00DDE316 /* Localizable.strings in Resources */,
+				EEEB858D1EF7C07D00DDE316 /* SMASelectCell.xib in Resources */,
+				EEEB858E1EF7C07D00DDE316 /* arialuni_U16(SMA07).bin in Resources */,
+				EEEB85B11EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard in Resources */,
+				EEEB858F1EF7C07D00DDE316 /* country.plist in Resources */,
+				EEEB85901EF7C07D00DDE316 /* sma07_app(FixFont).zip in Resources */,
+				EEEB85911EF7C07D00DDE316 /* Gotham-Medium.otf in Resources */,
+				EEEB85921EF7C07D00DDE316 /* SMARepeatCell.xib in Resources */,
+				EEEB85931EF7C07D00DDE316 /* angsaz_U16.bin in Resources */,
+				EEEB85941EF7C07D00DDE316 /* SMASleepDetailCell.xib in Resources */,
+				EEEB85961EF7C07D00DDE316 /* SMAQuietHRViewController.xib in Resources */,
+				EEEB85971EF7C07D00DDE316 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				EEEB85981EF7C07D00DDE316 /* SMADetailCell.xib in Resources */,
+				EEEB85991EF7C07D00DDE316 /* SMARepairDfuCell.xib in Resources */,
+				EEEB859A1EF7C07D00DDE316 /* MBProgressHUD.bundle in Resources */,
+				EEEB85B81EF7CD7200DDE316 /* Media.xcassets in Resources */,
+				EEEB859C1EF7C07D00DDE316 /* SMADetailCollectionCell.xib in Resources */,
+				EEEB859D1EF7C07D00DDE316 /* read_me.txt in Resources */,
+				EEEB859E1EF7C07D00DDE316 /* Gotham-Bold_0.otf in Resources */,
+				EEEB85B91EF7CF7200DDE316 /* Assets.xcassets in Resources */,
+				EEEB859F1EF7C07D00DDE316 /* SMADeviceCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3283,6 +3782,64 @@
 			showEnvVarsInLog = 0;
 		};
 		EEC20AF91E23ABE100AC325F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" dc332542e108134b2d39e529fb4a30d42366608e a2a9f10a9902b4ad08526b76de4e4e7463a4bf015f521cfbeb1ac18fb2da4cd8";
+		};
+		EEEB84461EF7C07D00DDE316 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EEEB85A31EF7C07D00DDE316 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SMA/Pods-SMA-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEEB85A41EF7C07D00DDE316 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SMA/Pods-SMA-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEEB85A51EF7C07D00DDE316 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -3401,7 +3958,7 @@
 				EE227CCF1D7433A900B9387D /* SMAHighViewController.m in Sources */,
 				EED44BAD1D73D40500BF7D07 /* SMAAgeViewController.m in Sources */,
 				EEEC5E8E1DE420290096DAF3 /* SMARunTableViewController.m in Sources */,
-				EEB9F6941D64318B0011AA07 /* ViewController.m in Sources */,
+				EEB9F6941D64318B0011AA07 /* ZENFITMain.m in Sources */,
 				EED2F7C21D719BF300527FA7 /* SMANavViewController.m in Sources */,
 				EEE7D8471DF0112000D46512 /* SMABottomPickView.m in Sources */,
 				EE91FAB21D83DBF60064A5A5 /* SDDemoItemView.m in Sources */,
@@ -3563,6 +4120,274 @@
 				EEE4AA2F1DF81586002644CD /* WMMenuView.m in Sources */,
 				EEEC5E991DE434D70096DAF3 /* SMATrackViewController.m in Sources */,
 				EE57A72C1E0B5FE00007BCC8 /* QNHex.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EEEB84471EF7C07D00DDE316 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EEEB84481EF7C07D00DDE316 /* SmaAnalysisWebServiceTool.m in Sources */,
+				EEEB84491EF7C07D00DDE316 /* QNResumeUpload.m in Sources */,
+				EEEB844A1EF7C07D00DDE316 /* SMADfuButton.m in Sources */,
+				EEEB844B1EF7C07D00DDE316 /* EasyLinkForAXZWifiLink.m in Sources */,
+				EEEB844C1EF7C07D00DDE316 /* aes_cbc.c in Sources */,
+				EEEB844D1EF7C07D00DDE316 /* AFURLRequestSerialization.m in Sources */,
+				EEEB844E1EF7C07D00DDE316 /* AFURLResponseSerialization.m in Sources */,
+				EEEB844F1EF7C07D00DDE316 /* AsyncSocket.m in Sources */,
+				EEEB84501EF7C07D00DDE316 /* ESPTouchTask.m in Sources */,
+				EEEB84511EF7C07D00DDE316 /* QNNetworkInfo.m in Sources */,
+				EEEB84521EF7C07D00DDE316 /* SmaSeatInfo.m in Sources */,
+				EEEB84531EF7C07D00DDE316 /* MKAnnotationView+WebCache.m in Sources */,
+				EEEB84541EF7C07D00DDE316 /* QNTxtResolver.m in Sources */,
+				EEEB84551EF7C07D00DDE316 /* UIBarButtonItem+CKQ.m in Sources */,
+				EEEB84561EF7C07D00DDE316 /* QNDnspodFree.m in Sources */,
+				EEEB84571EF7C07D00DDE316 /* SMADialMainView.m in Sources */,
+				EEEB84581EF7C07D00DDE316 /* SMASleepDetailCell.m in Sources */,
+				EEEB84591EF7C07D00DDE316 /* QNResolver.m in Sources */,
+				EEEB845A1EF7C07D00DDE316 /* SectionsViewController.m in Sources */,
+				EEEB845B1EF7C07D00DDE316 /* SMAMeViewController.m in Sources */,
+				EEEB845C1EF7C07D00DDE316 /* PointAnnotation.m in Sources */,
+				EEEB845D1EF7C07D00DDE316 /* WMProgressView.m in Sources */,
+				EEEB845E1EF7C07D00DDE316 /* SMAWatchCollectionController.m in Sources */,
+				EEEB845F1EF7C07D00DDE316 /* SDImageCache.m in Sources */,
+				EEEB84601EF7C07D00DDE316 /* MJRefreshHeaderView.m in Sources */,
+				EEEB84611EF7C07D00DDE316 /* SmaLocalizeableInfo.m in Sources */,
+				EEEB84621EF7C07D00DDE316 /* SMARepairTableViewController.m in Sources */,
+				EEEB84631EF7C07D00DDE316 /* SMAAlarmRulerView.m in Sources */,
+				EEEB84641EF7C07D00DDE316 /* SDWebImageDownloader.m in Sources */,
+				EEEB84651EF7C07D00DDE316 /* NSDate+Formatter.m in Sources */,
+				EEEB84661EF7C07D00DDE316 /* SMASelectCell.m in Sources */,
+				EEEB84671EF7C07D00DDE316 /* NSData+ImageContentType.m in Sources */,
+				EEEB84681EF7C07D00DDE316 /* MXCHIPAirlink.m in Sources */,
+				EEEB84691EF7C07D00DDE316 /* SmaCommonStudio.m in Sources */,
+				EEEB846A1EF7C07D00DDE316 /* QNFile.m in Sources */,
+				EEEB846B1EF7C07D00DDE316 /* SMAHeartViewController.m in Sources */,
+				EEEB846C1EF7C07D00DDE316 /* UIImageView+AFNetworking.m in Sources */,
+				EEEB846D1EF7C07D00DDE316 /* SMARankTableViewCell.m in Sources */,
+				EEEB846E1EF7C07D00DDE316 /* ESP_CRC8.m in Sources */,
+				EEEB846F1EF7C07D00DDE316 /* QNEtag.m in Sources */,
+				EEEB84701EF7C07D00DDE316 /* SMARepairDfuCollectionController.m in Sources */,
+				EEEB84711EF7C07D00DDE316 /* UIView+MJExtension.m in Sources */,
+				EEEB84721EF7C07D00DDE316 /* QNUserAgent.m in Sources */,
+				EEEB84731EF7C07D00DDE316 /* SMANickViewController.m in Sources */,
+				EEEB84741EF7C07D00DDE316 /* DfuUpdate.m in Sources */,
+				EEEB84751EF7C07D00DDE316 /* SMAClockRulerView.m in Sources */,
+				EEEB84761EF7C07D00DDE316 /* SMARemindView.m in Sources */,
+				EEEB84771EF7C07D00DDE316 /* QN_GTM_Base64.m in Sources */,
+				EEEB84781EF7C07D00DDE316 /* AFAutoPurgingImageCache.m in Sources */,
+				EEEB84791EF7C07D00DDE316 /* UIButton+AFNetworking.m in Sources */,
+				EEEB847A1EF7C07D00DDE316 /* KSMHand.m in Sources */,
+				EEEB847B1EF7C07D00DDE316 /* SDPieLoopProgressView.m in Sources */,
+				EEEB847C1EF7C07D00DDE316 /* aes_core.c in Sources */,
+				EEEB847D1EF7C07D00DDE316 /* SMAWatchView.m in Sources */,
+				EEEB847E1EF7C07D00DDE316 /* ESP_NetUtil.m in Sources */,
+				EEEB847F1EF7C07D00DDE316 /* SmaHRHisInfo.m in Sources */,
+				EEEB84801EF7C07D00DDE316 /* UINavigationController+MTKNaVC.m in Sources */,
+				EEEB84811EF7C07D00DDE316 /* QNSessionManager.m in Sources */,
+				EEEB84821EF7C07D00DDE316 /* SMADeviceSetViewController.m in Sources */,
+				EEEB84831EF7C07D00DDE316 /* ESPGuideCode.m in Sources */,
+				EEEB84841EF7C07D00DDE316 /* QNCrc32.m in Sources */,
+				EEEB84851EF7C07D00DDE316 /* ESPUDPSocketServer.m in Sources */,
+				EEEB84861EF7C07D00DDE316 /* QNDnsManager.m in Sources */,
+				EEEB84871EF7C07D00DDE316 /* QNHosts.m in Sources */,
+				EEEB84881EF7C07D00DDE316 /* SMAPolyline.m in Sources */,
+				EEEB84891EF7C07D00DDE316 /* SMAGoalViewController.m in Sources */,
+				EEEB848A1EF7C07D00DDE316 /* NSDictionary-DeepMutableCopy.m in Sources */,
+				EEEB848B1EF7C07D00DDE316 /* ESP_WifiUtil.m in Sources */,
+				EEEB848C1EF7C07D00DDE316 /* SMASpGoalViewController.m in Sources */,
+				EEEB848D1EF7C07D00DDE316 /* SMAPickLineView.m in Sources */,
+				EEEB848E1EF7C07D00DDE316 /* BaseTouchesView.m in Sources */,
+				EEEB848F1EF7C07D00DDE316 /* SmaBusinessTool.m in Sources */,
+				EEEB84901EF7C07D00DDE316 /* SMAQuietHRViewController.m in Sources */,
+				EEEB84911EF7C07D00DDE316 /* SmaDialSwitchView.m in Sources */,
+				EEEB84921EF7C07D00DDE316 /* SMADetailCollectionCell.m in Sources */,
+				EEEB84931EF7C07D00DDE316 /* SMASedentaryCell.m in Sources */,
+				EEEB84941EF7C07D00DDE316 /* SMASelectCoachViewController.m in Sources */,
+				EEEB84951EF7C07D00DDE316 /* SDRotationLoopProgressView.m in Sources */,
+				EEEB84961EF7C07D00DDE316 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				EEEB84971EF7C07D00DDE316 /* UIButton+WebCache.m in Sources */,
+				EEEB84981EF7C07D00DDE316 /* SMACalculate.m in Sources */,
+				EEEB84991EF7C07D00DDE316 /* SDWebImageDecoder.m in Sources */,
+				EEEB849A1EF7C07D00DDE316 /* AFNetworkReachabilityManager.m in Sources */,
+				EEEB849B1EF7C07D00DDE316 /* SMASelectViewCell.m in Sources */,
+				EEEB849C1EF7C07D00DDE316 /* SMAthirdPartyManager.m in Sources */,
+				EEEB849D1EF7C07D00DDE316 /* SMAHRDetailViewController.m in Sources */,
+				EEEB849E1EF7C07D00DDE316 /* SMAMKMapView.m in Sources */,
+				EEEB849F1EF7C07D00DDE316 /* MKMapView+ZoomLevel.m in Sources */,
+				EEEB84A01EF7C07D00DDE316 /* SMADetailCell.m in Sources */,
+				EEEB84A11EF7C07D00DDE316 /* SmaVibrationInfo.m in Sources */,
+				EEEB84A21EF7C07D00DDE316 /* SMARunHrViewController.m in Sources */,
+				EEEB84A31EF7C07D00DDE316 /* SMAGenderViewController.m in Sources */,
+				EEEB84A41EF7C07D00DDE316 /* CKCacheContent.m in Sources */,
+				EEEB84A51EF7C07D00DDE316 /* SMADfuView.m in Sources */,
+				EEEB84A61EF7C07D00DDE316 /* SMACenterLabView.m in Sources */,
+				EEEB84A71EF7C07D00DDE316 /* SMAShareView.m in Sources */,
+				EEEB84A81EF7C07D00DDE316 /* SMAHighViewController.m in Sources */,
+				EEEB84A91EF7C07D00DDE316 /* SMAAgeViewController.m in Sources */,
+				EEEB84AA1EF7C07D00DDE316 /* SMARunTableViewController.m in Sources */,
+				EEEB84AB1EF7C07D00DDE316 /* ZENFITMain.m in Sources */,
+				EEEB84AC1EF7C07D00DDE316 /* SMANavViewController.m in Sources */,
+				EEEB84AD1EF7C07D00DDE316 /* SMABottomPickView.m in Sources */,
+				EEEB84AE1EF7C07D00DDE316 /* SDDemoItemView.m in Sources */,
+				EEEB84AF1EF7C07D00DDE316 /* SMADefaultinfos.m in Sources */,
+				EEEB84B01EF7C07D00DDE316 /* UIImage+MultiFormat.m in Sources */,
+				EEEB84B11EF7C07D00DDE316 /* SMACenterAlerView.m in Sources */,
+				EEEB84B21EF7C07D00DDE316 /* SMALoginViewcontroller.m in Sources */,
+				EEEB84B31EF7C07D00DDE316 /* SMAWatchCollectionCell.m in Sources */,
+				EEEB84B41EF7C07D00DDE316 /* SMAPairViewController.m in Sources */,
+				EEEB84B51EF7C07D00DDE316 /* WMPageController.m in Sources */,
+				EEEB84B61EF7C07D00DDE316 /* QNHijackingDetectWrapper.m in Sources */,
+				EEEB84B71EF7C07D00DDE316 /* SMARulerScrollView.m in Sources */,
+				EEEB84B81EF7C07D00DDE316 /* QNPHAssetResource.m in Sources */,
+				EEEB84B91EF7C07D00DDE316 /* SMAAccountTool.m in Sources */,
+				EEEB84BA1EF7C07D00DDE316 /* UIScrollView+MJExtension.m in Sources */,
+				EEEB84BB1EF7C07D00DDE316 /* QNDnspodEnterprise.m in Sources */,
+				EEEB84BC1EF7C07D00DDE316 /* MBProgressHUD+MJ.m in Sources */,
+				EEEB84BD1EF7C07D00DDE316 /* SMARegisViewController.m in Sources */,
+				EEEB84BE1EF7C07D00DDE316 /* YYClassInfo.m in Sources */,
+				EEEB84BF1EF7C07D00DDE316 /* SDLoopProgressView.m in Sources */,
+				EEEB84C01EF7C07D00DDE316 /* QNFormUpload.m in Sources */,
+				EEEB84C11EF7C07D00DDE316 /* SMACenterTabView.m in Sources */,
+				EEEB84C21EF7C07D00DDE316 /* SMAFindPassViewController.m in Sources */,
+				EEEB84C31EF7C07D00DDE316 /* MJRefreshFooterView.m in Sources */,
+				EEEB84C41EF7C07D00DDE316 /* SMAUnPaierViewController.m in Sources */,
+				EEEB84C51EF7C07D00DDE316 /* SMAMoreSetViewController.m in Sources */,
+				EEEB84C61EF7C07D00DDE316 /* SMASedentaryController.m in Sources */,
+				EEEB84C71EF7C07D00DDE316 /* FMDatabase.m in Sources */,
+				EEEB84C81EF7C07D00DDE316 /* SMABottomSelView.m in Sources */,
+				EEEB84C91EF7C07D00DDE316 /* AFHTTPSessionManager.m in Sources */,
+				EEEB84CA1EF7C07D00DDE316 /* SMATimingViewController.m in Sources */,
+				EEEB84CB1EF7C07D00DDE316 /* UIImage+CKQ.m in Sources */,
+				EEEB84CC1EF7C07D00DDE316 /* CKFileCache.m in Sources */,
+				EEEB84CD1EF7C07D00DDE316 /* NSObject+YYModel.m in Sources */,
+				EEEB84CE1EF7C07D00DDE316 /* MBProgressHUD.m in Sources */,
+				EEEB84CF1EF7C07D00DDE316 /* SMARunTableViewCell.m in Sources */,
+				EEEB84D01EF7C07D00DDE316 /* ZXPageControl.m in Sources */,
+				EEEB84D11EF7C07D00DDE316 /* SMADatabase.m in Sources */,
+				EEEB84D21EF7C07D00DDE316 /* QNConfiguration.m in Sources */,
+				EEEB84D31EF7C07D00DDE316 /* BLConnect.m in Sources */,
+				EEEB84D41EF7C07D00DDE316 /* SmaQuietView.m in Sources */,
+				EEEB84D51EF7C07D00DDE316 /* SMAAlarmSubViewController.m in Sources */,
+				EEEB84D61EF7C07D00DDE316 /* SmaNoDisInfo.m in Sources */,
+				EEEB84D71EF7C07D00DDE316 /* AFImageDownloader.m in Sources */,
+				EEEB84D81EF7C07D00DDE316 /* QNALAssetFile.m in Sources */,
+				EEEB84D91EF7C07D00DDE316 /* CKNullCache.m in Sources */,
+				EEEB84DA1EF7C07D00DDE316 /* GCDAsyncUdpSocket.m in Sources */,
+				EEEB84DB1EF7C07D00DDE316 /* QNDes.m in Sources */,
+				EEEB84DC1EF7C07D00DDE316 /* SMATimePickView.m in Sources */,
+				EEEB84DD1EF7C07D00DDE316 /* QNSystem.m in Sources */,
+				EEEB84DE1EF7C07D00DDE316 /* UIProgressView+AFNetworking.m in Sources */,
+				EEEB84DF1EF7C07D00DDE316 /* SMAChangeCell.m in Sources */,
+				EEEB84E01EF7C07D00DDE316 /* SMAPhotoSelectView.m in Sources */,
+				EEEB84E11EF7C07D00DDE316 /* SMATimingMinViewController.m in Sources */,
+				EEEB84E21EF7C07D00DDE316 /* QNResolvUtil.m in Sources */,
+				EEEB84E31EF7C07D00DDE316 /* SMADieviceDataCell.m in Sources */,
+				EEEB84E41EF7C07D00DDE316 /* SmaBLE.m in Sources */,
+				EEEB84E51EF7C07D00DDE316 /* SMASwitchScrollView.m in Sources */,
+				EEEB84E61EF7C07D00DDE316 /* CKMemoryCache.m in Sources */,
+				EEEB84E71EF7C07D00DDE316 /* ESPUDPSocketClient.m in Sources */,
+				EEEB84E81EF7C07D00DDE316 /* SMAEmailRegisViewController.m in Sources */,
+				EEEB84E91EF7C07D00DDE316 /* WMMenuItem.m in Sources */,
+				EEEB84EA1EF7C07D00DDE316 /* QNAsyncRun.m in Sources */,
+				EEEB84EB1EF7C07D00DDE316 /* SMAWeightViewController.m in Sources */,
+				EEEB84EC1EF7C07D00DDE316 /* QNRecord.m in Sources */,
+				EEEB84ED1EF7C07D00DDE316 /* BEMAnalogClockView.m in Sources */,
+				EEEB84EE1EF7C07D00DDE316 /* QNUploadOption.m in Sources */,
+				EEEB84EF1EF7C07D00DDE316 /* SMACalendarView.m in Sources */,
+				EEEB84F01EF7C07D00DDE316 /* SMAReoaurDfuReusableView.m in Sources */,
+				EEEB84F11EF7C07D00DDE316 /* ZXRollView.m in Sources */,
+				EEEB84F21EF7C07D00DDE316 /* ESPDatumCode.m in Sources */,
+				EEEB84F31EF7C07D00DDE316 /* SMADialView.m in Sources */,
+				EEEB84F41EF7C07D00DDE316 /* MJRefreshConst.m in Sources */,
+				EEEB84F51EF7C07D00DDE316 /* ESP_ByteUtil.m in Sources */,
+				EEEB84F61EF7C07D00DDE316 /* SMADfuViewController.m in Sources */,
+				EEEB84F71EF7C07D00DDE316 /* SMATimingSecondController.m in Sources */,
+				EEEB84F81EF7C07D00DDE316 /* SMALocatiuonManager.m in Sources */,
+				EEEB84F91EF7C07D00DDE316 /* QNIP.m in Sources */,
+				EEEB84FA1EF7C07D00DDE316 /* SmaColor.m in Sources */,
+				EEEB84FB1EF7C07D00DDE316 /* SMASportStypeView.m in Sources */,
+				EEEB84FC1EF7C07D00DDE316 /* QNUpToken.m in Sources */,
+				EEEB84FD1EF7C07D00DDE316 /* GCDAsyncSocket.m in Sources */,
+				EEEB84FE1EF7C07D00DDE316 /* UIImage+WebP.m in Sources */,
+				EEEB84FF1EF7C07D00DDE316 /* SmaAlarmInfo.m in Sources */,
+				EEEB85001EF7C07D00DDE316 /* SMAAboutUsViewController.m in Sources */,
+				EEEB85011EF7C07D00DDE316 /* FMDatabasePool.m in Sources */,
+				EEEB85021EF7C07D00DDE316 /* SDWebImagePrefetcher.m in Sources */,
+				EEEB85031EF7C07D00DDE316 /* ESPTouchTaskParameter.m in Sources */,
+				EEEB85041EF7C07D00DDE316 /* SMAFirstLunViewController.m in Sources */,
+				EEEB85051EF7C07D00DDE316 /* SMAPersonalViewController.m in Sources */,
+				EEEB85061EF7C07D00DDE316 /* AsyncUdpSocket.m in Sources */,
+				EEEB85071EF7C07D00DDE316 /* UIWebView+AFNetworking.m in Sources */,
+				EEEB85081EF7C07D00DDE316 /* SMASportDetailViewController.m in Sources */,
+				EEEB85091EF7C07D00DDE316 /* ScannedPeripheral.m in Sources */,
+				EEEB850A1EF7C07D00DDE316 /* UIView+WebCacheOperation.m in Sources */,
+				EEEB850B1EF7C07D00DDE316 /* SMAthirdPartyLoginTool.m in Sources */,
+				EEEB850C1EF7C07D00DDE316 /* ESPTouchResult.m in Sources */,
+				EEEB850D1EF7C07D00DDE316 /* SMAAggregateTool.m in Sources */,
+				EEEB850E1EF7C07D00DDE316 /* FMDatabaseAdditions.m in Sources */,
+				EEEB850F1EF7C07D00DDE316 /* SMADeviceCell.m in Sources */,
+				EEEB85101EF7C07D00DDE316 /* SMARepeatCell.m in Sources */,
+				EEEB85111EF7C07D00DDE316 /* SMAUserInfo.m in Sources */,
+				EEEB85121EF7C07D00DDE316 /* QNDomain.m in Sources */,
+				EEEB85131EF7C07D00DDE316 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				EEEB85141EF7C07D00DDE316 /* SMATabbarController.m in Sources */,
+				EEEB85151EF7C07D00DDE316 /* AFURLSessionManager.m in Sources */,
+				EEEB85161EF7C07D00DDE316 /* CKCache.m in Sources */,
+				EEEB85171EF7C07D00DDE316 /* SMAWatchChangeController.m in Sources */,
+				EEEB85181EF7C07D00DDE316 /* UIScrollView+MJRefresh.m in Sources */,
+				EEEB85191EF7C07D00DDE316 /* SMADeviceDataTableViewController.m in Sources */,
+				EEEB851A1EF7C07D00DDE316 /* SDWebImageManager.m in Sources */,
+				EEEB851B1EF7C07D00DDE316 /* SMARepairDfuCell.m in Sources */,
+				EEEB851C1EF7C07D00DDE316 /* SmaSliderButton.m in Sources */,
+				EEEB851D1EF7C07D00DDE316 /* SDWebImageCompat.m in Sources */,
+				EEEB851E1EF7C07D00DDE316 /* SMAPersonalPickView.m in Sources */,
+				EEEB851F1EF7C07D00DDE316 /* SMABindRemindView.m in Sources */,
+				EEEB85201EF7C07D00DDE316 /* FMDatabaseQueue.m in Sources */,
+				EEEB85211EF7C07D00DDE316 /* ESPTouchGenerator.m in Sources */,
+				EEEB85221EF7C07D00DDE316 /* SDBaseProgressView.m in Sources */,
+				EEEB85231EF7C07D00DDE316 /* MarvellSmartConfig.m in Sources */,
+				EEEB85241EF7C07D00DDE316 /* SMAAlarmViewController.m in Sources */,
+				EEEB85251EF7C07D00DDE316 /* UIImageView+WebCache.m in Sources */,
+				EEEB85261EF7C07D00DDE316 /* SDWebImageDownloaderOperation.m in Sources */,
+				EEEB85271EF7C07D00DDE316 /* QNUrlSafeBase64.m in Sources */,
+				EEEB85281EF7C07D00DDE316 /* UIRefreshControl+AFNetworking.m in Sources */,
+				EEEB85291EF7C07D00DDE316 /* MJRefreshBaseView.m in Sources */,
+				EEEB852A1EF7C07D00DDE316 /* SRWebSocket.m in Sources */,
+				EEEB852B1EF7C07D00DDE316 /* SMADeviceAggregate.m in Sources */,
+				EEEB852C1EF7C07D00DDE316 /* WYScrollView.m in Sources */,
+				EEEB852D1EF7C07D00DDE316 /* SMARankTableViewController.m in Sources */,
+				EEEB852E1EF7C07D00DDE316 /* ScattView.m in Sources */,
+				EEEB852F1EF7C07D00DDE316 /* UIImage+GIF.m in Sources */,
+				EEEB85301EF7C07D00DDE316 /* SMADateDaultionfos.m in Sources */,
+				EEEB85311EF7C07D00DDE316 /* ESPDataCode.m in Sources */,
+				EEEB85321EF7C07D00DDE316 /* SMASelectDeviceController.m in Sources */,
+				EEEB85331EF7C07D00DDE316 /* MTKSleepView.m in Sources */,
+				EEEB85341EF7C07D00DDE316 /* AppDelegate.mm in Sources */,
+				EEEB85351EF7C07D00DDE316 /* SMAPickerView.m in Sources */,
+				EEEB85361EF7C07D00DDE316 /* SMAEmailLoginViewController.m in Sources */,
+				EEEB85371EF7C07D00DDE316 /* SMACalibrationViewController.m in Sources */,
+				EEEB85381EF7C07D00DDE316 /* AFSecurityPolicy.m in Sources */,
+				EEEB85391EF7C07D00DDE316 /* FMResultSet.m in Sources */,
+				EEEB853A1EF7C07D00DDE316 /* SMARulerView.m in Sources */,
+				EEEB853B1EF7C07D00DDE316 /* SMABottomAlerView.m in Sources */,
+				EEEB853C1EF7C07D00DDE316 /* QNResponseInfo.m in Sources */,
+				EEEB853D1EF7C07D00DDE316 /* QNPHAssetFile.m in Sources */,
+				EEEB853E1EF7C07D00DDE316 /* UIImageView+HighlightedWebCache.m in Sources */,
+				EEEB853F1EF7C07D00DDE316 /* SMAWebDataHandleInfo.m in Sources */,
+				EEEB85401EF7C07D00DDE316 /* SMASedentEditCell.m in Sources */,
+				EEEB85411EF7C07D00DDE316 /* SMATrackDetailView.m in Sources */,
+				EEEB85421EF7C07D00DDE316 /* main.m in Sources */,
+				EEEB85431EF7C07D00DDE316 /* TQLocationConverter.m in Sources */,
+				EEEB85441EF7C07D00DDE316 /* QNUploadManager.m in Sources */,
+				EEEB85451EF7C07D00DDE316 /* QNFileRecorder.m in Sources */,
+				EEEB85461EF7C07D00DDE316 /* SMAOpinion ViewController.m in Sources */,
+				EEEB85471EF7C07D00DDE316 /* WMScrollView.m in Sources */,
+				EEEB85481EF7C07D00DDE316 /* SMAChangePassViewController.m in Sources */,
+				EEEB85491EF7C07D00DDE316 /* SMASleepDetailViewController.m in Sources */,
+				EEEB854A1EF7C07D00DDE316 /* WMMenuView.m in Sources */,
+				EEEB854B1EF7C07D00DDE316 /* SMATrackViewController.m in Sources */,
+				EEEB854C1EF7C07D00DDE316 /* QNHex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3732,6 +4557,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PREFIX_HEADER = SMA/PrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					SMA,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -3795,6 +4625,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INPUT_FILETYPE = sourcecode.c.objc;
 				GCC_PREFIX_HEADER = SMA/PrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					SMA,
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -3837,6 +4672,145 @@
 			};
 			name = Release;
 		};
+		EEEB85A71EF7C07D00DDE316 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 53EE3DBF028D25BCA2E09616 /* Pods-SMA.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_zenfit;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Shaohui Liang (AUMJG57LWL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = VHVLE5FL92;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SMA",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SMA/DfuUpdate",
+				);
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_INPUT_FILETYPE = sourcecode.c.objc;
+				GCC_PREFIX_HEADER = SMA/PrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					ZENFIT,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/ZEN FITInfo.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/EasyConfig3.0",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/LibSimpleConfig",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/libXlwDevice",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/OneShot",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/os_SmartLink",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/SmartConnection",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/UMessage_Sdk_1.2.6",
+					"$(PROJECT_DIR)/SMA/ACloudLib",
+					"$(PROJECT_DIR)/SMA/SDKExport",
+					"$(PROJECT_DIR)/SMA/SMAbleApi",
+					"$(PROJECT_DIR)/SMA/SMABLE",
+					"$(PROJECT_DIR)/SMA/CorePlotHeaders",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/CC3x",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/Cooee",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/EasyLink",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/GuBei",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/UMessage_Sdk_1.3.0",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/SMA/libWeiboSDK",
+				);
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-fobjc-arc",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.zenfit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e7ef197a-dd9f-4072-b7e9-a8a17caeebe7";
+				PROVISIONING_PROFILE_SPECIFIER = All_development_text;
+			};
+			name = Debug;
+		};
+		EEEB85A81EF7C07D00DDE316 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F68EDDC18441DF3C214E7665 /* Pods-SMA.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon_zenfit;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = VHVLE5FL92;
+				ENABLE_BITCODE = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SMA",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/SMA/DfuUpdate",
+				);
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_INPUT_FILETYPE = sourcecode.c.objc;
+				GCC_PREFIX_HEADER = SMA/PrefixHeader.pch;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					ZENFIT,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/ZEN FITInfo.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/EasyConfig3.0",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/LibSimpleConfig",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/libXlwDevice",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/OneShot",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/os_SmartLink",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/SmartConnection",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/UMessage_Sdk_1.2.6",
+					"$(PROJECT_DIR)/SMA/ACloudLib",
+					"$(PROJECT_DIR)/SMA/SDKExport",
+					"$(PROJECT_DIR)/SMA/SMAbleApi",
+					"$(PROJECT_DIR)/SMA/SMABLE",
+					"$(PROJECT_DIR)/SMA/CorePlotHeaders",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/CC3x",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/Cooee",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/EasyLink",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/SmartConfig/GuBei",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/UMessage_Sdk_1.3.0",
+					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/UMessage_Sdk_1.4.0",
+					"$(PROJECT_DIR)/SMA/libWeiboSDK",
+				);
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-fobjc-arc",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.zenfit;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "346dc691-b905-4bbf-9e06-c9be3ad5030f";
+				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_text;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -3854,6 +4828,15 @@
 			buildConfigurations = (
 				EEB9F6A11D64318B0011AA07 /* Debug */,
 				EEB9F6A21D64318B0011AA07 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EEEB85A61EF7C07D00DDE316 /* Build configuration list for PBXNativeTarget "ZEN FIT" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EEEB85A71EF7C07D00DDE316 /* Debug */,
+				EEEB85A81EF7C07D00DDE316 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

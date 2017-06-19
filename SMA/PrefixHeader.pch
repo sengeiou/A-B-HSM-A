@@ -37,7 +37,11 @@
 #define SmaBleSend [SmaBLE sharedCoreBlue]
 #define SmaAggregate [SMADeviceAggregate deviceAggregateTool]
 #define SmaDfuManager [DfuUpdate sharedDfuUpdate]
+#if ZENFIT
+#define MainStoryBoard [UIStoryboard storyboardWithName:@"ZENFITMain" bundle:nil]
+#elif SMA
 #define MainStoryBoard [UIStoryboard storyboardWithName:@"Main" bundle:nil]
+#endif
 #define MainScreen [UIScreen mainScreen].bounds
 #define SmaNotificationCenter [NSNotificationCenter defaultCenter]
 #define SMALocalizedString(...) [SmaLocalizeableInfo localizedString:__VA_ARGS__]

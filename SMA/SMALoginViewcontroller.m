@@ -96,7 +96,11 @@
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
-    if (![preferredLang isEqualToString:@"zh"]) {
+    BOOL custom = NO;
+#if SMA
+    custom = YES;
+#endif
+    if (![preferredLang isEqualToString:@"zh"] || !custom) {
         [_QQBut setImage:[UIImage imageNamed:@"home_twitter"] forState:UIControlStateNormal];
         [_weChatBut setImage:[UIImage imageNamed:@"home_facebook"] forState:UIControlStateNormal];
         _weiboBut.hidden = YES;
@@ -263,8 +267,12 @@
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
+    BOOL custom = NO;
+#if SMA
+    custom = YES;
+#endif
     if (sender.tag == 101){
-        if (![preferredLang isEqualToString:@"zh"]) {
+        if (![preferredLang isEqualToString:@"zh"] || custom) {
             [[SMAthirdPartyLoginTool getinstance] loginToFacebookWithReadPermissions:@[@"public_profile", @"email", @"user_friends"] controller:self];
             LoginProvider = ACAccountManagerLoginProviderFacebook;
             return;
@@ -279,7 +287,7 @@
         }
     }
     else if (sender.tag == 102) {
-        if (![preferredLang isEqualToString:@"zh"]) {
+        if (![preferredLang isEqualToString:@"zh"] || custom) {
             [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
             LoginProvider = ACAccountManagerLoginProviderTwitter;
             [[SMAthirdPartyLoginTool getinstance] loginToTwitter];
@@ -296,7 +304,7 @@
         }
     }
     else{
-        if (![preferredLang isEqualToString:@"zh"]) {
+        if (![preferredLang isEqualToString:@"zh"] || custom) {
             
         }
         if (![[SMAthirdPartyLoginTool getinstance] isWBAppInstalled]) {
