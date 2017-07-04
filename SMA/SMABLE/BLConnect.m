@@ -430,7 +430,6 @@ static id _instace;
         NSLog(@"进入XMODE模式");
         SmaBleSend.isUPDateSwitch = NO;
         [self performSelector:@selector(getXmodem) withObject:nil afterDelay:3];
-        
     }
     SMAUserInfo *user = [SMAAccountTool userInfo];
     user.scnaName = peripheral.name;
