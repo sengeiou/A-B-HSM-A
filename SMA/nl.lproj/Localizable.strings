@@ -353,6 +353,8 @@
 "me_chanPass_newPasFail"="Nieuw wachtwoord is niet hetzelfde, voer dan opnieuw";
 "me_chanPass_chanSucc"="wijzigen succesvol";
 "me_chanPass_chanFail"="wijzigen is mislukt";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="Rang";
 "aler_conFirst"="Gelieve te koppelen van het apparaat eerst";
 "aler_bandDevice"="Disconnected, gelieve te koppelen van het apparaat";

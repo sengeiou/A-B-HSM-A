@@ -5,13 +5,15 @@
 //  Created by 有限公司 深圳市 on 2016/12/5.
 //  Copyright © 2016年 SMA. All rights reserved.
 //
-
+#import "SMACenterAlerView.h"
 #import "SMAMoreSetViewController.h"
 
-@interface SMAMoreSetViewController ()
+@interface SMAMoreSetViewController ()<cenAlerButDelegate>
 {
     NSArray *titleArr;
     SMAUserInfo *user;
+    
+    UIButton *laoutLab;
 }
 @end
 
@@ -19,6 +21,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+     [self createUI];
     [self initializeMethod];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -29,7 +32,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
@@ -39,11 +41,23 @@
 - (void)initializeMethod{
     self.title = SMALocalizedString(@"me_more_set");
     user = [SMAAccountTool userInfo];
-    titleArr = @[@[SMALocalizedString(@"me_perso_unit")],[SMADefaultinfos getIntValueforKey:THIRDLOGIN] ? @[SMALocalizedString(@"me_set_version"),SMALocalizedString(@"me_set_feedback")]:@[SMALocalizedString(@"me_set_version"),SMALocalizedString(@"login_findPass"),SMALocalizedString(@"me_set_feedback")],@[SMALocalizedString(@"me_repairDfu"),SMALocalizedString(@"字库修复"),SMALocalizedString(@"me_set_about")]];
+    titleArr = @[@[SMALocalizedString(@"me_perso_unit")],[SMADefaultinfos getIntValueforKey:THIRDLOGIN] ? @[SMALocalizedString(@"me_set_version"),SMALocalizedString(@"me_set_feedback")]:@[SMALocalizedString(@"me_set_version"),SMALocalizedString(@"login_findPass"),SMALocalizedString(@"me_set_feedback")],@[/*SMALocalizedString(@"me_repairDfu"),SMALocalizedString(@"字库修复"),*/SMALocalizedString(@"me_set_about")]];
 }
 
 - (void)createUI{
     self.tableView.tableFooterView = [[UIView alloc] init];
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    laoutLab = [UIButton buttonWithType:UIButtonTypeCustom];
+    laoutLab.frame = CGRectMake(20, MainScreen.size.height - 64 - 80, MainScreen.size.width - 40, 44);
+    laoutLab.layer.cornerRadius = 22;
+    laoutLab.titleLabel.textAlignment = NSTextAlignmentCenter;
+    [laoutLab setTitle:SMALocalizedString(@"me_signOut") forState:UIControlStateNormal];
+    [laoutLab setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    laoutLab.backgroundColor = [SmaColor colorWithHexString:@"#7EBFF9" alpha:1];
+    laoutLab.layer.masksToBounds = YES;
+    [laoutLab addTarget:self action:@selector(lououtSelect) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:laoutLab];
+
 }
 
 #pragma mark - Table view data source
@@ -107,20 +121,20 @@
     else if (indexPath.section == 1 && (indexPath.row == ([SMADefaultinfos getIntValueforKey:THIRDLOGIN] ? 1:2))){
          [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAOpinion_ViewController"] animated:YES];
     }
-     else if (indexPath.section == 2 && indexPath.row == 0){
-         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-//         layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width - 10)/3, ([UIScreen mainScreen].bounds.size.width - 10)/3);
-//         layout.headerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 20);
-//         layout.mar
-         [self.navigationController pushViewController:[[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout] animated:YES];
-     }
-    else if (indexPath.section == 2 && indexPath.row == 1){
-        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        SMARepairDfuCollectionController *repairVC = [[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout];
-        repairVC.repairFont = YES;
-        [self.navigationController pushViewController:repairVC animated:YES];
+//     else if (indexPath.section == 2 && indexPath.row == 0){
+//         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+////         layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width - 10)/3, ([UIScreen mainScreen].bounds.size.width - 10)/3);
+////         layout.headerReferenceSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, 20);
+////         layout.mar
+//         [self.navigationController pushViewController:[[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout] animated:YES];
+//     }
+    else if (indexPath.section == 2 && indexPath.row == 0){
+//        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+//        SMARepairDfuCollectionController *repairVC = [[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout];
+//        repairVC.repairFont = YES;
+//        [self.navigationController pushViewController:repairVC animated:YES];
         
         
 //        SMADfuViewController *dfuVC = [MainStoryBoard instantiateViewControllerWithIdentifier:@"SMADfuViewController"];
@@ -131,7 +145,7 @@
 //        [self.navigationController pushViewController:dfuVC animated:YES];
 
         
-//         [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAAboutUsViewController"] animated:YES];
+         [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAAboutUsViewController"] animated:YES];
     }
     else if (indexPath.section == 2 && indexPath.row == 2){
         [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAAboutUsViewController"] animated:YES];
@@ -139,6 +153,33 @@
 }
 
 
+- (void)lououtSelect{
+    
+    SMACenterAlerView *cenAler = [[SMACenterAlerView alloc] initWithMessage: SMALocalizedString(@"me_signOut_remind") buttons:@[SMALocalizedString(@"setting_sedentary_cancel"),SMALocalizedString(@"me_signOut_confirm")]];
+    cenAler.delegate = self;
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [app.window addSubview:cenAler];
+    
+}
+
+#pragma mark ***********cenAlerButDelegate
+- (void)centerAlerView:(SMACenterAlerView *)alerView didAlerBut:(UIButton *)button{
+    if (button.tag == 102) {
+        SmaAnalysisWebServiceTool *webservice=[[SmaAnalysisWebServiceTool alloc]init];
+        //        SMAUserInfo *user = [SMAAccountTool userInfo];
+        [webservice acloudSyncAllDataWithAccount:user.userID callBack:^(id finish) {
+            
+        }];
+        [webservice logOutSuccess:^(bool result) {
+            
+        }];
+        user.userID = @"";
+        user.watchUUID = nil;
+        [SMAAccountTool saveUser:user];
+        UINavigationController *loginNav = [MainStoryBoard instantiateViewControllerWithIdentifier:@"ViewController"];
+        [UIApplication sharedApplication].keyWindow.rootViewController=loginNav;
+    }
+}
 /*
 #pragma mark - Navigation
 

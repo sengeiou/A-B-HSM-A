@@ -9,7 +9,9 @@
 #import "SMAAgeViewController.h"
 
 @interface SMAAgeViewController ()
-
+{
+    SMAUserInfo *user;
+}
 @end
 
 @implementation SMAAgeViewController
@@ -31,25 +33,29 @@
 
 #pragma mark *****创建UI
 - (void)createUI{
+    user = [SMAAccountTool userInfo];
     [_nextBut setTitle:SMALocalizedString(@"user_nextStep") forState:UIControlStateNormal];
     _ageTileLab.text = SMALocalizedString(@"user_age");
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"YYYY";
     NSMutableArray *ageArr = [NSMutableArray array];
-    for (int i = 1; i<61; i ++) {
-        [ageArr addObject:[NSString stringWithFormat:@"%d",[formatter stringFromDate:[NSDate date]].intValue - 60 + i]];
+    int nowYear = [formatter stringFromDate:[NSDate date]].intValue;
+    int yelNum = nowYear - 1939;
+    
+    for (int i = 1; i < (yelNum + 1); i ++) {
+        [ageArr addObject:[NSString stringWithFormat:@"%d",[formatter stringFromDate:[NSDate date]].intValue - yelNum + i]];
     }
     NSArray *messArr = @[ageArr];
     SMAPickerView *pickView = [[SMAPickerView alloc] initWithFrame:CGRectMake(0, MainScreen.size.height - 330, MainScreen.size.width, 190) ButtonTitles:@[SMALocalizedString(@"user_lastStep"),SMALocalizedString(@"user_nextStep")] ickerMessage:messArr];
-    [pickView.pickView selectRow:33 inComponent:0 animated:NO];
+    __block NSInteger selectRow = yelNum - 1 - user.userAge.intValue;
+    [pickView.pickView selectRow:selectRow inComponent:0 animated:NO];
     [pickView setCancel:^(UIButton *button){
         NSLog(@"上步");
-          [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
     
     [pickView setConfirm:^(NSInteger component){
         NSLog(@"下步");
-        SMAUserInfo *user = [SMAAccountTool userInfo];
         user.userAge = _ageLab.text;
         [SMAAccountTool saveUser:user];
         [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAHighViewController"] animated:YES];
@@ -58,20 +64,17 @@
     [pickView setRow:^(NSInteger row , NSInteger component){
         _ageLab.text = [NSString stringWithFormat:@"%d",[formatter stringFromDate:[NSDate date]].intValue - [[messArr objectAtIndex:component][row] intValue]];
     }];
-    [self.view addSubview:pickView];
-}
+    [self.view addSubview:pickView];}
 
 - (IBAction)unitSelect:(UIButton *)sender{
     SMABottomSelView *selView = [[SMABottomSelView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height) title:SMALocalizedString(@"me_perso_unit") message:@[SMALocalizedString(@"me_perso_metric"),SMALocalizedString(@"me_perso_british")]];
     selView.delegate = self;
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:selView];
-
 }
 
 #pragma mark *************tapSelectCellDelegate
 - (void)didSelectCell:(UIButton *)butCell{
-    SMAUserInfo *user = [SMAAccountTool userInfo];
     user.userAge = _ageLab.text;
     if (butCell.tag == 101) {
         user.unit = @"0";

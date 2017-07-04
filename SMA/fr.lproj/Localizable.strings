@@ -353,6 +353,8 @@
 "me_chanPass_newPasFail"="Mauvais mot de passe";
 "me_chanPass_chanSucc"="Le nouveau mot de passe n'est pas le même, veuillez saisir à nouveau";
 "me_chanPass_chanFail"="Modifier avec succès";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="Échec de la modification";
 "aler_conFirst"="Rang";
 "aler_bandDevice"="Veuillez relier le périphérique en premier";

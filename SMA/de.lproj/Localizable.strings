@@ -353,6 +353,8 @@
 "me_chanPass_newPasFail"="Neues Passwort ist nicht das gleiche, bitte nochmal eingeben";
 "me_chanPass_chanSucc"="Ändern Sie erfolgreich";
 "me_chanPass_chanFail"="Ändern fehlgeschlagen";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="Rang";
 "aler_conFirst"="Bitte pflegen Sie das Gerät zuerst";
 "aler_bandDevice"="Getrennt, bitte das Gerät koppeln";

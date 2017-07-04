@@ -19,11 +19,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-       [self createUI];
+    [self createUI];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-//     [_aboutUsView setContentOffset:CGPointMake(0, 0)];
+    //     [_aboutUsView setContentOffset:CGPointMake(0, 0)];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -40,7 +40,7 @@
     if (![preferredLang isEqualToString:@"zh"]){
         smawatchUrl = @"https://www.facebook.com/smawatch520";
     }
-
+    
     
     NSMutableAttributedString *allAttrStr = [[NSMutableAttributedString alloc] init];
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
@@ -94,24 +94,24 @@
     textAttachment.image = [UIImage imageNamed:@"img_dingyuehao"]; //要添加的图片
     NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
     
- /**************************
-    NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-    NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
-    NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
-    UIImage *image = [UIImage imageNamed:@"img_guanyu"];
-    if (![preferredLang isEqualToString:@"zh"]){
-        image = [UIImage imageNamed:@"img_guanyu"];
-    }
-    UIImageView *aboutView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, image.size.height)];
-    aboutView.image = image;
-    
-    textScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height - 64)];
-    textScroll.showsVerticalScrollIndicator = NO;
-    [textScroll addSubview:aboutView];
-    [self.view addSubview:textScroll];
-    
-    textScroll.contentSize = CGSizeMake( MainScreen.size.width,image.size.height);
-  **************************/
+    /**************************
+     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+     NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
+     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
+     UIImage *image = [UIImage imageNamed:@"img_guanyu"];
+     if (![preferredLang isEqualToString:@"zh"]){
+     image = [UIImage imageNamed:@"img_guanyu"];
+     }
+     UIImageView *aboutView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, image.size.height)];
+     aboutView.image = image;
+     
+     textScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height - 64)];
+     textScroll.showsVerticalScrollIndicator = NO;
+     [textScroll addSubview:aboutView];
+     [self.view addSubview:textScroll];
+     
+     textScroll.contentSize = CGSizeMake( MainScreen.size.width,image.size.height);
+     **************************/
     
     textScroll = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height - 64)];
     textScroll.showsVerticalScrollIndicator = NO;
@@ -121,9 +121,9 @@
     titleLab.backgroundColor = [SmaColor colorWithHexString:@"#F7F7F7" alpha:1];
     titleLab.textColor = [SmaColor colorWithHexString:@"#007aff" alpha:1];
     titleLab.textAlignment = NSTextAlignmentCenter;
-    titleLab.text = @"SMAWATCH";
     [textScroll addSubview:titleLab];
-    
+#if SMA
+    titleLab.text = @"SMAWATCH";
     CGRect rect1 = [self getSize:attrStr.string strDic:@{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:FontGothamLight(13),NSParagraphStyleAttributeName:paragraphStyle}];
     CGRect rect2 = [self getSize:attrStr1.string strDic:@{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:FontGothamLight(13),NSParagraphStyleAttributeName:paragraphStyle}];
     CGRect rect3 = [self getSize:attrStr2.string strDic:@{NSForegroundColorAttributeName:[UIColor blackColor],NSFontAttributeName:FontGothamLight(13),NSParagraphStyleAttributeName:paragraphStyle}];
@@ -139,7 +139,7 @@
     UILabel *lab1 = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(titleLab.frame) + 6, MainScreen.size.width - 20, CGRectGetHeight(rect1))];
     lab1.attributedText = attrStr;
     lab1.numberOfLines = 0;
-
+    
     [textScroll addSubview:lab1];
     UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(lab1.frame) + 6, MainScreen.size.width - 20, CGRectGetHeight(rect2))];
     lab2.attributedText = attrStr1;
@@ -182,7 +182,7 @@
     
     UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaLink:)];
     [lab7 addGestureRecognizer:tap1];
-
+    
     UILabel *lab8 = [[UILabel alloc] initWithFrame:CGRectMake(10, CGRectGetMaxY(lab7.frame) + 6, MainScreen.size.width - 20, CGRectGetHeight(rect8))];
     att1 = [attrStr7 mutableCopy];
     [att1 appendAttributedString:attrStr7_1];
@@ -210,7 +210,7 @@
     lab11.attributedText = att1;
     lab11.numberOfLines = 0;
     [textScroll addSubview:lab11];
-
+    
     UIView *publicView = [[UIView alloc] initWithFrame:CGRectMake(15, CGRectGetMaxY(lab11.frame) + 8, 131, 165)];
     UILabel *publicLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 131, 34)];
     publicLab.textAlignment = NSTextAlignmentCenter;
@@ -237,6 +237,66 @@
     [serviceView addSubview:serviceIma];
     [textScroll addSubview:serviceView];
     textScroll.contentSize = CGSizeMake( MainScreen.size.width,CGRectGetMaxY(serviceView.frame) + 5);
+    
+#elif ZENFIT
+    titleLab.text = @"ZEN FIT";
+    UILabel *lab12 = [[UILabel alloc] initWithFrame:CGRectMake(16, CGRectGetMaxY(titleLab.frame), MainScreen.size.width - 32, 40)];
+    lab12.font = [UIFont boldSystemFontOfSize:20];
+    lab12.text = @"X-View";
+    [textScroll addSubview:lab12];
+    
+    NSDictionary *dictAttr13 = @{NSForegroundColorAttributeName:[SmaColor colorWithHexString:@"#007aff" alpha:1],NSFontAttributeName:FontGothamLight(13)};
+    UILabel *lab13 = [[UILabel alloc] initWithFrame:CGRectMake(16, CGRectGetMaxY(lab12.frame), MainScreen.size.width - 32, 20)];
+    lab13.tag = 103;
+    lab13.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaLink:)];
+    [lab13 addGestureRecognizer:tap2];
+    lab13.attributedText = [[NSAttributedString alloc] initWithString:@"http://www.x-view.com" attributes:dictAttr13];
+    [textScroll addSubview:lab13];
+    
+    UILabel *lab14 = [[UILabel alloc] initWithFrame:CGRectMake(16, CGRectGetMaxY(lab13.frame), MainScreen.size.width - 32, 30)];
+    lab14.userInteractionEnabled = YES;
+    lab14.text = @"Facebook: ";
+    
+    UILabel *lab14_1 = [[UILabel alloc] initWithFrame:CGRectMake(16, CGRectGetMaxY(lab14.frame), MainScreen.size.width - 32, 25)];
+    lab14_1.tag = 104;
+    lab14_1.numberOfLines = 0;
+    lab14_1.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap3 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaLink:)];
+    [lab14_1 addGestureRecognizer:tap3];
+    lab14_1.attributedText = [[NSAttributedString alloc] initWithString:@"https://www.facebook.com/xview.argentina/" attributes:dictAttr13];
+    [textScroll addSubview:lab14];
+    [textScroll addSubview:lab14_1];
+    
+    UILabel *lab15 = [[UILabel alloc] initWithFrame:CGRectMake(16, CGRectGetMaxY(lab14_1.frame), MainScreen.size.width - 32, 30)];
+    lab15.text = @"Instagram: ";
+    
+    //    NSMutableAttributedString *attris1 = [[NSMutableAttributedString alloc] initWithString:@"Instagram: " attributes:@{NSFontAttributeName:FontGothamLight(15)}];
+    //    [attris1 appendAttributedString:[[NSAttributedString alloc] initWithString:@"https://www.instagram.com/zen.xview/" attributes:dictAttr13]];
+    //    lab15.attributedText = attris1;
+    
+    UILabel *lab15_1 = [[UILabel alloc] initWithFrame:CGRectMake(16, CGRectGetMaxY(lab15.frame), MainScreen.size.width - 32, 25)];
+    lab15_1.tag = 105;
+    lab15_1.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap4 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaLink:)];
+    [lab15_1 addGestureRecognizer:tap4];
+    lab15_1.attributedText = [[NSAttributedString alloc] initWithString:@"https://www.instagram.com/zen.xview/" attributes:dictAttr13];
+    [textScroll addSubview:lab15];
+    [textScroll addSubview:lab15_1];
+    
+    UILabel *lab16 = [[UILabel alloc] initWithFrame:CGRectMake(16, CGRectGetMaxY(lab15_1.frame), MainScreen.size.width - 32, 30)];
+    lab16.text = @"Instagram: ";
+    
+    UILabel *lab16_1 = [[UILabel alloc] initWithFrame:CGRectMake(16, CGRectGetMaxY(lab16.frame), MainScreen.size.width - 32, 25)];
+    lab16_1.tag = 105;
+    lab16_1.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap5 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tpaLink:)];
+    [lab16_1 addGestureRecognizer:tap5];
+    lab16_1.attributedText = [[NSAttributedString alloc] initWithString:@"https://twitter.com/xview_arg" attributes:dictAttr13];
+    [textScroll addSubview:lab16];
+    [textScroll addSubview:lab16_1];
+    
+#endif
 }
 
 - (CGRect)getSize:(NSString *)str strDic:(NSDictionary *)dic{
@@ -249,6 +309,18 @@
     switch (tap.view.tag) {
         case 101:
             url = @"http://www.smawatch.com";
+            break;
+        case 103:
+            url = @"http://x-view.com";
+            break;
+        case 104:
+            url = @"https://www.facebook.com/xview.argentina/";
+            break;
+        case 105:
+            url = @"https://www.instagram.com/zen.xview/";
+            break;
+        case 106:
+            url = @"https://twitter.com/xview_arg";
             break;
         default:
             url = smawatchUrl;
@@ -263,13 +335,13 @@
     return YES;
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

@@ -365,6 +365,8 @@
 "me_repairFountTimeOut" = "修复超时";
 "me_repairFontsucc" = "字库修复成功";
 "me_repairFontfinish" = "修复完成";
+"me_repairRemain" = "固件升级失败，是否重试？";
+"me_repairNoRemain" = "不再提醒";
 "rank_title" = "排行";
 "aler_conFirst" = "请先连接设备";
 "aler_bandDevice" = "未绑定设备,请绑定设备";

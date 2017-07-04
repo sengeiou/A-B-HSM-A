@@ -353,6 +353,8 @@
 "me_repairPrompt" = "Suggerimento: \n1. download del programma di riparazione, non eseguire altre operazioni. \n2. Il download del programma di riparazione può richiedere alcuni minuti, rimanere in attesa e non disinstallare il programma \n3. Se la riparazione non riesce, riprovare in seguito";
 "me_repairFinish" = "Fine";
 "me_repairFail" = "Fallito, riprova";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="Rango";
 "aler_conFirst"="Collega l'orologio per accedere a questo menu";
 "aler_bandDevice"="Disconnesso, collega l'orologio";

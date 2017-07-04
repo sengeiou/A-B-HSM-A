@@ -353,6 +353,8 @@
 "me_repairPrompt" = "Sugerencia: \n1. Descargando el programa de reparación, no realizar otras operaciones. \n2. Descargar el programa de reparación puede tardar unos minutos, por favor, tenga paciencia, no desinstale el programa \n3. Si la reparación falla, vuelve a intentarlo.";
 "me_repairFinish" = "Reparando, por favor espere";
 "me_repairFail" = "Falló,\ninténtalo de nuevo";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="Ranking";
 "aler_conFirst"="Por favor, sincronice primero";
 "aler_bandDevice"="Desconectado, por favor, sincronice de nuevo";

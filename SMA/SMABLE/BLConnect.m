@@ -161,6 +161,7 @@ static id _instace;
         NSLog(@"fwgwggh===%@ \n SystemArr %@",allPer,SystemArr);
         if (SystemArr.count > 0) {
             [SmaDfuManager performDFUwithManager:self.mgr periphral:[SystemArr firstObject]];
+             [SmaBleMgr reunitonPeripheral:NO];
         }
         else{
             [self performSelector:@selector(scanPerformDFU) withObject:nil afterDelay:3.5f];
@@ -309,6 +310,9 @@ static id _instace;
             });
         }
     }
+    else if (SmaDfuManager.dfuMode){
+        [SmaDfuManager performDFUwithManager:self.mgr periphral:peripheral];
+    }
     else{
         if ([self.scanNameArr containsObject:peripheral.name] && RSSI.intValue < 0) {
             NSLog(@"搜索出来的设备  %@  %d",peripheral,RSSI.intValue);
@@ -455,6 +459,7 @@ static id _instace;
         }];
         loca.firstRunDic = nil;
     }
+    
     
     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]  && !SmaDfuManager.dfuMode && !_repairDfu && !_dfuUpdate && !_repairFont) {
         [self connectBl:peripheral];
@@ -643,7 +648,6 @@ static id _instace;
                 loca.gatherLocation = YES;
                 [[SMALocatiuonManager sharedCoreBlueTool] stopLocation];
             }
-            
             break;
         default:
             break;

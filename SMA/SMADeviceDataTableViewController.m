@@ -33,6 +33,7 @@
     [super viewDidLoad];
     firstLun = YES;
     [self initializeMethod:NO];
+    [self chectFirmwareVewsionWithWeb];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,12 +47,12 @@
         return;
     }
     [self initializeMethod:!firstLun];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    [SmaNotificationCenter addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
+     [SmaNotificationCenter addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
      [SmaNotificationCenter addObserver:self selector:@selector(updateData) name:@"updateData" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chectFirmwareVewsionWithWeb) name:@"DFUUPDATEFINISH" object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -139,6 +140,44 @@
     });
 }
 
+- (void)chectFirmwareVewsionWithWeb{
+     NSLog(@"升级 %@",[SMADefaultinfos getValueforKey:DFUUPDATE]);
+    if ([SMADefaultinfos getValueforKey:DFUUPDATE] && [[SMADefaultinfos getValueforKey:DFUUPDATE] isEqualToString:@"0"]) {
+        NSLog(@"----%@",[SMADefaultinfos getValueforKey:SMACUSTOM]);
+        SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
+        [webSer acloudDfuFileWithFirmwareType:firmware_smav2 callBack:^(NSArray *finish, NSError *error) {
+            for (int i = 0; i < finish.count; i ++) {
+                NSString *filename = [[finish objectAtIndex:i] objectForKey:@"filename"];
+                NSString *deviceName = [[filename componentsSeparatedByString:@"_"] firstObject];
+                NSString *fileType = [[filename componentsSeparatedByString:@"_"] objectAtIndex:1];
+                //            if ([fileType isEqualToString:[SMAAccountTool userInfo].scnaName]) {
+                if ([fileType isEqualToString:[SMADefaultinfos getValueforKey:SMACUSTOM]] && [deviceName isEqualToString:[SMAAccountTool userInfo].scnaName]) {
+                    NSDictionary *webFirmwareDic = [finish objectAtIndex:i];
+                    [self dfuUpdateAgain:webFirmwareDic];
+                }
+            }
+        }];
+    }
+}
+
+- (void)dfuUpdateAgain:(NSDictionary *)dic{
+    NSLog(@"升级 %d",[SMADefaultinfos getIntValueforKey:DFUUPDATE]);
+    UIAlertController *alcer = [UIAlertController alertControllerWithTitle:SMALocalizedString(@"me_repairRemain") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *canAct = [UIAlertAction actionWithTitle:SMALocalizedString(@"me_repairNoRemain") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
+    }];
+    UIAlertAction *confimAct = [UIAlertAction actionWithTitle:SMALocalizedString(@"setting_sedentary_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        SMADfuViewController *subVC = (SMADfuViewController *)[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMADfuViewController"];
+        subVC.dfuInfoDic = dic;
+        [self.navigationController pushViewController:subVC animated:YES];
+    }];
+    [alcer addAction:canAct];
+    [alcer addAction:confimAct];
+    [self presentViewController:alcer animated:YES completion:^{
+        
+    }];
+}
+
 - (IBAction)calendarSelector:(id)sender{
     calendarView = [[SMACalendarView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height)];
     calendarView.delegate = self;
@@ -193,15 +232,21 @@
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
     NSArray *shareArr;
     NSArray *shareImaArr;
-    if (![preferredLang isEqualToString:@"zh"]) {
-        shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
-        shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
-    }
-    else{
+#if SMA
+    if ([preferredLang isEqualToString:@"zh"]) {
         shareArr = @[SMALocalizedString(@"device_share_wechat"),SMALocalizedString(@"device_share_Timeline"),SMALocalizedString(@"device_share_qq"),SMALocalizedString(@"device_share_Qzone"),SMALocalizedString(@"device_share_webo")];
         shareImaArr = @[[UIImage imageNamed:@"icon_weixin"],[UIImage imageNamed:@"home_pyq"],[UIImage imageNamed:@"icon_qq"],[UIImage imageNamed:@"home_kongjian"],[UIImage imageNamed:@"icon_weibo"]];
     }
-    SMAShareView *shareView = [[SMAShareView alloc] initWithButtonTitles:shareArr butImage:shareImaArr shareImage:image];
+    else{
+        shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
+        shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
+    }
+
+#elif ZENFIT
+    shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
+    shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
+#endif
+      SMAShareView *shareView = [[SMAShareView alloc] initWithButtonTitles:shareArr butImage:shareImaArr shareImage:image];
     shareView.shareVC = self;
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:shareView];

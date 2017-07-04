@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SMADfuButton.h"
 #import "SMADfuView.h"
+
+@protocol dfuFinishDelegate <NSObject>
+
+- (void)didUpdateFramer:(BOOL)finish;
+
+@end
 @interface SMADfuViewController : UIViewController<BLConnectDelegate,DfuUpdateDelegate>
 @property (nonatomic, weak) IBOutlet UIButton *dfuBut;
 @property (nonatomic, weak) IBOutlet UILabel *remindLab, *nowVerTitLab, *nowVerLab, *dfuVerTitLab, *dfuVerLab, *upDfuVerTitLab, *upDfuVerLab, *dfuLab, *fontLab, *fontVerLab;
@@ -22,4 +28,5 @@
 @property (nonatomic, strong) CBPeripheral *epairPeripheral;
 @property (nonatomic, strong) NSString *repairBleCustom;
 @property (nonatomic, strong) NSString *repairDeviceName;
+@property (nonatomic, weak) id<dfuFinishDelegate> delegate;
 @end

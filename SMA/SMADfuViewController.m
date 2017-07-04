@@ -17,7 +17,10 @@
     int repairFontState;//1，2，3分别代表完成第一、二、三阶段修复
     BOOL repairFirst; //由于固件受限，因此第一阶段修复如果失败，再次重试会导致设备重启而无法再次升级固件
     NSString *newVer;
+    int tautology; //重试次数
+    BOOL updateFinish;
 }
+
 @end
 
 @implementation SMADfuViewController
@@ -25,11 +28,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     SmaBleMgr.dfuUpdate = YES;
+    SmaDfuManager.dfuDelegate = self;
     [self createUI];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
+//    if (!SmaBleMgr.repairDfu || SmaBleMgr.repairFont) {
+//       
+//    }
     SmaBleMgr.dfuUpdate = NO;
     SmaBleMgr.repairDfu = NO;
     
@@ -51,6 +57,14 @@
         }
     }
     SmaBleMgr.repairFont = NO;
+//    if(_delegate && [_delegate respondsToSelector:@selector(didUpdateFramer:)]){
+//        [_delegate didUpdateFramer:updateFinish];
+//    }
+    [SmaBleMgr reunitonPeripheral:YES];
+    SmaDfuManager.dfuMode = NO;
+    [SmaDfuManager abort];
+    
+   [[NSNotificationCenter defaultCenter] postNotificationName:@"DFUUPDATEFINISH" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -59,6 +73,7 @@
 }
 
 - (void)createUI{
+    [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
     SmaBleMgr.BLdelegate = self;
     user = [SMAAccountTool userInfo];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:87/255.0 green:144/255.0 blue:249/255.0 alpha:1] size:CGSizeMake([UIScreen mainScreen].bounds.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
@@ -117,7 +132,9 @@
         _nowVerTitLab.text = SMALocalizedString(@"setting_dfu_nowVer");
         _nowVerLab.text = [NSString stringWithFormat:@"V%@",user.watchVersion];
         _upVerView.hidden = YES;
+        _dfuBut.enabled = NO;
         if (_dfuInfoDic) {
+            _dfuBut.enabled = YES;
             _upVerView.hidden = NO;
             _dfuLab.text = SMALocalizedString(@"setting_dfu_update");
             NSString *filename = [_dfuInfoDic objectForKey:@"filename"];
@@ -125,15 +142,20 @@
             _upDfuVerTitLab.text = SMALocalizedString(@"setting_dfu_newsetVer");
             _upDfuVerLab.text = [NSString stringWithFormat:@"V%@",webFirmwareVer];
             newVer = webFirmwareVer;
+//             [SMADefaultinfos putInt:DFUUPDATE andValue:0];
         }
     }
 }
 
 - (IBAction)dfuSelector:(id)sender{
+    if (!SmaBleMgr.repairDfu && _dfuInfoDic) {
+         [SMADefaultinfos putKey:DFUUPDATE andValue:@"0"];
+    }
+    NSLog(@"tautology  %d",tautology);
     NSString *filename = [_dfuInfoDic objectForKey:@"filename"];
     NSString *webFirmwareVer = [[filename substringWithRange:NSMakeRange(filename.length - 9, 5)] stringByReplacingOccurrencesOfString:@"." withString:@""];
     _remindLab.textColor = [UIColor whiteColor];
-    if ([_dfuLab.text isEqualToString:SMALocalizedString(@"setting_dfu_retry")] || [_dfuLab.text isEqualToString:SMALocalizedString(@"me_repairFontAgain")]) {
+    if ([_dfuLab.text isEqualToString:SMALocalizedString(@"setting_dfu_retry")] || [_dfuLab.text isEqualToString:SMALocalizedString(@"me_repairFontAgain")] || tautology <= 3) {
         [updateTimer invalidate];
         updateTimer = nil;
         updateTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTimeOut) userInfo:nil repeats:NO];
@@ -174,7 +196,6 @@
                 //                    SmaDfuManager.fileUrl = url;
                 //                    [self repairDeviceDfuWith:self.epairPeripheral];
                 //                }
-                
             }
             
             if (SmaBleMgr.repairDfu && !SmaDfuManager.dfuMode) {
@@ -372,23 +393,42 @@
     _dfuLab.textColor = [UIColor redColor];
     _dfuLab.font = FontGothamLight(17);
     if (SmaBleMgr.repairFont) {
-        _dfuLab.textColor = [UIColor whiteColor];
-        _dfuLab.text = SMALocalizedString(@"me_repairFontAgain");
-        _remindLab.textColor = [UIColor redColor];
-        _remindLab.text = SMALocalizedString(@"me_repairFontFail");
-        _dfuBut.enabled = YES;
+        if (tautology >= 3) {
+            _dfuLab.textColor = [UIColor whiteColor];
+            _dfuLab.text = SMALocalizedString(@"me_repairFontAgain");
+            _remindLab.textColor = [UIColor redColor];
+            _remindLab.text = SMALocalizedString(@"me_repairFontFail");
+            _dfuBut.enabled = YES;
+        }
+        else{
+            tautology ++;
+            [self dfuSelector:nil];
+        }
         if (repairFontState == 0) {
             [MBProgressHUD showError:SMALocalizedString(@"me_repairFountTimeOut")];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+               
                 [self.navigationController popViewControllerAnimated:YES];
             });
         }
     }
     else if (SmaBleMgr.repairDfu) {
-        _dfuLab.text = SMALocalizedString(@"me_repairFail");
+        if (tautology >= 3) {
+            _dfuLab.text = SMALocalizedString(@"me_repairFail");
+        }
+        else{
+            tautology ++;
+            [self dfuSelector:nil];
+        }
     }
     else{
-        _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
+        if (tautology >= 3) {
+            _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
+        }
+        else{
+            tautology ++;
+            [self dfuSelector:nil];
+        }
     }
     [coverView removeFromSuperview];
     [SmaBleMgr reunitonPeripheral:YES];
@@ -482,19 +522,25 @@
                 }
             }
             else{
-                _dfuLab.textColor = [UIColor redColor];
-                _dfuLab.font = FontGothamLight(17);
-                _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
-                if (SmaBleMgr.repairFont) {
-                    _dfuLab.textColor = [UIColor whiteColor];
-                    _dfuLab.text = SMALocalizedString(@"me_repairFontAgain");
-                    _dfuBut.enabled = YES;
-                }
-                else if (SmaBleMgr.repairDfu){
-                    _dfuLab.text = SMALocalizedString(@"me_repairFail");
+                if (tautology >= 3) {
+                    _dfuLab.textColor = [UIColor redColor];
+                    _dfuLab.font = FontGothamLight(17);
+                    _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
+                    if (SmaBleMgr.repairFont) {
+                        _dfuLab.textColor = [UIColor whiteColor];
+                        _dfuLab.text = SMALocalizedString(@"me_repairFontAgain");
+                        _dfuBut.enabled = YES;
+                    }
+                    else if (SmaBleMgr.repairDfu){
+                        _dfuLab.text = SMALocalizedString(@"me_repairFail");
+                    }
                 }
                 [coverView removeFromSuperview];
                 [SmaBleMgr reunitonPeripheral:YES];
+                if (tautology < 3){
+                    tautology ++;
+                    [self dfuSelector:nil];
+                }
             }
             break;
         case XMODEM:
@@ -621,6 +667,7 @@
                     [_remindLab setText:SMALocalizedString(@"me_repairFontsucc")];
                 }
                 SmaBleMgr.repairDfu = NO;
+#if SMA
                 if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
                     SmaBleMgr.scanNameArr = @[@"SMA-Q2"];
                 }
@@ -628,12 +675,14 @@
                     SmaBleMgr.scanNameArr = @[@"SM07"];
                 }
                 else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"]){
-                    SmaBleMgr.scanNameArr = @[@"SMA-A1"];
+                    SmaBleMgr.scanNameArr = @[@"SMA-A1",@"SMA-A2"];
                 }
                 else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
                     SmaBleMgr.scanNameArr = @[@"SMA-A2"];
                 }
-                
+#elif ZENFIT
+                SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#endif
             }
             if (SmaBleMgr.repairFont && repairFontState == 0) {
                 [self repairTwo];
@@ -667,6 +716,8 @@
                     }
                 }
                 SmaBleMgr.repairFont = NO;
+                 updateFinish = YES;
+                [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
                 [self.navigationController popToRootViewControllerAnimated:YES];
             });
         }
@@ -713,6 +764,10 @@
 - (void)dfuUploadProgressDidChangeFor:(NSInteger)part outOf:(NSInteger)totalParts to:(NSInteger)progress currentSpeedBytesPerSecond:(double)currentSpeedBytesPerSecond avgSpeedBytesPerSecond:(double)avgSpeedBytesPerSecond{
     [self setPregress:(float)progress/100.0];
     _dfuLab.text = [NSString stringWithFormat:@"%ld%%",(long)progress];
+    if (updateTimer) {
+        [updateTimer invalidate];
+        updateTimer = nil;
+    }
     NSLog(@"dfuUploadProgressDidChangeFor %ld",(long)progress);
 }
 
@@ -720,22 +775,26 @@
     NSLog(@"dfuUploadError  %ld  %@",(long)error,message);
     [SmaBleMgr reunitonPeripheral:YES];
     [coverView removeFromSuperview];
-    _dfuLab.textColor = [UIColor redColor];
-    _dfuLab.font = FontGothamLight(17);
-    _remindLab.textColor = [UIColor whiteColor];
-    if (SmaBleMgr.repairDfu) {
-        _dfuLab.text = SMALocalizedString(@"me_repairFail");
-    }
-    else{
-        _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
+    if (tautology >= 3){
+        _dfuLab.textColor = [UIColor redColor];
+        _dfuLab.font = FontGothamLight(17);
+        _remindLab.textColor = [UIColor whiteColor];
+        if (SmaBleMgr.repairDfu) {
+            _dfuLab.text = SMALocalizedString(@"me_repairFail");
+        }
+        else{
+            _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
+        }
     }
     [_remindLab setText:SMALocalizedString(@"setting_dfu_remind")];
     if (SmaBleMgr.repairFont) {
         _dfuBut.enabled = YES;
-        _dfuLab.textColor = [UIColor whiteColor];
-        _dfuLab.text = SMALocalizedString(@"me_repairFontAgain");
-        _remindLab.textColor = [UIColor redColor];
-        [_remindLab setText:SMALocalizedString(@"me_repairFontFail")];
+        if (tautology >= 3){
+            _dfuLab.textColor = [UIColor whiteColor];
+            _dfuLab.text = SMALocalizedString(@"me_repairFontAgain");
+            _remindLab.textColor = [UIColor redColor];
+            [_remindLab setText:SMALocalizedString(@"me_repairFontFail")];
+        }
         if (repairFontState == 0) {
             repairFirst = YES;
             //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -743,9 +802,15 @@
             //            });
         }
     }
-    
+    if (tautology < 3){
+        tautology ++;
+        [self dfuSelector:nil];
+    }
 }
 
+- (void)dealloc{
+    NSLog(@"DFU dealloc");
+}
 /*
  #pragma mark - Navigation
  

@@ -1898,7 +1898,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ViewController" automaticallyAdjustsScrollViewInsets="NO" id="ady-gF-5um" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="5ew-GI-pPx">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="5ew-GI-pPx">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5008,7 +5008,7 @@
             <objects>
                 <navigationController id="A7j-6e-ohl" customClass="SMANavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="设备" image="tab_watch" selectedImage="tab_watch_pre" id="QSh-2l-J7R"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eKN-tL-pm1">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="eKN-tL-pm1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5210,13 +5210,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用帮助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcf-vg-rpy">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="固件修复" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcf-vg-rpy">
                                                     <rect key="frame" x="46" y="3" width="288" height="40"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_bangzhu" translatesAutoresizingMaskIntoConstraints="NO" id="Qv4-uc-I3q">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_gujianxiufu_" translatesAutoresizingMaskIntoConstraints="NO" id="Qv4-uc-I3q">
                                                     <rect key="frame" x="16" y="11" width="22" height="22"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="22" id="Hg1-DG-N96"/>
@@ -5236,27 +5236,36 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="Tor-ao-3pD">
+                            <tableViewSection id="MR5-uF-86q">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="j3i-CN-Uk2">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" id="WL3-bi-ptT">
                                         <rect key="frame" x="0.0" y="474" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="j3i-CN-Uk2" id="QOG-js-c0i">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WL3-bi-ptT" id="xsA-Ij-OFq">
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退出登录" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ems-UN-vUA">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用帮助" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCY-wM-J9f">
+                                                    <rect key="frame" x="46" y="3" width="288" height="40"/>
                                                     <fontDescription key="fontDescription" name="Gotham-Light" family="Gotham" pointSize="16"/>
-                                                    <color key="textColor" red="0.31764705879999999" green="0.4431372549" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_bangzhu" translatesAutoresizingMaskIntoConstraints="NO" id="SEj-hL-oPo">
+                                                    <rect key="frame" x="16" y="11" width="22" height="22"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="22" id="WXu-l4-P8p"/>
+                                                        <constraint firstAttribute="height" constant="22" id="nYL-J0-P7F"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Ems-UN-vUA" firstAttribute="top" secondItem="QOG-js-c0i" secondAttribute="top" id="EqV-0a-Lsl"/>
-                                                <constraint firstAttribute="bottom" secondItem="Ems-UN-vUA" secondAttribute="bottom" id="EzR-dl-S2a"/>
-                                                <constraint firstItem="Ems-UN-vUA" firstAttribute="leading" secondItem="QOG-js-c0i" secondAttribute="leading" id="srO-Pk-cDc"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ems-UN-vUA" secondAttribute="trailing" id="tU0-rv-hh7"/>
+                                                <constraint firstItem="UCY-wM-J9f" firstAttribute="leading" secondItem="SEj-hL-oPo" secondAttribute="trailing" constant="8" id="4zc-Wl-MQR"/>
+                                                <constraint firstItem="UCY-wM-J9f" firstAttribute="top" secondItem="xsA-Ij-OFq" secondAttribute="top" constant="3" id="B2X-iI-Eif"/>
+                                                <constraint firstItem="SEj-hL-oPo" firstAttribute="leading" secondItem="xsA-Ij-OFq" secondAttribute="leadingMargin" constant="8" id="E8S-y0-6JF"/>
+                                                <constraint firstAttribute="trailing" secondItem="UCY-wM-J9f" secondAttribute="trailing" constant="8" id="ZjR-qm-d1k"/>
+                                                <constraint firstItem="SEj-hL-oPo" firstAttribute="centerY" secondItem="xsA-Ij-OFq" secondAttribute="centerY" id="d9v-kb-ZcJ"/>
+                                                <constraint firstAttribute="bottom" secondItem="UCY-wM-J9f" secondAttribute="bottom" id="gyS-zj-7Ce"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -5271,12 +5280,12 @@
                     <navigationItem key="navigationItem" title="我的" id="9zX-PK-Epm"/>
                     <connections>
                         <outlet property="goalLab" destination="ISn-5n-geU" id="1I6-Qh-LNp"/>
-                        <outlet property="helpLab" destination="tcf-vg-rpy" id="5ZX-Gc-asi"/>
+                        <outlet property="helpLab" destination="UCY-wM-J9f" id="4gJ-ui-YTH"/>
                         <outlet property="moreLab" destination="2Ao-WY-LOZ" id="9ob-fP-keT"/>
                         <outlet property="nicknameLab" destination="M6n-bI-8OY" id="t0V-yP-NHZ"/>
+                        <outlet property="pairDfuLab" destination="tcf-vg-rpy" id="bax-nX-0za"/>
                         <outlet property="personalLab" destination="OxL-Rh-gol" id="E05-us-3bF"/>
                         <outlet property="photoBut" destination="Xt1-hh-9KR" id="1kS-k7-cG1"/>
-                        <outlet property="signOutLab" destination="Ems-UN-vUA" id="NR4-JP-idi"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jkH-31-WSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -5707,7 +5716,7 @@
             <objects>
                 <navigationController id="lX6-OG-r9c" customClass="SMANavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我的" image="tab_me" selectedImage="tab_me_pre" id="arO-DY-Aml"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qhM-FU-vvy">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="qhM-FU-vvy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5724,7 +5733,7 @@
             <objects>
                 <navigationController id="Z3T-eD-gGk" customClass="SMANavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="排行" image="tab_rank" selectedImage="tab_rank_pre" id="PTF-xg-Y6x"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bdJ-c4-ZXA">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bdJ-c4-ZXA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5873,7 +5882,7 @@
             <objects>
                 <navigationController id="rv2-Qe-NuC" customClass="SMANavViewController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="数据" image="tab_data" selectedImage="tab_data_pre" id="aWK-UJ-wOV"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="242-s0-h5M">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="242-s0-h5M">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5890,7 +5899,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SMANickViewController" automaticallyAdjustsScrollViewInsets="NO" id="1tw-mg-RKu" customClass="SMANavViewController" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3SH-cA-hD3">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="3SH-cA-hD3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -5922,6 +5931,7 @@
         <image name="icon_email" width="19" height="15"/>
         <image name="icon_fanhui" width="7" height="12"/>
         <image name="icon_geren" width="25" height="25"/>
+        <image name="icon_gujianxiufu_" width="25" height="25"/>
         <image name="icon_juli" width="22" height="19"/>
         <image name="icon_locked" width="16" height="20"/>
         <image name="icon_more" width="8" height="15"/>

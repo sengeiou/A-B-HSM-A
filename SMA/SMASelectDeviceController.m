@@ -27,6 +27,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void)viewWillAppear:(BOOL)animated{
     if (_isSelect) {
         self.navigationController.leftItemHidden = YES;
@@ -36,12 +37,16 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     if (_isSelect) {
-//        self.navigationController.leftItemHidden = NO;
+        //        self.navigationController.leftItemHidden = NO;
     }
 }
 
 - (void)initializeMethod{
-    deviceArr = @[@[@"SMA-A1",SMALocalizedString(@"setting_band_07detail"),@"img_jiexie"],@[@"SMA-A2",SMALocalizedString(@"setting_band_07detail"),@"img_launcher"],@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"]];
+#if SMA
+    deviceArr = @[@[@"SMA-A1",SMALocalizedString(@"setting_band_07detail"),@"img_jiexie"]/*,@[@"SMA-A2",SMALocalizedString(@"setting_band_07detail"),@"img_launcher"]*/,@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"]];
+#elif ZENFIT
+    deviceArr = @[@[@"ZEN FIT",SMALocalizedString(@"setting_band_07detail"),@"img_07_zen"]];
+#endif
 }
 - (void)createUI{
     self.title = SMALocalizedString(@"setting_band_title");
@@ -53,7 +58,11 @@
 }
 
 - (IBAction)buySelector:(id)sender{
-     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.smawatch.com/Store"]];
+#if SMA
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.smawatch.com/Store"]];
+#elif ZENFIT
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://x-view.com/zen/smartwatch.fitlink"]];
+#endif
 }
 
 - (IBAction)unPairSelector:(id)sender{
@@ -62,8 +71,8 @@
     NSArray *itemArr = @[SMALocalizedString(@"device_title"),SMALocalizedString(@"rank_title"),SMALocalizedString(@"setting_title"),SMALocalizedString(@"me_title")];
     NSArray *arrControllers = controller.viewControllers;
     for (int i = 0; i < arrControllers.count; i ++) {
-    SMANavViewController *nav = [arrControllers objectAtIndex:i];
-    nav.tabBarItem.title = itemArr[i];
+        SMANavViewController *nav = [arrControllers objectAtIndex:i];
+        nav.tabBarItem.title = itemArr[i];
     }
     [UIApplication sharedApplication].keyWindow.rootViewController=controller;
 }
@@ -79,20 +88,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 1) {
-        return 0;
-    }
     return 150;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 1) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CELL"];
-        if (!cell) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"CELL"];
-        }
-        return cell;
-    }
+
     SMASelectCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SELECTCELL"];
     if (!cell) {
         cell = (SMASelectCell *) [[[NSBundle mainBundle] loadNibNamed:@"SMASelectCell" owner:nil options:nil] lastObject];
@@ -109,29 +109,36 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+#if SMA
     if (indexPath.row == 0) {
         [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-A1"];
     }
-    if (indexPath.row == 1) {
-        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-A2"];
-    }
-    if (indexPath.row == 2){
+//    if (indexPath.row == 1) {
+//        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-A2"];
+//    }
+    if (indexPath.row == 1){
         [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-Q2"];
     }
-    if (indexPath.row == 3) {
+    if (indexPath.row == 2) {
         [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SM07"];
     }
-       self.navigationController.leftItemHidden = NO;
+    
+#elif ZENFIT
+    if (indexPath.row == 0) {
+        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SM07"];
+    }
+#endif
+    self.navigationController.leftItemHidden = NO;
     [self.navigationController pushViewController:[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMAPairViewController"] animated:YES];
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

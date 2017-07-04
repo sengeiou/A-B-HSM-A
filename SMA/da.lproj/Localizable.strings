@@ -353,6 +353,8 @@
 "me_chanPass_newPasFail"="Nyt kodeord er ikke det samme, skal du input igen";
 "me_chanPass_chanSucc"="Ændre en succes";
 "me_chanPass_chanFail"="Ændre mislykkedes";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="Rang";
 "aler_conFirst"="Venligst parre enheden først";
 "aler_bandDevice"="Afbrudt, bedes du parre enheden";

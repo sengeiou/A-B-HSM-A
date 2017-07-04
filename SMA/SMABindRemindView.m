@@ -48,6 +48,7 @@
     
     UIImageView *deviceIma = [[UIImageView alloc] initWithFrame:CGRectMake(0, 9, 88, 126)];
     NSString *imageStr;
+#if SMA
     if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
         imageStr = @"img_queren";
     }
@@ -60,6 +61,9 @@
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
          imageStr = @"img_queren_A2";
     }
+#elif ZENFIT
+    imageStr = @"img_queren_shouhuan_zen";
+#endif
     deviceIma.image = [UIImage imageNamed:imageStr];
     deviceIma.center = CGPointMake(CGRectGetWidth(backView.frame)/2, deviceIma.center.y);
     [backView addSubview:deviceIma];

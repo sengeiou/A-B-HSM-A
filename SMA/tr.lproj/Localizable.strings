@@ -353,6 +353,8 @@
 "me_chanPass_newPasFail"="Yeni şifre aynı değil, lütfen tekrar giriniz";
 "me_chanPass_chanSucc"="Başarıyla değiştir";
 "me_chanPass_chanFail"="Değiştirilemedi.";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="Sıra";
 "aler_conFirst"="Lütfen cihazı önce eşleştirin";
 "aler_bandDevice"="Bağlantı kesildi, lütfen cihazı eşleştirin";

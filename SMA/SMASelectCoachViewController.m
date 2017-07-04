@@ -8,6 +8,7 @@
 
 #import "SMASelectCoachViewController.h"
 #import "SMASelectViewCell.h"
+#import "SMADfuViewController.h"
 @interface SMASelectCoachViewController ()
 {
     NSArray *deviceArr;

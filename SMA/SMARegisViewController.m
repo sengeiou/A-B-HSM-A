@@ -92,7 +92,9 @@
     [attributed appendAttributedString:str1];
     [attributed appendAttributedString:str2];
     [_protocolBut setAttributedTitle:attributed forState:UIControlStateNormal];
-
+#if ZENFIT
+    _protocolBut.hidden = YES;
+#endif
     [_registerBut setTitle:SMALocalizedString(@"login_regis") forState:UIControlStateNormal];
 }
 
@@ -121,6 +123,10 @@
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
+        BOOL custom = NO;
+#if SMA
+        custom = YES;
+#endif
     SmaAnalysisWebServiceTool *web = [[SmaAnalysisWebServiceTool alloc] init];
         [web acloudCheckExist:mobile success:^(bool exist) {
             if (exist == 1) {
@@ -129,7 +135,7 @@
                 
             }
             else{
-                [web acloudSendVerifiyCodeWithAccount:mobile template:[preferredLang isEqualToString:@"zh"]?1:0 success:^(id result) {
+                [web acloudSendVerifiyCodeWithAccount:mobile template:custom ? ([preferredLang isEqualToString:@"zh"]?1:0):([preferredLang isEqualToString:@"zh"]?3:2) success:^(id result) {
                     [MBProgressHUD hideHUD];
                     [MBProgressHUD showSuccess:SMALocalizedString(@"register_sendsucc")];
                     if (codeTimer) {

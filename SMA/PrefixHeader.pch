@@ -48,4 +48,12 @@
 #define FontGothamMedium(f) [UIFont fontWithName:@"Gotham-Medium" size:(f)]
 #define FontGothamLight(f) [UIFont fontWithName:@"Gotham-Light" size:(f)]
 #define FontGothamBold(f) [UIFont fontWithName:@"Gotham-Bold" size:(f)]
+
+//NSLOG
+//#ifdef DEBUG
+//#define NSLog(...) NSLog(__VA_ARGS__)
+//#else
+//#define NSLog(...)
+//#endif
+
 #endif /* PrefixHeader_pch */

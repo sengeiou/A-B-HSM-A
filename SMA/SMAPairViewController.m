@@ -65,9 +65,13 @@
     _searchBut.selected = YES;
     [_searchBut setTitle:SMALocalizedString(@"setting_band_search") forState:UIControlStateNormal];
     [_searchBut setTitle:SMALocalizedString(@"setting_band_searching") forState:UIControlStateSelected];
-//  _ignoreLab.text = SMALocalizedString(@"setting_band_remind07");
+    //  _ignoreLab.text = SMALocalizedString(@"setting_band_remind07");
     _nearLab.text = SMALocalizedString(@"setting_band_attention");
-    _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment:[SMADefaultinfos getValueforKey:BANDDEVELIVE]];
+#if SMA
+    _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment: [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] ? [NSString stringWithFormat:@"%@/SMA-A2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]]: [SMADefaultinfos getValueforKey:BANDDEVELIVE]];
+#elif ZENFIT
+    _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment:@"ZEN FIT"];
+#endif
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:87/255.0 green:144/255.0 blue:249/255.0 alpha:1] size:CGSizeMake([UIScreen mainScreen].bounds.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
     
@@ -88,7 +92,8 @@
     
     [searchImalayer addAnimation:[self searchAnimation] forKey:nil];
     
-//    SmaBleMgr.scanName = [SMADefaultinfos getValueforKey:BANDDEVELIVE];
+    //    SmaBleMgr.scanName = [SMADefaultinfos getValueforKey:BANDDEVELIVE];
+#if SMA
     if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
         SmaBleMgr.scanNameArr = @[@"SMA-Q2"];
     }
@@ -96,12 +101,14 @@
         SmaBleMgr.scanNameArr = @[@"SM07"];
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"]){
-        SmaBleMgr.scanNameArr = @[@"SMA-A1"];
+        SmaBleMgr.scanNameArr = @[@"SMA-A1",@"SMA-A2"];
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
         SmaBleMgr.scanNameArr = @[@"SMA-A2"];
     }
-
+#elif ZENFIT
+    SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#endif
     [SmaBleMgr scanBL:12];
 }
 
@@ -109,6 +116,7 @@
     sender.selected = !sender.selected;
     if (sender.selected) {
         [searchImalayer addAnimation:[self searchAnimation] forKey:nil];
+#if SMA
         if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
             SmaBleMgr.scanNameArr = @[@"SMA-Q2"];
         }
@@ -116,11 +124,14 @@
             SmaBleMgr.scanNameArr = @[@"SM07"];
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"]){
-            SmaBleMgr.scanNameArr = @[@"SMA-A1"];
+            SmaBleMgr.scanNameArr = @[@"SMA-A1",@"SMA-A2"];
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
             SmaBleMgr.scanNameArr = @[@"SMA-A2"];
         }
+#elif ZENFIT
+        SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#endif
         [SmaBleMgr scanBL:12];
     }
     else{
@@ -244,7 +255,7 @@
     NSLog(@"bleBindState");
     if (state == 0) {
         [MBProgressHUD hideHUD];
-//        [MBProgressHUD showMessage:SMALocalizedString(@"setting_band_binding")];
+        //        [MBProgressHUD showMessage:SMALocalizedString(@"setting_band_binding")];
         remindView = [[SMABindRemindView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height)];
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [app.window addSubview:remindView];
@@ -292,6 +303,7 @@
         UIAlertAction *confAction = [UIAlertAction actionWithTitle:SMALocalizedString(@"setting_band_tryAgain") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [searchImalayer addAnimation:[self searchAnimation] forKey:nil];
             _searchBut.selected = YES;
+#if SMA
             if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
                 SmaBleMgr.scanNameArr = @[@"SMA-Q2"];
             }
@@ -299,16 +311,19 @@
                 SmaBleMgr.scanNameArr = @[@"SM07"];
             }
             else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"]){
-                SmaBleMgr.scanNameArr = @[@"SMA-A1"];
+                SmaBleMgr.scanNameArr = @[@"SMA-A1",@"SMA-A2"];
             }
             else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
                 SmaBleMgr.scanNameArr = @[@"SMA-A2"];
             }
+#elif ZENFIT
+            SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#endif
             [SmaBleMgr scanBL:12];
         }];
         [aler addAction:canAction];
         [aler addAction:confAction];
-
+        
         bondFailAler = [[SMABottomAlerView alloc] initWithMessage:SMALocalizedString(@"setting_band_failRemind") leftMess:SMALocalizedString(@"setting_band_unPair") rightMess:SMALocalizedString(@"setting_band_tryAgain")];
         bondFailAler.delegate = self;
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -375,6 +390,7 @@
         [remindView removeFromSuperview];
         _searchBut.selected = YES;
         [searchImalayer addAnimation:[self searchAnimation] forKey:nil];
+#if SMA
         if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
             SmaBleMgr.scanNameArr = @[@"SMA-Q2"];
         }
@@ -382,11 +398,14 @@
             SmaBleMgr.scanNameArr = @[@"SM07"];
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"]){
-            SmaBleMgr.scanNameArr = @[@"SMA-A1"];
+            SmaBleMgr.scanNameArr = @[@"SMA-A1",@"SMA-A2"];
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
             SmaBleMgr.scanNameArr = @[@"SMA-A2"];
         }
+#elif ZENFIT
+        SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#endif
         [SmaBleMgr scanBL:12];
     }
     //    if (alerView == nofondAler) {

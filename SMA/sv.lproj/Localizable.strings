@@ -353,6 +353,8 @@
 "me_chanPass_newPasFail"="Nytt lösenord är inte samma sak, vänligen ingång igen";
 "me_chanPass_chanSucc"="modifiera framgångsrik";
 "me_chanPass_chanFail"="modifiera misslyckades";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="Rang";
 "aler_conFirst"="Vänligen koppla enheten först";
 "aler_bandDevice"="Frånkopplad, vänligen ihop enheten";

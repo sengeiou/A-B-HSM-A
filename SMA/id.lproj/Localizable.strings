@@ -355,6 +355,8 @@
 "me_repairPrompt" = "Tip\nl. Mengunduh program perbaikan, jangan menjalankan aplikasi lain. \n2. Mengunduh program perbaikan membutuhkan waktu beberapa menit, mohon bersabar, jangan memutuskan program \n3. Apabila perbaikan gagal, silahkan dicoba lagi";
 "me_repairFinish" = "Selesai";
 "me_repairFail" = "gagal\ncoba lagi";
+"me_repairRemain" = "Firmware upgrade failed, try again?";
+"me_repairNoRemain" = "Do not remind again";
 "rank_title"="tingkatan";
 "aler_conFirst"="pasangkan perangkat terlebih dahulu";
 "aler_bandDevice"="terputus, silahkan pasangkan perangkat";

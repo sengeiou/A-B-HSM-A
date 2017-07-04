@@ -12,7 +12,7 @@
 #import "SMASwitchScrollView.h"
 #import "SMACenterAlerView.h"
 #import "SMADfuViewController.h"
-@interface SMADeviceSetViewController : UITableViewController<BLConnectDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,cenAlerButDelegate>
+@interface SMADeviceSetViewController : UITableViewController<BLConnectDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,cenAlerButDelegate,dfuFinishDelegate>
 @property (nonatomic, weak) IBOutlet UIImageView *deviceIma, *bleIma, *batteryIma, *antiLostIma, *noDistrubIma, *callIma, *smsIma, *screenIma, *sleepMonIma;
 @property (nonatomic, weak) IBOutlet UIButton *antiLostBut, *noDistrubBut, *callBut, *smsBut, *screenBut, *sleepMonBut;
 @property (nonatomic, weak) IBOutlet UILabel *deviceLab, *antiLostLab, *noDistrubLab, *callLab, *smsLab, *screenLab, *sleepMonLab, *sedentaryLab, *alarmLab, *HRSetLab, *vibrationLab, *backlightLab, *photoLab, *timingLab, *watchLab, *dfuUpdateLab, *unPairLab;

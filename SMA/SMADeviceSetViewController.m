@@ -37,6 +37,7 @@
     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]) {
         [self chectFirmwareVewsionWithWeb];
     }
+
 }
 
 - (void)viewWillLayoutSubviews{
@@ -78,6 +79,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"DFUUPDATE"] ) {
         SMADfuViewController*subVC = segue.destinationViewController;
+        subVC.delegate = self;
         subVC.dfuInfoDic = webFirmwareDic;
     }
 }
@@ -98,8 +100,29 @@
 
 - (void)initializeMethod{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dfuFinish) name:@"DFUUPDATEFINISH" object:nil];
 }
 
+- (void)dfuFinish{
+    NSLog(@"升级 %@",[SMADefaultinfos getValueforKey:DFUUPDATE]);
+     if ([SMADefaultinfos getValueforKey:DFUUPDATE] && [[SMADefaultinfos getValueforKey:DFUUPDATE] isEqualToString:@"0"]) {
+        UIAlertController *alcer = [UIAlertController alertControllerWithTitle:SMALocalizedString(@"me_repairRemain") message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *canAct = [UIAlertAction actionWithTitle:SMALocalizedString(@"me_repairNoRemain") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
+        }];
+        UIAlertAction *confimAct = [UIAlertAction actionWithTitle:SMALocalizedString(@"setting_sedentary_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            SMADfuViewController *subVC = (SMADfuViewController *)[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMADfuViewController"];
+            subVC.dfuInfoDic = webFirmwareDic;
+            [self.navigationController pushViewController:subVC animated:YES];
+        }];
+        [alcer addAction:canAct];
+        [alcer addAction:confimAct];
+        [self presentViewController:alcer animated:YES completion:^{
+            
+        }];
+    }
+}
+    
 - (void)createUI{
     self.title = SMALocalizedString(@"setting_title");
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -163,7 +186,7 @@
         _cellTra.constant = -20;
     }
     else{
-        _deviceLab.text = [SMADefaultinfos getValueforKey:BANDDEVELIVE];
+        _deviceLab.text = SmaBleMgr.peripheral.name;
         _deviceIma.image = [UIImage imageNamed:[self deviceName]];
         _bleIma.hidden = NO;
         _batteryIma.hidden = NO;
@@ -466,6 +489,7 @@
 
 - (NSString *)deviceName{
     NSString *imageStr;
+#if SMA
     if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
         imageStr = @"SMA_10B";
     }
@@ -478,6 +502,9 @@
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
          imageStr = @"SMA_A2";
     }
+#elif ZENFIT
+    imageStr = @"SMA_07_zen";
+#endif
     return imageStr;
 }
 
@@ -577,4 +604,25 @@
     }
 }
 
+- (void)didUpdateFramer:(BOOL)finish{
+    NSLog(@"update %d",finish);
+
+    UIAlertController *alcer = [UIAlertController alertControllerWithTitle:SMALocalizedString(@"me_repairRemain") message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *canAct = [UIAlertAction actionWithTitle:SMALocalizedString(@"me_repairNoRemain") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *confimAct = [UIAlertAction actionWithTitle:SMALocalizedString(@"setting_sedentary_confirm") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        SMADfuViewController *subVC = (SMADfuViewController *)[MainStoryBoard instantiateViewControllerWithIdentifier:@"SMADfuViewController"];
+        subVC.delegate = self;
+        subVC.dfuInfoDic = webFirmwareDic;
+        [self.navigationController pushViewController:subVC animated:YES];
+    }];
+    [alcer addAction:canAct];
+    [alcer addAction:confimAct];
+    if (!finish) {
+        [self presentViewController:alcer animated:YES completion:^{
+            
+        }];
+    }
+}
 @end

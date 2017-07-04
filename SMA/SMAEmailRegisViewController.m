@@ -61,15 +61,15 @@
     _verCodeField.placeholder = SMALocalizedString(@"register_code");
     _verCodeField.delegate = self;
     
-//    geCodeBut = [UIButton buttonWithType:UIButtonTypeCustom];
-//    geCodeBut.contentHorizontalAlignment=UIControlContentHorizontalAlignmentRight ;//设置文字位置，现设为居右
-//    [geCodeBut setTitle:SMALocalizedString(@"register_getcode") forState:UIControlStateNormal];
-//    geCodeBut.titleLabel.font = FontGothamLight(10);
-//    CGSize fontsize1 = [geCodeBut.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:FontGothamLight(11)}];
-//    [geCodeBut addTarget:self action:@selector(getVerificationCodeSelector:) forControlEvents:UIControlEventTouchUpInside];
-//    geCodeBut.frame = CGRectMake(0, 0, fontsize1.width>150?fontsize1.width:30, 30);
-//    _verCodeField.rightView = geCodeBut;
-//    _verCodeField.rightViewMode = UITextFieldViewModeAlways;
+    //    geCodeBut = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    geCodeBut.contentHorizontalAlignment=UIControlContentHorizontalAlignmentRight ;//设置文字位置，现设为居右
+    //    [geCodeBut setTitle:SMALocalizedString(@"register_getcode") forState:UIControlStateNormal];
+    //    geCodeBut.titleLabel.font = FontGothamLight(10);
+    //    CGSize fontsize1 = [geCodeBut.titleLabel.text sizeWithAttributes:@{NSFontAttributeName:FontGothamLight(11)}];
+    //    [geCodeBut addTarget:self action:@selector(getVerificationCodeSelector:) forControlEvents:UIControlEventTouchUpInside];
+    //    geCodeBut.frame = CGRectMake(0, 0, fontsize1.width>150?fontsize1.width:30, 30);
+    //    _verCodeField.rightView = geCodeBut;
+    //    _verCodeField.rightViewMode = UITextFieldViewModeAlways;
     
     [_geCodeBut setTitle:SMALocalizedString(@"register_getcode") forState:UIControlStateNormal];
     _geCodeBut.titleLabel.numberOfLines = 2;
@@ -87,6 +87,9 @@
     [attributed appendAttributedString:str2];
     [_protocolBut setAttributedTitle:attributed forState:UIControlStateNormal];
     
+#if ZENFIT
+    _protocolBut.hidden = YES;
+#endif
     [_registerBut setTitle:SMALocalizedString(@"login_regis") forState:UIControlStateNormal];
 }
 
@@ -101,6 +104,10 @@
         NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
         NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
         NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
+        BOOL custom = NO;
+#if SMA
+        custom = YES;
+#endif
         SmaAnalysisWebServiceTool *web = [[SmaAnalysisWebServiceTool alloc] init];
         [web acloudCheckExist:_accountField.text success:^(bool exist) {
             if (exist == 1) {
@@ -108,7 +115,7 @@
                 [MBProgressHUD showError:SMALocalizedString(@"register_accexist")];
             }
             else{
-                [web acloudSendVerifiyCodeWithAccount:_accountField.text template:[preferredLang isEqualToString:@"zh"]?4:3 success:^(id result) {
+                [web acloudSendVerifiyCodeWithAccount:_accountField.text template:custom ? ([preferredLang isEqualToString:@"zh"]?4:3):([preferredLang isEqualToString:@"zh"]?6:5) success:^(id result) {
                     [MBProgressHUD hideHUD];
                     [MBProgressHUD showSuccess:SMALocalizedString(@"register_sendsucc")];
                     if (codeTimer) {
@@ -196,12 +203,12 @@ static int second = 60;
         [MBProgressHUD hideHUD];
         [MBProgressHUD showSuccess:SMALocalizedString(@"register_regsucceed")];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-             SMANavViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SMANickViewController"];
+            SMANavViewController* controller = [self.storyboard instantiateViewControllerWithIdentifier:@"SMANickViewController"];
             controller.leftItemHidden = YES;
-//            [self presentViewController:controller animated:YES completion:nil];
-             [UIApplication sharedApplication].keyWindow.rootViewController=controller;
+            //            [self presentViewController:controller animated:YES completion:nil];
+            [UIApplication sharedApplication].keyWindow.rootViewController=controller;
         });
-
+        
     } failure:^(NSError *erro) {
         NSLog(@"====error==%@",[erro.userInfo objectForKey:@"errorInfo"]);
         [MBProgressHUD hideHUD];
@@ -263,13 +270,13 @@ static int second = 60;
     return errStr;
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

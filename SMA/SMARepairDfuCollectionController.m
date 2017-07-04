@@ -39,11 +39,17 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
     imageArr = [NSMutableArray array];
     
     SmaAnalysisWebServiceTool *tool = [[SmaAnalysisWebServiceTool alloc] init];
+    NSString *firmMsg = @"";
+#if SMA
+    firmMsg = @"(1)";
+#elif ZENFIT
+    firmMsg = @"(6)";
+#endif
     if (self.repairFont) {
         [tool acloudDfuFileWithFirmwareType:firmware_smaProducts callBack:^(NSArray *finish, NSError *error) {
             for (int i = 0; i < finish.count; i++) {
                 NSDictionary *firmareDic = finish[i];
-                if ([firmareDic[@"filename"] rangeOfString:@"(1)"].location != NSNotFound && [firmareDic[@"filename"] hasPrefix:@"a"]) {
+                if ([firmareDic[@"filename"] rangeOfString:firmMsg].location != NSNotFound && [firmareDic[@"filename"] hasPrefix:@"a"]) {
                     NSMutableDictionary *objectDic = [firmareDic[@"extendAttrs"][@"objectData"] mutableCopy];
                     [objectDic setObject:firmareDic[@"downloadUrl"] forKey:@"downloadUrl"];
                     [imageArr addObject:objectDic];
@@ -56,7 +62,8 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
         [tool acloudDfuFileWithFirmwareType:firmware_smaProducts callBack:^(NSArray *finish, NSError *error) {
             for (int i = 0; i < finish.count; i++) {
                 NSDictionary *firmareDic = finish[i];
-                if ([firmareDic[@"filename"] rangeOfString:@"(1)"].location != NSNotFound) {
+                
+                if ([firmareDic[@"filename"] rangeOfString:firmMsg].location != NSNotFound) {
                     NSMutableDictionary *objectDic = [firmareDic[@"extendAttrs"][@"objectData"] mutableCopy];
                     [objectDic setObject:firmareDic[@"downloadUrl"] forKey:@"downloadUrl"];
                     [imageArr addObject:objectDic];
@@ -70,6 +77,7 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
 - (void)viewWillDisappear:(BOOL)animated{
     SmaBleMgr.repairDfu = NO;
     SmaBleMgr.repairFont = NO;
+#if SMA
     if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {
         SmaBleMgr.scanNameArr = @[@"SMA-Q2"];
     }
@@ -77,11 +85,14 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
         SmaBleMgr.scanNameArr = @[@"SM07"];
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"]){
-        SmaBleMgr.scanNameArr = @[@"SMA-A1"];
+        SmaBleMgr.scanNameArr = @[@"SMA-A1",@"SMA-A2"];
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
         SmaBleMgr.scanNameArr = @[@"SMA-A2"];
     }
+#elif ZENFIT
+    SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#endif
 }
 
 #pragma mark <UICollectionViewDataSource>

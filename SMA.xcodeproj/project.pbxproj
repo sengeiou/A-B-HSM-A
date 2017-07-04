@@ -71,6 +71,7 @@
 		EE4CE2BE1DD47D9100AB66A6 /* ZXPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CE2BB1DD47D9100AB66A6 /* ZXPageControl.m */; };
 		EE4CE2BF1DD47D9100AB66A6 /* ZXRollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE4CE2BC1DD47D9100AB66A6 /* ZXRollView.m */; };
 		EE5193791DF10B17007DC2A2 /* SMACenterTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE5193781DF10B17007DC2A2 /* SMACenterTabView.m */; };
+		EE534C0F1EF8BB1000DF0DFF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE534C111EF8BB1000DF0DFF /* Localizable.strings */; };
 		EE55CFD71DFEC70F008A0F64 /* SMAAboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE55CFD61DFEC70F008A0F64 /* SMAAboutUsViewController.m */; };
 		EE57A6FE1E0B5FE00007BCC8 /* aes_cbc.c in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5A81E0B5FE00007BCC8 /* aes_cbc.c */; };
 		EE57A6FF1E0B5FE00007BCC8 /* aes_core.c in Sources */ = {isa = PBXBuildFile; fileRef = EE57A5AA1E0B5FE00007BCC8 /* aes_core.c */; };
@@ -232,6 +233,8 @@
 		EE8652E21D6557F000A051C2 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EE8652DE1D6557F000A051C2 /* MBProgressHUD.bundle */; };
 		EE8652E31D6557F000A051C2 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8652E01D6557F000A051C2 /* MBProgressHUD.m */; };
 		EE89AF191E60052C007B442D /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = EE89AF181E60052C007B442D /* MKMapView+ZoomLevel.m */; };
+		EE89BB3D1EFA4BFE0044F05C /* SMAHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE89BB3C1EFA4BFE0044F05C /* SMAHelpViewController.m */; };
+		EE89BB3E1EFA4BFE0044F05C /* SMAHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE89BB3C1EFA4BFE0044F05C /* SMAHelpViewController.m */; };
 		EE8B3F3E1DFE96DC00500664 /* SMADfuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8B3F3D1DFE96DC00500664 /* SMADfuViewController.m */; };
 		EE8B3F411DFE96F400500664 /* SMADfuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8B3F401DFE96F400500664 /* SMADfuButton.m */; };
 		EE8B3F441DFEA8D900500664 /* SMADfuView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE8B3F431DFEA8D900500664 /* SMADfuView.m */; };
@@ -279,7 +282,7 @@
 		EEB643851DEC067D00544FFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB643841DEC067D00544FFE /* CoreLocation.framework */; };
 		EEB9F68E1D64318B0011AA07 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F68D1D64318B0011AA07 /* main.m */; };
 		EEB9F6911D64318B0011AA07 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6901D64318B0011AA07 /* AppDelegate.mm */; };
-		EEB9F6941D64318B0011AA07 /* ZENFITMain.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6931D64318B0011AA07 /* ZENFITMain.m */; };
+		EEB9F6941D64318B0011AA07 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6931D64318B0011AA07 /* ViewController.m */; };
 		EEB9F6971D64318B0011AA07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6951D64318B0011AA07 /* Main.storyboard */; };
 		EEB9F6991D64318B0011AA07 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6981D64318B0011AA07 /* Assets.xcassets */; };
 		EEB9F69C1D64318B0011AA07 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F69A1D64318B0011AA07 /* LaunchScreen.storyboard */; };
@@ -439,7 +442,7 @@
 		EEEB84A81EF7C07D00DDE316 /* SMAHighViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE227CCE1D7433A900B9387D /* SMAHighViewController.m */; };
 		EEEB84A91EF7C07D00DDE316 /* SMAAgeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED44BAC1D73D40500BF7D07 /* SMAAgeViewController.m */; };
 		EEEB84AA1EF7C07D00DDE316 /* SMARunTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC5E8D1DE420290096DAF3 /* SMARunTableViewController.m */; };
-		EEEB84AB1EF7C07D00DDE316 /* ZENFITMain.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6931D64318B0011AA07 /* ZENFITMain.m */; };
+		EEEB84AB1EF7C07D00DDE316 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F6931D64318B0011AA07 /* ViewController.m */; };
 		EEEB84AC1EF7C07D00DDE316 /* SMANavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EED2F7C11D719BF300527FA7 /* SMANavViewController.m */; };
 		EEEB84AD1EF7C07D00DDE316 /* SMABottomPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEE7D8461DF0112000D46512 /* SMABottomPickView.m */; };
 		EEEB84AE1EF7C07D00DDE316 /* SDDemoItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE91FAB11D83DBF60064A5A5 /* SDDemoItemView.m */; };
@@ -661,7 +664,6 @@
 		EEEB85891EF7C07D00DDE316 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE9AB5BC1D6EF5EA0028F8DA /* README.txt */; };
 		EEEB858A1EF7C07D00DDE316 /* SMASedentaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EEEDD29A1D98FFEF009D6CA3 /* SMASedentaryCell.xib */; };
 		EEEB858B1EF7C07D00DDE316 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EEB54D151E151B3B0059F8D0 /* WeiboSDK.bundle */; };
-		EEEB858C1EF7C07D00DDE316 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6A81D6431F30011AA07 /* Localizable.strings */; };
 		EEEB858D1EF7C07D00DDE316 /* SMASelectCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE6061471DEEDECC008A7786 /* SMASelectCell.xib */; };
 		EEEB858E1EF7C07D00DDE316 /* arialuni_U16(SMA07).bin in Resources */ = {isa = PBXBuildFile; fileRef = EEED9AA91EA85BAC00F4652B /* arialuni_U16(SMA07).bin */; };
 		EEEB858F1EF7C07D00DDE316 /* country.plist in Resources */ = {isa = PBXBuildFile; fileRef = EE4B1C191D646A0500825E2B /* country.plist */; };
@@ -914,6 +916,8 @@
 		EE4CE2BD1DD47D9100AB66A6 /* ZXRollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZXRollView.h; sourceTree = "<group>"; };
 		EE5193771DF10B17007DC2A2 /* SMACenterTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMACenterTabView.h; sourceTree = "<group>"; };
 		EE5193781DF10B17007DC2A2 /* SMACenterTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMACenterTabView.m; sourceTree = "<group>"; };
+		EE534C101EF8BB1000DF0DFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		EE534C121EF8BB3A00DF0DFF /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		EE55CFD51DFEC70F008A0F64 /* SMAAboutUsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAAboutUsViewController.h; sourceTree = "<group>"; };
 		EE55CFD61DFEC70F008A0F64 /* SMAAboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAAboutUsViewController.m; sourceTree = "<group>"; };
 		EE569A0B1E7796C10064C073 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1319,6 +1323,8 @@
 		EE8652E01D6557F000A051C2 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		EE89AF171E60052C007B442D /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
 		EE89AF181E60052C007B442D /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
+		EE89BB3B1EFA4BFE0044F05C /* SMAHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAHelpViewController.h; sourceTree = "<group>"; };
+		EE89BB3C1EFA4BFE0044F05C /* SMAHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAHelpViewController.m; sourceTree = "<group>"; };
 		EE8B3F3C1DFE96DC00500664 /* SMADfuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMADfuViewController.h; sourceTree = "<group>"; };
 		EE8B3F3D1DFE96DC00500664 /* SMADfuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMADfuViewController.m; sourceTree = "<group>"; };
 		EE8B3F3F1DFE96F400500664 /* SMADfuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMADfuButton.h; sourceTree = "<group>"; };
@@ -1412,7 +1418,7 @@
 		EEB9F68F1D64318B0011AA07 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EEB9F6901D64318B0011AA07 /* AppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate.mm; sourceTree = "<group>"; };
 		EEB9F6921D64318B0011AA07 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		EEB9F6931D64318B0011AA07 /* ZENFITMain.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZENFITMain.m; sourceTree = "<group>"; };
+		EEB9F6931D64318B0011AA07 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		EEB9F6961D64318B0011AA07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EEB9F6981D64318B0011AA07 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEB9F69B1D64318B0011AA07 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -1897,7 +1903,7 @@
 			isa = PBXGroup;
 			children = (
 				EEB9F6921D64318B0011AA07 /* ViewController.h */,
-				EEB9F6931D64318B0011AA07 /* ZENFITMain.m */,
+				EEB9F6931D64318B0011AA07 /* ViewController.m */,
 				EEB9F6B71D64386A0011AA07 /* SMALoginViewcontroller.h */,
 				EEB9F6B81D64386A0011AA07 /* SMALoginViewcontroller.m */,
 				EE7CB58B1DEC539800AB5E7D /* SMAEmailLoginViewController.h */,
@@ -2935,6 +2941,8 @@
 				EE8E32BA1E6E48C1002FB81E /* SMARepairDfuCollectionController.m */,
 				EE8E32C61E6E9C1B002FB81E /* SMARepairTableViewController.h */,
 				EE8E32C71E6E9C1B002FB81E /* SMARepairTableViewController.m */,
+				EE89BB3B1EFA4BFE0044F05C /* SMAHelpViewController.h */,
+				EE89BB3C1EFA4BFE0044F05C /* SMAHelpViewController.m */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -3532,6 +3540,7 @@
 				EEEB85BB1EF7D6EA00DDE316 /* ZENFITMain.storyboard */,
 				EEEB85B01EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard */,
 				EEEB85AA1EF7C07D00DDE316 /* ZEN FITInfo.plist */,
+				EE534C111EF8BB1000DF0DFF /* Localizable.strings */,
 				EEEB85B71EF7CD7200DDE316 /* Media.xcassets */,
 			);
 			path = "ZEN FIT";
@@ -3709,7 +3718,6 @@
 				EEEB85891EF7C07D00DDE316 /* README.txt in Resources */,
 				EEEB858A1EF7C07D00DDE316 /* SMASedentaryCell.xib in Resources */,
 				EEEB858B1EF7C07D00DDE316 /* WeiboSDK.bundle in Resources */,
-				EEEB858C1EF7C07D00DDE316 /* Localizable.strings in Resources */,
 				EEEB858D1EF7C07D00DDE316 /* SMASelectCell.xib in Resources */,
 				EEEB858E1EF7C07D00DDE316 /* arialuni_U16(SMA07).bin in Resources */,
 				EEEB85B11EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard in Resources */,
@@ -3728,6 +3736,7 @@
 				EEEB859C1EF7C07D00DDE316 /* SMADetailCollectionCell.xib in Resources */,
 				EEEB859D1EF7C07D00DDE316 /* read_me.txt in Resources */,
 				EEEB859E1EF7C07D00DDE316 /* Gotham-Bold_0.otf in Resources */,
+				EE534C0F1EF8BB1000DF0DFF /* Localizable.strings in Resources */,
 				EEEB85B91EF7CF7200DDE316 /* Assets.xcassets in Resources */,
 				EEEB859F1EF7C07D00DDE316 /* SMADeviceCell.xib in Resources */,
 			);
@@ -3958,7 +3967,7 @@
 				EE227CCF1D7433A900B9387D /* SMAHighViewController.m in Sources */,
 				EED44BAD1D73D40500BF7D07 /* SMAAgeViewController.m in Sources */,
 				EEEC5E8E1DE420290096DAF3 /* SMARunTableViewController.m in Sources */,
-				EEB9F6941D64318B0011AA07 /* ZENFITMain.m in Sources */,
+				EEB9F6941D64318B0011AA07 /* ViewController.m in Sources */,
 				EED2F7C21D719BF300527FA7 /* SMANavViewController.m in Sources */,
 				EEE7D8471DF0112000D46512 /* SMABottomPickView.m in Sources */,
 				EE91FAB21D83DBF60064A5A5 /* SDDemoItemView.m in Sources */,
@@ -3970,6 +3979,7 @@
 				EE8169991D8E801B003BEDDF /* SMAPairViewController.m in Sources */,
 				EEE4AA321DF81586002644CD /* WMPageController.m in Sources */,
 				EE57A7261E0B5FE00007BCC8 /* QNHijackingDetectWrapper.m in Sources */,
+				EE89BB3D1EFA4BFE0044F05C /* SMAHelpViewController.m in Sources */,
 				EE227CF81D74381C00B9387D /* SMARulerScrollView.m in Sources */,
 				EE57A71D1E0B5FE00007BCC8 /* QNPHAssetResource.m in Sources */,
 				EE4B1DD51D648A6E00825E2B /* SMAAccountTool.m in Sources */,
@@ -4226,7 +4236,7 @@
 				EEEB84A81EF7C07D00DDE316 /* SMAHighViewController.m in Sources */,
 				EEEB84A91EF7C07D00DDE316 /* SMAAgeViewController.m in Sources */,
 				EEEB84AA1EF7C07D00DDE316 /* SMARunTableViewController.m in Sources */,
-				EEEB84AB1EF7C07D00DDE316 /* ZENFITMain.m in Sources */,
+				EEEB84AB1EF7C07D00DDE316 /* ViewController.m in Sources */,
 				EEEB84AC1EF7C07D00DDE316 /* SMANavViewController.m in Sources */,
 				EEEB84AD1EF7C07D00DDE316 /* SMABottomPickView.m in Sources */,
 				EEEB84AE1EF7C07D00DDE316 /* SDDemoItemView.m in Sources */,
@@ -4238,6 +4248,7 @@
 				EEEB84B41EF7C07D00DDE316 /* SMAPairViewController.m in Sources */,
 				EEEB84B51EF7C07D00DDE316 /* WMPageController.m in Sources */,
 				EEEB84B61EF7C07D00DDE316 /* QNHijackingDetectWrapper.m in Sources */,
+				EE89BB3E1EFA4BFE0044F05C /* SMAHelpViewController.m in Sources */,
 				EEEB84B71EF7C07D00DDE316 /* SMARulerScrollView.m in Sources */,
 				EEEB84B81EF7C07D00DDE316 /* QNPHAssetResource.m in Sources */,
 				EEEB84B91EF7C07D00DDE316 /* SMAAccountTool.m in Sources */,
@@ -4403,6 +4414,15 @@
 			name = country.plist;
 			sourceTree = "<group>";
 		};
+		EE534C111EF8BB1000DF0DFF /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE534C101EF8BB1000DF0DFF /* en */,
+				EE534C121EF8BB3A00DF0DFF /* es */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		EEB9F6951D64318B0011AA07 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4487,7 +4507,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -4526,7 +4546,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -4667,7 +4687,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "346dc691-b905-4bbf-9e06-c9be3ad5030f";
+				PROVISIONING_PROFILE = "b7956e09-9feb-4cde-8c33-4610f432aeb7";
 				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_text;
 			};
 			name = Release;
@@ -4806,8 +4826,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.zenfit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "346dc691-b905-4bbf-9e06-c9be3ad5030f";
-				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_text;
+				PROVISIONING_PROFILE = "61041c41-dcc3-4a05-927a-a47ee40441e0";
+				PROVISIONING_PROFILE_SPECIFIER = hu_dis_zenfit_text;
 			};
 			name = Release;
 		};
