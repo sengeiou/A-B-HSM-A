@@ -272,7 +272,7 @@
     custom = YES;
 #endif
     if (sender.tag == 101){
-        if (![preferredLang isEqualToString:@"zh"] || custom) {
+        if (![preferredLang isEqualToString:@"zh"] || !custom) {
             [[SMAthirdPartyLoginTool getinstance] loginToFacebookWithReadPermissions:@[@"public_profile", @"email", @"user_friends"] controller:self];
             LoginProvider = ACAccountManagerLoginProviderFacebook;
             return;
@@ -287,7 +287,7 @@
         }
     }
     else if (sender.tag == 102) {
-        if (![preferredLang isEqualToString:@"zh"] || custom) {
+        if (![preferredLang isEqualToString:@"zh"] || !custom) {
             [MBProgressHUD showMessage:SMALocalizedString(@"login_ing")];
             LoginProvider = ACAccountManagerLoginProviderTwitter;
             [[SMAthirdPartyLoginTool getinstance] loginToTwitter];
@@ -304,7 +304,7 @@
         }
     }
     else{
-        if (![preferredLang isEqualToString:@"zh"] || custom) {
+        if (![preferredLang isEqualToString:@"zh"] || !custom) {
             
         }
         if (![[SMAthirdPartyLoginTool getinstance] isWBAppInstalled]) {

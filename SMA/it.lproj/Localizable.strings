@@ -163,6 +163,7 @@
 "setting_callNot"="Notifiche chiamata";
 "setting_smsNot"="Notifiche SMS";
 "setting_screen"="Orientamento display";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="Promemoria sedentario";
 "setting_alarm"="Sveglia";
 "setting_vibration"="Vibrazioni sveglia";

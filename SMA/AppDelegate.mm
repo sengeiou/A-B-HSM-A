@@ -95,6 +95,8 @@
         [SMADefaultinfos putInt:ANTILOSTSET andValue:0];
         [SMADefaultinfos putInt:VIBRATIONSET andValue:2];
         [SMADefaultinfos putInt:BACKLIGHTSET andValue:2];
+        [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
+        [SMADefaultinfos putInt:LIFTBRIGHT andValue:1];
     }
     [SMADefaultinfos putKey:UPDATEDATE andValue:[NSDate date].yyyyMMddNoLineWithDate];
     //         真机测试时保存日志

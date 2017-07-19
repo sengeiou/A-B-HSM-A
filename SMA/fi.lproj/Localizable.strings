@@ -163,6 +163,7 @@
 "setting_callNot"="Puheluilmoitus";
 "setting_smsNot"="Tekstiviesti-ilmoitus";
 "setting_screen"="Näytön suunta";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="Paikallaan olo";
 "setting_alarm"="Hälytys";
 "setting_vibration"="Hälytysvärinä";

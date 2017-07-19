@@ -163,6 +163,7 @@
 "setting_callNot"="pemberitahuan telp";
 "setting_smsNot"="pemberitahuan SMS";
 "setting_screen"="arah layar";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="Menetap";
 "setting_alarm"="alarm";
 "setting_vibration"="alarm getar";

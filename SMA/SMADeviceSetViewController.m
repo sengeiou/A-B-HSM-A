@@ -31,13 +31,14 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (void)viewWillAppear:(BOOL)animated{
      [self.navigationController.navigationBar setBackgroundImage:[UIImage buttonImageFromColors:@[[SmaColor colorWithHexString:@"#5790F9" alpha:1],[SmaColor colorWithHexString:@"#80C1F9" alpha:1]] ByGradientType:topToBottom size:CGSizeMake(MainScreen.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
     [self updateUI];
     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]) {
         [self chectFirmwareVewsionWithWeb];
     }
-
+//    [self dfuFinish];
 }
 
 - (void)viewWillLayoutSubviews{
@@ -46,6 +47,9 @@
         NSArray *switchArr;
         if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"]){
              switchArr = @[@[@"remind_lost_pre",@"remind_disturb_pre",@"remind_call_pre",@"remind_message_pre",@"remind_screen_pre"],@[@"remind_lost",@"remind_disturb",@"remind_call",@"remind_message",@"remind_screen"]];
+        }
+        else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+            switchArr = @[@[@"remind_lost_pre",@"remind_disturb_pre",@"remind_call_pre",@"remind_message_pre",@"remind_screen_pre",@"Bright screen_pre"],@[@"remind_lost",@"remind_disturb",@"remind_call",@"remind_message",@"remind_screen",@"Bright screen"]];
         }
         else{
             switchArr = @[@[@"remind_lost_pre",@"remind_disturb_pre",@"remind_call_pre",@"remind_message_pre"],@[@"remind_lost",@"remind_disturb",@"remind_call",@"remind_message"]];
@@ -69,11 +73,14 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dfuFinish) name:@"DFUUPDATEFINISH" object:nil];
+    [self dfuFinish];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+//      [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DFUUPDATEFINISH" object:nil];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
@@ -98,13 +105,22 @@
      return [SmaBleMgr checkBLConnectState];
 }
 
+- (void)dealloc{
+  
+}
+
 - (void)initializeMethod{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dfuFinish) name:@"DFUUPDATEFINISH" object:nil];
+    
 }
 
 - (void)dfuFinish{
     NSLog(@"升级 %@",[SMADefaultinfos getValueforKey:DFUUPDATE]);
+     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"DFUUPDATEFINISH" object:nil];
+    if (!self.userInfo.watchUUID || [self.userInfo.watchUUID isEqualToString:@""]) {
+        [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
+        return;
+    }
      if ([SMADefaultinfos getValueforKey:DFUUPDATE] && [[SMADefaultinfos getValueforKey:DFUUPDATE] isEqualToString:@"0"]) {
         UIAlertController *alcer = [UIAlertController alertControllerWithTitle:SMALocalizedString(@"me_repairRemain") message:nil preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *canAct = [UIAlertAction actionWithTitle:SMALocalizedString(@"me_repairNoRemain") style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -159,7 +175,7 @@
     _backlightCell.hidden = NO;
     _watchChangeCell.hidden = NO;
     _timingCell.hidden = YES;
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"]) {
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) {
         _backlightCell.hidden = YES;
         _watchChangeCell.hidden = YES;
         
@@ -256,7 +272,7 @@
             if ([fileType isEqualToString:[SMADefaultinfos getValueforKey:SMACUSTOM]] && [deviceName isEqualToString:[SMAAccountTool userInfo].scnaName]) {
                 NSString *webFirmwareVer = [[filename substringWithRange:NSMakeRange(filename.length - 9, 5)] stringByReplacingOccurrencesOfString:@"." withString:@""];
                 NSLog(@"fwgohjiohi  %@  __ %@",[[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""],webFirmwareVer);
-                if ([[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue < webFirmwareVer.intValue) {
+                if ([[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue <= webFirmwareVer.intValue) {
                     _updateView.hidden = NO;
                     webFirmwareDic = [finish objectAtIndex:i];
                 }
@@ -289,10 +305,10 @@
     if (!([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]) && indexPath.section == 3 && indexPath.row == 3) {
         return 0;
     }
-    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]) && indexPath.section == 3 && indexPath.row == 0 ) {
+    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) && indexPath.section == 3 && indexPath.row == 0 ) {
         return 0;
     }
-    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]) && indexPath.section == 4 && indexPath.row == 0) {
+    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) && indexPath.section == 4 && indexPath.row == 0) {
         return 0;
     }
     if (indexPath.section == 1) {
@@ -501,6 +517,9 @@
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
          imageStr = @"SMA_A2";
+    }
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+         imageStr = @"SMA_B2";
     }
 #elif ZENFIT
     imageStr = @"SMA_07_zen";

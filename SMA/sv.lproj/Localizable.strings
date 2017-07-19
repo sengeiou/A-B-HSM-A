@@ -163,6 +163,7 @@
 "setting_callNot"="samtal väntar";
 "setting_smsNot"="SMS-avisering";
 "setting_screen"="display orientering";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="Sedentariness";
 "setting_alarm"="Larm";
 "setting_vibration"="alarmvibrations";

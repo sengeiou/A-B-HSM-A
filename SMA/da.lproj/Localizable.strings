@@ -163,6 +163,7 @@
 "setting_callNot"="Ring meddelelse";
 "setting_smsNot"="SMS-meddelelse";
 "setting_screen"="Display orientering";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="Sedentariness";
 "setting_alarm"="Alarm";
 "setting_vibration"="Alarm vibrationer";

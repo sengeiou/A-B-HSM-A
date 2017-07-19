@@ -68,7 +68,7 @@
     //  _ignoreLab.text = SMALocalizedString(@"setting_band_remind07");
     _nearLab.text = SMALocalizedString(@"setting_band_attention");
 #if SMA
-    _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment: [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] ? [NSString stringWithFormat:@"%@/SMA-A2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]]: [SMADefaultinfos getValueforKey:BANDDEVELIVE]];
+    _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment: [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] ? [NSString stringWithFormat:@"%@/SMA-A2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]]:[[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] ? [NSString stringWithFormat:@"%@/B2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]] : [SMADefaultinfos getValueforKey:BANDDEVELIVE]];
 #elif ZENFIT
     _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment:@"ZEN FIT"];
 #endif
@@ -106,6 +106,9 @@
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
         SmaBleMgr.scanNameArr = @[@"SMA-A2"];
     }
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+        SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
+    }
 #elif ZENFIT
     SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
 #endif
@@ -128,6 +131,9 @@
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
             SmaBleMgr.scanNameArr = @[@"SMA-A2"];
+        }
+        else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+            SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
         }
 #elif ZENFIT
         SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
@@ -289,8 +295,8 @@
             timer = nil;
         }
         [remindView removeFromSuperview];
-        //        [MBProgressHUD hideHUD];
-        //        [MBProgressHUD showError:SMALocalizedString(@"setting_band_bindfail")];
+        //  [MBProgressHUD hideHUD];
+        //  [MBProgressHUD showError:SMALocalizedString(@"setting_band_bindfail")];
         
         [MBProgressHUD hideHUD];
         [SmaBleMgr disconnectBl];
@@ -315,6 +321,9 @@
             }
             else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
                 SmaBleMgr.scanNameArr = @[@"SMA-A2"];
+            }
+            else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+                SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
             }
 #elif ZENFIT
             SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
@@ -402,6 +411,9 @@
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
             SmaBleMgr.scanNameArr = @[@"SMA-A2"];
+        }
+        else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+            SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
         }
 #elif ZENFIT
         SmaBleMgr.scanNameArr = @[@"ZEN FIT"];

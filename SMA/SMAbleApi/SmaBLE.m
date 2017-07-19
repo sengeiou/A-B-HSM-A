@@ -215,6 +215,7 @@ static SmaBLE *_instace;
 
 //检查命令类型
 -(void)checkCmdKeyType:(Byte *)bytes len:(int)len bol:(BOOL)bol {
+    NSLog(@"checkCmdKeyType  %@",[NSData dataWithBytes:bytes length:len]);
     [self retAckAndNackBol:bol ckByte:((received_buffer[6]<<8)+received_buffer[7])];
     if ([[[self.BLInstructionArr firstObject] lastObject] isEqualToString:@"GET"]&&self.BLInstructionArr.count > 0&&self.canSend == NO  && !(bytes[8]==0x05 && bytes[10]==0x03) && !(bytes[8]==0x05 && bytes[10]==0x02) &&!(bytes[8]==0x05 &&  bytes[10]==0x05)) {
         
@@ -295,7 +296,8 @@ static SmaBLE *_instace;
         mode = ALARMCLOCK;
         array = [self analysisAlarmClockData:bytes len:len];
         if (array.count == 0) {
-            array = [NSMutableArray arrayWithObjects:@"No alarm clock", nil];
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+            [array addObject:dic];
         }
     }
     else if(bytes[8]==0x02 && bytes[10]==0x2E && bol)//返回07闹钟列表
@@ -303,7 +305,8 @@ static SmaBLE *_instace;
         mode = ALARMCLOCK;
         array = [self analysisCuffAlarmClockData:bytes len:len];
         if (array.count == 0) {
-            array = [NSMutableArray arrayWithObjects:@"No alarm clock", nil];
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+            [array addObject:dic];
         }
     }
     
@@ -367,12 +370,41 @@ static SmaBLE *_instace;
         mode = CUFFSLEEPDATA;
         array = [self analysisCuffSleepData:bytes len:len];
     }
-    
-    if (mode <= 20 && array.count > 0) {
+    else if(bytes[8]==0x02 && bytes[10]==0x60 && bol){
+        mode = NOTIFICATION;
+        array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[10]], nil];
+    }
+    else if(bytes[8]==0x02 && bytes[10]==0x61 && bol){
+        mode = NOTIFICATION;
+        array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[10]], nil];
+    }
+    else if(bytes[8]==0x02 && bytes[10]==0x64 && bol){
+        mode = NOTIFICATION;
+        array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[10]], nil];
+    }
+    else if (bytes[8]==0x02 && bytes[10]==0x63 && bol){
+        mode = GOALCALLBACK;
+        Byte goalByte[4] = {0};
+        goalByte[0] = bytes[14];
+        goalByte[1] = bytes[15];
+        goalByte[2] = bytes[16];
+        goalByte[3] = bytes[17];
+//        NSLog(@"ijogor   %d ",((bytes[13] & 0xff)<<24) | ((bytes[14] & 0xff)<<16) | ((bytes[15] & 0xff)<<8 | ((bytes[16] & 0xff))));
+//        NSLog(@"fwegr g   = %f", (bytes[13] * pow(16, 6)) + (bytes[14] * pow(16, 4)) + (bytes[15]* pow(16, 2)) + (bytes[16]));
+        array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",((bytes[13] & 0xff)<<24) | ((bytes[14] & 0xff)<<16) | ((bytes[15] & 0xff)<<8 | ((bytes[16] & 0xff)))], nil];
+    }
+     else if (bytes[8]==0x02 && bytes[10]==0x66 && bol){
+         mode = LONGTIMEBACK;
+         array = [self analysisLongTimeData:bytes len:len];
+     }
+     else if(bytes[8]==0x06 && bytes[10]==0x60 && bol){
+         mode = FINDPHONE;
+         array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[13]], nil];
+     }
+    if (mode <= 23 && array.count > 0) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(bleDataParsingWithMode:dataArr:Checkout:)]) {
             [self.delegate bleDataParsingWithMode:mode dataArr:array Checkout:bol];
         }
-        
     }
 }
 //－－－－－－－－－－－－－－绑定手表
@@ -826,7 +858,7 @@ static SmaBLE *_instace;
     for (int i=0; i<counts; i++) {
         SmaAlarmInfo *smaAcInfo=smaACs[i];
         alarm_union_t clock_data;
-        //        NSArray *array = [smaAcInfo.dayFlags componentsSeparatedByString:@","];
+        // NSArray *array = [smaAcInfo.dayFlags componentsSeparatedByString:@","];
         NSArray *array = [[self toBinarySystemWithDecimalSystem:smaAcInfo.dayFlags] componentsSeparatedByString:@","];
         burntheplanks_week_union_t week_t1;
         week_t1.bit_week.monday=([array[0] isEqualToString:@"0"])?0x00:0x01;
@@ -845,6 +877,7 @@ static SmaBLE *_instace;
         clock_data.alarm.day = [smaAcInfo.day intValue];
         clock_data.alarm.month=[smaAcInfo.mounth intValue];
         clock_data.alarm.year=[smaAcInfo.year intValue]%100;
+        clock_data.alarm.reserved = [smaAcInfo.isOpen intValue];
         
         buf[0+(23*i)] = clock_data.data>>32;
         buf[1+(23*i)] = clock_data.data>>24;
@@ -1470,6 +1503,18 @@ static SmaBLE *_instace;
     }
 }
 
+- (void)requestFindDeviceWithBuzzing:(int)intensity{
+    Byte buf[1];
+    buf[0] = (Byte)(((intensity > 1 ? 2:intensity)>>0)&0xff);
+    Byte results[14];
+    if(self.p && self.Write)
+    {
+        [SmaBusinessTool getSpliceCmd:0x04 Key:0x61 bytes1:buf len:1 results:results];//
+        NSData * data0 = [NSData dataWithBytes:results length:14];
+        [self arrangeBLData:data0 type:@"SET" sendNum:1];
+    }
+}
+
 //复位手表
 - (void)BLrestoration{
     Byte results[17];
@@ -1630,6 +1675,27 @@ static SmaBLE *_instace;
     if(self.p && self.Write)
     {
         [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+    }
+}
+
+//获取计步目标
+- (void)getGoal{
+    Byte results[13];
+    [SmaBusinessTool getSpliceCmd:0x02 Key:0x62 bytes1:nil len:0 results:results];
+    NSData * data0 = [NSData dataWithBytes:results length:13];
+    if(self.p && self.Write)
+    {
+        [self arrangeBLData:data0 type:@"GET" sendNum:1];
+    }
+}
+
+- (void)getLongTime{
+    Byte results[13];
+    [SmaBusinessTool getSpliceCmd:0x02 Key:0x65 bytes1:nil len:0 results:results];
+    NSData * data0 = [NSData dataWithBytes:results length:13];
+    if(self.p && self.Write)
+    {
+        [self arrangeBLData:data0 type:@"GET" sendNum:1];
     }
 }
 
@@ -2103,7 +2169,7 @@ typedef union{
         user_clock.data=(((uint64_t)bytes[begin+(1+(i*5))])<<32)+((uint64_t)bytes[begin+(2+(i*5))]<<24)+((uint64_t)bytes[begin+(3+(i*5))]<<16)+((uint64_t)bytes[begin+(4+(i*5))]<<8)+((uint64_t)bytes[begin+(5+(i*5))]<<0);
         
         SmaAlarmInfo *alarInfo=[[SmaAlarmInfo alloc]init];
-        alarInfo.year=[NSString stringWithFormat:@"%d",user_clock.alarm.year];
+        alarInfo.year=[NSString stringWithFormat:@"%d",user_clock.alarm.year + 2000];
         alarInfo.mounth=[NSString stringWithFormat:@"%d",user_clock.alarm.month];
         alarInfo.day=[NSString stringWithFormat:@"%d",user_clock.alarm.day];
         alarInfo.hour=[NSString stringWithFormat:@"%d",user_clock.alarm.hour];
@@ -2125,21 +2191,23 @@ typedef union{
 //解析07闹钟
 -(NSMutableArray *)analysisCuffAlarmClockData:(Byte *)bytes len:(int)len
 {
+    NSLog(@"alarmData = %@", [[NSData alloc] initWithBytes:bytes length:len]);
     NSMutableArray *alarmArr = [NSMutableArray array];
     int begin=12;
     int listLen=(len-13)/23;
     for (int i=0; i<listLen; i++) {
         alarm_union_t user_clock;
-        user_clock.data=(((uint64_t)bytes[begin+(1+(i*23))])<<32)+((uint64_t)bytes[begin+(2+(i*23))]<<24)+((uint64_t)bytes[begin+(3+(i*23))]<<16)+((uint64_t)bytes[begin+(4+(i*23))]<<8)+((uint64_t)bytes[begin+(5+(i*23))]<<0);
+        user_clock.data = (((uint64_t)bytes[begin+(1+(i*23))])<<32)+((uint64_t)bytes[begin+(2+(i*23))]<<24)+((uint64_t)bytes[begin+(3+(i*23))]<<16)+((uint64_t)bytes[begin+(4+(i*23))]<<8)+((uint64_t)bytes[begin+(5+(i*23))]<<0);
         
-        SmaAlarmInfo *alarInfo=[[SmaAlarmInfo alloc]init];
-        alarInfo.year=[NSString stringWithFormat:@"%d",user_clock.alarm.year];
-        alarInfo.mounth=[NSString stringWithFormat:@"%d",user_clock.alarm.month];
-        alarInfo.day=[NSString stringWithFormat:@"%d",user_clock.alarm.day];
-        alarInfo.hour=[NSString stringWithFormat:@"%d",user_clock.alarm.hour];
-        alarInfo.minute=[NSString stringWithFormat:@"%d",user_clock.alarm.minute];
-        alarInfo.mounth=[NSString stringWithFormat:@"%d",user_clock.alarm.month];
-        alarInfo.aid=[NSString stringWithFormat:@"%d",user_clock.alarm.id];
+        SmaAlarmInfo *alarInfo = [[SmaAlarmInfo alloc]init];
+        alarInfo.year = [NSString stringWithFormat:@"%d",user_clock.alarm.year + 2000];
+        alarInfo.mounth = [NSString stringWithFormat:@"%@%d",user_clock.alarm.month > 9 ? @"":@"0",user_clock.alarm.month];
+        alarInfo.day = [NSString stringWithFormat:@"%@%d",user_clock.alarm.day > 9 ? @"":@"0",user_clock.alarm.day];
+        alarInfo.hour = [NSString stringWithFormat:@"%@%d",user_clock.alarm.hour > 9 ? @"":@"0",user_clock.alarm.hour];
+        alarInfo.minute = [NSString stringWithFormat:@"%@%d",user_clock.alarm.minute > 9 ? @"":@"0",user_clock.alarm.minute];
+        alarInfo.dayFlags = [NSString stringWithFormat:@"%d",user_clock.alarm.day_repeat_flag];
+        alarInfo.aid = [NSString stringWithFormat:@"%d",user_clock.alarm.id];
+        alarInfo.isOpen = [NSString stringWithFormat:@"%d",user_clock.alarm.reserved];
         
         burntheplanks_week_union_t week_t1;
         week_t1.week=user_clock.alarm.day_repeat_flag;
@@ -2156,6 +2224,33 @@ typedef union{
         //        MyLog(@"在组装闹钟 %@  %@",[NSData dataWithBytes:alarmName length:18],str1);
     }
     return alarmArr;
+}
+
+- (NSMutableArray *)analysisLongTimeData:(Byte *)bytes len:(int)len{
+    NSLog(@"longTimeData = %@", [[NSData alloc] initWithBytes:bytes length:len]);
+    NSMutableArray *longArr = [NSMutableArray array];
+    burntheplanksV2_union_t burnthe_t;
+    burnthe_t.data = (((uint64_t)bytes[13])<<56) + (((uint64_t)bytes[14])<<48) + (((uint64_t)bytes[15])<<40) + (((uint64_t)bytes[16])<<32) + (((uint64_t)bytes[17])<<24) + (((uint64_t)bytes[18])<<16) + (((uint64_t)bytes[19])<<8) + (((uint64_t)bytes[20])<<0);
+//     burnthe_t.data = (((uint64_t)0x00)<<56) + (((uint64_t)0x00)<<48) + (((uint64_t)0x00)<<40) + (((uint64_t)0x00)<<32) + (((uint64_t)0x00)<<24) + (((uint64_t)0x00)<<16) + (((uint64_t)0x00)<<8) + (((uint64_t)0x00)<<0);
+    if (burnthe_t.data != 0) {
+        SmaSeatInfo *info = [[SmaSeatInfo alloc] init];
+        info.isOpen = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.isopen];
+        info.repeatWeek = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.dayflags];
+        info.seatValue = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.cycle];
+        info.stepValue = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.thresholdvalue];
+        info.beginTime0 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.beginTim1];
+        info.endTime0 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.endTime1];
+        info.isOpen0 = (burnthe_t.bit_plank.beginTim1 >= 25 || burnthe_t.bit_plank.endTime1 >= 25) ? @"0":@"1";
+        info.beginTime1 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.beginTim2];
+        info.endTime1 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.endTime2];
+        info.isOpen1 = (burnthe_t.bit_plank.beginTim2 >= 25 || burnthe_t.bit_plank.endTime2 >= 25) ? @"0":@"1";
+        [longArr addObject:info];
+    }
+    else{
+        NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+        [longArr addObject:dic];
+    }
+       return longArr;
 }
 
 //--解析运动数据Ok
@@ -2545,7 +2640,9 @@ static NSMutableArray *hrArr;
                 NSMutableArray *sendArr = [self.BLInstructionArr firstObject];
                 if (sendArr.count > 1) {
                     for (int i = 0; i < sendArr.count - 1; i++) {
-                        [self.p writeValue:(NSData *)sendArr[i] forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+//                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                            [self.p writeValue:(NSData *)sendArr[i] forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+//                        });
                     }
                 }
             }
@@ -2640,7 +2737,10 @@ static NSMutableArray *senArr;
         if (self.delegate && [self.delegate respondsToSelector:@selector(sendBLETimeOutWithMode:)]) {
             [self.delegate sendBLETimeOutWithMode:mode];
         }
-        
+        if (_delegate && [_delegate respondsToSelector:@selector(sendIdentifier:)]) {
+            NSLog(@"jgrighh==%d",(bytes[6]<<8) + (bytes[7]<<0));
+            [_delegate sendIdentifier:(bytes[6]<<8) + (bytes[7]<<0)];
+        }
     }
 }
 

@@ -163,6 +163,7 @@
 "setting_callNot"="Çağrı bildirimi";
 "setting_smsNot"="SMS bildirimi";
 "setting_screen"="Yönünü göster";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="Sedanlik";
 "setting_alarm"="Alarm";
 "setting_vibration"="Alarm titreşimi";

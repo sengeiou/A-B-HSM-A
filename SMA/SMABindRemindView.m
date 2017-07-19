@@ -61,6 +61,9 @@
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
          imageStr = @"img_queren_A2";
     }
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+        imageStr = @"img_queren_shouhuan";
+    }
 #elif ZENFIT
     imageStr = @"img_queren_shouhuan_zen";
 #endif

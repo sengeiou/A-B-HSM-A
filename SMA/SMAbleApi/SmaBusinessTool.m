@@ -132,9 +132,14 @@ unsigned short crc16_ccitt(Byte *buf, int len)
     
     [self getCRC16:results];
 }
+
++ (void)setSerialNum{
+    serialNum = 0;
+}
+
 +(void)getSpliceCmd1:(Byte)cmd Key:(Byte)key bytes1:(Byte [])bytes1 len:(int)len results:(Byte [])results
 {
-    //    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"serialNUN" object:nil];
+    // [[NSNotificationCenter defaultCenter] removeObserver:self name:@"serialNUN" object:nil];
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"serialNUN" object:nil userInfo:[NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%d",serialNum],@"SERIANUM", nil]]];
     results[0]=0xAB;
     results[1]=0x00;
@@ -288,6 +293,7 @@ unsigned short crc16_ccitt(Byte *buf, int len)
     nckByte[1]=0x10;
     nckByte[2]=0x00;
     nckByte[3]=0x00;
+    nckByte[4]=0x00;
     nckByte[5]=0x00;
     nckByte[6]=(seqId>>8)&0xff;
     nckByte[7]=seqId&0xff;
@@ -309,6 +315,7 @@ unsigned short crc16_ccitt(Byte *buf, int len)
     nckByte[1]=0x30;
     nckByte[2]=0x00;
     nckByte[3]=0x00;
+    nckByte[4]=0x00;
     nckByte[5]=0x00;
     nckByte[6]=(seqId>>8)&0xff;
     nckByte[7]=seqId&0xff;

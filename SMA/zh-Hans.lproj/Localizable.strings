@@ -163,6 +163,7 @@
 "setting_callNot" = "来电提醒";
 "setting_smsNot" = "消息提醒";
 "setting_screen" = "横竖模式";
+"setting_liftBright" = "抬腕亮屏";
 "setting_sedentary" = "久坐";
 "setting_alarm" = "闹钟";
 "setting_vibration" = "闹钟震动";

@@ -32,6 +32,11 @@
     [self createUI];
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"DFUUPDATEFINISH" object:nil];
+}
+
+
 - (void)viewWillDisappear:(BOOL)animated{
 //    if (!SmaBleMgr.repairDfu || SmaBleMgr.repairFont) {
 //       
@@ -64,7 +69,10 @@
     SmaDfuManager.dfuMode = NO;
     [SmaDfuManager abort];
     
-   [[NSNotificationCenter defaultCenter] postNotificationName:@"DFUUPDATEFINISH" object:nil];
+  
+    [updateTimer invalidate];
+    updateTimer = nil;
+//  [self dealloc];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -151,7 +159,8 @@
     if (!SmaBleMgr.repairDfu && _dfuInfoDic) {
          [SMADefaultinfos putKey:DFUUPDATE andValue:@"0"];
     }
-    NSLog(@"tautology  %d",tautology);
+    [SmaBleMgr reunitonPeripheral:YES];
+    NSLog(@"tautology  %d  ** %@",tautology,[SMADefaultinfos getValueforKey:DFUUPDATE]);
     NSString *filename = [_dfuInfoDic objectForKey:@"filename"];
     NSString *webFirmwareVer = [[filename substringWithRange:NSMakeRange(filename.length - 9, 5)] stringByReplacingOccurrencesOfString:@"." withString:@""];
     _remindLab.textColor = [UIColor whiteColor];
@@ -163,6 +172,7 @@
         _dfuLab.font = FontGothamBold(30);
         _dfuLab.text = @"0%";
         [self setPregress:0];
+        [coverView removeFromSuperview];
         coverView = [[UIView alloc] initWithFrame:MainScreen];
         coverView.backgroundColor = [UIColor clearColor];
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -283,11 +293,12 @@
         }
         return;
     }
-    if ((((SmaBleMgr.repairDfu || SmaBleMgr.repairFont) ? NO : [SmaBleMgr checkBLConnectState]) && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue < webFirmwareVer.intValue) || SmaBleMgr.repairDfu || SmaBleMgr.repairFont) {
+    if ((((SmaBleMgr.repairDfu || SmaBleMgr.repairFont) ? NO : [SmaBleMgr checkBLConnectState]) && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue <= webFirmwareVer.intValue) || SmaBleMgr.repairDfu || SmaBleMgr.repairFont) {
         [SmaBleMgr reunitonPeripheral:YES];
         [updateTimer invalidate];
         updateTimer = nil;
         updateTimer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateTimeOut) userInfo:nil repeats:NO];
+        [coverView removeFromSuperview];
         coverView = [[UIView alloc] initWithFrame:MainScreen];
         coverView.backgroundColor = [UIColor clearColor];
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -305,7 +316,7 @@
                 if (repairFontState == 0) {
                     [_remindLab setText:SMALocalizedString(@"")];
                     NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(FixFont)" ofType:@"zip"];
-                    //                     NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(HERA)_v0.1.1" ofType:@"zip"];
+                    //NSString *fontFile = [[NSBundle mainBundle] pathForResource:@"sma07_app(HERA)_v0.1.1" ofType:@"zip"];
                     NSURL *url=[[NSURL alloc]initWithString:fontFile];
                     SmaDfuManager.fileUrl = url;
                     [self repairDeviceDfuWith:self.epairPeripheral];
@@ -392,6 +403,7 @@
     updateTimer = nil;
     _dfuLab.textColor = [UIColor redColor];
     _dfuLab.font = FontGothamLight(17);
+     [SmaBleMgr reunitonPeripheral:YES];
     if (SmaBleMgr.repairFont) {
         if (tautology >= 3) {
             _dfuLab.textColor = [UIColor whiteColor];
@@ -399,6 +411,7 @@
             _remindLab.textColor = [UIColor redColor];
             _remindLab.text = SMALocalizedString(@"me_repairFontFail");
             _dfuBut.enabled = YES;
+            [SmaBleMgr reunitonPeripheral:NO];
         }
         else{
             tautology ++;
@@ -415,6 +428,7 @@
     else if (SmaBleMgr.repairDfu) {
         if (tautology >= 3) {
             _dfuLab.text = SMALocalizedString(@"me_repairFail");
+             [SmaBleMgr reunitonPeripheral:NO];
         }
         else{
             tautology ++;
@@ -424,6 +438,7 @@
     else{
         if (tautology >= 3) {
             _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
+             [SmaBleMgr reunitonPeripheral:NO];
         }
         else{
             tautology ++;
@@ -431,7 +446,7 @@
         }
     }
     [coverView removeFromSuperview];
-    [SmaBleMgr reunitonPeripheral:YES];
+   
 }
 
 - (void)setPregress:(float)pregress{
@@ -497,6 +512,12 @@
                     return;
                 }
                 SmaDfuManager.fileUrl = [[NSURL alloc] initWithString:[filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+                 NSArray *SystemArr1 = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"],[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"]]];
+                [SmaBleMgr reunitonPeripheral:NO];
+                if (tautology > 0) {
+                    [SmaBleMgr reunitonPeripheral:YES];
+                    SmaDfuManager.dfuMode = YES;
+                }
                 [self repairDeviceDfuWith:self.epairPeripheral];
             }
             else{
@@ -522,6 +543,7 @@
                 }
             }
             else{
+                [SmaBleMgr reunitonPeripheral:YES];
                 if (tautology >= 3) {
                     _dfuLab.textColor = [UIColor redColor];
                     _dfuLab.font = FontGothamLight(17);
@@ -534,9 +556,10 @@
                     else if (SmaBleMgr.repairDfu){
                         _dfuLab.text = SMALocalizedString(@"me_repairFail");
                     }
+                     [SmaBleMgr reunitonPeripheral:NO];
                 }
                 [coverView removeFromSuperview];
-                [SmaBleMgr reunitonPeripheral:YES];
+                
                 if (tautology < 3){
                     tautology ++;
                     [self dfuSelector:nil];
@@ -613,6 +636,7 @@
         _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
         [coverView removeFromSuperview];
         [SmaBleMgr reunitonPeripheral:YES];
+         [SMADefaultinfos putKey:DFUUPDATE andValue:@"0"];
     }
 }
 
@@ -634,13 +658,14 @@
             if (SmaBleMgr.repairFont && repairFontState == 2) {
                 [_remindLab setText:SMALocalizedString(@"me_repairFontNew")];
             }
-            [SmaBleMgr reunitonPeripheral:NO];
-            [updateTimer invalidate];
-            updateTimer = nil;
+            
             break;
         case DFUStateUploading:
             tateStarting = YES;
             NSLog(@"DFUStateUploading");
+            [SmaBleMgr reunitonPeripheral:NO];
+            [updateTimer invalidate];
+            updateTimer = nil;
             break;
         case DFUStateCompleted:
         {
@@ -679,6 +704,9 @@
                 }
                 else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
                     SmaBleMgr.scanNameArr = @[@"SMA-A2"];
+                }
+                else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+                    SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
                 }
 #elif ZENFIT
                 SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
@@ -781,10 +809,12 @@
         _remindLab.textColor = [UIColor whiteColor];
         if (SmaBleMgr.repairDfu) {
             _dfuLab.text = SMALocalizedString(@"me_repairFail");
+           
         }
         else{
             _dfuLab.text = SMALocalizedString(@"setting_dfu_retry");
         }
+         [SmaBleMgr reunitonPeripheral:NO];
     }
     [_remindLab setText:SMALocalizedString(@"setting_dfu_remind")];
     if (SmaBleMgr.repairFont) {
@@ -797,9 +827,9 @@
         }
         if (repairFontState == 0) {
             repairFirst = YES;
-            //            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //                [self.navigationController popViewControllerAnimated:YES];
-            //            });
+            //   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //   [self.navigationController popViewControllerAnimated:YES];
+            //   });
         }
     }
     if (tautology < 3){
@@ -809,7 +839,9 @@
 }
 
 - (void)dealloc{
+//    [super dealloc];
     NSLog(@"DFU dealloc");
+//     [[NSNotificationCenter defaultCenter] postNotificationName:@"DFUUPDATEFINISH" object:nil];
 }
 /*
  #pragma mark - Navigation

@@ -163,6 +163,7 @@
 "setting_callNot"="call kennisgeving";
 "setting_smsNot"="SMS-melding";
 "setting_screen"="Schermrichting";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="zittend leven";
 "setting_alarm"="Alarm";
 "setting_vibration"="alarm trillingen";

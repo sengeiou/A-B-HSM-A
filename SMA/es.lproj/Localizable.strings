@@ -163,6 +163,7 @@
 "setting_callNot"="Notificación Llamada";
 "setting_smsNot"="Notificación SMS";
 "setting_screen"="Orientación Display";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="Sedentarismo";
 "setting_alarm"="Alarma";
 "setting_vibration"="Alarma por vibración";

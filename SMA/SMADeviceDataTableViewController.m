@@ -18,10 +18,9 @@
     UILabel *titleLab;
     NSTimer *sportAni;
     BOOL firstLun;
-    
     CGFloat hisSpProgress;
     int hisSpStep;
-//    NSTimer *heAni;
+//   NSTimer *heAni;
 }
 @property (nonatomic, strong) SMADatabase *dal;
 @property (nonatomic, strong) NSDate *date;
@@ -33,7 +32,7 @@
     [super viewDidLoad];
     firstLun = YES;
     [self initializeMethod:NO];
-    [self chectFirmwareVewsionWithWeb];
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,12 +51,15 @@
 - (void)viewDidAppear:(BOOL)animated{
      [SmaNotificationCenter addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
      [SmaNotificationCenter addObserver:self selector:@selector(updateData) name:@"updateData" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chectFirmwareVewsionWithWeb) name:@"DFUUPDATEFINISH" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chectFirmwareVewsionWithWeb) name:@"DFUUPDATEFINISH" object:nil];
+     [self chectFirmwareVewsionWithWeb];
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [SmaNotificationCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [SmaNotificationCenter removeObserver:self name:@"updateData" object:nil];
+//    [SmaNotificationCenter removeObserver:self name:@"DFUUPDATEFINISH" object:nil];
 }
 
 - (SMADatabase *)dal{
@@ -77,7 +79,7 @@
 - (void)initializeMethod:(BOOL)updateUi{
     SmaBleMgr.BLdelegate = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-//        spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
+//      spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
         spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
         HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
         quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
@@ -142,6 +144,10 @@
 
 - (void)chectFirmwareVewsionWithWeb{
      NSLog(@"升级 %@",[SMADefaultinfos getValueforKey:DFUUPDATE]);
+    if (![SMAAccountTool userInfo].watchUUID || [[SMAAccountTool userInfo].watchUUID isEqualToString:@""]) {
+        [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
+        return;
+    }
     if ([SMADefaultinfos getValueforKey:DFUUPDATE] && [[SMADefaultinfos getValueforKey:DFUUPDATE] isEqualToString:@"0"]) {
         NSLog(@"----%@",[SMADefaultinfos getValueforKey:SMACUSTOM]);
         SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
@@ -185,7 +191,13 @@
     [calendarView getDataDayModel:self.date];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:calendarView];
-    
+    AudioServicesPlayAlertSound(<#SystemSoundID inSystemSoundID#>)
+//    [SmaBleSend getLongTime];
+//    [SmaBleSend setPairAncs];
+//    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+//    AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, ^{
+//        
+//    });
 //    SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
 //    [webSer acloudDownLDataWithAccount:[SMAAccountTool userInfo].userID];
     

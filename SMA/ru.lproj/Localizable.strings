@@ -163,6 +163,7 @@
 "setting_callNot"="Уведомления о звонках";
 "setting_smsNot"="Уведомления о СМС";
 "setting_screen"="Наклон дисплея";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="Разминка";
 "setting_alarm"="Будильник";
 "setting_vibration"="Вибрация будильника";

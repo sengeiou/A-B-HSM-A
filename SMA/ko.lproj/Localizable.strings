@@ -163,6 +163,7 @@
 "setting_callNot"="전화 알림";
 "setting_smsNot"="메시지 알림";
 "setting_screen"="가로 형식";
+"setting_liftBright" = "Gesture light up";
 "setting_sedentary"="앉아 있는 시간";
 "setting_alarm"="알람";
 "setting_vibration"="알람 진동";

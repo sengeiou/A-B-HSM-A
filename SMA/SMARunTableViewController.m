@@ -104,8 +104,8 @@
         [modeDic setObject:[self putTimeWithMinute:[[modeDic objectForKey:@"PRECISESTART"] doubleValue]] forKey:@"STARTTIME"];
         [modeDic setObject:[self putTimeWithMinute:[[modeDic objectForKey:@"PRECISEEND"] doubleValue]] forKey:@"ENDTIME"];
         [modeDic setObject:[self putHrWithReat:[[mutable firstObject] objectForKey:@"REAT"]] forKey:@"REAT"];
-         [detailArr addObject:modeDic];
-        NSLog(@"fwgegtrhth=j===%@",mutable);
+        [detailArr addObject:modeDic];
+//      NSLog(@"fwgegtrhth=j===%@",mutable);
     }
     return detailArr;
 }

@@ -90,6 +90,9 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]){
         SmaBleMgr.scanNameArr = @[@"SMA-A2"];
     }
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+        SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
+    }
 #elif ZENFIT
     SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
 #endif

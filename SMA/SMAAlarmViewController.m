@@ -119,8 +119,13 @@
                         [colockArry addObject:info];
                     }
                 }
-
-            [SmaBleSend setClockInfoV2:colockArry];
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
+                     [SmaBleSend setClockInfoV2:alarmArr];
+                }
+                else{
+                    [SmaBleSend setClockInfoV2:colockArry];
+                }
+           
             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
             }];
         }
@@ -140,7 +145,13 @@
                         [colockArry addObject:info];
                     }
                 }
-                [SmaBleSend setClockInfoV2:colockArry];
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
+                    [SmaBleSend setClockInfoV2:alarmArr];
+                }
+                else{
+                    [SmaBleSend setClockInfoV2:colockArry];
+                }
+
             }];
         }
     }];
@@ -159,7 +170,13 @@
             [colockArry addObject:info];
         }
     }
-    [SmaBleSend setClockInfoV2:colockArry];
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
+        [SmaBleSend setClockInfoV2:alarmArr];
+    }
+    else{
+        [SmaBleSend setClockInfoV2:colockArry];
+    }
+
     [_alarmTView reloadData];
 }
 

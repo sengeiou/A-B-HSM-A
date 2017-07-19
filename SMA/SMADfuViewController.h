@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SMADfuButton.h"
 #import "SMADfuView.h"
+typedef void (^MyBlock)(NSIndexPath *indexPath);
 
 @protocol dfuFinishDelegate <NSObject>
 
