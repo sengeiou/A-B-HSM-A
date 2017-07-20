@@ -31,6 +31,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    SmaBleMgr.BLdelegate = self;
+    [SmaBleSend getLongTime];
+}
+
 - (void)initializeMethod{
     seat = [SMAAccountTool seatInfo];
     if (!seat) {
@@ -48,6 +53,10 @@
         [SMAAccountTool saveSeat:seat];
     }
     weekString = seat.repeatWeek;
+    if (weekString.intValue > 127) {
+        weekString = @"127";
+        seat.repeatWeek = @"127";
+    }
     headerArr = @[SMALocalizedString(@"setting_sedentary_time"),SMALocalizedString(@"setting_other"),SMALocalizedString(@"setting_sedentary_remind")];
 }
 
@@ -400,6 +409,14 @@
     }
     else{
         _secTimeIma.transform = CGAffineTransformIdentity;
+    }
+}
+
+- (void)bledidDisposeMode:(SMA_INFO_MODE)mode dataArr:(NSMutableArray *)data{
+    if (mode == LONGTIMEBACK) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self initializeMethod];
+        });
     }
 }
 /*

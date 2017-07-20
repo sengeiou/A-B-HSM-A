@@ -66,6 +66,7 @@
         [SmaBleSend relieveWatchBound];
 //        [SmaBleSend BLrestoration];
         [SmaBleMgr disconnectBl];
+        SmaBleMgr.bandDevice = NO;
         [SmaBleMgr reunitonPeripheral:NO];//关闭重连机制
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.navigationController popViewControllerAnimated:YES];
@@ -95,6 +96,7 @@
         [SMAAccountTool saveUser:user];
         [SmaBleSend relieveWatchBound];
         [SmaBleMgr reunitonPeripheral:NO];//关闭重连机制
+        SmaBleMgr.bandDevice = NO;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //             [SmaBleMgr disconnectBl];
             [self.navigationController popViewControllerAnimated:YES];

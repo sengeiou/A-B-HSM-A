@@ -437,6 +437,7 @@ static id _instace;
             if (user.watchUUID && !_repairFont && !_repairDfu && !SmaDfuManager.dfuMode) {
                 [SmaBusinessTool setSerialNum];
                 [SmaBleSend setHighSpeed:YES];
+                 self.bandDevice = YES;
                 [SmaBleSend LoginUserWithUserID:user.userID];
             }
             if (SmaDfuManager.dfuMode || _repairDfu) {
@@ -444,6 +445,7 @@ static id _instace;
             }
             else if (!user.watchUUID && !_repairFont && !_repairDfu){
                 [SmaBusinessTool setSerialNum];
+                self.bandDevice = NO;
                 [SmaBleSend bindUserWithUserID:user.userID];
                 if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleBindState:)]){
                     [self.BLdelegate bleBindState:0];
@@ -562,11 +564,13 @@ static id _instace;
                 user.watchUUID = self.peripheral.identifier.UUIDString;
                 [SMAAccountTool saveUser:user];
                 [SmaBleSend LoginUserWithUserID:self.user.userID];
+//                _bandDevice = YES;
                 if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleBindState:)]){
                     [self.BLdelegate bleBindState:1];
                 }
             }
             else{
+                _bandDevice = NO;
                 if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleBindState:)]){
                     [self.BLdelegate bleBindState:2];
                 }
@@ -576,7 +580,8 @@ static id _instace;
             if([array[0] intValue])//登录成功，
             {
                 _syncing = NO;
-                [self firstSet];
+                [self firstSet:_bandDevice];
+                _bandDevice = YES;
             }
             else{
                 
@@ -683,18 +688,18 @@ static id _instace;
             break;
         case NOTIFICATION:
             if ([[array firstObject] intValue] == 96) {
-               [SmaBleSend getCuffCalarmClockList];
+                [SmaBleSend getCuffCalarmClockList];
             }
             if ([[array firstObject] intValue] == 97) {
                 [SmaBleSend getGoal];
             }
             if ([[array firstObject] intValue] == 100) {
-                
+                [SmaBleSend getLongTime];
             }
             break;
         case ALARMCLOCK:
             NSLog(@"(((***  == %@",array);
-            if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
+            if (![[array firstObject] isKindOfClass:[NSDictionary class]]) {
                 array = [[[array reverseObjectEnumerator] allObjects] mutableCopy];
                 [dal deleteAllClockWithAccount:[SMAAccountTool userInfo].userID Callback:^(BOOL result) {
                     
@@ -703,22 +708,22 @@ static id _instace;
                     info.isWeb = @"0";
                     info.aid = nil;
                     if (!info.tagname) {
-                         info.tagname = @"";
+                        info.tagname = @"";
                     }
                     NSLog(@"fwgiojo  n =%@",info.tagname);
-                   
+                    
                     [dal insertClockInfo:info account:[SMAAccountTool userInfo].userID callback:^(BOOL result) {
                         
                     }];
                 }
             }
             break;
-            case GOALCALLBACK:{
+        case GOALCALLBACK:{
             SMAUserInfo *user = [SMAAccountTool userInfo];
-                if ([[array firstObject] isKindOfClass:[NSString class]]) {
-                     user.userGoal = [array firstObject];
-                    [SMAAccountTool saveUser:user];
-                }
+            if ([[array firstObject] isKindOfClass:[NSString class]]) {
+                user.userGoal = [array firstObject];
+                [SMAAccountTool saveUser:user];
+            }
         }
             break;
         case LONGTIMEBACK:{
@@ -736,7 +741,7 @@ static id _instace;
                 seat.seatValue = @"30";
                 seat.stepValue = @"30";
             }
-            if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
+            if (![[array firstObject] isKindOfClass:[NSDictionary class]]) {
                 SmaSeatInfo *info = (SmaSeatInfo *)[array firstObject];
                 seat.isOpen = info.isOpen;
                 seat.repeatWeek = info.repeatWeek;
@@ -749,7 +754,7 @@ static id _instace;
                 seat.seatValue = info.seatValue;
                 seat.stepValue = info.stepValue;
             }
-             [SMAAccountTool saveSeat:seat];
+            [SMAAccountTool saveSeat:seat];
         }
             break;
         case FINDPHONE:
@@ -784,7 +789,7 @@ static id _instace;
     }
 }
 
-- (void)firstSet{
+- (void)firstSet:(BOOL)band{
     [SmaBleSend setSystemTime];
     [SmaBleSend setDefendLose:[SMADefaultinfos getIntValueforKey:ANTILOSTSET]];
     [SmaBleSend setSleepAIDS:[SMADefaultinfos getIntValueforKey:SLEEPMONSET]];
@@ -798,24 +803,6 @@ static id _instace;
     disInfo.endTime1 = @"1439";
     disInfo.isOpen1 = @"1";
     [SmaBleSend setNoDisInfo:disInfo];
-    
-    SmaHRHisInfo *HRInfo = [SMAAccountTool HRHisInfo];
-    if (!HRInfo) {
-        HRInfo = [[SmaHRHisInfo alloc] init];
-        HRInfo.isopen0 = [NSString stringWithFormat:@"%d",1];
-        HRInfo.dayFlags=@"127";//每天
-        HRInfo.isopen=[NSString stringWithFormat:@"%d",1];
-        HRInfo.tagname=@"30";
-        HRInfo.beginhour0 = @"0";
-        HRInfo.endhour0 = @"23";
-        [SMAAccountTool saveHRHis:HRInfo];
-    }
-    [SmaBleSend setHRWithHR:HRInfo];
-    
-    SmaSeatInfo *setInfo = [SMAAccountTool seatInfo];
-    if (setInfo) {
-        [SmaBleSend seatLongTimeInfoV2:setInfo];
-    }
     
     [SmaBleSend setBacklight:[SMADefaultinfos getIntValueforKey:BACKLIGHTSET]];
     SmaVibrationInfo *vibration = [[SmaVibrationInfo alloc] init];
@@ -861,6 +848,19 @@ static id _instace;
     
     [SmaBleSend setBritishSystem:[SMADefaultinfos getIntValueforKey:BRITISHSYSTEM]];
     
+    SmaHRHisInfo *HRInfo = [SMAAccountTool HRHisInfo];
+    if (!HRInfo) {
+        HRInfo = [[SmaHRHisInfo alloc] init];
+        HRInfo.isopen0 = [NSString stringWithFormat:@"%d",1];
+        HRInfo.dayFlags=@"127";//每天
+        HRInfo.isopen=[NSString stringWithFormat:@"%d",1];
+        HRInfo.tagname=@"30";
+        HRInfo.beginhour0 = @"0";
+        HRInfo.endhour0 = @"23";
+        [SMAAccountTool saveHRHis:HRInfo];
+    }
+    SmaSeatInfo *setInfo = [SMAAccountTool seatInfo];
+    
     SMADatabase *smaDal = [[SMADatabase alloc] init];
     NSMutableArray *alarmArr = [smaDal selectClockList];
     NSMutableArray *colockArry=[NSMutableArray array];
@@ -874,11 +874,24 @@ static id _instace;
             aid++;
         }
     }
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
-//        [SmaBleSend setClockInfoV2:alarmArr];
-    }
-    else{
+    
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"] && !band){//正式修改为SMA-R1
+        if (setInfo){
+            [SmaBleSend seatLongTimeInfoV2:setInfo];
+        }
+        [SmaBleSend setHRWithHR:HRInfo];
         [SmaBleSend setClockInfoV2:colockArry];
+    }else{
+        [SmaBleSend getCuffCalarmClockList];
+        [SmaBleSend getLongTime];
+        [SmaBleSend getGoal];
+        if (![[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
+            if (setInfo){
+                [SmaBleSend seatLongTimeInfoV2:setInfo];
+            }
+            [SmaBleSend setHRWithHR:HRInfo];
+            [SmaBleSend setClockInfoV2:colockArry];
+        }
     }
     [SmaBleSend getElectric];
     [SmaBleSend getBLVersion];

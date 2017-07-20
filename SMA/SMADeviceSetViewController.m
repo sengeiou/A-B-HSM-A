@@ -34,10 +34,11 @@
 
 - (void)viewWillAppear:(BOOL)animated{
      [self.navigationController.navigationBar setBackgroundImage:[UIImage buttonImageFromColors:@[[SmaColor colorWithHexString:@"#5790F9" alpha:1],[SmaColor colorWithHexString:@"#80C1F9" alpha:1]] ByGradientType:topToBottom size:CGSizeMake(MainScreen.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
-    [self updateUI];
+//    [self updateUI];
     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]) {
         [self chectFirmwareVewsionWithWeb];
     }
+    SmaBleMgr.BLdelegate = self;
 //    [self dfuFinish];
 }
 
@@ -612,6 +613,7 @@
         [SMAAccountTool saveUser:user];
         [SmaBleSend relieveWatchBound];
         [SmaBleMgr reunitonPeripheral:NO];//关闭重连机制
+        SmaBleMgr.bandDevice = NO;
 //        unpair = YES;
        
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

@@ -2235,7 +2235,9 @@ typedef union{
     if (burnthe_t.data != 0) {
         SmaSeatInfo *info = [[SmaSeatInfo alloc] init];
         info.isOpen = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.isopen];
-        info.repeatWeek = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.dayflags];
+        burntheplanks_week_union_t week_t1;
+        week_t1.week = burnthe_t.bit_plank.dayflags;
+        info.repeatWeek = [self toDecimalSystemWithBinarySystem:[NSString stringWithFormat:@"%d%d%d%d%d%d%d",week_t1.bit_week.monday,week_t1.bit_week.tuesday,week_t1.bit_week.wednesday,week_t1.bit_week.thursday,week_t1.bit_week.friday,week_t1.bit_week.saturday,week_t1.bit_week.sunday]];
         info.seatValue = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.cycle];
         info.stepValue = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.thresholdvalue];
         info.beginTime0 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.beginTim1];
@@ -2641,6 +2643,7 @@ static NSMutableArray *hrArr;
                 if (sendArr.count > 1) {
                     for (int i = 0; i < sendArr.count - 1; i++) {
 //                        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                        NSLog(@"send data  %@",(NSData *)sendArr[i]);
                             [self.p writeValue:(NSData *)sendArr[i] forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
 //                        });
                     }

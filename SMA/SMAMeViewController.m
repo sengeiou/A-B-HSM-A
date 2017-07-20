@@ -31,9 +31,16 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    //    SmaAnalysisWebServiceTool *webTool = [[SmaAnalysisWebServiceTool alloc] init];
+    //    SmaAnalysisWebServiceTool *webTool = [[SmaAnalysisWebServiceTool alloc] init]; GOALIDENTIFIER
     //    [webTool acloudSetScore:20013];
     [self createUI];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"GOALIDENTIFIER"] ) {
+        SMASpGoalViewController *goalVC = segue.destinationViewController;
+        goalVC.hidesBottomBarWhenPushed = YES;
+    }
 }
 
 - (void)createUI{
@@ -221,7 +228,9 @@
     if (indexPath.section == 2 && indexPath.row == 1) {
         UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-        [self.navigationController pushViewController:[[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout] animated:YES];
+        SMARepairDfuCollectionController *repairVC = [[SMARepairDfuCollectionController alloc] initWithCollectionViewLayout:layout];
+        repairVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:repairVC animated:YES];
     }
 
     if (indexPath.section == 3 && indexPath.row == 0) {

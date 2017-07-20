@@ -47,6 +47,7 @@
 @property (nonatomic, assign) BOOL repairDfu;
 @property (nonatomic, assign) BOOL dfuUpdate;
 @property (nonatomic, assign) BOOL repairFont;
+@property (nonatomic, assign) BOOL bandDevice;
 + (instancetype)sharedCoreBlueTool;
 //查找蓝牙设备
 - (void)scanBL:(int)time;

@@ -300,7 +300,7 @@ unsigned short crc16_ccitt(Byte *buf, int len)
     
     NSData *nckData = [NSData dataWithBytes:nckByte length:8];
     [peripheral writeValue:nckData forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-    //    NSLog(@"ACK 成功");
+        NSLog(@"ACK 成功  %@",nckData);
 }
 /**
  *  <#Description#> Nack 应答
@@ -321,7 +321,7 @@ unsigned short crc16_ccitt(Byte *buf, int len)
     nckByte[7]=seqId&0xff;
     NSData *nckData = [NSData dataWithBytes:nckByte length:8];
     [peripheral writeValue:nckData forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-//    NSLog(@"绑定失败");
+    NSLog(@"绑定失败 %@",nckData);
 }
 
 + (void)setBinData:(Byte [])data result:(Byte [])result byteInt:(int)byInt{

@@ -37,6 +37,10 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [SmaBleSend getCuffCalarmClockList];
+}
+
 //判断是否允许跳转
 - (BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
     if ([identifier isEqualToString:@"addAlarm"] ) {
@@ -50,6 +54,7 @@
 }
 
 - (void)initializeMethod{
+    SmaBleMgr.BLdelegate = self;
     SMADatabase *smaDal = [[SMADatabase alloc] init];
     alarmArr = [smaDal selectClockList];
 }
@@ -180,6 +185,14 @@
     [_alarmTView reloadData];
 }
 
+- (void)bledidDisposeMode:(SMA_INFO_MODE)mode dataArr:(NSMutableArray *)data{
+    if (mode == ALARMCLOCK) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self initializeMethod];
+            [_alarmTView reloadData];
+        });
+    }
+}
 
 //  十进制转二进制
 - (NSString *)toBinarySystemWithDecimalSystem:(NSString *)decimal

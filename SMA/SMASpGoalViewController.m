@@ -21,6 +21,7 @@
     [super viewDidLoad];
     [self initializeMethod];
     [self createUI];
+//    self.hidesBottomBarWhenPushed = YES;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +34,16 @@
         [goalArr addObject:[NSString stringWithFormat:@"%d",i * 1000]];
     }
     user = [SMAAccountTool userInfo];
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.view layoutIfNeeded];
+}
+
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.view layoutIfNeeded];
 }
 
 - (void)createUI{

@@ -12,6 +12,7 @@
 #import "SMACenterAlerView.h"
 #import "SMAHelpViewController.h"
 #import "SMARepairDfuCollectionController.h"
+#import "SMASpGoalViewController.h"
 @interface SMAMeViewController : UITableViewController<UIImagePickerControllerDelegate,UINavigationControllerDelegate,BLConnectDelegate,cenAlerButDelegate>
 @property (nonatomic, weak) IBOutlet UILabel *nicknameLab, *personalLab, *goalLab, *moreLab, *pairDfuLab, *helpLab, *signOutLab;
 @property (nonatomic, weak) IBOutlet UIButton *photoBut;

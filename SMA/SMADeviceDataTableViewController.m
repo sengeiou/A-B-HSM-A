@@ -60,6 +60,7 @@
     [SmaNotificationCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [SmaNotificationCenter removeObserver:self name:@"updateData" object:nil];
 //    [SmaNotificationCenter removeObserver:self name:@"DFUUPDATEFINISH" object:nil];
+//     [SmaBleSend requestFindDeviceWithBuzzing:0];
 }
 
 - (SMADatabase *)dal{
@@ -191,8 +192,8 @@
     [calendarView getDataDayModel:self.date];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:calendarView];
-    AudioServicesPlayAlertSound(<#SystemSoundID inSystemSoundID#>)
-//    [SmaBleSend getLongTime];
+    [SmaBleSend getLongTime];
+//    [SmaBleSend requestFindDeviceWithBuzzing:2];
 //    [SmaBleSend setPairAncs];
 //    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
 //    AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, ^{
@@ -511,6 +512,11 @@
                 self.tableView.scrollEnabled = YES;
                  [self.tableView reloadData];
             });
+        });
+    }
+    if (mode == GOALCALLBACK) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
         });
     }
 }
