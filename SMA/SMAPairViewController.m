@@ -68,7 +68,7 @@
     //  _ignoreLab.text = SMALocalizedString(@"setting_band_remind07");
     _nearLab.text = SMALocalizedString(@"setting_band_attention");
 #if SMA
-    _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment: [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] ? [NSString stringWithFormat:@"%@/SMA-A2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]]:[[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] ? [NSString stringWithFormat:@"%@/B2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]] : [SMADefaultinfos getValueforKey:BANDDEVELIVE]];
+    _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment: [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] ? [NSString stringWithFormat:@"%@/SMA-A2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]]:[[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] ? [NSString stringWithFormat:@"%@/B2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]] : [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] ? @"M1/Technos_SR/MOSRAA": [SMADefaultinfos getValueforKey:BANDDEVELIVE]];
 #elif ZENFIT
     _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment:@"ZEN FIT"];
 #endif
@@ -98,7 +98,7 @@
         SmaBleMgr.scanNameArr = @[@"SMA-Q2"];
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"]){
-        SmaBleMgr.scanNameArr = @[@"SM07"];
+        SmaBleMgr.scanNameArr = @[@"SM07",@"HERA Fit"];
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"]){
         SmaBleMgr.scanNameArr = @[@"SMA-A1",@"SMA-A2"];
@@ -108,6 +108,9 @@
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
         SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
+    }
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
+        SmaBleMgr.scanNameArr = @[@"M1",@"Technos_SR",@"MOSRAA"];
     }
 #elif ZENFIT
     SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
@@ -134,6 +137,9 @@
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
             SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
+        }
+        else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
+            SmaBleMgr.scanNameArr = @[@"M1",@"Technos_SR",@"MOSRAA"];
         }
 #elif ZENFIT
         SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
@@ -325,6 +331,9 @@
             else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
                 SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
             }
+            else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
+                SmaBleMgr.scanNameArr = @[@"M1",@"Technos_SR",@"MOSRAA"];
+            }
 #elif ZENFIT
             SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
 #endif
@@ -414,6 +423,9 @@
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
             SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
+        }
+        else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
+            SmaBleMgr.scanNameArr = @[@"M1",@"Technos_SR",@"MOSRAA"];
         }
 #elif ZENFIT
         SmaBleMgr.scanNameArr = @[@"ZEN FIT"];

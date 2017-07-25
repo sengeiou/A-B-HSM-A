@@ -30,6 +30,7 @@
 #define REPAIRUUID @"REPAIRUUID" //固件修复前连接设备UUID
 #define DFUUPDATE @"DFUUPDATE" //升级失败标志
 #define LIFTBRIGHT @"LIFTBRIGHT" //抬手亮
+#define CAMERANOT @"CAMERANOT" //相机状态 1：设备要求打开相机  2：拍照  0：关闭相机
 //#define 
 @interface SMADefaultinfos : NSObject
 +(void)putKey:(NSString *)key andValue:(NSObject *)value;

@@ -382,6 +382,10 @@ static SmaBLE *_instace;
         mode = NOTIFICATION;
         array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[10]], nil];
     }
+    else if(bytes[8]==0x02 && bytes[10]==0x67 && bol){
+        mode = NOTIFICATION;
+        array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[10]], nil];
+    }
     else if (bytes[8]==0x02 && bytes[10]==0x63 && bol){
         mode = GOALCALLBACK;
         Byte goalByte[4] = {0};
@@ -397,7 +401,7 @@ static SmaBLE *_instace;
          mode = LONGTIMEBACK;
          array = [self analysisLongTimeData:bytes len:len];
      }
-     else if(bytes[8]==0x06 && bytes[10]==0x60 && bol){
+     else if(bytes[8]==0x04 && bytes[10]==0x60 && bol){
          mode = FINDPHONE;
          array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[13]], nil];
      }
@@ -2242,10 +2246,10 @@ typedef union{
         info.stepValue = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.thresholdvalue];
         info.beginTime0 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.beginTim1];
         info.endTime0 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.endTime1];
-        info.isOpen0 = (burnthe_t.bit_plank.beginTim1 >= 25 || burnthe_t.bit_plank.endTime1 >= 25) ? @"0":@"1";
+        info.isOpen0 = (burnthe_t.bit_plank.beginTim1 >= 24 || burnthe_t.bit_plank.endTime1 >= 24) ? @"0":@"1";
         info.beginTime1 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.beginTim2];
         info.endTime1 = [NSString stringWithFormat:@"%d",burnthe_t.bit_plank.endTime2];
-        info.isOpen1 = (burnthe_t.bit_plank.beginTim2 >= 25 || burnthe_t.bit_plank.endTime2 >= 25) ? @"0":@"1";
+        info.isOpen1 = (burnthe_t.bit_plank.beginTim2 >= 24 || burnthe_t.bit_plank.endTime2 >= 24) ? @"0":@"1";
         [longArr addObject:info];
     }
     else{

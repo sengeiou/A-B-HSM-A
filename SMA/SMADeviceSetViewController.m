@@ -52,6 +52,9 @@
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
             switchArr = @[@[@"remind_lost_pre",@"remind_disturb_pre",@"remind_call_pre",@"remind_message_pre",@"remind_screen_pre",@"Bright screen_pre"],@[@"remind_lost",@"remind_disturb",@"remind_call",@"remind_message",@"remind_screen",@"Bright screen"]];
         }
+        else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
+            switchArr = @[@[@"remind_lost_pre"],@[@"remind_lost"]];
+        }
         else{
             switchArr = @[@[@"remind_lost_pre",@"remind_disturb_pre",@"remind_call_pre",@"remind_message_pre"],@[@"remind_lost",@"remind_disturb",@"remind_call",@"remind_message"]];
         }
@@ -176,6 +179,8 @@
     _backlightCell.hidden = NO;
     _watchChangeCell.hidden = NO;
     _timingCell.hidden = YES;
+    _findDiviceCell.hidden = YES;
+//    _dfuUpdateLab.hidden = NO;
     if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) {
         _backlightCell.hidden = YES;
         _watchChangeCell.hidden = YES;
@@ -186,7 +191,10 @@
         _watchChangeCell.hidden = YES;
         _timingCell.hidden = NO;
     }
-    
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+        _findDiviceCell.hidden = NO;
+//        _dfuUpdateLab.hidden = YES;
+    }
     SmaBleMgr.BLdelegate = self;
 
     _userInfo = [SMAAccountTool userInfo];
@@ -273,7 +281,7 @@
             if ([fileType isEqualToString:[SMADefaultinfos getValueforKey:SMACUSTOM]] && [deviceName isEqualToString:[SMAAccountTool userInfo].scnaName]) {
                 NSString *webFirmwareVer = [[filename substringWithRange:NSMakeRange(filename.length - 9, 5)] stringByReplacingOccurrencesOfString:@"." withString:@""];
                 NSLog(@"fwgohjiohi  %@  __ %@",[[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""],webFirmwareVer);
-                if ([[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue <= webFirmwareVer.intValue) {
+                if ([[SMAAccountTool userInfo].watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue < webFirmwareVer.intValue) {
                     _updateView.hidden = NO;
                     webFirmwareDic = [finish objectAtIndex:i];
                 }
@@ -303,13 +311,19 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (!([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]) && indexPath.section == 3 && indexPath.row == 3) {
+    if (![[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] && indexPath.section == 3 && indexPath.row == 3) {
         return 0;
     }
-    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) && indexPath.section == 3 && indexPath.row == 0 ) {
+//    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] && indexPath.section == 4 && indexPath.row == 1) {
+//        return 0;
+//    }
+    if (!([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"]) && indexPath.section == 3 && indexPath.row == 4) {
         return 0;
     }
-    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) && indexPath.section == 4 && indexPath.row == 0) {
+    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) && indexPath.section == 3 && indexPath.row == 0 ) {
+        return 0;
+    }
+    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) && indexPath.section == 4 && indexPath.row == 0) {
         return 0;
     }
     if (indexPath.section == 1) {
@@ -442,6 +456,9 @@
         AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
         [app.window addSubview:cenAler];
     }
+    else if (cell == _findDiviceCell){
+        [SmaBleSend requestFindDeviceWithBuzzing:1];
+    }
 //}
 }
 
@@ -521,6 +538,9 @@
     }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
          imageStr = @"SMA_B2";
+    }
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
+        imageStr = @"SMA_r1";
     }
 #elif ZENFIT
     imageStr = @"SMA_07_zen";

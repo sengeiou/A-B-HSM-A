@@ -93,6 +93,9 @@
     _lastUpdateTime = lastUpdateTime;
     
     // 1.归档
+    if (!lastUpdateTime) {
+        return;
+    }
     [[NSUserDefaults standardUserDefaults] setObject:lastUpdateTime forKey:MJRefreshHeaderTimeKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
     

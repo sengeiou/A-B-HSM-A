@@ -961,7 +961,7 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
 }
 
 - (void)sendMACWeChat{
-    
+    NSLog(@"MAC =%@",[SMADefaultinfos getValueforKey:DEVICEMAC]);
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     manager.requestSerializer=[AFJSONRequestSerializer serializer];

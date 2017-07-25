@@ -293,7 +293,7 @@
         }
         return;
     }
-    if ((((SmaBleMgr.repairDfu || SmaBleMgr.repairFont) ? NO : [SmaBleMgr checkBLConnectState]) && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue <= webFirmwareVer.intValue) || SmaBleMgr.repairDfu || SmaBleMgr.repairFont) {
+    if ((((SmaBleMgr.repairDfu || SmaBleMgr.repairFont) ? NO : [SmaBleMgr checkBLConnectState]) && _dfuInfoDic && [user.watchVersion stringByReplacingOccurrencesOfString:@"." withString:@""].intValue < webFirmwareVer.intValue) || SmaBleMgr.repairDfu || SmaBleMgr.repairFont) {
         [SmaBleMgr reunitonPeripheral:YES];
         [updateTimer invalidate];
         updateTimer = nil;
@@ -708,6 +708,9 @@
                 else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
                     SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
                 }
+                else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
+                    SmaBleMgr.scanNameArr = @[@"M1",@"Technos_SR",@"MOSRAA"];
+                }
 #elif ZENFIT
                 SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
 #endif
@@ -757,6 +760,7 @@
             break;
     }
 }
+
 
 - (void)repairTwo{
     _upVerView.hidden = NO;

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "522233932.864014"
+            timestampString = "522317580.303174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2606"
-            endingLineNumber = "2606"
+            startingLineNumber = "2610"
+            endingLineNumber = "2610"
             landmarkName = "-returnHour:"
             landmarkType = "7">
          </BreakpointContent>

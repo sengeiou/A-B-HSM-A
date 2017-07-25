@@ -300,7 +300,7 @@ unsigned short crc16_ccitt(Byte *buf, int len)
     
     NSData *nckData = [NSData dataWithBytes:nckByte length:8];
     [peripheral writeValue:nckData forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-        NSLog(@"ACK 成功  %@",nckData);
+//        NSLog(@"ACK 成功  %@",nckData);
 }
 /**
  *  <#Description#> Nack 应答

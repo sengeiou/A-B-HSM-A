@@ -236,10 +236,11 @@ static id _instace;
     
     //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
     [self.queue inDatabase:^(FMDatabase *db) {
-        [db shouldCacheStatements];
+//        [db shouldCacheStatements];
         [db beginTransaction];
         //        sqlite3_exec((__bridge sqlite3 *)(db),"PRAGMA synchronous = OFF; ",0,0,0);
         __block BOOL result = false;
+        NSLog(@"egr   %d   **\n %@",sportData.count,sportData);
         for (int i = 0; i < sportData.count; i ++) {
             
             NSDictionary *spDic = (NSDictionary *)[sportData objectAtIndex:i];
@@ -757,11 +758,11 @@ static id _instace;
             
             if (HR_id && ![HR_id isEqualToString:@""]) {
                 result = [db executeUpdate:@"update tb_HRate set HR_id=?, HR_real=?,hr_mode=?,HR_web=? where HR_date =? and HR_time=? and hr_mode=? and user_id=?",hrID,[hrDic objectForKey:@"HEART"],[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"WEB"],YTD,moment,[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"USERID"]];
-                //                NSLog(@"更新心率数据 %d ",result);
+                                NSLog(@"更新心率数据 %d ",result);
             }
             else{
                 result = [db executeUpdate:@"insert into tb_HRate(user_id,HR_id,HR_date,HR_time,HR_real,hr_mode,HR_ident,HR_web) values(?,?,?,?,?,?,?,?)",[hrDic objectForKey:@"USERID"],hrID,YTD,moment,[hrDic objectForKey:@"HEART"],[hrDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"INDEX"],[hrDic objectForKey:@"WEB"]];
-                //                NSLog(@"插入心率数据 %d",result);
+                                NSLog(@"插入心率数据 %d",result);
             }
         }
         [db commit];

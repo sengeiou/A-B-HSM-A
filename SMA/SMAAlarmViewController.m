@@ -32,13 +32,16 @@
 - (void)prepareForSegue:(UIStoryboardSegue*)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"addAlarm"] ) {
         SMAAlarmSubViewController*subVC = segue.destinationViewController;
-//        SMAAlarmSubViewController *subVC = [[navigationController viewControllers] objectAtIndex:0]; ;
+        //        SMAAlarmSubViewController *subVC = [[navigationController viewControllers] objectAtIndex:0]; ;
         subVC.delegate = self;
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    [SmaBleSend getCuffCalarmClockList];
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+        SmaBleMgr.BLdelegate = self;
+        [SmaBleSend getCuffCalarmClockList];
+    }
 }
 
 //判断是否允许跳转
@@ -70,13 +73,13 @@
 
 - (IBAction)editSelector:(UIButton *)sender{
     if ( alarmArr.count > 0) {
-    sender.selected = !sender.selected;
-    editIng = sender.selected;
-    for (int i = 0; i < alarmArr.count; i ++ ) {
-        SMASedentEditCell *cell = [_alarmTView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
-        cell.edit = editIng;
+        sender.selected = !sender.selected;
+        editIng = sender.selected;
+        for (int i = 0; i < alarmArr.count; i ++ ) {
+            SMASedentEditCell *cell = [_alarmTView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+            cell.edit = editIng;
+        }
     }
-  }
 }
 
 - (IBAction)addSelector:(id)sender{
@@ -114,8 +117,8 @@
         if ([SmaBleMgr checkBLConnectState]) {
             SMADatabase *smaDal = [[SMADatabase alloc] init];
             [smaDal deleteClockInfo:info.aid callback:^(BOOL result) {
-            NSInteger row = [alarmArr indexOfObject:info];
-            [alarmArr removeObjectAtIndex:row];
+                NSInteger row = [alarmArr indexOfObject:info];
+                [alarmArr removeObjectAtIndex:row];
                 NSMutableArray *colockArry=[NSMutableArray array];
                 for (int i=0; i<alarmArr.count; i++) {
                     SmaAlarmInfo *info=(SmaAlarmInfo *)alarmArr[i];
@@ -124,14 +127,14 @@
                         [colockArry addObject:info];
                     }
                 }
-                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
-                     [SmaBleSend setClockInfoV2:alarmArr];
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+                    [SmaBleSend setClockInfoV2:alarmArr];
                 }
                 else{
                     [SmaBleSend setClockInfoV2:colockArry];
                 }
-           
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+                
+                [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:row inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
             }];
         }
     }];
@@ -150,13 +153,13 @@
                         [colockArry addObject:info];
                     }
                 }
-                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
                     [SmaBleSend setClockInfoV2:alarmArr];
                 }
                 else{
                     [SmaBleSend setClockInfoV2:colockArry];
                 }
-
+                
             }];
         }
     }];
@@ -175,13 +178,13 @@
             [colockArry addObject:info];
         }
     }
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
         [SmaBleSend setClockInfoV2:alarmArr];
     }
     else{
         [SmaBleSend setClockInfoV2:colockArry];
     }
-
+    
     [_alarmTView reloadData];
 }
 

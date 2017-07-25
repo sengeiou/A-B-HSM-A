@@ -43,7 +43,7 @@
 
 - (void)initializeMethod{
 #if SMA
-    deviceArr = @[@[@"SMA-A1",SMALocalizedString(@"setting_band_07detail"),@"img_jiexie"]/*,@[@"SMA-A2",SMALocalizedString(@"setting_band_07detail"),@"img_launcher"]*/,@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"],@[@"SMART BAND-02",SMALocalizedString(@"setting_band_07detail"),@"img_B2"]/*,@[@"R1",SMALocalizedString(@"setting_band_07detail"),@"img_B2"]*/];
+    deviceArr = @[@[@"SMA-A1",SMALocalizedString(@"setting_band_07detail"),@"img_jiexie"]/*,@[@"SMA-A2",SMALocalizedString(@"setting_band_07detail"),@"img_launcher"]*/,@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"],@[@"SMART BAND-02",SMALocalizedString(@"setting_band_07detail"),@"img_B2"],@[@"SMART BAND-R1",SMALocalizedString(@"setting_band_07detail"),@"img_r1"]];
 #elif ZENFIT
     deviceArr = @[@[@"ZEN FIT",SMALocalizedString(@"setting_band_07detail"),@"img_07_zen"]];
 #endif
@@ -125,7 +125,9 @@
     if (indexPath.row == 3) {
         [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-B2"];
     }
-    
+    if (indexPath.row == 4) {
+        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-R1"];
+    }
 #elif ZENFIT
     if (indexPath.row == 0) {
         [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SM07"];

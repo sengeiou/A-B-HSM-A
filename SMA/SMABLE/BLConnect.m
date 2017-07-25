@@ -14,7 +14,7 @@
 @end
 
 @implementation BLConnect
-@synthesize peripherals;
+@synthesize peripherals,cameraIndex;
 /*********** 蓝牙单例公共对象构建  begin ***********/
 // 用来保存唯一的单例对象
 static id _instace;
@@ -47,6 +47,33 @@ static id _instace;
 {
     SmaBleSend.delegate = self;
     self.firstInitilize = YES;
+    //1.音频文件的url路径
+    NSURL *url=[[NSBundle mainBundle]URLForResource:@"Alarm.mp3" withExtension:Nil];
+    
+    //2.实例化播放器
+    _player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:Nil];
+    _player.volume = 1.0;
+    //3.缓冲
+    [_player prepareToPlay];
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+    [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+    
+    [self getSystemVolumSlider];
+}
+
+- (UISlider*)getSystemVolumSlider{
+    static UISlider * volumeViewSlider = nil;
+    if (volumeViewSlider == nil) {
+        MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(10, 50, 200, 4)];
+        
+        for (UIView* newView in volumeView.subviews) {
+            if ([newView.class.description isEqualToString:@"MPVolumeSlider"]){
+                volumeViewSlider = (UISlider*)newView;
+                break;
+            }
+        }
+    }
+    return volumeViewSlider;
 }
 
 - (SMAUserInfo *)user{
@@ -437,7 +464,7 @@ static id _instace;
             if (user.watchUUID && !_repairFont && !_repairDfu && !SmaDfuManager.dfuMode) {
                 [SmaBusinessTool setSerialNum];
                 [SmaBleSend setHighSpeed:YES];
-                 self.bandDevice = YES;
+                self.bandDevice = YES;
                 [SmaBleSend LoginUserWithUserID:user.userID];
             }
             if (SmaDfuManager.dfuMode || _repairDfu) {
@@ -564,7 +591,7 @@ static id _instace;
                 user.watchUUID = self.peripheral.identifier.UUIDString;
                 [SMAAccountTool saveUser:user];
                 [SmaBleSend LoginUserWithUserID:self.user.userID];
-//                _bandDevice = YES;
+                //                _bandDevice = YES;
                 if (self.BLdelegate && [self.BLdelegate respondsToSelector:@selector(bleBindState:)]){
                     [self.BLdelegate bleBindState:1];
                 }
@@ -696,6 +723,9 @@ static id _instace;
             if ([[array firstObject] intValue] == 100) {
                 [SmaBleSend getLongTime];
             }
+            if ([[array firstObject] intValue] == 103) {
+                self.cameraIndex = @"1";
+            }
             break;
         case ALARMCLOCK:
             NSLog(@"(((***  == %@",array);
@@ -711,7 +741,6 @@ static id _instace;
                         info.tagname = @"";
                     }
                     NSLog(@"fwgiojo  n =%@",info.tagname);
-                    
                     [dal insertClockInfo:info account:[SMAAccountTool userInfo].userID callback:^(BOOL result) {
                         
                     }];
@@ -758,7 +787,23 @@ static id _instace;
         }
             break;
         case FINDPHONE:
-            
+            if ([[array firstObject] intValue] >= 1) {
+                [self getSystemVolumSlider].value = 1.0f;
+                [_player play];
+            }
+            else{
+                [_player stop];
+            }
+            break;
+        case BOTTONSTYPE:
+        {
+            if ([[array firstObject] intValue] == 1) {
+                self.cameraIndex = @"2";
+            }
+            else if([[array firstObject] intValue] == 2){
+                self.cameraIndex = @"0";
+            }
+        }
             break;
         default:
             break;
@@ -875,24 +920,25 @@ static id _instace;
         }
     }
     
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"] && !band){//正式修改为SMA-R1
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] && !band){
+        if (setInfo){
+            [SmaBleSend seatLongTimeInfoV2:setInfo];
+        }
+        [SmaBleSend setHRWithHR:HRInfo];
+        [SmaBleSend setClockInfoV2:alarmArr];
+    }else if (![[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
         if (setInfo){
             [SmaBleSend seatLongTimeInfoV2:setInfo];
         }
         [SmaBleSend setHRWithHR:HRInfo];
         [SmaBleSend setClockInfoV2:colockArry];
-    }else{
+    }
+    else{
         [SmaBleSend getCuffCalarmClockList];
         [SmaBleSend getLongTime];
         [SmaBleSend getGoal];
-        if (![[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"]) {//正式修改为SMA-R1
-            if (setInfo){
-                [SmaBleSend seatLongTimeInfoV2:setInfo];
-            }
-            [SmaBleSend setHRWithHR:HRInfo];
-            [SmaBleSend setClockInfoV2:colockArry];
-        }
     }
+    
     [SmaBleSend getElectric];
     [SmaBleSend getBLVersion];
     [SmaBleSend getBLmac];

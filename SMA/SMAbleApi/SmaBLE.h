@@ -76,7 +76,7 @@ typedef enum {
  @param CUFFSWITCHS     反馈10系列手表表盘编号
  @param XMODEM          10系列进入XMODE模式（用于表盘切换）
  @param RUNMODE         反馈10系列运动模式下数据 MODE 32：开始 33：运动中  47：结束 （&&&&**i-Med 定制项目 48：6m开始  49：12m开始 63：结束 **&&&&）
- @param NOTIFICATION    R1系列设备更改通知（@"96":闹钟设置更改通知； @"97":计步目标更改通知; @"100":久坐设置更改通知）
+ @param NOTIFICATION    R1系列设备更改通知（@"96":闹钟设置更改通知； @"97":计步目标更改通知; @"100":久坐设置更改通知; @"103":手表相机界面开启通知）
  */
 
 @protocol SmaCoreBlueToolDelegate <NSObject>

@@ -20,7 +20,7 @@
     BOOL firstLun;
     CGFloat hisSpProgress;
     int hisSpStep;
-//   NSTimer *heAni;
+    //   NSTimer *heAni;
 }
 @property (nonatomic, strong) SMADatabase *dal;
 @property (nonatomic, strong) NSDate *date;
@@ -32,7 +32,7 @@
     [super viewDidLoad];
     firstLun = YES;
     [self initializeMethod:NO];
-   
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,18 +49,18 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-     [SmaNotificationCenter addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
-     [SmaNotificationCenter addObserver:self selector:@selector(updateData) name:@"updateData" object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chectFirmwareVewsionWithWeb) name:@"DFUUPDATEFINISH" object:nil];
-     [self chectFirmwareVewsionWithWeb];
+    [SmaNotificationCenter addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [SmaNotificationCenter addObserver:self selector:@selector(updateData) name:@"updateData" object:nil];
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chectFirmwareVewsionWithWeb) name:@"DFUUPDATEFINISH" object:nil];
+    [self chectFirmwareVewsionWithWeb];
     
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [SmaNotificationCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [SmaNotificationCenter removeObserver:self name:@"updateData" object:nil];
-//    [SmaNotificationCenter removeObserver:self name:@"DFUUPDATEFINISH" object:nil];
-//     [SmaBleSend requestFindDeviceWithBuzzing:0];
+    //    [SmaNotificationCenter removeObserver:self name:@"DFUUPDATEFINISH" object:nil];
+    //     [SmaBleSend requestFindDeviceWithBuzzing:0];
 }
 
 - (SMADatabase *)dal{
@@ -80,7 +80,7 @@
 - (void)initializeMethod:(BOOL)updateUi{
     SmaBleMgr.BLdelegate = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-//      spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
+        //      spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
         spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
         HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
         quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
@@ -92,7 +92,7 @@
             }
             else{
                 NSLog(@"11111111111111");
-                 [self updateUI];
+                [self updateUI];
             }
         });
     });
@@ -108,7 +108,7 @@
     self.navigationItem.titleView = titleLab;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-        self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupRefresh];
@@ -138,13 +138,13 @@
         quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
         sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
         dispatch_async(dispatch_get_main_queue(), ^{
-                [self updateUI];
+            [self updateUI];
         });
     });
 }
 
 - (void)chectFirmwareVewsionWithWeb{
-     NSLog(@"升级 %@",[SMADefaultinfos getValueforKey:DFUUPDATE]);
+    NSLog(@"升级 %@",[SMADefaultinfos getValueforKey:DFUUPDATE]);
     if (![SMAAccountTool userInfo].watchUUID || [[SMAAccountTool userInfo].watchUUID isEqualToString:@""]) {
         [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
         return;
@@ -193,34 +193,34 @@
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:calendarView];
     [SmaBleSend getLongTime];
-//    [SmaBleSend requestFindDeviceWithBuzzing:2];
-//    [SmaBleSend setPairAncs];
-//    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-//    AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, ^{
-//        
-//    });
-//    SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
-//    [webSer acloudDownLDataWithAccount:[SMAAccountTool userInfo].userID];
+    //    [SmaBleSend requestFindDeviceWithBuzzing:2];
+    //    [SmaBleSend setPairAncs];
+    //    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    //    AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, ^{
+    //
+    //    });
+    //    SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
+    //    [webSer acloudDownLDataWithAccount:[SMAAccountTool userInfo].userID];
     
-//    NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:1479375000000000/1000 withFormatStr:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-//    
-//   NSTimeInterval timeInterval = [SMADateDaultionfos msecIntervalSince1970Withdate:[NSDate date].yyyyMMddHHmmSSNoLineWithDate timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-//    NSTimeInterval timeInterval1 = [SMADateDaultionfos msecIntervalSince1970Withdate:@"20000101000000" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
-//    NSLog(@"fef==%@",date);
+    //    NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:1479375000000000/1000 withFormatStr:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    //
+    //   NSTimeInterval timeInterval = [SMADateDaultionfos msecIntervalSince1970Withdate:[NSDate date].yyyyMMddHHmmSSNoLineWithDate timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    //    NSTimeInterval timeInterval1 = [SMADateDaultionfos msecIntervalSince1970Withdate:@"20000101000000" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    //    NSLog(@"fef==%@",date);
 }
 
 - (IBAction)shareselector:(id)sender{
-//    SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
-//    [webSer acloudSyncAllDataWithAccount:[SMAAccountTool userInfo].userID];
-//    Byte buf[4];
-//    buf[0] = 0x1f + 0x80;
-//    buf[1] = 0xc5;
-//    buf[2] = 0xea;
-//    buf[3] = 0xea;
-//    NSLog(@"ff==%@",[NSData dataWithBytes:buf length:4]);
-//    if (buf[0] > 0x7f) {
-//        buf[0] = buf[0] - 0x8f;
-//    }
+    //    SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
+    //    [webSer acloudSyncAllDataWithAccount:[SMAAccountTool userInfo].userID];
+    //    Byte buf[4];
+    //    buf[0] = 0x1f + 0x80;
+    //    buf[1] = 0xc5;
+    //    buf[2] = 0xea;
+    //    buf[3] = 0xea;
+    //    NSLog(@"ff==%@",[NSData dataWithBytes:buf length:4]);
+    //    if (buf[0] > 0x7f) {
+    //        buf[0] = buf[0] - 0x8f;
+    //    }
     CGSize imageSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);//你要的截图的位置
     UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
@@ -254,19 +254,19 @@
         shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
         shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
     }
-
+    
 #elif ZENFIT
     shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
     shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
 #endif
-      SMAShareView *shareView = [[SMAShareView alloc] initWithButtonTitles:shareArr butImage:shareImaArr shareImage:image];
+    SMAShareView *shareView = [[SMAShareView alloc] initWithButtonTitles:shareArr butImage:shareImaArr shareImage:image];
     shareView.shareVC = self;
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:shareView];
 }
 
 - (UIImage *)screenshot{
-     CGSize imageSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);//你要的截图的位置
+    CGSize imageSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);//你要的截图的位置
     UIGraphicsBeginImageContextWithOptions(imageSize, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     for (UIWindow *window in [[UIApplication sharedApplication] windows]) {
@@ -305,7 +305,7 @@
 - (void)headerRereshing{
     self.tableView.scrollEnabled = NO;
     if ([SmaBleMgr checkBLConnectState]) {
-         NSLog(@"bledidDisposeMode %d == %d",SmaBleSend.serialNum,SmaBleMgr.sendIdentifier);
+        NSLog(@"bledidDisposeMode %d == %d",SmaBleSend.serialNum,SmaBleMgr.sendIdentifier);
         if (SmaBleSend.serialNum == SmaBleMgr.sendIdentifier) {
             self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncing");
             SmaBleMgr.syncing = YES;
@@ -327,7 +327,7 @@
             [self.view endEditing:YES];
             [self.tableView headerEndRefreshing];
         });
-
+        
     }
 }
 
@@ -349,7 +349,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SMADieviceDataCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DATACELL"];
     if (!cell) {
-          cell = [[[NSBundle mainBundle] loadNibNamed:@"SMADieviceDataCell" owner:self options:nil] lastObject];
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"SMADieviceDataCell" owner:self options:nil] lastObject];
         if (indexPath.row == 0) {
             cell.roundView.progressViewClass = [SDLoopProgressView class];
         }
@@ -360,117 +360,117 @@
             cell.roundView.progressViewClass = [SDPieLoopProgressView class];
         }
     }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        if (indexPath.row == 0) {
-            cell.pulldownView.hidden = NO;
-            
-            float progress = [[spArr lastObject] count] > 0 ? [[[[spArr lastObject] lastObject] objectForKey:@"STEP"] floatValue]/([SMAAccountTool userInfo].userGoal.intValue == 0 ? 1.000:[SMAAccountTool userInfo].userGoal.floatValue):0.0;
-            cell.roundView.progressView.isAnimation = NO;
-            [cell.roundView.progressView changeProgress:progress titleLab:[[spArr lastObject] count] > 0 ? [[[spArr lastObject] lastObject] objectForKey:@"STEP"]:@"0"];
-            cell.titLab.text = SMALocalizedString(@"device_SP_goal");
-            cell.titLab.textColor = [UIColor colorWithRed:31/255.0 green:144/255.0 blue:234/255.0 alpha:1];
-            cell.dialLab.text = [SMAAccountTool userInfo].userGoal;
-            cell.stypeLab.text = [SMAAccountTool userInfo].userGoal.intValue < 2? SMALocalizedString(@"device_SP_step"):SMALocalizedString(@"device_SP_steps");
-            
-            cell.detailsLab1.attributedText = [self returnTimeWithMinute:[[[spArr firstObject] objectForKey:@"WALK"] intValue] textColor:[SmaColor colorWithHexString:@"#1F90EA" alpha:1] unitColor:[SmaColor colorWithHexString:@"#000000" alpha:1]];
-            cell.detailsLab2.attributedText = [self returnTimeWithMinute:[[[spArr firstObject] objectForKey:@"RUN"] intValue] textColor:[SmaColor colorWithHexString:@"#1F90EA" alpha:1] unitColor:[SmaColor colorWithHexString:@"#000000" alpha:1]];
-            cell.detailsLab3.attributedText = [self returnTimeWithMinute:[[[spArr firstObject] objectForKey:@"SIT"] intValue] textColor:[SmaColor colorWithHexString:@"#1F90EA" alpha:1] unitColor:[SmaColor colorWithHexString:@"#000000" alpha:1]];
-            [cell tapRoundView:^(UIButton *button,UIView *view) {
-                CGSize remindSize;
-                NSString *remindStr;
-                if (button.tag == 101) {
-                    remindStr = SMALocalizedString(@"device_SP_walking");
-                }
-                else if(button.tag == 102){
-                    remindStr = SMALocalizedString(@"device_SP_running");
-                }
-                else{
-                    remindStr = SMALocalizedString(@"device_SP_sit");
-                }
-                remindSize = [self sizeWithText:remindStr];
-                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
-                remindView.backIma.image = [UIImage imageNamed:@"home_yundong"];
-                [view addSubview:remindView];
-            }];
-
-//           // 绘制操作完成
-            [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_buxing"] forState:UIControlStateNormal];
-            [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_paobu"] forState:UIControlStateNormal];
-            [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_jingzuo"] forState:UIControlStateNormal];
-        }
-        else if (indexPath.row == 1){
-                cell.pulldownView.hidden = YES;
-            
-//                cell.roundView.progressView.progress = [[[HRArr firstObject] objectForKey:@"REAT"] intValue]/200.0;
-                [cell.roundView.progressView changeProgress:[[[HRArr firstObject] objectForKey:@"REAT"] intValue]/200.0 titleLab:nil];
-                cell.titLab.text = SMALocalizedString(@"setting_heart_monitor");
-                cell.titLab.textColor = [UIColor colorWithRed:234/255.0 green:31/255.0 blue:117/255.0 alpha:1];
-                cell.dialLab.textColor = [UIColor colorWithRed:234/255.0 green:31/255.0 blue:117/255.0 alpha:1];
-                cell.dialLab.font = FontGothamLight(18);
-                cell.dialLab.text = [self hrMode:[[[HRArr firstObject] objectForKey:@"REAT"] intValue]];
-                cell.stypeLab.text = @"";
-
-                cell.detailsLab3.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[[[quietArr lastObject] objectForKey:@"HEART"] intValue]],@"bpm"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#EA1F75" alpha:1],[UIColor blackColor]]];
-                cell.detailsLab1.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[[[HRArr lastObject] objectForKey:@"avgHR"] intValue]],@"bpm"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#EA1F75" alpha:1],[UIColor blackColor]]];
-                cell.detailsLab2.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[[[HRArr lastObject] objectForKey:@"maxHR"] intValue]],@"bpm"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#EA1F75" alpha:1],[UIColor blackColor]]];
-
-//                        // 绘制操作完成
-            [cell tapRoundView:^(UIButton *button,UIView *view) {
-                CGSize remindSize;
-                NSString *remindStr;
-                if (button.tag == 103) {
-                    remindStr = SMALocalizedString(@"device_HR_quiet");
-                }
-                else if(button.tag == 101){
-                    remindStr = SMALocalizedString(@"device_HR_mean");
-                }
-                else{
-                    remindStr = SMALocalizedString(@"device_HR_max");
-                }
-                remindSize = [self sizeWithText:remindStr];
-                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
-                remindView.backIma.image = [UIImage imageNamed:@"home_xinlv"];
-                [view addSubview:remindView];
-            }];
-            [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_heart-pingjun"] forState:UIControlStateNormal];
-            [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_heart_big"] forState:UIControlStateNormal];
-            [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_heart_jingxi"] forState:UIControlStateNormal];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (indexPath.row == 0) {
+        cell.pulldownView.hidden = NO;
+        
+        float progress = [[spArr lastObject] count] > 0 ? [[[[spArr lastObject] lastObject] objectForKey:@"STEP"] floatValue]/([SMAAccountTool userInfo].userGoal.intValue == 0 ? 1.000:[SMAAccountTool userInfo].userGoal.floatValue):0.0;
+        cell.roundView.progressView.isAnimation = NO;
+        [cell.roundView.progressView changeProgress:progress titleLab:[[spArr lastObject] count] > 0 ? [[[spArr lastObject] lastObject] objectForKey:@"STEP"]:@"0"];
+        cell.titLab.text = SMALocalizedString(@"device_SP_goal");
+        cell.titLab.textColor = [UIColor colorWithRed:31/255.0 green:144/255.0 blue:234/255.0 alpha:1];
+        cell.dialLab.text = [SMAAccountTool userInfo].userGoal;
+        cell.stypeLab.text = [SMAAccountTool userInfo].userGoal.intValue < 2? SMALocalizedString(@"device_SP_step"):SMALocalizedString(@"device_SP_steps");
+        
+        cell.detailsLab1.attributedText = [self returnTimeWithMinute:[[[spArr firstObject] objectForKey:@"WALK"] intValue] textColor:[SmaColor colorWithHexString:@"#1F90EA" alpha:1] unitColor:[SmaColor colorWithHexString:@"#000000" alpha:1]];
+        cell.detailsLab2.attributedText = [self returnTimeWithMinute:[[[spArr firstObject] objectForKey:@"RUN"] intValue] textColor:[SmaColor colorWithHexString:@"#1F90EA" alpha:1] unitColor:[SmaColor colorWithHexString:@"#000000" alpha:1]];
+        cell.detailsLab3.attributedText = [self returnTimeWithMinute:[[[spArr firstObject] objectForKey:@"SIT"] intValue] textColor:[SmaColor colorWithHexString:@"#1F90EA" alpha:1] unitColor:[SmaColor colorWithHexString:@"#000000" alpha:1]];
+        [cell tapRoundView:^(UIButton *button,UIView *view) {
+            CGSize remindSize;
+            NSString *remindStr;
+            if (button.tag == 101) {
+                remindStr = SMALocalizedString(@"device_SP_walking");
             }
-        else if (indexPath.row == 2){
-                cell.pulldownView.hidden = YES;
-//                cell.roundView.progressView.progress = 0.001;
-               [cell.roundView.progressView sleepTimeAnimaitonWtihStar:[[sleepArr objectAtIndex:5] floatValue] end:[[sleepArr objectAtIndex:6] floatValue]];
-                cell.titLab.textColor = [UIColor colorWithRed:44/255.0 green:203/255.0 blue:111/255.0 alpha:1];
-               cell.titLab.text = [sleepArr objectAtIndex:1];
-                cell.stypeLab.text = @"";
-                cell.stypeLab.font = FontGothamLight(18);
-                cell.stypeLab.textColor = [SmaColor colorWithHexString:@"#2CCB6F" alpha:1];
-                cell.dialLab.attributedText = [sleepArr objectAtIndex:0];
-                cell.detailsLab3.attributedText = [sleepArr objectAtIndex:4];
-                cell.detailsLab1.attributedText = [sleepArr objectAtIndex:3];
-                cell.detailsLab2.attributedText = [sleepArr objectAtIndex:2];
-//                        // 绘制操作完成
-            [cell tapRoundView:^(UIButton *button,UIView *view) {
-                CGSize remindSize;
-                NSString *remindStr;
-                if (button.tag == 103) {
-                    remindStr = SMALocalizedString(@"device_SL_awake");
-                }
-                else if(button.tag == 101){
-                    remindStr = SMALocalizedString(@"device_SL_light");
-                }
-                else{
-                    remindStr = SMALocalizedString(@"device_SL_deep");
-                }
-                remindSize = [self sizeWithText:remindStr];
-                SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
-                remindView.backIma.image = [UIImage imageNamed:@"home_shuimian"];
-                [view addSubview:remindView];
-            }];
-            [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_qianshui"] forState:UIControlStateNormal];
-            [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_shenshui"] forState:UIControlStateNormal];
-            [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_qingxin"] forState:UIControlStateNormal];
+            else if(button.tag == 102){
+                remindStr = SMALocalizedString(@"device_SP_running");
             }
+            else{
+                remindStr = SMALocalizedString(@"device_SP_sit");
+            }
+            remindSize = [self sizeWithText:remindStr];
+            SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
+            remindView.backIma.image = [UIImage imageNamed:@"home_yundong"];
+            [view addSubview:remindView];
+        }];
+        
+        //           // 绘制操作完成
+        [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_buxing"] forState:UIControlStateNormal];
+        [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_paobu"] forState:UIControlStateNormal];
+        [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_jingzuo"] forState:UIControlStateNormal];
+    }
+    else if (indexPath.row == 1){
+        cell.pulldownView.hidden = YES;
+        
+        //                cell.roundView.progressView.progress = [[[HRArr firstObject] objectForKey:@"REAT"] intValue]/200.0;
+        [cell.roundView.progressView changeProgress:[[[HRArr firstObject] objectForKey:@"REAT"] intValue]/200.0 titleLab:nil];
+        cell.titLab.text = SMALocalizedString(@"setting_heart_monitor");
+        cell.titLab.textColor = [UIColor colorWithRed:234/255.0 green:31/255.0 blue:117/255.0 alpha:1];
+        cell.dialLab.textColor = [UIColor colorWithRed:234/255.0 green:31/255.0 blue:117/255.0 alpha:1];
+        cell.dialLab.font = FontGothamLight(18);
+        cell.dialLab.text = [self hrMode:[[[HRArr firstObject] objectForKey:@"REAT"] intValue]];
+        cell.stypeLab.text = @"";
+        
+        cell.detailsLab3.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[[[quietArr lastObject] objectForKey:@"HEART"] intValue]],@"bpm"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#EA1F75" alpha:1],[UIColor blackColor]]];
+        cell.detailsLab1.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[[[HRArr lastObject] objectForKey:@"avgHR"] intValue]],@"bpm"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#EA1F75" alpha:1],[UIColor blackColor]]];
+        cell.detailsLab2.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[[[HRArr lastObject] objectForKey:@"maxHR"] intValue]],@"bpm"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#EA1F75" alpha:1],[UIColor blackColor]]];
+        
+        //                        // 绘制操作完成
+        [cell tapRoundView:^(UIButton *button,UIView *view) {
+            CGSize remindSize;
+            NSString *remindStr;
+            if (button.tag == 103) {
+                remindStr = SMALocalizedString(@"device_HR_quiet");
+            }
+            else if(button.tag == 101){
+                remindStr = SMALocalizedString(@"device_HR_mean");
+            }
+            else{
+                remindStr = SMALocalizedString(@"device_HR_max");
+            }
+            remindSize = [self sizeWithText:remindStr];
+            SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
+            remindView.backIma.image = [UIImage imageNamed:@"home_xinlv"];
+            [view addSubview:remindView];
+        }];
+        [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_heart-pingjun"] forState:UIControlStateNormal];
+        [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_heart_big"] forState:UIControlStateNormal];
+        [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_heart_jingxi"] forState:UIControlStateNormal];
+    }
+    else if (indexPath.row == 2){
+        cell.pulldownView.hidden = YES;
+        //                cell.roundView.progressView.progress = 0.001;
+        [cell.roundView.progressView sleepTimeAnimaitonWtihStar:[[sleepArr objectAtIndex:5] floatValue] end:[[sleepArr objectAtIndex:6] floatValue]];
+        cell.titLab.textColor = [UIColor colorWithRed:44/255.0 green:203/255.0 blue:111/255.0 alpha:1];
+        cell.titLab.text = [sleepArr objectAtIndex:1];
+        cell.stypeLab.text = @"";
+        cell.stypeLab.font = FontGothamLight(18);
+        cell.stypeLab.textColor = [SmaColor colorWithHexString:@"#2CCB6F" alpha:1];
+        cell.dialLab.attributedText = [sleepArr objectAtIndex:0];
+        cell.detailsLab3.attributedText = [sleepArr objectAtIndex:4];
+        cell.detailsLab1.attributedText = [sleepArr objectAtIndex:3];
+        cell.detailsLab2.attributedText = [sleepArr objectAtIndex:2];
+        //                        // 绘制操作完成
+        [cell tapRoundView:^(UIButton *button,UIView *view) {
+            CGSize remindSize;
+            NSString *remindStr;
+            if (button.tag == 103) {
+                remindStr = SMALocalizedString(@"device_SL_awake");
+            }
+            else if(button.tag == 101){
+                remindStr = SMALocalizedString(@"device_SL_light");
+            }
+            else{
+                remindStr = SMALocalizedString(@"device_SL_deep");
+            }
+            remindSize = [self sizeWithText:remindStr];
+            SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
+            remindView.backIma.image = [UIImage imageNamed:@"home_shuimian"];
+            [view addSubview:remindView];
+        }];
+        [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_qianshui"] forState:UIControlStateNormal];
+        [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_shenshui"] forState:UIControlStateNormal];
+        [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_qingxin"] forState:UIControlStateNormal];
+    }
     return cell;
 }
 
@@ -500,17 +500,19 @@
 - (void)bledidDisposeMode:(SMA_INFO_MODE)mode dataArr:(NSMutableArray *)data{
     NSLog(@"bledidDisposeMode  ==%d",mode);
     if (mode == CUFFSLEEPDATA) {
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
-            spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
-            HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
-            quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
-            sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncSucc");
-                [self.tableView headerEndRefreshing];
-                self.tableView.scrollEnabled = YES;
-                 [self.tableView reloadData];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                //            spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
+                spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
+                HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
+                quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
+                sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncSucc");
+                    [self.tableView headerEndRefreshing];
+                    self.tableView.scrollEnabled = YES;
+                    [self.tableView reloadData];
+                });
             });
         });
     }
@@ -523,8 +525,8 @@
 
 - (void)sendBLETimeOutWithMode:(SMA_INFO_MODE)mode{
     if (mode == CUFFSPORTDATA || mode == CUFFSLEEPDATA || mode == CUFFHEARTRATE) {
-         dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//            spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            //            spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
             spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
             HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
             quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
@@ -533,10 +535,12 @@
                 self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncFail");
                 [self.tableView headerEndRefreshing];
                 self.tableView.scrollEnabled = YES;
-                 [self.tableView reloadData];
+                [self.tableView reloadData];
             });
         });
     }
+    //    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    //    manager.responseSerializer.acceptableContentTypes []
 }
 
 #pragma mark *******calenderDelegate
@@ -545,7 +549,7 @@
     titleLab.text = [self dateWithYMD];
     [[NSDate date] lastDayOfWeekToDateFormat:@"yyyyMMdd" callBackClass:[NSString class]];
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
-//        spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
+        //        spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
         spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
         HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
         quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
@@ -554,7 +558,7 @@
             [self.tableView reloadData];
         });
     });
-//    NSLog(@"date==%@",self.date.yyyyMMddNoLineWithDate);
+    //    NSLog(@"date==%@",self.date.yyyyMMddNoLineWithDate);
 }
 
 - (NSString *)dateWithYMD{
@@ -655,11 +659,11 @@
             else if (prevMode.intValue == 18){
                 runAmount = runAmount + amount;
             }
-
-//            NSString *nowMinute = [SMADateDaultionfos minuteFormDate:[[NSDate date] yyyyMMddHHmmSSNoLineWithDate]];
-//            int sustainTime = nowMinute.intValue - prevTime.intValue;
-//            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@",[self getHourAndMin:[NSString stringWithFormat:@"%d",prevTime.intValue]],[self getHourAndMin:nowMinute]],@"TIME",[self sportMode:prevMode.intValue],@"MODE",[NSString stringWithFormat:@"%d%@%@%@",[[NSString stringWithFormat:@"%d",sustainTime /60] intValue], @"h",[NSString stringWithFormat:@"%@%d",sustainTime%60 < 10 ? @"0":@"",sustainTime%60],@"m"],@"DURATION", nil];
-//            [detailArr addObject:dic];
+            
+            //            NSString *nowMinute = [SMADateDaultionfos minuteFormDate:[[NSDate date] yyyyMMddHHmmSSNoLineWithDate]];
+            //            int sustainTime = nowMinute.intValue - prevTime.intValue;
+            //            NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[NSString stringWithFormat:@"%@-%@",[self getHourAndMin:[NSString stringWithFormat:@"%d",prevTime.intValue]],[self getHourAndMin:nowMinute]],@"TIME",[self sportMode:prevMode.intValue],@"MODE",[NSString stringWithFormat:@"%d%@%@%@",[[NSString stringWithFormat:@"%d",sustainTime /60] intValue], @"h",[NSString stringWithFormat:@"%@%d",sustainTime%60 < 10 ? @"0":@"",sustainTime%60],@"m"],@"DURATION", nil];
+            //            [detailArr addObject:dic];
         }
     }
     
@@ -674,20 +678,20 @@
 
 
 - (NSMutableArray *)screeningSleepData:(NSMutableArray *)sleepData{
-//    NSArray * arr = [sleepData sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
-//        if ([obj1[@"TIME"] intValue]<[obj2[@"TIME"] intValue]) {
-//            return NSOrderedAscending;
-//        }
-//        
-//        else if ([obj1[@"TIME"] intValue]==[obj2[@"TIME"] intValue])
-//            
-//            return NSOrderedSame;
-//        
-//        else
-//            
-//            return NSOrderedDescending;
-//        
-//    }];
+    //    NSArray * arr = [sleepData sortedArrayUsingComparator:^NSComparisonResult(NSDictionary *obj1, NSDictionary *obj2) {
+    //        if ([obj1[@"TIME"] intValue]<[obj2[@"TIME"] intValue]) {
+    //            return NSOrderedAscending;
+    //        }
+    //
+    //        else if ([obj1[@"TIME"] intValue]==[obj2[@"TIME"] intValue])
+    //
+    //            return NSOrderedSame;
+    //
+    //        else
+    //
+    //            return NSOrderedDescending;
+    //
+    //    }];
     NSMutableArray *sortArr = sleepData;
     if (sortArr.count > 2) {//筛选同一状态数据
         for (int i = 0; i< sortArr.count-1; i++) {

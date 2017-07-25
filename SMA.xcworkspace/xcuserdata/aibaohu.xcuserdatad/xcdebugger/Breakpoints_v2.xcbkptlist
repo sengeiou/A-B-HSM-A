@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAAlarmViewController.m"
-            timestampString = "522228578.560996"
+            timestampString = "522671212.225127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "7">
             <Locations>
@@ -202,11 +202,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "519649125.614188"
+            timestampString = "522671943.221657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "129"
-            endingLineNumber = "129"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "-reunionTimer:"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "519700877.624129"
+            timestampString = "522671943.221657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "-reunitonPeripheral:"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,28 +234,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "521793115.635091"
+            timestampString = "522671943.221657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "185"
+            endingLineNumber = "185"
             landmarkName = "-reunionTimer:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "521955849.589201"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
-            landmarkName = "-peripheral:didDiscoverCharacteristicsForService:error:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -281,28 +265,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "522233932.864014"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2647"
-            endingLineNumber = "2647"
-            landmarkName = "-sendBLInstruction"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "521955192.413807"
+            timestampString = "522671943.221657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "-scanBL:"
             landmarkType = "7">
          </BreakpointContent>
@@ -314,11 +282,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "522233932.864014"
+            timestampString = "522317580.303174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2745"
-            endingLineNumber = "2745"
+            startingLineNumber = "2749"
+            endingLineNumber = "2749"
             landmarkName = "-sendDataTimeOut:"
             landmarkType = "7">
          </BreakpointContent>
@@ -336,38 +304,6 @@
             startingLineNumber = "45"
             endingLineNumber = "45"
             landmarkName = "-getUserInfoResponse:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMA/SMADatabase.m"
-            timestampString = "522057561.233229"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "-insertClockInfo:account:callback:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "522149003.55477"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2222"
-            endingLineNumber = "2222"
-            landmarkName = "-analysisCuffAlarmClockData:len:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -426,43 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "522225092.881104"
+            timestampString = "522671943.221657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "730"
-            endingLineNumber = "730"
-            landmarkName = "-bleDataParsingWithMode:dataArr:Checkout:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "522225095.665025"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "722"
-            endingLineNumber = "722"
-            landmarkName = "-bleDataParsingWithMode:dataArr:Checkout:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "522225097.662073"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "702"
-            endingLineNumber = "702"
+            startingLineNumber = "732"
+            endingLineNumber = "732"
             landmarkName = "-bleDataParsingWithMode:dataArr:Checkout:"
             landmarkType = "7">
          </BreakpointContent>
@@ -506,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMABLE/BLConnect.m"
-            timestampString = "522228718.572191"
+            timestampString = "522671943.221657"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "744"
-            endingLineNumber = "744"
+            startingLineNumber = "773"
+            endingLineNumber = "773"
             landmarkName = "-bleDataParsingWithMode:dataArr:Checkout:"
             landmarkType = "7">
          </BreakpointContent>
@@ -522,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "522232200.487311"
+            timestampString = "522317580.303174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "787"
-            endingLineNumber = "787"
+            startingLineNumber = "791"
+            endingLineNumber = "791"
             landmarkName = "-seatLongTimeInfoV2:"
             landmarkType = "7">
          </BreakpointContent>
@@ -538,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "522232637.858883"
+            timestampString = "522317580.303174"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "794"
-            endingLineNumber = "794"
+            startingLineNumber = "798"
+            endingLineNumber = "798"
             landmarkName = "-seatLongTimeInfoV2:"
             landmarkType = "7">
          </BreakpointContent>
@@ -554,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMASedentaryController.m"
-            timestampString = "522234588.525311"
+            timestampString = "522671212.225127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "-weekStringWithIndex:object:"
             landmarkType = "7">
          </BreakpointContent>
@@ -569,28 +473,12 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "522233932.864014"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2249"
-            endingLineNumber = "2249"
-            landmarkName = "-analysisLongTimeData:len:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMA/SMADeviceSetViewController.m"
-            timestampString = "522234632.514382"
+            timestampString = "522671212.225127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "534"
-            endingLineNumber = "534"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
             landmarkName = "-bledidDisposeMode:dataArr:"
             landmarkType = "7">
          </BreakpointContent>
@@ -602,12 +490,156 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMASedentaryController.m"
-            timestampString = "522234663.197043"
+            timestampString = "522671212.225127"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "416"
-            endingLineNumber = "416"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
             landmarkName = "-bledidDisposeMode:dataArr:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMA/SMADatabase.m"
+            timestampString = "522301550.883779"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "-insertSportDataArr:finish:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMA/SMADatabase.m"
+            timestampString = "522301922.009544"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "997"
+            endingLineNumber = "997"
+            landmarkName = "-insertLocatainDataArr:finish:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMA/SMATabbarController.m"
+            timestampString = "522324011.609541"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "-imagePickerControllerDidCancel:"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[SMATabbarController imagePickerControllerDidCancel:]"
+                  moduleName = "SMA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aibaohu/Desktop/SMA%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99/SMA%20NEW/%E6%BA%90%E7%A0%81/SMA/SMA/SMATabbarController.m"
+                  timestampString = "522320208.154364"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "218"
+                  endingLineNumber = "218"
+                  offsetFromSymbolStart = "136">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__54-[SMATabbarController imagePickerControllerDidCancel:]_block_invoke"
+                  moduleName = "SMA"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/aibaohu/Desktop/SMA%E9%A1%B9%E7%9B%AE%E8%B5%84%E6%96%99/SMA%20NEW/%E6%BA%90%E7%A0%81/SMA/SMA/SMATabbarController.m"
+                  timestampString = "522320208.157739"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "220"
+                  endingLineNumber = "220"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMA/SMATabbarController.m"
+            timestampString = "522324011.609541"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
+            landmarkName = "-openCamera"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMA/SMATabbarController.m"
+            timestampString = "522324011.609541"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "-openCamera"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMA/SMATabbarController.m"
+            timestampString = "522324104.740347"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "-observeValueForKeyPath:ofObject:change:context:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SMA/SMATabbarController.m"
+            timestampString = "522324180.034937"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "-initializeMethod"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

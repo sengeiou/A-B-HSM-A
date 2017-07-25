@@ -48,6 +48,10 @@
 		EE3A32B71DA8BD060077C813 /* BEMAnalogClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32B41DA8BD060077C813 /* BEMAnalogClockView.m */; };
 		EE3A32B81DA8BD060077C813 /* KSMHand.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32B61DA8BD060077C813 /* KSMHand.m */; };
 		EE3A32BB1DA8BDB80077C813 /* SMAAlarmSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32BA1DA8BDB80077C813 /* SMAAlarmSubViewController.m */; };
+		EE4265901F27529400590C8D /* Alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EE42658F1F27529400590C8D /* Alarm.mp3 */; };
+		EE4265911F2752A000590C8D /* Alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EE42658F1F27529400590C8D /* Alarm.mp3 */; };
+		EE4265951F27567A00590C8D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4265941F27567A00590C8D /* MediaPlayer.framework */; };
+		EE4265991F27569900590C8D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4265981F27569900590C8D /* VideoToolbox.framework */; };
 		EE438B421DDC2D4E0066D5A6 /* SMARankTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE438B401DDC2D4D0066D5A6 /* SMARankTableViewCell.m */; };
 		EE438B431DDC2D4E0066D5A6 /* SMARankTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE438B411DDC2D4D0066D5A6 /* SMARankTableViewCell.xib */; };
 		EE486C931DD9DCA200E3E385 /* SMADeviceAggregate.m in Sources */ = {isa = PBXBuildFile; fileRef = EE486C921DD9DCA200E3E385 /* SMADeviceAggregate.m */; };
@@ -874,6 +878,10 @@
 		EE3A32B61DA8BD060077C813 /* KSMHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMHand.m; sourceTree = "<group>"; };
 		EE3A32B91DA8BDB80077C813 /* SMAAlarmSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAAlarmSubViewController.h; sourceTree = "<group>"; };
 		EE3A32BA1DA8BDB80077C813 /* SMAAlarmSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAAlarmSubViewController.m; sourceTree = "<group>"; };
+		EE42658F1F27529400590C8D /* Alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Alarm.mp3; sourceTree = "<group>"; };
+		EE4265941F27567A00590C8D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		EE4265961F27568600590C8D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		EE4265981F27569900590C8D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		EE438B3F1DDC2D4D0066D5A6 /* SMARankTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMARankTableViewCell.h; sourceTree = "<group>"; };
 		EE438B401DDC2D4D0066D5A6 /* SMARankTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMARankTableViewCell.m; sourceTree = "<group>"; };
 		EE438B411DDC2D4D0066D5A6 /* SMARankTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SMARankTableViewCell.xib; sourceTree = "<group>"; };
@@ -1560,6 +1568,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE4265991F27569900590C8D /* VideoToolbox.framework in Frameworks */,
+				EE4265951F27567A00590C8D /* MediaPlayer.framework in Frameworks */,
 				EEF53DA31E1E6EDD00EBCFC2 /* FBSDKShareKit.framework in Frameworks */,
 				EEB54D211E151BFD0059F8D0 /* CoreText.framework in Frameworks */,
 				EEB54D1F1E151BCF0059F8D0 /* Foundation.framework in Frameworks */,
@@ -1801,6 +1811,9 @@
 		EE10CE811DB5F9E100585B74 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EE4265981F27569900590C8D /* VideoToolbox.framework */,
+				EE4265961F27568600590C8D /* AudioToolbox.framework */,
+				EE4265941F27567A00590C8D /* MediaPlayer.framework */,
 				EE10229C1E24B7BC00E0A0DF /* linkedin-sdk.framework */,
 				EEB54D201E151BFD0059F8D0 /* CoreText.framework */,
 				EEB54D1E1E151BCF0059F8D0 /* Foundation.framework */,
@@ -3232,6 +3245,7 @@
 		EEB9F6BA1D6443200011AA07 /* other */ = {
 			isa = PBXGroup;
 			children = (
+				EE42658F1F27529400590C8D /* Alarm.mp3 */,
 				EE6783D21E1DFC0F00B0B6E7 /* DfuUpdate */,
 				EEB54D0A1E151B3B0059F8D0 /* libWeiboSDK */,
 				EE57A5A41E0B5FE00007BCC8 /* ACloudLib */,
@@ -3660,6 +3674,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE4265901F27529400590C8D /* Alarm.mp3 in Resources */,
 				EE6783DA1E1DFC1000B0B6E7 /* sma10b_firmware_v1.1.8.zip in Resources */,
 				EEB9F6BD1D6443340011AA07 /* Gotham-Light_0.otf in Resources */,
 				EE12EF2C1D7D6BCB0096F811 /* SMADieviceDataCell.xib in Resources */,
@@ -3724,6 +3739,7 @@
 				EEEB858F1EF7C07D00DDE316 /* country.plist in Resources */,
 				EEEB85901EF7C07D00DDE316 /* sma07_app(FixFont).zip in Resources */,
 				EEEB85911EF7C07D00DDE316 /* Gotham-Medium.otf in Resources */,
+				EE4265911F2752A000590C8D /* Alarm.mp3 in Resources */,
 				EEEB85921EF7C07D00DDE316 /* SMARepeatCell.xib in Resources */,
 				EEEB85931EF7C07D00DDE316 /* angsaz_U16.bin in Resources */,
 				EEEB85941EF7C07D00DDE316 /* SMASleepDetailCell.xib in Resources */,
@@ -4755,7 +4771,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.zen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.nzenfit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e7ef197a-dd9f-4072-b7e9-a8a17caeebe7";
 				PROVISIONING_PROFILE_SPECIFIER = All_development_text;
@@ -4824,10 +4840,10 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.zen;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.nzenfit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "95495652-0048-4e1b-9454-ec2f367a90b3";
-				PROVISIONING_PROFILE_SPECIFIER = jinyun_dis_zenfit_sub;
+				PROVISIONING_PROFILE = "5bf6c2aa-b2ba-43b1-be12-3918866a6177";
+				PROVISIONING_PROFILE_SPECIFIER = jun_dis_newZen_sub;
 			};
 			name = Release;
 		};
