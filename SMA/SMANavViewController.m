@@ -24,6 +24,10 @@
     [self.navigationBar setTitleTextAttributes:@{NSFontAttributeName:FontGothamLight(20),NSForegroundColorAttributeName:[UIColor whiteColor]}];
    //修改BarItem 字体颜色样式
     [[UITabBarItem  appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: FontGothamLight(11), NSFontAttributeName, nil] forState:UIControlStateNormal];
+//    [self addMethodWithNum:2];
+    
+    //解决无法左滑返回问题
+//    self.interactivePopGestureRecognizer.delegate = (id)self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,13 +39,20 @@
 -(void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (/*viewController.navigationItem.leftBarButtonItem == nil && */self.childViewControllers.count >= 1) {
+//        viewController.navigationItem.backBarButtonItem = [UIBarButtonItem backItemWithTarget:self Hidden:self.leftItemHidden action:@selector(_didClickBackBarButtonItem:)];
         viewController.navigationItem.leftBarButtonItem = [UIBarButtonItem backItemWithTarget:self Hidden:self.leftItemHidden action:@selector(_didClickBackBarButtonItem:)];
+        
     }
     [super pushViewController:viewController animated:animated];
 }
 
 - (void)_didClickBackBarButtonItem:(id)sender{
     [self popViewControllerAnimated:YES];
+}
+
+//解决无法左滑返回问题
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    return self.childViewControllers.count > 1;
 }
 /*
 #pragma mark - Navigation

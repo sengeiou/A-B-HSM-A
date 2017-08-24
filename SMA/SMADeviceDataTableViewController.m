@@ -192,7 +192,7 @@
     [calendarView getDataDayModel:self.date];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:calendarView];
-    [SmaBleSend getLongTime];
+    [SmaBleSend getCuffCalarmClockList];
     //    [SmaBleSend requestFindDeviceWithBuzzing:2];
     //    [SmaBleSend setPairAncs];
     //    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);

@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface SmaLocalizeableInfo : NSObject
-+(NSString *)localizedString:(NSString *)translation_key;
++ (NSString *)localizedString:(NSString *)translation_key;
 + (NSString *)localizedStringDic:(NSString *)translation_key comment:(NSString *)comment;
 @end

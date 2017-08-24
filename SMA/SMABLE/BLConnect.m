@@ -57,7 +57,7 @@ static id _instace;
     [_player prepareToPlay];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
-    
+//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self getSystemVolumSlider];
 }
 
@@ -65,7 +65,6 @@ static id _instace;
     static UISlider * volumeViewSlider = nil;
     if (volumeViewSlider == nil) {
         MPVolumeView *volumeView = [[MPVolumeView alloc] initWithFrame:CGRectMake(10, 50, 200, 4)];
-        
         for (UIView* newView in volumeView.subviews) {
             if ([newView.class.description isEqualToString:@"MPVolumeSlider"]){
                 volumeViewSlider = (UISlider*)newView;
@@ -76,6 +75,31 @@ static id _instace;
     return volumeViewSlider;
 }
 
+- (void)openCamera{
+    if (_picker) {
+        [_picker removeFromParentViewController];
+        _picker = nil;
+    }
+    __block UIImagePickerControllerSourceType sourceType ;
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    sourceType = UIImagePickerControllerSourceTypeCamera;
+    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+        //        [SmaBleSend setBLcomera:YES];
+        if (!_picker) {
+            _picker = [[UIImagePickerController alloc] init];//初始化
+            _picker.delegate = self;
+            _picker.allowsEditing = YES;//设置可编辑
+        }
+        _picker.sourceType = sourceType;
+        [app.window.rootViewController presentViewController:_picker animated:YES completion:^{
+            
+        }];
+    }
+    else{
+        [MBProgressHUD showError:SMALocalizedString(@"me_no_photograph")];
+    }
+}
+
 - (SMAUserInfo *)user{
     _user = [SMAAccountTool userInfo];//为了能获取个人资料最新资料
     return _user;
@@ -84,7 +108,7 @@ static id _instace;
 - (void)setScanNameArr:(NSArray *)scanNameArr{
     _scanNameArr = scanNameArr;
     SMAUserInfo *user = [SMAAccountTool userInfo];
-    //    user.scnaName = scanName;
+    // user.scnaName = scanName;
     user.scnaNameArr = scanNameArr;
     [SMAAccountTool saveUser:user];
 }
@@ -724,7 +748,8 @@ static id _instace;
                 [SmaBleSend getLongTime];
             }
             if ([[array firstObject] intValue] == 103) {
-                self.cameraIndex = @"1";
+//                self.cameraIndex = @"1";
+                 [self openCamera];
             }
             break;
         case ALARMCLOCK:
@@ -745,6 +770,11 @@ static id _instace;
                         
                     }];
                 }
+            }
+            else{
+                [dal deleteAllClockWithAccount:[SMAAccountTool userInfo].userID Callback:^(BOOL result) {
+                    
+                }];
             }
             break;
         case GOALCALLBACK:{
@@ -797,13 +827,19 @@ static id _instace;
             break;
         case BOTTONSTYPE:
         {
+            AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
             if ([[array firstObject] intValue] == 1) {
-                self.cameraIndex = @"2";
+                if (_picker) {
+                    [_picker takePicture];
+                }
             }
             else if([[array firstObject] intValue] == 2){
-                self.cameraIndex = @"0";
-            }
-        }
+                if (_picker) {
+                    [app.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
+                }
+            }        }
             break;
         default:
             break;
@@ -920,12 +956,13 @@ static id _instace;
         }
     }
     
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] && !band){
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] && band){
         if (setInfo){
             [SmaBleSend seatLongTimeInfoV2:setInfo];
         }
         [SmaBleSend setHRWithHR:HRInfo];
         [SmaBleSend setClockInfoV2:alarmArr];
+        [SmaBleSend setPhoneSystemState:2];
     }else if (![[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
         if (setInfo){
             [SmaBleSend seatLongTimeInfoV2:setInfo];
@@ -934,6 +971,7 @@ static id _instace;
         [SmaBleSend setClockInfoV2:colockArry];
     }
     else{
+        [SmaBleSend setPhoneSystemState:2];
         [SmaBleSend getCuffCalarmClockList];
         [SmaBleSend getLongTime];
         [SmaBleSend getGoal];
@@ -995,5 +1033,31 @@ static bool ishrMode;
         
     }
     return hr_arr;
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    __block UIImage* image;
+    if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(NSString*)kUTTypeImage]) {
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        NSLog(@"fwgwgg-----%@",NSStringFromCGSize(image.size));
+        UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
+    }
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [app.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+        [SmaBleSend setBLcomera:NO];
+    }];
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo{
+    
+    NSLog(@"image = %@, error = %@, contextInfo = %@", image, error, contextInfo);
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    [SmaBleSend setBLcomera:NO];
+    [app.window.rootViewController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 @end

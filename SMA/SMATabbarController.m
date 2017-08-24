@@ -12,7 +12,7 @@
 {
     NSTimer *rankTimer;
     NSMutableArray *passArr;
-    UIImagePickerController *picker;
+    AppDelegate *app;
 }
 @end
 
@@ -114,8 +114,10 @@ static bool setRunk;
 }
 
 - (void)openCamera{
-    [picker removeFromParentViewController];
-    picker = nil;
+    if (_picker) {
+        [_picker removeFromParentViewController];
+        _picker = nil;
+    }
 //    if (picker) {
 //        [self.selectedViewController dismissViewControllerAnimated:YES completion:^{
 //            
@@ -126,13 +128,14 @@ static bool setRunk;
     sourceType = UIImagePickerControllerSourceTypeCamera;
     if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
 //        [SmaBleSend setBLcomera:YES];
-        if (!picker) {
-            picker = [[UIImagePickerController alloc] init];//初始化
-            picker.delegate = self;
-            picker.allowsEditing = YES;//设置可编辑
+        if (!_picker) {
+            _picker = [[UIImagePickerController alloc] init];//初始化
+            _picker.delegate = self;
+            _picker.allowsEditing = YES;//设置可编辑
         }
-        picker.sourceType = sourceType;
-        [self.selectedViewController presentViewController:picker animated:YES completion:^{
+        _picker.sourceType = sourceType;
+       
+        [app.window.rootViewController presentViewController:_picker animated:YES completion:^{
             
         }];
     }
@@ -142,9 +145,12 @@ static bool setRunk;
 }
 
 - (void)initializeMethod{
+     app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     //预加载数据（暂定睡眠,运动）
 //    [SmaNotificationCenter addObserver:self selector:@selector(oopenCamera) name:@"OPENPHOTO" object:nil];
-    [[BLConnect sharedCoreBlueTool] addObserver:self forKeyPath:@"cameraIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    if (![BLConnect sharedCoreBlueTool].observationInfo) {
+//        [[BLConnect sharedCoreBlueTool] addObserver:self forKeyPath:@"cameraIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    }
 //    [[SMADeviceAggregate deviceAggregateTool] initilizeWithWeek];
     if (!_isLogin) {
             SmaAnalysisWebServiceTool *webService = [[SmaAnalysisWebServiceTool alloc] init];
@@ -181,13 +187,13 @@ static bool setRunk;
             [self openCamera];
         }
         if ([[change objectForKey:@"new"] intValue] == 2) {
-            if (picker) {
-                 [picker takePicture];
+            if (_picker) {
+                 [_picker takePicture];
             }
         }
         if ([[change objectForKey:@"new"] intValue] == 0) {
             [SmaBleSend setBLcomera:NO];
-            [self.selectedViewController dismissViewControllerAnimated:YES completion:^{
+            [app.window.rootViewController dismissViewControllerAnimated:YES completion:^{
                 
             }];
         }
@@ -210,7 +216,7 @@ static bool setRunk;
         UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void *)self);
         
     }
-    [self.selectedViewController dismissViewControllerAnimated:YES completion:^{
+    [app.window.rootViewController dismissViewControllerAnimated:YES completion:^{
         [SmaBleSend setBLcomera:NO];
     }];
 }
@@ -222,7 +228,7 @@ static bool setRunk;
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
     [SmaBleSend setBLcomera:NO];
-    [self.selectedViewController dismissViewControllerAnimated:YES completion:^{
+    [app.window.rootViewController dismissViewControllerAnimated:YES completion:^{
         
     }];
 }

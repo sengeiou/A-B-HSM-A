@@ -30,7 +30,7 @@
 @end
 
 
-@interface BLConnect : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate,SmaCoreBlueToolDelegate>
+@interface BLConnect : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate,SmaCoreBlueToolDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 /* 中心管理者*/
 @property (nonatomic, strong) CBCentralManager *mgr;
 /*连接的那个蓝牙设备*/
@@ -44,6 +44,7 @@
 @property (strong, nonatomic) NSTimer *scanTimer;
 @property (strong, nonatomic) SMAUserInfo *user;
 @property (nonatomic,strong)AVAudioPlayer *player;
+@property (nonatomic, strong)  UIImagePickerController *picker;
 @property (assign,readonly,nonatomic) int sendIdentifier;
 @property (weak,   nonatomic) id<BLConnectDelegate> BLdelegate;
 @property (assign, nonatomic) BOOL syncing;

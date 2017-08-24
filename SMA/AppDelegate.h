@@ -11,6 +11,8 @@
 #import "SMAthirdPartyLoginTool.h"
 //#import "WeiboSDK.h"
 #import <CoreLocation/CoreLocation.h>
+//#import <CoreTelephony/CTCall.h>
+//#import <CoreTelephony/CTCallCenter.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,WeiboSDKDelegate,CLLocationManagerDelegate>
 
@@ -26,5 +28,6 @@
 @property (nonatomic, strong) NSTimer *backgroundTimer;
 @property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 @property (nonatomic, unsafe_unretained) UIBackgroundTaskIdentifier bgTask;
+//@property(nonatomic,strong)CTCallCenter *callCenter;  //必须在这里声明，要不不会回调block
 @end
 

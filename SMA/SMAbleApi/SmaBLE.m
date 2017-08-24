@@ -1459,6 +1459,18 @@ static SmaBLE *_instace;
     }
 }
 
+- (void)setPhoneSystemState:(int)system{
+    Byte buf[1];
+    buf[0] = (Byte)(system&0xff);
+    Byte results[14];
+    if(self.p && self.Write)
+    {
+        [SmaBusinessTool getSpliceCmd:0x02 Key:0x23 bytes1:buf len:1 results:results];
+        NSData * data0 = [NSData dataWithBytes:results length:14];
+        [self arrangeBLData:data0 type:@"SET" sendNum:1];
+    }
+}
+
 /*请求07运动数据*/
 -(void)requestCuffSportData
 {
@@ -2185,11 +2197,20 @@ typedef union{
         week_t1.week=user_clock.alarm.day_repeat_flag;
         //        NSString *str=[NSString stringWithFormat:@"%d%d%d%d%d%d%d",week_t1.bit_week.monday,week_t1.bit_week.tuesday,week_t1.bit_week.wednesday,week_t1.bit_week.thursday,week_t1.bit_week.friday,week_t1.bit_week.saturday,week_t1.bit_week.sunday];
         alarInfo.dayFlags=[NSString stringWithFormat:@"%d",user_clock.alarm.day_repeat_flag];
+       
         //clock_data.alarm.day_repeat_flag =week_t1.week;
         //        alarInfo.dayFlags=str;
         [alarmArr addObject:alarInfo];
     }
     return alarmArr;
+}
+
+int64_t swap_int64( int64_t val )
+{
+    val = ((val << 8) & 0xFF00FF00FF00FF00ULL ) | ((val >> 8) & 0x00FF00FF00FF00FFULL );
+    val = ((val << 16) & 0xFFFF0000FFFF0000ULL ) | ((val >> 16) & 0x0000FFFF0000FFFFULL );
+    val = (val << 32) | ((val >> 32) & 0xFFFFFFFFULL);
+    return val;
 }
 
 //解析07闹钟
@@ -2214,20 +2235,30 @@ typedef union{
         alarInfo.isOpen = [NSString stringWithFormat:@"%d",user_clock.alarm.reserved];
         
         burntheplanks_week_union_t week_t1;
-        week_t1.week=user_clock.alarm.day_repeat_flag;
+        week_t1.week = user_clock.alarm.day_repeat_flag;
         
-        //        NSString *str=[NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d",week_t1.bit_week.monday,week_t1.bit_week.tuesday,week_t1.bit_week.wednesday,week_t1.bit_week.thursday,week_t1.bit_week.friday,week_t1.bit_week.saturday,week_t1.bit_week.sunday];
-        alarInfo.dayFlags=[NSString stringWithFormat:@"%d",user_clock.alarm.day_repeat_flag];
+        NSString *str=[NSString stringWithFormat:@"%d,%d,%d,%d,%d,%d,%d",week_t1.bit_week.monday,week_t1.bit_week.tuesday,week_t1.bit_week.wednesday,week_t1.bit_week.thursday,week_t1.bit_week.friday,week_t1.bit_week.saturday,week_t1.bit_week.sunday];
+        alarInfo.dayFlags= [self toDecimalSystemWithBinarySystem:[NSString stringWithFormat:@"%d%d%d%d%d%d%d",week_t1.bit_week.monday,week_t1.bit_week.tuesday,week_t1.bit_week.wednesday,week_t1.bit_week.thursday,week_t1.bit_week.friday,week_t1.bit_week.saturday,week_t1.bit_week.sunday]];
         //        alarInfo.dayFlags=str;
-        
+         NSLog(@"fwge  %d",user_clock.alarm.day_repeat_flag);
         Byte alarmName[18];
         memcpy(&alarmName[0],&bytes[begin+6+(i*23)], 18);
         NSString* str1 = [[NSString alloc] initWithData:[NSData dataWithBytes:alarmName length:18] encoding:NSUTF8StringEncoding];
         alarInfo.tagname = str1;
         [alarmArr addObject:alarInfo];
         //        MyLog(@"在组装闹钟 %@  %@",[NSData dataWithBytes:alarmName length:18],str1);
+        
     }
     return alarmArr;
+}
+
+uint64_t swap_uint64( uint64_t val )
+{
+    val = ((val << 8) & 0xFF00FF00FF00FF00ULL ) | ((val >> 8) & 0x00FF00FF00FF00FFULL );
+    val = ((val << 16) & 0xFFFF0000FFFF0000ULL ) | ((val >> 16) & 0x0000FFFF0000FFFFULL );
+    val = (val << 32) | (val >> 32);
+    return val;
+    
 }
 
 - (NSMutableArray *)analysisLongTimeData:(Byte *)bytes len:(int)len{

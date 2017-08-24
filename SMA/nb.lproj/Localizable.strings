@@ -27,7 +27,7 @@
 "login_smaTit"="Smart life belongs to you";
 "login_smaTitS"="Registrer din aktivitet";
 "login_smaTitT"="Del dine resultater";
-"register_accplace"="Telefonnr. ";
+"register_accplace"="Telefonnr.";
 "register_emalplace"="E-post";
 "register_code"="Kode";
 "register_getcode"="Trykk her for kode";
@@ -45,7 +45,7 @@
 "account_error_3501"="Konto eksisterer ikke";
 "account_error_3503"="Ugyldig konto";
 "account_error_3507"="Ugyldig epost";
-"account_error_3508"="Ugyldig telefonnr. ";
+"account_error_3508"="Ugyldig telefonnr.";
 "account_error_3509"="Feil konto";
 "register_sendsucc"="Kode sendt";
 "register_sendfail"="Sending mislyktes";
@@ -54,9 +54,9 @@
 "register_regsucceed"="Registrering vellykket";
 "user_title"="Min profil";
 "user_next"="Hopp over";
-"user_girl"="Hunn";
-"user_boy"="Kvinne";
-"user_age"="Mann";
+"user_girl"="Kvinne";
+"user_boy"="Mann";
+"user_age"="Alder";
 "user_nextStep"="Neste";
 "user_hight"="Høyde";
 "user_weight"="Vekt";

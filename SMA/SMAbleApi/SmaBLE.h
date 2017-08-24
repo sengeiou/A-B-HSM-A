@@ -77,6 +77,9 @@ typedef enum {
  @param XMODEM          10系列进入XMODE模式（用于表盘切换）
  @param RUNMODE         反馈10系列运动模式下数据 MODE 32：开始 33：运动中  47：结束 （&&&&**i-Med 定制项目 48：6m开始  49：12m开始 63：结束 **&&&&）
  @param NOTIFICATION    R1系列设备更改通知（@"96":闹钟设置更改通知； @"97":计步目标更改通知; @"100":久坐设置更改通知; @"103":手表相机界面开启通知）
+ @param GOALCALLBACK    R1系列设备运动目标返回
+ @param NOTIFICATION    R1系列设备久坐设置返回
+ @param FINDPHONE       R1系列设备寻找手机指令返回（@"0":关闭寻找手机； @"1"/@"2":蜂鸣强度）
  */
 
 @protocol SmaCoreBlueToolDelegate <NSObject>
@@ -341,6 +344,14 @@ typedef enum {
  */
 - (void)setPairAncs;
 
+
+/**
+ 设置系统是否为IOS系统
+
+ @param system 1: android ; 2: iOS
+ */
+- (void)setPhoneSystemState:(int)system;
+
 /*请求07运动数据
  @discussion 每次数据请求最多只能反馈20组数据，余下数据必须重新发送请求指令，直到获取到的数据少于20组
  */
@@ -363,7 +374,7 @@ typedef enum {
 
 
 /**寻找设备
- Description 寻找设备并根据蜂鸣强度促使设备播放音乐
+ Description 寻找设备并根据鸣蜂强度促使设备播放音乐
 
  @param intensity 蜂鸣强度（intensity = 0 无蜂鸣（关闭）；intensity = 1 中等；intensity = 2 高等强度蜂鸣）
  */

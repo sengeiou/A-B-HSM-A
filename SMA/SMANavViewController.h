@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UIBarButtonItem+CKQ.h"
 #import "UINavigationController+MTKNaVC.h"
-@interface SMANavViewController : UINavigationController
+@interface SMANavViewController : UINavigationController<UIGestureRecognizerDelegate>
 
 @end

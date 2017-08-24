@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "522317580.303174"
+            timestampString = "523446062.124983"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "2610"
-            endingLineNumber = "2610"
-            landmarkName = "-returnHour:"
+            startingLineNumber = "2629"
+            endingLineNumber = "2629"
+            landmarkName = "-receiveTimeOut"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

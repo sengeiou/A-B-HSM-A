@@ -44,6 +44,7 @@
 		EE2C573D1E5EBBDF00FEE9F4 /* TQLocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C573C1E5EBBDF00FEE9F4 /* TQLocationConverter.m */; };
 		EE30F2EF1D8E42A600869CF9 /* SMASelectCoachViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F2EE1D8E42A600869CF9 /* SMASelectCoachViewController.m */; };
 		EE30F2F31D8E42C000869CF9 /* SMASelectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EE30F2F11D8E42C000869CF9 /* SMASelectViewCell.m */; };
+		EE340CD61F4542EE009D37FA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = EE340CD81F4542EE009D37FA /* InfoPlist.strings */; };
 		EE34EE601E1F8C3600A8AABC /* sma07_app(pah8002)_v1.1.1.zip in Resources */ = {isa = PBXBuildFile; fileRef = EE34EE5F1E1F8C3600A8AABC /* sma07_app(pah8002)_v1.1.1.zip */; };
 		EE3A32B71DA8BD060077C813 /* BEMAnalogClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32B41DA8BD060077C813 /* BEMAnalogClockView.m */; };
 		EE3A32B81DA8BD060077C813 /* KSMHand.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32B61DA8BD060077C813 /* KSMHand.m */; };
@@ -871,6 +872,9 @@
 		EE30F2EE1D8E42A600869CF9 /* SMASelectCoachViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMASelectCoachViewController.m; sourceTree = "<group>"; };
 		EE30F2F01D8E42C000869CF9 /* SMASelectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMASelectViewCell.h; sourceTree = "<group>"; };
 		EE30F2F11D8E42C000869CF9 /* SMASelectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMASelectViewCell.m; sourceTree = "<group>"; };
+		EE340CD71F4542EE009D37FA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		EE340CD91F45439A009D37FA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		EE340CDB1F4543EB009D37FA /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EE34EE5F1E1F8C3600A8AABC /* sma07_app(pah8002)_v1.1.1.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "sma07_app(pah8002)_v1.1.1.zip"; sourceTree = "<group>"; };
 		EE3A32B31DA8BD060077C813 /* BEMAnalogClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMAnalogClockView.h; sourceTree = "<group>"; };
 		EE3A32B41DA8BD060077C813 /* BEMAnalogClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BEMAnalogClockView.m; sourceTree = "<group>"; };
@@ -3201,6 +3205,7 @@
 			children = (
 				EEB9F6A31D6431A10011AA07 /* PrefixHeader.pch */,
 				EE4B1C191D646A0500825E2B /* country.plist */,
+				EE340CD81F4542EE009D37FA /* InfoPlist.strings */,
 				EEB9F6A81D6431F30011AA07 /* Localizable.strings */,
 				EEB9F68D1D64318B0011AA07 /* main.m */,
 			);
@@ -3679,6 +3684,7 @@
 				EEB9F6BD1D6443340011AA07 /* Gotham-Light_0.otf in Resources */,
 				EE12EF2C1D7D6BCB0096F811 /* SMADieviceDataCell.xib in Resources */,
 				EEB9F69C1D64318B0011AA07 /* LaunchScreen.storyboard in Resources */,
+				EE340CD61F4542EE009D37FA /* InfoPlist.strings in Resources */,
 				EE438B431DDC2D4E0066D5A6 /* SMARankTableViewCell.xib in Resources */,
 				EE8063931DF66B90005D6863 /* SMAChangeCell.xib in Resources */,
 				EEEC5E931DE4206B0096DAF3 /* SMARunTableViewCell.xib in Resources */,
@@ -4421,6 +4427,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		EE340CD81F4542EE009D37FA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EE340CD71F4542EE009D37FA /* en */,
+				EE340CD91F45439A009D37FA /* zh-Hans */,
+				EE340CDB1F4543EB009D37FA /* Base */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		EE4B1C191D646A0500825E2B /* country.plist */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -4627,12 +4643,23 @@
 					"$(PROJECT_DIR)/SMA/ACloudLib/Ablecloud_Sdk_Extra_Frameworks/UMessage_Sdk_1.4.0",
 					"$(PROJECT_DIR)/SMA/libWeiboSDK",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/TwitterCore\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/TwitterKit\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.smacare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e7ef197a-dd9f-4072-b7e9-a8a17caeebe7";
 				PROVISIONING_PROFILE_SPECIFIER = All_development_text;
@@ -4649,7 +4676,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = VHVLE5FL92;
+				DEVELOPMENT_TEAM = UXHZJEX24R;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4696,15 +4723,26 @@
 					"$(PROJECT_DIR)/SMA/libWeiboSDK",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Fabric\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/TwitterCore\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/TwitterKit\"",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.smacare;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b7956e09-9feb-4cde-8c33-4610f432aeb7";
-				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_text;
+				PROVISIONING_PROFILE = "ce14ff89-ef90-4e58-a0ac-d52b24427dd5";
+				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_sub;
 			};
 			name = Release;
 		};

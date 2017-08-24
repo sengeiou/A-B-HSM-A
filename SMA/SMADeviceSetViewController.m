@@ -31,7 +31,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-
 - (void)viewWillAppear:(BOOL)animated{
      [self.navigationController.navigationBar setBackgroundImage:[UIImage buttonImageFromColors:@[[SmaColor colorWithHexString:@"#5790F9" alpha:1],[SmaColor colorWithHexString:@"#80C1F9" alpha:1]] ByGradientType:topToBottom size:CGSizeMake(MainScreen.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
 //    [self updateUI];
@@ -574,10 +573,16 @@
         case BOTTONSTYPE:
         {
             if ([[data firstObject] intValue] == 1) {
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+                    return;
+                }
                 [picker takePicture];
             }
             else if([[data firstObject] intValue] == 2){
-                [SmaBleSend setBLcomera:NO];
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+                    return;
+                }
+//                [SmaBleSend setBLcomera:NO];
                 [self dismissViewControllerAnimated:YES completion:^{
                     
                 }];
@@ -601,6 +606,9 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     __block UIImage* image;
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+        return;
+    }
     if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(NSString*)kUTTypeImage]) {
         image = [info objectForKey:UIImagePickerControllerOriginalImage];
         NSLog(@"fwgwgg-----%@",NSStringFromCGSize(image.size));
@@ -618,6 +626,9 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+        return;
+    }
     [SmaBleSend setBLcomera:NO];
     [self dismissViewControllerAnimated:YES completion:^{
         
