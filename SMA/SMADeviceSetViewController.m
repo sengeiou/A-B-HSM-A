@@ -573,13 +573,13 @@
         case BOTTONSTYPE:
         {
             if ([[data firstObject] intValue] == 1) {
-                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+                if (!picker) {
                     return;
                 }
                 [picker takePicture];
             }
             else if([[data firstObject] intValue] == 2){
-                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+                if (!picker) {
                     return;
                 }
 //                [SmaBleSend setBLcomera:NO];

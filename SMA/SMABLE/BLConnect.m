@@ -57,7 +57,7 @@ static id _instace;
     [_player prepareToPlay];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
-//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    //    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self getSystemVolumSlider];
 }
 
@@ -663,9 +663,9 @@ static id _instace;
              静坐开始 10
              步行开始 11
              跑步开始 12
-             运动模式开始 20 -> 32
-             运动中数据   21 -> 33
-             运动模式结束 2F -> 47
+             运动模式开始  20 -> 32
+             运动中数据    21 -> 33
+             运动模式结束  2F -> 47
              *****/
             if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
                 //                SmaAnalysisWebServiceTool *webTool = [[SmaAnalysisWebServiceTool alloc] init];
@@ -748,8 +748,8 @@ static id _instace;
                 [SmaBleSend getLongTime];
             }
             if ([[array firstObject] intValue] == 103) {
-//                self.cameraIndex = @"1";
-                 [self openCamera];
+                //                self.cameraIndex = @"1";
+                [self openCamera];
             }
             break;
         case ALARMCLOCK:
@@ -840,6 +840,11 @@ static id _instace;
                     }];
                 }
             }        }
+            break;
+        case BLUTDRUCK:
+//            if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
+//                [dal insertbp];
+//            }
             break;
         default:
             break;
@@ -1009,6 +1014,18 @@ static bool isSpMode;
         [slDic setObject:[SMADefaultinfos getValueforKey:BANDDEVELIVE] forKey:@"INDEX"];
         [slDic setObject:@"0" forKey:@"WEB"];
         [slDic setObject:@"1" forKey:@"WEAR"];
+        [slDic setObject:[SMAAccountTool userInfo].userID forKey:@"USERID"];
+        [sl_arr addObject:slDic];
+    }
+    return sl_arr;
+}
+
+- (NSMutableArray *)clearUpBPData:(NSMutableArray *)dataArr{
+    NSMutableArray *sl_arr = [NSMutableArray array];
+    for (int i = 0; i < dataArr.count; i ++) {
+        NSMutableDictionary *slDic = [(NSDictionary *)dataArr[i] mutableCopy];
+        [slDic setObject:[SMADefaultinfos getValueforKey:BANDDEVELIVE] forKey:@"INDEX"];
+        [slDic setObject:@"0" forKey:@"WEB"];
         [slDic setObject:[SMAAccountTool userInfo].userID forKey:@"USERID"];
         [sl_arr addObject:slDic];
     }

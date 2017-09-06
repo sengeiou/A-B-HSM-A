@@ -387,7 +387,7 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
 }
 #pragma mark ******UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [[[aggregateData objectAtIndex:1] objectAtIndex:3]  count];
+    return [[[aggregateData objectAtIndex:1] objectAtIndex:5]  count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -399,12 +399,12 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
     if (indexPath.row == 0) {
         cell.topLine.hidden = YES;
     }
-    else if (indexPath.row == [[[aggregateData objectAtIndex:1] objectAtIndex:3] count] - 1){
+    else if (indexPath.row == [[[aggregateData objectAtIndex:1] objectAtIndex:5] count] - 1){
         cell.botLine.hidden = YES;
     }
-    cell.timeLab.text = [[[[aggregateData objectAtIndex:1] objectAtIndex:3]  objectAtIndex:indexPath.row] objectForKey:@"TIME"];
+    cell.timeLab.text = [self getHourAndMin:[[[[aggregateData objectAtIndex:1] objectAtIndex:5]  objectAtIndex:indexPath.row] objectForKey:@"TIME"]] ;
     cell.statelab.text = @"";
-    cell.distanceLab.text = [NSString stringWithFormat:@"%@bpm",[[[[aggregateData objectAtIndex:1] objectAtIndex:3] objectAtIndex:indexPath.row] objectForKey:@"REAT"]];
+    cell.distanceLab.text = [NSString stringWithFormat:@"%@bpm",[[[[aggregateData objectAtIndex:1] objectAtIndex:5] objectAtIndex:indexPath.row] objectForKey:@"REAT"]];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -711,9 +711,9 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
         if (dayArr.count > 0 && [[[dayArr lastObject] objectForKey:@"TIME"] intValue]/(1440/cyTime)>=i) {
             for (NSDictionary *dic in dayArr) {
                 int add = [[dic objectForKey:@"TIME"] intValue]/(1440/cyTime);
-                if ([[dic objectForKey:@"TIME"] intValue]%(1440/cyTime) != 0) {
-                    add ++;
-                }
+//                if ([[dic objectForKey:@"TIME"] intValue]%(1440/cyTime) != 0) {
+//                    add ++;
+//                }
                 if (add == i) {
                     if (time == i) {
                         [fullDatas removeLastObject];
@@ -778,6 +778,7 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
     [dayAlldata addObject:yValue];
     [dayAlldata addObject:invertedArr];
     [dayAlldata addObject:date.yyyyMMddNoLineWithDate];
+    [dayAlldata addObject:dayArr];
     return dayAlldata;
 }
 

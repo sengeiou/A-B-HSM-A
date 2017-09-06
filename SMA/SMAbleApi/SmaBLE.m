@@ -172,8 +172,7 @@ static SmaBLE *_instace;
     if(receive_state==AWAIT_RECEVER1)
     {
         if(testBytes[0]!=0xAB)//开始接收包
-            return;
-        
+         return;
         receive_state=ALREADY_RECEVER1;//继续等待接收
         memcpy(&received_buffer,testBytes,len);//拷贝到对应的Byte 数组中
         length_to_receive=len;//已经接收的长度
@@ -393,8 +392,6 @@ static SmaBLE *_instace;
         goalByte[1] = bytes[15];
         goalByte[2] = bytes[16];
         goalByte[3] = bytes[17];
-//        NSLog(@"ijogor   %d ",((bytes[13] & 0xff)<<24) | ((bytes[14] & 0xff)<<16) | ((bytes[15] & 0xff)<<8 | ((bytes[16] & 0xff))));
-//        NSLog(@"fwegr g   = %f", (bytes[13] * pow(16, 6)) + (bytes[14] * pow(16, 4)) + (bytes[15]* pow(16, 2)) + (bytes[16]));
         array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",((bytes[13] & 0xff)<<24) | ((bytes[14] & 0xff)<<16) | ((bytes[15] & 0xff)<<8 | ((bytes[16] & 0xff)))], nil];
     }
      else if (bytes[8]==0x02 && bytes[10]==0x66 && bol){
@@ -405,7 +402,11 @@ static SmaBLE *_instace;
          mode = FINDPHONE;
          array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[13]], nil];
      }
-    if (mode <= 23 && array.count > 0) {
+     else if (bytes[8]==0x05 && bytes[10]==0x4a && bol){
+         mode = BLUTDRUCK;
+         array = [self manualMbWithData:bytes Len:len];
+     }
+    if (mode <= 24 && array.count > 0) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(bleDataParsingWithMode:dataArr:Checkout:)]) {
             [self.delegate bleDataParsingWithMode:mode dataArr:array Checkout:bol];
         }
@@ -1632,6 +1633,17 @@ static SmaBLE *_instace;
         [self arrangeBLData:data0 type:@"GET" sendNum:1];
         //        [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
     }
+}
+
+-(void)getBloodPressure{
+    Byte results[13];
+    if(self.p && self.Write)
+    {
+        [SmaBusinessTool getSpliceCmd:0x05 Key:0x49 bytes1:nil len:0 results:results];//设定用户信息
+        NSData * data0 = [NSData dataWithBytes:results length:13];
+        [self arrangeBLData:data0 type:@"GET" sendNum:1];
+        //        [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+    }
     
 }
 
@@ -2526,6 +2538,54 @@ static NSMutableArray *infos;
     return allSlArr;
 }
 
+//血压
+static NSMutableArray *mbArr;
+- (NSMutableArray *)manualMbWithData:(Byte *)byte Len:(int)len{
+    if (!mbArr) {
+        mbArr = [NSMutableArray array];
+    }
+    NSMutableArray *allSpArr = [NSMutableArray array];
+    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];//解决不同时令相差1小时问题
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+    [formatter setTimeZone:GTMzone];
+    int dataLen = byte[11]*pow(16, 2) + byte[12];
+    if (dataLen == 0) {
+        if (mbArr.count == 0) {
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+            [allSpArr addObject:dic];
+        }
+        else{
+            allSpArr = [mbArr mutableCopy];
+            [mbArr removeAllObjects];
+            mbArr = nil;
+        }
+    }
+    NSString *shrink;
+    NSString *relaxation;
+    NSInteger time;
+    NSLog(@"sportdata = %@",[NSData dataWithBytes:byte length:len]);
+    for (int i = 0; i<dataLen/6; i++) {
+        time = byte[13+6*i]*pow(16, 6) + byte[14+6*i]*pow(16, 4) + byte[15+6*i]*pow(16, 2) + byte[16+6*i];
+        shrink = [NSString stringWithFormat:@"%d",byte[17+6*i]];
+        relaxation = [NSString stringWithFormat:@"%d",byte[18+6*i]];
+        NSDate *date = [[NSDate alloc] initWithTimeInterval:time sinceDate:[formatter dateFromString:@"20000101000000"]];
+        NSString *timestr = [formatter stringFromDate:date];
+        NSLog(@"time =%@ \n SHRINK==%@ \n RELAXATION ==%@",timestr,shrink,relaxation);
+        NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:timestr,@"DATE",relaxation,@"RELAXATION",shrink,@"SHRINK", nil];
+        [mbArr addObject:dic];
+        if (i==dataLen/6-1&&dataLen==120) {
+            [self requestCuffSportData];
+        }
+        if (i==dataLen/6-1&&dataLen!=120){
+            allSpArr = [mbArr mutableCopy];
+            [mbArr removeAllObjects];
+            mbArr = nil;
+        }
+    }
+    return allSpArr;
+}
+
 //- - - -  - - - - - 07心率解释
 static NSMutableArray *hrArr;
 - (NSMutableArray *)analysisCuffHRData:(Byte *)byte len:(int)len{
@@ -2771,6 +2831,9 @@ static NSMutableArray *senArr;
         }
         else if(bytes[8]==0x05 && bytes[10]==0x45 && bol){
             mode = CUFFSLEEPDATA;
+        }
+        else if (bytes[8]==0x05 && bytes[10]==0x4a && bol){
+            mode = BLUTDRUCK;
         }
         if (self.delegate && [self.delegate respondsToSelector:@selector(sendBLETimeOutWithMode:)]) {
             [self.delegate sendBLETimeOutWithMode:mode];
