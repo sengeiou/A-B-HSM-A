@@ -982,10 +982,10 @@ static NSString * const reuseIdentifier = @"SMADetailCollectionCell";
     NSArray *dayArr = [str componentsSeparatedByString:@"-"];
     NSArray *monArr = [[dayArr firstObject] componentsSeparatedByString:@"."];
     NSString *monStr;
-    monStr = [NSString stringWithFormat:@"%@%@",[monArr firstObject],SMALocalizedString(@"device_SP_month")];
-    if ([[monArr firstObject] intValue] == 1) {
-        monStr = [NSString stringWithFormat:@"%@ %@%@",year,[monArr firstObject],SMALocalizedString(@"device_SP_month")];
-    }
+    //    monStr = [NSString stringWithFormat:@"%@%@",[monArr firstObject],SMALocalizedString(@"device_SP_month")];
+    //    if ([[monArr firstObject] intValue] == 1) {
+    monStr = [NSString stringWithFormat:@"%@ %@",year,SMALocalizedString([NSString stringWithFormat:@"month%d",[[monArr firstObject] intValue]])];
+    //    }
     if ([[monArr firstObject] intValue] == [[[[NSDate date] yyyyMMddNoLineWithDate] substringWithRange:NSMakeRange(4, 2)] intValue] && [year isEqualToString:[[[NSDate date] yyyyMMddNoLineWithDate] substringToIndex:4]]) {
         monStr = SMALocalizedString(@"device_SL_thisMonth");
     }

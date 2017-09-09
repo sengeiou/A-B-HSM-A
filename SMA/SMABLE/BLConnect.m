@@ -348,6 +348,7 @@ static id _instace;
             //            }
         }
             break;
+            
         default:
             break;
     }
@@ -712,7 +713,7 @@ static id _instace;
                     }];
                 });
             }
-            [SmaBleSend requestCuffSleepData];
+            [SmaBleSend getBloodPressure];
             break;
         case RUNMODE:
             NSLog(@"riunfjwfiow===%@",array);
@@ -842,9 +843,10 @@ static id _instace;
             }        }
             break;
         case BLUTDRUCK:
-//            if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
-//                [dal insertbp];
-//            }
+            if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
+                [dal insertBPDataArr:[self clearUpBPData:array]];
+            }
+            [SmaBleSend requestCuffSleepData];
             break;
         default:
             break;
@@ -1021,15 +1023,15 @@ static bool isSpMode;
 }
 
 - (NSMutableArray *)clearUpBPData:(NSMutableArray *)dataArr{
-    NSMutableArray *sl_arr = [NSMutableArray array];
+    NSMutableArray *bp_arr = [NSMutableArray array];
     for (int i = 0; i < dataArr.count; i ++) {
-        NSMutableDictionary *slDic = [(NSDictionary *)dataArr[i] mutableCopy];
-        [slDic setObject:[SMADefaultinfos getValueforKey:BANDDEVELIVE] forKey:@"INDEX"];
-        [slDic setObject:@"0" forKey:@"WEB"];
-        [slDic setObject:[SMAAccountTool userInfo].userID forKey:@"USERID"];
-        [sl_arr addObject:slDic];
+        NSMutableDictionary *bpDic = [(NSDictionary *)dataArr[i] mutableCopy];
+        [bpDic setObject:[SMADefaultinfos getValueforKey:BANDDEVELIVE] forKey:@"INDEX"];
+        [bpDic setObject:@"0" forKey:@"WEB"];
+        [bpDic setObject:[SMAAccountTool userInfo].userID forKey:@"USERID"];
+        [bp_arr addObject:bpDic];
     }
-    return sl_arr;
+    return bp_arr;
 }
 
 static double hrInterval;
@@ -1051,6 +1053,7 @@ static bool ishrMode;
     }
     return hr_arr;
 }
+
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     __block UIImage* image;

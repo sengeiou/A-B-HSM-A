@@ -60,6 +60,8 @@ static id _instace;
             
             //定位
             result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float, runstep integer,loca_mode integer,location_web integer);"];
+            
+            result = [db executeUpdate:@"create table if not exists tb_blutdruck (id integer primary key asc autoincrement,user_id varchar(50),bp_id varchar(30) UNIQUE,bp_date datetime,bp_time integer,shrink integer,relaxation integer,bp_web integer);"];
             //            NSLog(@"创表 %d",result);
         }];
     }
@@ -1086,6 +1088,82 @@ static id _instace;
         }
     }];
     return locaArr;
+}
+
+- (void)insertBPDataArr:(NSMutableArray *)bps{
+    [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        for (int i = 0; i < bps.count; i ++) {
+            NSDictionary *bpDic = [bps objectAtIndex:i];
+            NSString *bpID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[bpDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+            NSString *date = [bpDic objectForKey:@"DATE"];
+            NSString *YTD = [date substringToIndex:8];
+            NSString *moment = [SMADateDaultionfos minuteFormDate:date];
+            BOOL result = [db executeUpdate:@"insert into tb_blutdruck (user_id,bp_id,bp_date,bp_time,shrink,relaxation,bp_web) values (?,?,?,?,?,?,?)",[bpDic objectForKey:@"USERID"],bpID,YTD,moment,[bpDic objectForKey:@"SHRINK"],[bpDic objectForKey:@"RELAXATION"],[bpDic objectForKey:@"WEB"]];
+            NSLog(@"result %D",result);
+        }
+    }];
+}
+
+- (void)updateBPDataArr:(NSMutableArray *)bps{
+    [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        for (int i = 0; i < bps.count; i ++) {
+            NSDictionary *bpDic = [bps objectAtIndex:i];
+            NSString *bpID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[bpDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+            BOOL result = [db executeUpdate:@"update tb_blutdruck set bp_web = ? where bp_id = ? and user_id = ?",[bpDic objectForKey:@"WEB"],bpID,[bpDic objectForKey:@"USERID"]];
+            NSLog(@"result %D",result);
+        }
+    }];
+}
+
+- (NSMutableArray *)selectBPDataWihtDate:(NSString *)date{
+    NSMutableArray *bdArr = [NSMutableArray array];
+    [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        FMResultSet *res = [db executeQuery:@"select *from tb_blutdruck where bp_date = ? and user_id = ? group by bp_time",date,[SMAAccountTool userInfo].userID];
+        while (res.next) {
+            NSDictionary *dic = @{@"DATE":[res stringForColumn:@"bp_date"],@"TIME":[res stringForColumn:@"bp_time"],@"SHRINK":[res stringForColumn:@"shrink"],@"RELAXATION":[res stringForColumn:@"relaxation"]};
+            [bdArr addObject:dic];
+        }
+    }];
+    
+    return bdArr;
+}
+
+- (NSDictionary *)reatGatherBPDataWithDate:(NSString *)date toDate:(NSString *)toDate{
+    __block NSDictionary *bdArr = [NSDictionary dictionary];
+    [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        FMResultSet *rsChart = [db executeQuery:@"select max(shrink) as maxShrink, min(shrink) as minShrink, avg(shrink) as avgShrink, max(relaxation) as maxRelax, min(relaxation) as minRelax, avg(relaxation) as avgRelax from tb_blutdruck where bp_date>=? and bp_date<=? and user_id=?",date,toDate,[SMAAccountTool userInfo].userID];
+        while (rsChart.next) {
+            NSString *max0 = [rsChart stringForColumn:@"maxShrink"] ? [rsChart stringForColumn:@"maxShrink"]:@"0";
+            NSString *min0 = [rsChart stringForColumn:@"minShrink"] ? [rsChart stringForColumn:@"minShrink"]:@"0";
+            NSString *avg0 = [rsChart stringForColumn:@"avgShrink"] ? [rsChart stringForColumn:@"avgShrink"]:@"0";
+            
+            NSString *max1 = [rsChart stringForColumn:@"maxRelax"] ? [rsChart stringForColumn:@"maxRelax"]:@"0";
+            NSString *min1 = [rsChart stringForColumn:@"minRelax"] ? [rsChart stringForColumn:@"minRelax"]:@"0";
+            NSString *avg1 = [rsChart stringForColumn:@"avgRelax"] ? [rsChart stringForColumn:@"avgRelax"]:@"0";
+            
+            bdArr = @{@"MAXSHRIMK":max0,@"MINSHRINK":min0,@"AVGSHRIMK":avg0,@"MAXRELAX":max1,@"MINRELAX":min1,@"AVGRELAX":avg1};
+        }
+    }];
+    return bdArr;
+}
+
+- (NSMutableArray *)readNeedUploadBloodPressureData{
+    NSMutableArray *bpArr = [NSMutableArray array];
+    [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        NSString *sql = [NSString stringWithFormat:@"select *from tb_blutdruck where bp_web=0 and user_id = \'%@\'",[SMAAccountTool userInfo].userID];
+        FMResultSet *rs = [db executeQuery:sql];
+        while (rs.next) {
+            NSMutableDictionary *bpDict = [NSMutableDictionary dictionary];
+            [bpDict setObject:[SMAAccountTool userInfo].userID forKey:@"account"];
+            [bpDict setObject:[rs stringForColumn:@"bp_id"] ? [NSNumber numberWithLongLong:[rs stringForColumn:@"bp_id"].longLongValue]:[NSNumber numberWithLongLong:@"".longLongValue] forKey:@"time"];
+            NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:[[rs stringForColumn:@"bp_id"] doubleValue] withFormatStr:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+            [bpDict setObject:date forKey:@"date"];
+            [bpDict setObject:[rs stringForColumn:@"shrink"] ? [NSNumber numberWithLongLong:[rs stringForColumn:@"shrink"].longLongValue]:[NSNumber numberWithLongLong:@"".longLongValue] forKey:@"systolic"];
+            [bpDict setObject:[rs stringForColumn:@"relaxation"] ? [NSNumber numberWithLongLong:[rs stringForColumn:@"relaxation"].longLongValue]:[NSNumber numberWithLongLong:@"".longLongValue] forKey:@"diastolic"];
+            [bpArr addObject:bpDict];
+        }
+    }];
+    return bpArr;
 }
 
 - (NSString *)getHourAndMin:(NSString *)time{

@@ -192,4 +192,24 @@
         }];
     });
 }
+
++ (void)updateBPData:(NSMutableArray *)bpList insert:(BOOL)insert finish:(void (^)(id finish)) callBack{
+    SMADatabase *dal = [[SMADatabase alloc] init];
+    NSMutableArray *bpArr = [NSMutableArray array];
+    for (int i = 0; i < bpList.count; i ++) {
+        NSDictionary *dic = [bpList objectAtIndex:i];
+        NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:[[dic objectForKey:@"time"] doubleValue] withFormatStr:@"yyyyMMddHHmmss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        NSDictionary *bpDic = [NSDictionary dictionaryWithObjectsAndKeys:[dic objectForKey:@"account"],@"USERID",date,@"DATE",[NSString stringWithFormat:@"%d",[[dic objectForKey:@"systolic"] intValue]],@"SHRINK",[NSString stringWithFormat:@"%d",[[dic objectForKey:@"diastolic"] intValue]],@"RELAXATION",@"1",@"WEB", nil];
+        [bpArr addObject:bpDic];
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        if (insert) {
+            [dal insertBPDataArr:bpArr];
+        }
+        else{
+            [dal updateBPDataArr:bpArr];
+        }
+        callBack(@"finish");
+    });
+}
 @end

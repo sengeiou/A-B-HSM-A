@@ -18,4 +18,5 @@
 + (void)updateHRData:(NSMutableArray *)hrList finish:(void (^)(id finish)) callBack;
 + (void)updateALData:(NSMutableArray *)alList finish:(void (^)(id finish)) callBack;
 + (void)updateLAData:(NSMutableArray *)alList finish:(void (^)(id finish)) callBack;
++ (void)updateBPData:(NSMutableArray *)bpList insert:(BOOL)insert finish:(void (^)(id finish)) callBack;
 @end

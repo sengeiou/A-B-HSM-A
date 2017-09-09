@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ScattView.h"
 #import "MTKSleepView.h"
+#import "SMAHGView.h"
 /** 遵循该代理就可以监控到网络滚动视图的index*/
 @class WYScrollView;
 @protocol WYScrollViewNetDelegate <NSObject>
@@ -17,6 +18,8 @@
 
 /** 点中网络滚动视图后触发*/
 -(void)didSelectedNetImageAtIndex:(NSInteger)index;
+
+
 
 @end
 
@@ -43,6 +46,8 @@
 
 /** 触摸手势结束*/
 - (void)WYplotTouchUp;
+
+- (void)didSelectBpData:(NSDictionary *)dic selIndex:(NSInteger)index;
 @end
 
 @interface WYScrollView : UIView
@@ -76,6 +81,10 @@
 @property (nonatomic, strong) NSArray *lineColors;  //曲线颜色。长度与yValues相等，包含的元素为CPTColor类
 
 @property (nonatomic, assign) BOOL sleepDayDraw;  //绘制睡眠当天图像
+
+@property (nonatomic, assign) BOOL HGDayDraw;  //绘制睡眠当天图像
+
+@property (nonatomic, assign) BOOL HGPolylineDraw;  //绘制睡眠当天图像
 
 /*绘图区域是否允许点击改变颜色*/
 @property (nonatomic, assign) BOOL selectColor;
@@ -123,7 +132,9 @@
  */
 - (instancetype) initWithFrame:(CGRect)frame WithNetImages:(NSArray *)imageArray;
 
- /** 设置数量*/
+- (instancetype)initWithFrame:(CGRect)frame WithHGDatas:(NSArray *)dataArray;
+
+/** 设置数量*/
 -(void)setMaxImageCount;
 
 - (void)changeImageLeft:(NSInteger)LeftIndex center:(NSInteger)centerIndex right:(NSInteger)rightIndex;

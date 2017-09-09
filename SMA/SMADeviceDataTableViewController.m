@@ -15,12 +15,9 @@
     NSMutableArray *HRArr;
     NSMutableArray *quietArr;
     NSMutableArray *sleepArr;
+    NSMutableArray *BPArr;
     UILabel *titleLab;
-    NSTimer *sportAni;
     BOOL firstLun;
-    CGFloat hisSpProgress;
-    int hisSpStep;
-    //   NSTimer *heAni;
 }
 @property (nonatomic, strong) SMADatabase *dal;
 @property (nonatomic, strong) NSDate *date;
@@ -30,10 +27,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     firstLun = YES;
     [self initializeMethod:NO];
+    //     [self createUI];
     
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -45,22 +45,23 @@
         firstLun = NO;
         return;
     }
-    [self initializeMethod:!firstLun];
+    [self initializeMethod:YES];
+    //     [self.navigationController addObserver:self forKeyPath:@"childViewControllers" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:nil];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
+    
     [SmaNotificationCenter addObserver:self selector:@selector(updateUI) name:UIApplicationDidBecomeActiveNotification object:nil];
     [SmaNotificationCenter addObserver:self selector:@selector(updateData) name:@"updateData" object:nil];
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chectFirmwareVewsionWithWeb) name:@"DFUUPDATEFINISH" object:nil];
+    //     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(chectFirmwareVewsionWithWeb) name:@"DFUUPDATEFINISH" object:nil];
     [self chectFirmwareVewsionWithWeb];
-    
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [SmaNotificationCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [SmaNotificationCenter removeObserver:self name:@"updateData" object:nil];
     //    [SmaNotificationCenter removeObserver:self name:@"DFUUPDATEFINISH" object:nil];
-    //     [SmaBleSend requestFindDeviceWithBuzzing:0];
 }
 
 - (SMADatabase *)dal{
@@ -80,21 +81,23 @@
 - (void)initializeMethod:(BOOL)updateUi{
     SmaBleMgr.BLdelegate = self;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        //      spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
+        //        spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
         spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
         HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
         quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
         sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
+        BPArr = [self.dal selectBPDataWihtDate:self.date.yyyyMMddNoLineWithDate];
+        //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         dispatch_async(dispatch_get_main_queue(), ^{
             if (!updateUi) {
-                NSLog(@"000000000000");
                 [self createUI];
+                [self.tableView reloadData];
             }
             else{
-                NSLog(@"11111111111111");
                 [self updateUI];
             }
         });
+        //        });
     });
 }
 
@@ -112,7 +115,12 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupRefresh];
+    
+    //    SDDemoItemView *roundView =[[SDDemoItemView alloc] initWithFrame:CGRectMake(20, 100, 100, 100)];
+    //    [self.view addSubview:roundView];
+    //    roundView.progressViewClass = [SDLoopProgressView class];
 }
+
 
 - (void)updateUI{
     SmaBleMgr.BLdelegate = self;
@@ -130,21 +138,7 @@
     [self.tableView reloadData];
 }
 
-- (void)updateData{
-    NSLog(@"更新数据");
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-        spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
-        HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
-        quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
-        sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self updateUI];
-        });
-    });
-}
-
 - (void)chectFirmwareVewsionWithWeb{
-    NSLog(@"升级 %@",[SMADefaultinfos getValueforKey:DFUUPDATE]);
     if (![SMAAccountTool userInfo].watchUUID || [[SMAAccountTool userInfo].watchUUID isEqualToString:@""]) {
         [SMADefaultinfos putKey:DFUUPDATE andValue:@"1"];
         return;
@@ -185,20 +179,29 @@
     }];
 }
 
+- (void)updateData{
+    NSLog(@"更新数据");
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
+        HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
+        quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
+        sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
+        BPArr = [self.dal selectBPDataWihtDate:self.date.yyyyMMddNoLineWithDate];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self updateUI];
+        });
+    });
+}
+
 - (IBAction)calendarSelector:(id)sender{
+    [SMADefaultinfos putInt:@"childViewControllers" andValue:1];
     calendarView = [[SMACalendarView alloc] initWithFrame:CGRectMake(0, 0, MainScreen.size.width, MainScreen.size.height)];
     calendarView.delegate = self;
     calendarView.date = self.date;
     [calendarView getDataDayModel:self.date];
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:calendarView];
-//    [SmaBleSend getBloodPressure];
-    //    [SmaBleSend requestFindDeviceWithBuzzing:2];
-    //    [SmaBleSend setPairAncs];
-    //    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-    //    AudioServicesPlaySystemSoundWithCompletion(kSystemSoundID_Vibrate, ^{
-    //
-    //    });
+    
     //    SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
     //    [webSer acloudDownLDataWithAccount:[SMAAccountTool userInfo].userID];
     
@@ -245,20 +248,14 @@
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
     NSArray *shareArr;
     NSArray *shareImaArr;
-#if SMA
-    if ([preferredLang isEqualToString:@"zh"]) {
-        shareArr = @[SMALocalizedString(@"device_share_wechat"),SMALocalizedString(@"device_share_Timeline"),SMALocalizedString(@"device_share_qq"),SMALocalizedString(@"device_share_Qzone"),SMALocalizedString(@"device_share_webo")];
-        shareImaArr = @[[UIImage imageNamed:@"icon_weixin"],[UIImage imageNamed:@"home_pyq"],[UIImage imageNamed:@"icon_qq"],[UIImage imageNamed:@"home_kongjian"],[UIImage imageNamed:@"icon_weibo"]];
-    }
-    else{
+    if (![preferredLang isEqualToString:@"zh"]) {
         shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
         shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
     }
-    
-#elif ZENFIT
-    shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
-    shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
-#endif
+    else{
+        shareArr = @[SMALocalizedString(@"device_share_wechat"),SMALocalizedString(@"device_share_Timeline"),SMALocalizedString(@"device_share_qq"),SMALocalizedString(@"device_share_Qzone"),SMALocalizedString(@"device_share_webo")];
+        shareImaArr = @[[UIImage imageNamed:@"icon_weixin"],[UIImage imageNamed:@"home_pyq"],[UIImage imageNamed:@"icon_qq"],[UIImage imageNamed:@"home_kongjian"],[UIImage imageNamed:@"icon_weibo"]];
+    }
     SMAShareView *shareView = [[SMAShareView alloc] initWithButtonTitles:shareArr butImage:shareImaArr shareImage:image];
     shareView.shareVC = self;
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -305,7 +302,6 @@
 - (void)headerRereshing{
     self.tableView.scrollEnabled = NO;
     if ([SmaBleMgr checkBLConnectState]) {
-        NSLog(@"bledidDisposeMode %d == %d",SmaBleSend.serialNum,SmaBleMgr.sendIdentifier);
         if (SmaBleSend.serialNum == SmaBleMgr.sendIdentifier) {
             self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncing");
             SmaBleMgr.syncing = YES;
@@ -331,20 +327,25 @@
     }
 }
 
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+        return 4;
+    }
     return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 180;
+    return 185;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SMADieviceDataCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DATACELL"];
@@ -356,8 +357,11 @@
         else if (indexPath.row == 1) {
             cell.roundView.progressViewClass = [SDRotationLoopProgressView class];
         }
-        else{
+        else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] ? indexPath.row == 3:indexPath.row == 2){
             cell.roundView.progressViewClass = [SDPieLoopProgressView class];
+        }
+        else if (indexPath.row == 2 && [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+            cell.roundView.progressViewClass = [SDBPProgressView class];
         }
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -436,16 +440,16 @@
         [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_heart_big"] forState:UIControlStateNormal];
         [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_heart_jingxi"] forState:UIControlStateNormal];
     }
-    else if (indexPath.row == 2){
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] ? indexPath.row == 3:indexPath.row == 2){
         cell.pulldownView.hidden = YES;
         //                cell.roundView.progressView.progress = 0.001;
         [cell.roundView.progressView sleepTimeAnimaitonWtihStar:[[sleepArr objectAtIndex:5] floatValue] end:[[sleepArr objectAtIndex:6] floatValue]];
         cell.titLab.textColor = [UIColor colorWithRed:44/255.0 green:203/255.0 blue:111/255.0 alpha:1];
-        cell.titLab.text = [sleepArr objectAtIndex:1];
         cell.stypeLab.text = @"";
         cell.stypeLab.font = FontGothamLight(18);
         cell.stypeLab.textColor = [SmaColor colorWithHexString:@"#2CCB6F" alpha:1];
         cell.dialLab.attributedText = [sleepArr objectAtIndex:0];
+        cell.titLab.text = [sleepArr objectAtIndex:1];
         cell.detailsLab3.attributedText = [sleepArr objectAtIndex:4];
         cell.detailsLab1.attributedText = [sleepArr objectAtIndex:3];
         cell.detailsLab2.attributedText = [sleepArr objectAtIndex:2];
@@ -471,6 +475,52 @@
         [cell.roundBut2 setImage:[UIImage imageNamed:@"icon_shenshui"] forState:UIControlStateNormal];
         [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_qingxin"] forState:UIControlStateNormal];
     }
+    else if (indexPath.row == 2 && [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+        cell.pulldownView.hidden = YES;
+        cell.roundBut2.hidden = YES;
+        cell.Round2W.constant = 10;
+        cell.round1top.constant = 16;
+        cell.detailsLab2.hidden = YES;
+        [cell.roundBut1 setImage:[UIImage imageNamed:@"icon_ssy"] forState:UIControlStateNormal];
+        [cell.roundBut3 setImage:[UIImage imageNamed:@"icon_szy"] forState:UIControlStateNormal];
+        cell.titLab.text = SMALocalizedString(@"device_bp_monitor");
+        cell.titLab.textColor = [SmaColor colorWithHexString:@"#ffb446" alpha:1.0];
+        
+        cell.dialLab.textColor = [SmaColor colorWithHexString:@"#ffb446" alpha:1.0];
+        cell.dialLab.font = FontGothamLight(18);
+        cell.stypeLab.text = @"";
+        
+        [cell tapRoundView:^(UIButton *button,UIView *view) {
+            CGSize remindSize;
+            NSString *remindStr;
+            if (button.tag == 103) {
+                remindStr = SMALocalizedString(@"device_bp_diastolic");
+            }
+            else{
+                remindStr = SMALocalizedString(@"device_bp_systolic");
+            }
+            remindSize = [self sizeWithText:remindStr];
+            SMARemindView *remindView = [[SMARemindView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(button.frame) - 8, CGRectGetMinY(button.frame) - 18, remindSize.width + 8, remindSize.height + 6) title:remindStr];
+            remindView.backIma.image = [UIImage imageNamed:@"home_xueya"];
+            [view addSubview:remindView];
+        }];
+        NSDictionary *dic = [BPArr firstObject];
+        CGFloat max = ([dic[@"SHRINK"] floatValue] - 90.0)/(240.0 - 90.0);
+        if (max <= 0) {
+            max = 0;
+        }
+        CGFloat min = ([dic[@"RELAXATION"] floatValue] - 30.0)/(90.0 - 30.0);
+        if (min <= 0) {
+            min = 0;
+        }
+        [cell.roundView.progressView setBPProgres:max relaxaion:min shrinkTitleLab:[NSString stringWithFormat:@"%d",[dic[@"SHRINK"] intValue]] relaxaionTitleLab:[NSString stringWithFormat:@"%d",[dic[@"RELAXATION"] intValue]] ];
+        static BOOL inta = NO;
+        inta = !inta;
+        cell.detailsLab3.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[dic[@"RELAXATION"] intValue]],@"mmHg"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#ffb446" alpha:1],[UIColor blackColor]]];
+        cell.detailsLab1.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[dic[@"SHRINK"] intValue]],@"mmHg"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#ffb446" alpha:1],[UIColor blackColor]]];
+        cell.dialLab.text = [self bpModeSystolic:[dic[@"SHRINK"] intValue] diastolic:[dic[@"RELAXATION"] intValue]];
+        //        cell.detailsLab2.attributedText = [self attributedStringWithArr:@[[NSString stringWithFormat:@"%d",[[[HRArr lastObject] objectForKey:@"maxHR"] intValue]],@"bpm"] fontArr:@[FontGothamLight(15),FontGothamLight(15)]colorArr:@[[SmaColor colorWithHexString:@"#EA1F75" alpha:1],[UIColor blackColor]]];
+    }
     return cell;
 }
 
@@ -486,9 +536,16 @@
         hrDetailVC.hidesBottomBarWhenPushed=YES;
         hrDetailVC.date = self.date;
         [self.navigationController pushViewController:hrDetailVC animated:YES];
+        
     }
-    else{
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] ? indexPath.row == 3:indexPath.row == 2){
         SMASleepDetailViewController *slDetailVC = [[SMASleepDetailViewController alloc] init];
+        slDetailVC.hidesBottomBarWhenPushed=YES;
+        slDetailVC.date = self.date;
+        [self.navigationController pushViewController:slDetailVC animated:YES];
+    }
+    else if (indexPath.row == 2 && [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
+        SMAHGDetailViewController *slDetailVC = [[SMAHGDetailViewController alloc] init];
         slDetailVC.hidesBottomBarWhenPushed=YES;
         slDetailVC.date = self.date;
         [self.navigationController pushViewController:slDetailVC animated:YES];
@@ -500,19 +557,18 @@
 - (void)bledidDisposeMode:(SMA_INFO_MODE)mode dataArr:(NSMutableArray *)data{
     NSLog(@"bledidDisposeMode  ==%d",mode);
     if (mode == CUFFSLEEPDATA) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                //            spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
-                spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
-                HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
-                quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
-                sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncSucc");
-                    [self.tableView headerEndRefreshing];
-                    self.tableView.scrollEnabled = YES;
-                    [self.tableView reloadData];
-                });
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            //            spArr = [self.dal readSportDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate];
+            spArr = [self getSPDatasModeContinueForOneDay:[self.dal readSportDetailDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate]];
+            HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
+            quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
+            sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
+            BPArr = [self.dal selectBPDataWihtDate:self.date.yyyyMMddNoLineWithDate];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncSucc");
+                [self.tableView headerEndRefreshing];
+                self.tableView.scrollEnabled = YES;
+                [self.tableView reloadData];
             });
         });
     }
@@ -531,6 +587,7 @@
             HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
             quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
             sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
+            BPArr = [self.dal selectBPDataWihtDate:self.date.yyyyMMddNoLineWithDate];
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.tableView.headerRefreshingText = SMALocalizedString(@"device_syncFail");
                 [self.tableView headerEndRefreshing];
@@ -539,8 +596,6 @@
             });
         });
     }
-    //    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    //    manager.responseSerializer.acceptableContentTypes []
 }
 
 #pragma mark *******calenderDelegate
@@ -554,6 +609,7 @@
         HRArr = [self.dal readHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:NO];
         quietArr = [self.dal readQuietHearReatDataWithDate:self.date.yyyyMMddNoLineWithDate toDate:self.date.yyyyMMddNoLineWithDate detailData:YES];
         sleepArr =[self screeningSleepData:[self.dal readSleepDataWithDate:self.date.yyyyMMddNoLineWithDate]];
+        BPArr = [self.dal selectBPDataWihtDate:self.date.yyyyMMddNoLineWithDate];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.tableView reloadData];
         });
@@ -821,6 +877,18 @@
     else{
         modeStr = SMALocalizedString(@"device_HR_typeT");
     }
+    return modeStr;
+}
+
+- (NSString *)bpModeSystolic:(int)systolic diastolic:(int)diastolic{
+    NSString *modeStr = SMALocalizedString(@"device_bp_normal");
+    if (systolic > 141 || diastolic > 91) {
+        modeStr = SMALocalizedString(@"device_bp_high");
+    }
+    if (systolic < 89 || diastolic < 59) {
+        modeStr = SMALocalizedString(@"device_bp_low");
+    }
+    
     return modeStr;
 }
 

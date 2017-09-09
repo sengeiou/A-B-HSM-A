@@ -522,7 +522,8 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
     NSMutableArray *slArr = [dal readNeedUploadSLData];
     NSMutableArray *rhArr = [dal readNeedUploadHRData];
     NSMutableArray *alArr = [dal readNeedUploadALData];
-    NSMutableArray *laArr = [dal readNeedUploadLocationData];
+    NSMutableArray *locaArr = [dal readNeedUploadLocationData];
+    NSMutableArray *bpArr = [dal readNeedUploadBloodPressureData];
     ACObject *hrSetObject = [SMAWebDataHandleInfo heartRateSetObject];
     ACObject *sedentObject = [SMAWebDataHandleInfo sedentarinessSetObject];
     
@@ -533,12 +534,12 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
     [dataObject putString:@"account" value:account];
     
     if (spArr.count > 0) {
-//        ACObject *obje = [[ACObject alloc] init];
-//        [obje putString:@"account" value:[[spArr objectAtIndex:0] objectForKey:@"account"]];
-//        [obje putString:@"date" value:[[spArr objectAtIndex:0] objectForKey:@"date"]];
-//        [obje putLongLong:@"time" value:[[[spArr objectAtIndex:0] objectForKey:@"time"] longLongValue]/1000];
-//        [obje putInteger:@"step" value:[[[spArr objectAtIndex:0] objectForKey:@"step"] integerValue]];
-//        [obje putInteger:@"mode" value:[[[spArr objectAtIndex:0] objectForKey:@"mode"] integerValue]];
+        //        ACObject *obje = [[ACObject alloc] init];
+        //        [obje putString:@"account" value:[[spArr objectAtIndex:0] objectForKey:@"account"]];
+        //        [obje putString:@"date" value:[[spArr objectAtIndex:0] objectForKey:@"date"]];
+        //        [obje putLongLong:@"time" value:[[[spArr objectAtIndex:0] objectForKey:@"time"] longLongValue]/1000];
+        //        [obje putInteger:@"step" value:[[[spArr objectAtIndex:0] objectForKey:@"step"] integerValue]];
+        //        [obje putInteger:@"mode" value:[[[spArr objectAtIndex:0] objectForKey:@"mode"] integerValue]];
         [dataObject put:@"sport_list" value:spArr];
     }
     if (slArr.count > 0) {
@@ -547,11 +548,14 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
     if (rhArr.count > 0) {
         [dataObject put:@"rate_list" value:rhArr];
     }
-    if (laArr.count > 0) {
-        [dataObject put:@"tracker_list" value:laArr];
-    }
     if (alArr.count > 0) {
         [dataObject put:@"alarm_list" value:alArr];
+    }
+    if (locaArr.count > 0) {
+        [dataObject put:@"tracker_list" value:locaArr];
+    }
+    if (bpArr.count > 0) {
+        [dataObject put:@"blood_pressure_list" value:bpArr];
     }
     if (hrSetObject) {
         [dataObject put:@"heart_rate_settings" value:hrSetObject];
@@ -576,15 +580,16 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
         [SMAWebDataHandleInfo updateHRData:rhArr finish:^(id finish) {
             
         }];
-
-        [SMAWebDataHandleInfo updateLAData:laArr finish:^(id finish) {
-            
-        }];
-        
         [SMAWebDataHandleInfo updateALData:alArr finish:^(id finish) {
             
         }];
         
+        [SMAWebDataHandleInfo updateLAData:locaArr finish:^(id finish) {
+            
+        }];
+        [SMAWebDataHandleInfo updateBPData:bpArr insert:NO finish:^(id finish) {
+            
+        }];
     }];
 }
 
@@ -609,12 +614,12 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
         NSMutableArray *hrArr = [(NSMutableArray *)[backObject get:@"rate_list"] mutableCopy];
         NSMutableArray *alArr = [(NSMutableArray *)[backObject get:@"alarm_list"] mutableCopy];
         NSMutableArray *laArr = [(NSMutableArray *)[backObject get:@"tracker_list"] mutableCopy];
+        NSMutableArray *bpArr = [(NSMutableArray *)[backObject get:@"blood_pressure_list"] mutableCopy];
         ACObject *sedentObject = [backObject getACObject:@"sedentariness_settings"];
         ACObject *hrObject = [backObject getACObject:@"heart_rate_settings"];
         if (backAccount == 0) {
-             callback(@"finish");
+            callback(@"finish");
         }
-//        dispatch_queue_t queue = dispatch_queue_create("ck", DISPATCH_QUEUE_SERIAL);
         if (sedentObject) {
             saveAccount ++;
             [SMAWebDataHandleInfo saveWebSedentarinessSetObject:sedentObject];
@@ -628,7 +633,7 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
             if (saveAccount == backAccount) {
                 callback(@"finish");
             }
-
+            
         }
         if (spArr.count > 0) {
             [SMAWebDataHandleInfo updateSPData:spArr finish:^(id finish) {
@@ -666,7 +671,6 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
                 }
             }];
         }
-        
         if (alArr.count > 0) {
             [SMAWebDataHandleInfo updateALData:alArr finish:^(id finish) {
                 NSLog(@"alArr===%@",finish);
@@ -674,6 +678,16 @@ static NSString *user_acc = @"account";NSString *user_id = @"_id";NSString *user
                 if (saveAccount == backAccount) {
                     callback(@"finish");
                 }
+            }];
+        }
+        if (bpArr.count > 0) {
+            [SMAWebDataHandleInfo updateBPData:bpArr insert:YES finish:^(id finish) {
+                NSLog(@"bpArr===%@",finish);
+                saveAccount ++;
+                if (saveAccount == backAccount) {
+                    callback(@"finish");
+                }
+                
             }];
         }
     }];

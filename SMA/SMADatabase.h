@@ -77,5 +77,11 @@
 - (void)deleteLocationFromTime:(NSString *)time finish:(void (^)(id finish)) success;
 //获取所需要上传轨迹数据
 - (NSMutableArray *)readNeedUploadLocationData;
+
+- (void)insertBPDataArr:(NSMutableArray *)bps;
+- (void)updateBPDataArr:(NSMutableArray *)bps;
+- (NSMutableArray *)selectBPDataWihtDate:(NSString *)date;
+- (NSDictionary *)reatGatherBPDataWithDate:(NSString *)date toDate:(NSString *)toDate;
+- (NSMutableArray *)readNeedUploadBloodPressureData;
 @end
 

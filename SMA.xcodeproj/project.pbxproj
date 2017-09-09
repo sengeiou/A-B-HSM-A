@@ -304,6 +304,12 @@
 		EEBA6B1F1EBC6B1A0066A564 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
 		EEBA6B201EBC6B1A0066A564 /* Zip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EEBAB5A61D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBAB5A51D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m */; };
+		EEBB45EB1F622D77008EB172 /* SDBPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBB45EA1F622D77008EB172 /* SDBPProgressView.m */; };
+		EEBB45EC1F622D77008EB172 /* SDBPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBB45EA1F622D77008EB172 /* SDBPProgressView.m */; };
+		EEBB45EF1F622DBB008EB172 /* SMAHGDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBB45EE1F622DBB008EB172 /* SMAHGDetailViewController.m */; };
+		EEBB45F01F622DBB008EB172 /* SMAHGDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBB45EE1F622DBB008EB172 /* SMAHGDetailViewController.m */; };
+		EEBB45F31F622F07008EB172 /* SMAHGView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBB45F21F622F07008EB172 /* SMAHGView.m */; };
+		EEBB45F41F622F07008EB172 /* SMAHGView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBB45F21F622F07008EB172 /* SMAHGView.m */; };
 		EEBC89861E0E106600793AC1 /* SMAAggregateTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBC89851E0E106600793AC1 /* SMAAggregateTool.m */; };
 		EEC3CD141DB0CE320034105B /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EEC3CD041DB0CE320034105B /* MJRefresh.bundle */; };
 		EEC3CD151DB0CE320034105B /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEC3CD071DB0CE320034105B /* MJRefreshBaseView.m */; };
@@ -1456,6 +1462,12 @@
 		EEBA6B1A1EBC6AB00066A564 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Zip.framework; sourceTree = "<group>"; };
 		EEBAB5A41D6D2F8700AAC710 /* SMAthirdPartyLoginTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAthirdPartyLoginTool.h; sourceTree = "<group>"; };
 		EEBAB5A51D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAthirdPartyLoginTool.m; sourceTree = "<group>"; };
+		EEBB45E91F622D77008EB172 /* SDBPProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBPProgressView.h; sourceTree = "<group>"; };
+		EEBB45EA1F622D77008EB172 /* SDBPProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBPProgressView.m; sourceTree = "<group>"; };
+		EEBB45ED1F622DBB008EB172 /* SMAHGDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAHGDetailViewController.h; sourceTree = "<group>"; };
+		EEBB45EE1F622DBB008EB172 /* SMAHGDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAHGDetailViewController.m; sourceTree = "<group>"; };
+		EEBB45F11F622F07008EB172 /* SMAHGView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAHGView.h; sourceTree = "<group>"; };
+		EEBB45F21F622F07008EB172 /* SMAHGView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAHGView.m; sourceTree = "<group>"; };
 		EEBC89841E0E106600793AC1 /* SMAAggregateTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAAggregateTool.h; sourceTree = "<group>"; };
 		EEBC89851E0E106600793AC1 /* SMAAggregateTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAAggregateTool.m; sourceTree = "<group>"; };
 		EEC3CD041DB0CE320034105B /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
@@ -3030,6 +3042,8 @@
 				EE91FAB81D83DCBF0064A5A5 /* SDPieLoopProgressView.m */,
 				EE91FAB91D83DCBF0064A5A5 /* SDRotationLoopProgressView.h */,
 				EE91FABA1D83DCBF0064A5A5 /* SDRotationLoopProgressView.m */,
+				EEBB45E91F622D77008EB172 /* SDBPProgressView.h */,
+				EEBB45EA1F622D77008EB172 /* SDBPProgressView.m */,
 			);
 			name = SDDemoItemView;
 			sourceTree = "<group>";
@@ -3106,6 +3120,8 @@
 				EE733EC71DBDE41B00CF2887 /* SMAQuietHRViewController.xib */,
 				EE63AD991DC07EFB00ABA94D /* SMASleepDetailViewController.h */,
 				EE63AD9A1DC07EFB00ABA94D /* SMASleepDetailViewController.m */,
+				EEBB45ED1F622DBB008EB172 /* SMAHGDetailViewController.h */,
+				EEBB45EE1F622DBB008EB172 /* SMAHGDetailViewController.m */,
 				EE12EF191D7D1EC70096F811 /* VIEW */,
 				EE486C901DD9DC2C00E3E385 /* MODEL */,
 			);
@@ -3522,6 +3538,8 @@
 				EEDC88061E7F750800EAF2AA /* PointAnnotation.m */,
 				EEE433E61E80B8140017A9E1 /* SMASportStypeView.h */,
 				EEE433E71E80B8140017A9E1 /* SMASportStypeView.m */,
+				EEBB45F11F622F07008EB172 /* SMAHGView.h */,
+				EEBB45F21F622F07008EB172 /* SMAHGView.m */,
 			);
 			name = UIView;
 			sourceTree = "<group>";
@@ -3954,6 +3972,7 @@
 				EE57A7471E0B5FE10007BCC8 /* ESPUDPSocketServer.m in Sources */,
 				EE57A7201E0B5FE00007BCC8 /* QNDnsManager.m in Sources */,
 				EE57A7271E0B5FE00007BCC8 /* QNHosts.m in Sources */,
+				EEBB45EB1F622D77008EB172 /* SDBPProgressView.m in Sources */,
 				EED160001E5D6AF800B8DA93 /* SMAPolyline.m in Sources */,
 				EE7A86E91DB08A5F0089BA70 /* SMAGoalViewController.m in Sources */,
 				EE4B1C111D6469C900825E2B /* NSDictionary-DeepMutableCopy.m in Sources */,
@@ -4073,6 +4092,7 @@
 				EEE433E81E80B8140017A9E1 /* SMASportStypeView.m in Sources */,
 				EE57A7371E0B5FE00007BCC8 /* QNUpToken.m in Sources */,
 				EE57A7141E0B5FE00007BCC8 /* GCDAsyncSocket.m in Sources */,
+				EEBB45EF1F622DBB008EB172 /* SMAHGDetailViewController.m in Sources */,
 				EE83CE481DD2AFB20031CF58 /* UIImage+WebP.m in Sources */,
 				EE76343D1EAA137F0043FEC3 /* SmaAlarmInfo.m in Sources */,
 				EE55CFD71DFEC70F008A0F64 /* SMAAboutUsViewController.m in Sources */,
@@ -4107,6 +4127,7 @@
 				EE83CE3F1DD2AFB20031CF58 /* SDWebImageCompat.m in Sources */,
 				EE8086781DAF918D0075C705 /* SMAPersonalPickView.m in Sources */,
 				EEAE8F1A1D952ED4008F82CE /* SMABindRemindView.m in Sources */,
+				EEBB45F31F622F07008EB172 /* SMAHGView.m in Sources */,
 				EE09ACF41DAA2B2E00CA2EC5 /* FMDatabaseQueue.m in Sources */,
 				EE57A7421E0B5FE10007BCC8 /* ESPTouchGenerator.m in Sources */,
 				EE91FAC01D83DEAE0064A5A5 /* SDBaseProgressView.m in Sources */,
@@ -4223,6 +4244,7 @@
 				EEEB84851EF7C07D00DDE316 /* ESPUDPSocketServer.m in Sources */,
 				EEEB84861EF7C07D00DDE316 /* QNDnsManager.m in Sources */,
 				EEEB84871EF7C07D00DDE316 /* QNHosts.m in Sources */,
+				EEBB45EC1F622D77008EB172 /* SDBPProgressView.m in Sources */,
 				EEEB84881EF7C07D00DDE316 /* SMAPolyline.m in Sources */,
 				EEEB84891EF7C07D00DDE316 /* SMAGoalViewController.m in Sources */,
 				EEEB848A1EF7C07D00DDE316 /* NSDictionary-DeepMutableCopy.m in Sources */,
@@ -4342,6 +4364,7 @@
 				EEEB84FB1EF7C07D00DDE316 /* SMASportStypeView.m in Sources */,
 				EEEB84FC1EF7C07D00DDE316 /* QNUpToken.m in Sources */,
 				EEEB84FD1EF7C07D00DDE316 /* GCDAsyncSocket.m in Sources */,
+				EEBB45F01F622DBB008EB172 /* SMAHGDetailViewController.m in Sources */,
 				EEEB84FE1EF7C07D00DDE316 /* UIImage+WebP.m in Sources */,
 				EEEB84FF1EF7C07D00DDE316 /* SmaAlarmInfo.m in Sources */,
 				EEEB85001EF7C07D00DDE316 /* SMAAboutUsViewController.m in Sources */,
@@ -4376,6 +4399,7 @@
 				EEEB851D1EF7C07D00DDE316 /* SDWebImageCompat.m in Sources */,
 				EEEB851E1EF7C07D00DDE316 /* SMAPersonalPickView.m in Sources */,
 				EEEB851F1EF7C07D00DDE316 /* SMABindRemindView.m in Sources */,
+				EEBB45F41F622F07008EB172 /* SMAHGView.m in Sources */,
 				EEEB85201EF7C07D00DDE316 /* FMDatabaseQueue.m in Sources */,
 				EEEB85211EF7C07D00DDE316 /* ESPTouchGenerator.m in Sources */,
 				EEEB85221EF7C07D00DDE316 /* SDBaseProgressView.m in Sources */,

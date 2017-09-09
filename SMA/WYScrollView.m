@@ -24,13 +24,15 @@
 #define ScrollHeight self.frame.size.height
 
 @interface WYScrollView () <UIScrollViewDelegate,corePlotViewDelegate>
-
+{
+    NSDictionary *bpDic;
+}
 @end
 
 @implementation WYScrollView
 {
     __weak  UIImageView *_leftImageView,*_centerImageView,*_rightImageView;
-//    __strong  ScattView *_leftImageView,*_centerImageView,*_rightImageView;
+    //    __strong  ScattView *_leftImageView,*_centerImageView,*_rightImageView;
     
     __weak  UIScrollView *_scrollView;
     
@@ -52,6 +54,8 @@
     
     /** 是否是网络图片*/
     BOOL _isNetworkImage;
+    
+    SMAHGView *hgView;
 }
 
 #pragma mark - 本地图片
@@ -73,7 +77,7 @@
         [self setImageArray:imageArray];
         
         /** 设置数量*/
-//        [self setMaxImageCount:_imageArray.count];
+        //        [self setMaxImageCount:_imageArray.count];
     }
     
     return self;
@@ -94,9 +98,18 @@
         /** 加入本地image*/
         [self setImageArray:imageArray];
         /** 设置数量*/
-//        [self setMaxImageCount:_imageArray.count];
+        //        [self setMaxImageCount:_imageArray.count];
     }
     return self;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame WithHGDatas:(NSArray *)dataArray{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self createHGPolyline];
+    }
+    return self;
+    
 }
 
 #pragma mark - 设置数量
@@ -105,18 +118,23 @@
 {
     _MaxImageCount = _imageArray.count;
     
-     /** 复用imageView初始化*/
+    /** 复用imageView初始化*/
     [self initImageView];
     
     /** pageControl*/
     [self createPageControl];
     
     /** 定时器*/
-//    [self setUpTimer];
+    //    [self setUpTimer];
     
     /** 初始化图片位置*/
-//    [self changeImageLeft:_MaxImageCount-1 center:0 right:1];
+    //    [self changeImageLeft:_MaxImageCount-1 center:0 right:1];
     [self changeImageLeft:0 center:1 right:2];
+}
+
+- (void)createHGPolyline{
+    hgView = [[SMAHGView alloc] initWithFrame:self.bounds];
+    [self addSubview:hgView];
 }
 
 - (void)createScrollView
@@ -161,7 +179,7 @@
     UIImageView *centerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScrollWidth, 0,ScrollWidth, ScrollHeight)];
     UIImageView *rightImageView = [[UIImageView alloc] initWithFrame:CGRectMake(ScrollWidth * 2, 0,ScrollWidth, ScrollHeight)];
     if (_sleepDayDraw) {
-         MTKSleepView *leftScattView = [self addSleepOneDateWithData:[_imageArray[0] objectAtIndex:0]];
+        MTKSleepView *leftScattView = [self addSleepOneDateWithData:[_imageArray[0] objectAtIndex:0]];
         MTKSleepView *centerScattView = [self addSleepOneDateWithData:[_imageArray[1] objectAtIndex:0]];
         MTKSleepView *rightScattView = [self addSleepOneDateWithData:[_imageArray[2] objectAtIndex:0]];
         
@@ -169,14 +187,29 @@
         [centerImageView addSubview:centerScattView];
         [rightImageView addSubview:rightScattView];
     }
+    else if(_HGDayDraw){
+        SMAHGView *leftScattView = [self addHGOneDateWithData:_imageArray[0]];
+        SMAHGView *centerScattView = [self addHGOneDateWithData:_imageArray[1]];
+        __weak __typeof(&*self)weakSelf = self;
+        [centerScattView didSelectBar:^(NSDictionary *barDic,NSInteger selInteger) {
+            if (weakSelf.localDelagate && [weakSelf.localDelagate respondsToSelector:@selector(didSelectBpData:selIndex:)]) {
+                [weakSelf.localDelagate didSelectBpData:barDic selIndex:selInteger];
+            }
+        }];
+        SMAHGView *rightScattView = [self addHGOneDateWithData:_imageArray[2]];
+        
+        [leftImageView addSubview:leftScattView];
+        [centerImageView addSubview:centerScattView];
+        [rightImageView addSubview:rightScattView];
+    }
     else{
-    ScattView *leftScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[0]] /*[[UIImageView alloc] initWithFrame:CGRectMake(0, 0,ScrollWidth, ScrollHeight)]*/;
-    ScattView *centerScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[1]];
-    ScattView *rightScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[2]];
-    
-    [leftImageView addSubview:leftScattView];
-    [centerImageView addSubview:centerScattView];
-    [rightImageView addSubview:rightScattView];
+        ScattView *leftScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[0]] /*[[UIImageView alloc] initWithFrame:CGRectMake(0, 0,ScrollWidth, ScrollHeight)]*/;
+        ScattView *centerScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[1]];
+        ScattView *rightScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[2]];
+        
+        [leftImageView addSubview:leftScattView];
+        [centerImageView addSubview:centerScattView];
+        [rightImageView addSubview:rightScattView];
     }
     leftImageView.userInteractionEnabled = YES;
     centerImageView.userInteractionEnabled = YES;
@@ -192,7 +225,7 @@
 }
 
 - (ScattView *)addScattViewWithMode:(CPTGraphMode)mode frame:(CGRect)frame dateArr:(NSMutableArray *)drawArr{
-
+    
     ScattView *scatView = [[ScattView alloc] init];
     scatView.frame = frame;//10, 134, 300, 140
     scatView.delegate = self;
@@ -223,9 +256,9 @@
     NSArray *yValue;
     NSArray *yBaesValues;
     if (_categorymode == 0) {
-       yValue = @[spArr[2]];
-       yBaesValues = @[spArr[1]];
-       view.selectIdx = [spArr[2] count] < 10 ? [spArr[4] intValue] : 0;
+        yValue = @[spArr[2]];
+        yBaesValues = @[spArr[1]];
+        view.selectIdx = [spArr[2] count] < 10 ? [spArr[4] intValue] : 0;
     }
     else if (_categorymode == 1){
         yValue = @[spArr[2]];
@@ -241,7 +274,7 @@
             yValue = @[spArr[2],spArr[3]];
             yBaesValues = @[spArr[1],spArr[4]];
         }
-       view.selectIdx = [spArr[2] count] < 10 ? [spArr[7] intValue] : 0;
+        view.selectIdx = [spArr[2] count] < 10 ? [spArr[7] intValue] : 0;
     }
     view.yValues = yValue;
     view.yBaesValues = yBaesValues;
@@ -249,18 +282,18 @@
     
     view.selectColor = [spArr[2] count] >10 ?NO:YES;
     view.ylabelLocation = [[spArr[2] valueForKeyPath:@"@max.intValue"] intValue];//可以yValue最大值为基准
-//       if (!update) {
-//        //        view.yValues = @[[self dayYvalue:[spArr objectAtIndex:2]]];
-        [view initGraph];
-//    }
-//    else{
-//        //        NSLog(@"vvwefwe==%@",view.yValues);
-//        //        view.yValues = @[[self dayYvalue:spArr[2]]];
-//        //        [view chanePlotSpace];
-////        [view drawXaxis];
-////        view.yValues = @[spArr[2]];
-////        [view reloadData];
-//    }
+    //       if (!update) {
+    //        //        view.yValues = @[[self dayYvalue:[spArr objectAtIndex:2]]];
+    [view initGraph];
+    //    }
+    //    else{
+    //        //        NSLog(@"vvwefwe==%@",view.yValues);
+    //        //        view.yValues = @[[self dayYvalue:spArr[2]]];
+    //        //        [view chanePlotSpace];
+    ////        [view drawXaxis];
+    ////        view.yValues = @[spArr[2]];
+    ////        [view reloadData];
+    //    }
 }
 
 - (MTKSleepView *)addSleepOneDateWithData:(NSMutableArray *)data{
@@ -268,6 +301,22 @@
     sleepView.xTexts = @[@"22:00",@"2:00",@"6:00",@"10:00"];
     sleepView.backgroundColor = [UIColor clearColor];
     sleepView.xValues = [data copy];
+    return sleepView;
+}
+
+- (SMAHGView *)addHGOneDateWithData:(NSDictionary *)data{
+    SMAHGView *sleepView = [[SMAHGView alloc] initWithFrame:CGRectMake(0, 0,MainScreen.size.width ,ScrollHeight)];
+    if (_HGPolylineDraw) {
+        //        data = @{@"Xtext":@[@"0",@"12",@"24",@"24"],@"SHRINK":@[@[@"65",@"80"],@[@"65",@"80"],@[@"65",@"80"],@[@"65",@"80"]],@"RELAX":@[@[@"95",@"130"],@[@"105",@"180"],@[@"90",@"240"],@[@"95",@"180"]]};
+        [sleepView drawBarGraph:data];
+    }
+    else{
+        //        data = @{@"Xtext":@[@"0",@"12",@"24"],@"XPOINT":@[@"30",@"80",@"600",@"723",@"964",@"1324",@"1439"],@"YPOINT":@[@"30",@"80",@"65",@"43",@"60",@"88",@"88"],@"XPOINT1":@[@"30",@"80",@"600",@"723",@"964",@"1324",@"1440"],@"YPOINT1":@[@"90",@"120",@"165",@"143",@"232",@"188",@"168"]};
+        [sleepView drawPolyline:data];
+    }
+    //    sleepView.xTexts = @[@"22:00",@"2:00",@"6:00",@"10:00"];
+    //    sleepView.backgroundColor = [UIColor blueColor];
+    //    sleepView.xValues = [data copy];
     return sleepView;
 }
 
@@ -283,7 +332,7 @@
     pageControl.numberOfPages = _MaxImageCount;
     pageControl.currentPage = 0;
     
-//    [self addSubview:pageControl];
+    //    [self addSubview:pageControl];
     
     _PageControl = pageControl;
 }
@@ -310,13 +359,12 @@
     if (_isNetworkImage)
     {
         
-//        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageArray[LeftIndex]] placeholderImage:_placeholderImage];
-//        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageArray[centerIndex]] placeholderImage:_placeholderImage];
-//        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageArray[rightIndex]] placeholderImage:_placeholderImage];
+        //        [_leftImageView sd_setImageWithURL:[NSURL URLWithString:_imageArray[LeftIndex]] placeholderImage:_placeholderImage];
+        //        [_centerImageView sd_setImageWithURL:[NSURL URLWithString:_imageArray[centerIndex]] placeholderImage:_placeholderImage];
+        //        [_rightImageView sd_setImageWithURL:[NSURL URLWithString:_imageArray[rightIndex]] placeholderImage:_placeholderImage];
         
     }else
     {
-        NSLog(@"changeImageLeft=");
         for (ScattView *view in _leftImageView.subviews) {
             [view removeFromSuperview];
         }
@@ -335,15 +383,30 @@
             [_centerImageView addSubview:centerScattView];
             [_rightImageView addSubview:rightScattView];
         }
+        else if (_HGDayDraw){
+            SMAHGView *leftScattView = [self addHGOneDateWithData:_imageArray[0] ];
+            SMAHGView *centerScattView = [self addHGOneDateWithData:_imageArray[1]];
+            __weak __typeof(&*self)weakSelf = self;
+            [centerScattView didSelectBar:^(NSDictionary *barDic,NSInteger selInteger) {
+                if (weakSelf.localDelagate && [weakSelf.localDelagate respondsToSelector:@selector(didSelectBpData:selIndex:)]) {
+                    [weakSelf.localDelagate didSelectBpData:barDic selIndex:selInteger];
+                }
+            }];
+            SMAHGView *rightScattView = [self addHGOneDateWithData:_imageArray[2]];
+            
+            [_leftImageView addSubview:leftScattView];
+            [_centerImageView addSubview:centerScattView];
+            [_rightImageView addSubview:rightScattView];
+        }
         else{
-        ScattView *leftScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[0]];
-        
-        [_leftImageView addSubview:leftScattView];
-        ScattView *centerScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[1]];
-        [_centerImageView addSubview:centerScattView];
-        
-        ScattView *rightScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[2]];
-        [_rightImageView addSubview:rightScattView];
+            ScattView *leftScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[0]];
+            
+            [_leftImageView addSubview:leftScattView];
+            ScattView *centerScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[1]];
+            [_centerImageView addSubview:centerScattView];
+            
+            ScattView *rightScattView = [self addScattViewWithMode:self.mode frame:CGRectMake(0, 0,ScrollWidth, ScrollHeight) dateArr:_imageArray[2]];
+            [_rightImageView addSubview:rightScattView];
         }
     }
     [_scrollView setContentOffset:CGPointMake(ScrollWidth, 0)];
@@ -358,7 +421,7 @@
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-     NSLog(@"scrollViewDidEndDecelerating**********************===");
+    NSLog(@"scrollViewDidEndDecelerating**********************===");
     self.updateUI = YES;
     if (self.localDelagate && [self.localDelagate respondsToSelector:@selector(WYScrollViewDidEndDecelerating:)]) {
         [self.localDelagate WYScrollViewDidEndDecelerating:self];
@@ -372,7 +435,7 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-     NSLog(@"scrollViewWillBeginDragging===");
+    NSLog(@"scrollViewWillBeginDragging===");
     [self removeTimer];
 }
 
@@ -394,7 +457,7 @@
         scrollView.contentOffset = CGPointMake(ScrollWidth, 0);
         return;
     }
-
+    
     [self changeImageWithOffset:scrollView.contentOffset.x];
 }
 
@@ -427,9 +490,9 @@
     if (offsetX == MainScreen.size.width) {
         _orientationIndex = 0;
     }
-   if (offsetX >= ScrollWidth * 2)
-      {
-          
+    if (offsetX >= ScrollWidth * 2)
+    {
+        
         if (self.localDelagate && [self.localDelagate respondsToSelector:@selector(WYScrollViewDidEndDecelerating:)]) {
             [self.localDelagate WYScrollViewDidEndDecelerating:self];
         }
@@ -492,7 +555,7 @@
 }
 
 - (void)plotTouchDownAtRecordPoit:(CGPoint)poit{
-//    NSLog(@"plotTouchDownAtRecordPoit %@",NSStringFromCGPoint(poit));
+    //    NSLog(@"plotTouchDownAtRecordPoit %@",NSStringFromCGPoint(poit));
     if (self.localDelagate && [self.localDelagate respondsToSelector:@selector(WYplotTouchDown)]) {
         [self.localDelagate WYplotTouchDown];
     }
@@ -502,7 +565,7 @@
 }
 
 - (void)plotTouchUpAtRecordPoit:(CGPoint)poit{
-//    NSLog(@"plotTouchUpAtRecordPoit %@",NSStringFromCGPoint(poit));
+    //    NSLog(@"plotTouchUpAtRecordPoit %@",NSStringFromCGPoint(poit));
     if (self.localDelagate && [self.localDelagate respondsToSelector:@selector(WYplotTouchUp)]) {
         [self.localDelagate WYplotTouchUp];
     }
@@ -510,13 +573,13 @@
 }
 
 - (void)prepareForDrawingPlotLine:(CGPoint)poit{
-        NSLog(@"prepareForDrawingPlotLine %@",NSStringFromCGPoint(poit));
-//    if (poit.x == 0) {
-//        _scrollView.scrollEnabled = YES;
-//    }
-//    else if (poit.x <= -670){
-//        _scrollView.scrollEnabled = YES;
-//    }
+    NSLog(@"prepareForDrawingPlotLine %@",NSStringFromCGPoint(poit));
+    //    if (poit.x == 0) {
+    //        _scrollView.scrollEnabled = YES;
+    //    }
+    //    else if (poit.x <= -670){
+    //        _scrollView.scrollEnabled = YES;
+    //    }
 }
 
 
