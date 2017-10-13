@@ -96,7 +96,6 @@ static SmaBLE *_instace;
                 [self writeFirmware:binNum];
                 binNum++;
             }
-            
             else if (testByte[0] == 0x15 && binNum !=0){
                 binNum --;
                 [self writeFirmware:binNum];
@@ -145,7 +144,8 @@ static SmaBLE *_instace;
         }
     }
     else{
-        
+        NSLog(@"[self.BLInstructionArr firstObject] %@",[self.BLInstructionArr firstObject]);
+        NSLog(@"characteristic.value %@",characteristic.value);
         if (![[[self.BLInstructionArr firstObject] lastObject] isEqualToString:@"GET"]) {
             if (self.sendBLTimer) {
                 [self.sendBLTimer invalidate];
@@ -265,7 +265,6 @@ static SmaBLE *_instace;
             }
         }
     }
-    
     else if (bytes[8]==0x01 && bytes[10]==0x32 && bol) {
         mode = WATCHFACE;
         array = [NSMutableArray array];
@@ -403,10 +402,14 @@ static SmaBLE *_instace;
          array =[NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%d",bytes[13]], nil];
      }
      else if (bytes[8]==0x05 && bytes[10]==0x4a && bol){
-         mode = BLUTDRUCK;
-         array = [self manualMbWithData:bytes Len:len];
+        mode = BLUTDRUCK;
+        array = [self manualMbWithData:bytes Len:len];
      }
-    if (mode <= 24 && array.count > 0) {
+     else if (bytes[8]==0x05 && bytes[10]==0x4d && bol){
+         mode = CYCLINGDATA;
+          array = [self analysisCuffcylingData:bytes len:len];
+     }
+    if (mode <= 25 && array.count > 0) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(bleDataParsingWithMode:dataArr:Checkout:)]) {
             [self.delegate bleDataParsingWithMode:mode dataArr:array Checkout:bol];
         }
@@ -1512,6 +1515,16 @@ static SmaBLE *_instace;
 - (void)requestLastHRData{
     Byte results[13];
     [SmaBusinessTool getSpliceCmd:0x05 Key:0x20 bytes1:nil len:0 results:results];
+    NSData * data0 = [NSData dataWithBytes:results length:13];
+    if(self.p && self.Write)
+    {
+        [self arrangeBLData:data0 type:@"GET" sendNum:1];
+    }
+}
+
+- (void)requestCyclingData{
+    Byte results[13];
+    [SmaBusinessTool getSpliceCmd:0x05 Key:0x4c bytes1:nil len:0 results:results];
     NSData * data0 = [NSData dataWithBytes:results length:13];
     if(self.p && self.Write)
     {
@@ -2641,6 +2654,62 @@ static NSMutableArray *hrArr;
     return allHrArr;
 }
 
+//- - - -  - - - - - 骑行数据
+static NSMutableArray *cylingArr;
+- (NSMutableArray *)analysisCuffcylingData:(Byte *)byte len:(int)len{
+    if (!cylingArr) {
+        cylingArr=[NSMutableArray array];
+    }
+    NSMutableArray *allHrArr = [NSMutableArray array];
+    NSTimeZone* GTMzone = [NSTimeZone timeZoneForSecondsFromGMT:0];//解决不同时令相差1小时问题
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyyMMddHHmmss"];
+    [formatter setTimeZone:GTMzone];
+    NSDateFormatter *format1 = [[NSDateFormatter alloc] init];
+    [format1 setDateFormat:@"yyyyMMddHHmm"];
+    [format1 setTimeZone:GTMzone];
+    int dataLen = byte[11]*pow(16, 2) + byte[12];
+    if (dataLen == 0) {
+        if (cylingArr.count == 0) {
+            NSDictionary *dic = [[NSDictionary alloc] initWithObjectsAndKeys:@"NODATA",@"NODATA", nil];
+            [allHrArr addObject:dic];
+        }
+        else{
+            allHrArr = [cylingArr mutableCopy];
+            [cylingArr removeAllObjects];
+            cylingArr = nil;
+        }
+    }
+    NSLog(@"hrArrdata = %@",[NSData dataWithBytes:byte length:len]);
+    NSString *hr;
+    NSString *cal;
+    NSInteger time;
+    NSString *mode;
+    for (int i = 0; i<dataLen/7; i++) {
+        mode = @"0";
+        time = byte[13+7*i]*pow(16, 6) + byte[14+7*i]*pow(16, 4) + byte[15+7*i]*pow(16, 2) + byte[16+7*i];
+        if (i%2 != 0) {
+            mode = @"2";
+        }
+        cal = [NSString stringWithFormat:@"%.0f", byte[17+7*i]*pow(16, 2) + byte[18+7*i]];
+        hr = [NSString stringWithFormat:@"%.0f", byte[19+7*i]*pow(16, 0)];
+        NSDate *date = [[NSDate alloc] initWithTimeInterval:time sinceDate:[formatter dateFromString:@"20000101000000"]];
+        NSString *timestr = [formatter stringFromDate:date];
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:timestr,@"DATE",cal,@"CAL",hr,@"HEART",mode,@"MODE", nil];
+        NSLog(@"hrtime =%@ \n mode==%@ \n step ==%@",timestr,mode,hr);
+        [cylingArr addObject:dic];
+        if (i==dataLen/7-1&&dataLen==140) {
+            [self requestCyclingData];
+        }
+        if (i==dataLen/7-1&&dataLen!=140){
+            allHrArr = [cylingArr mutableCopy];
+            [cylingArr removeAllObjects];
+            cylingArr = nil;
+        }
+    }
+    return allHrArr;
+}
+
 //－－－－－－－－－－－－－解析心率数据ok
 -(NSMutableArray *)analysisHRData:(Byte *)bytes1 len:(int)len{
     NSMutableArray *hrArr=[NSMutableArray array];
@@ -2732,6 +2801,7 @@ static NSMutableArray *hrArr;
                 self.sendBLTimer = nil;
             }
             self.sendBLTimer = [NSTimer scheduledTimerWithTimeInterval:8.0 target:self selector:@selector(sendTimeOut) userInfo:nil repeats:NO];
+            [[NSRunLoop currentRunLoop] addTimer:self.sendBLTimer forMode:NSRunLoopCommonModes];
             self.canSend = NO;
             if (self.p && self.Write) {
                 NSMutableArray *sendArr = [self.BLInstructionArr firstObject];

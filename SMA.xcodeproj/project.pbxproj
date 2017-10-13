@@ -49,6 +49,12 @@
 		EE3A32B71DA8BD060077C813 /* BEMAnalogClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32B41DA8BD060077C813 /* BEMAnalogClockView.m */; };
 		EE3A32B81DA8BD060077C813 /* KSMHand.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32B61DA8BD060077C813 /* KSMHand.m */; };
 		EE3A32BB1DA8BDB80077C813 /* SMAAlarmSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EE3A32BA1DA8BDB80077C813 /* SMAAlarmSubViewController.m */; };
+		EE3D6AB01F8DA8930059916D /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3D6AAF1F8DA8800059916D /* Zip.framework */; };
+		EE3D6AB11F8DA8930059916D /* Zip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EE3D6AAF1F8DA8800059916D /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE3D6AB31F8DA8A20059916D /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3D6AB21F8DA89E0059916D /* iOSDFULibrary.framework */; };
+		EE3D6AB41F8DA8A20059916D /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EE3D6AB21F8DA89E0059916D /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EE3D6AB51F8DA8B80059916D /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3D6AAF1F8DA8800059916D /* Zip.framework */; };
+		EE3D6AB61F8DA8BA0059916D /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE3D6AB21F8DA89E0059916D /* iOSDFULibrary.framework */; };
 		EE4265901F27529400590C8D /* Alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EE42658F1F27529400590C8D /* Alarm.mp3 */; };
 		EE4265911F2752A000590C8D /* Alarm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = EE42658F1F27529400590C8D /* Alarm.mp3 */; };
 		EE4265951F27567A00590C8D /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE4265941F27567A00590C8D /* MediaPlayer.framework */; };
@@ -297,12 +303,6 @@
 		EEB9F6BF1D64433B0011AA07 /* Gotham-Bold_0.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6BE1D64433B0011AA07 /* Gotham-Bold_0.otf */; };
 		EEB9F6C11D6443430011AA07 /* Gotham-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6C01D6443430011AA07 /* Gotham-Medium.otf */; };
 		EEBA49641DFC3A0500FF6302 /* SMACalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBA49631DFC3A0500FF6302 /* SMACalendarView.m */; };
-		EEBA6B1B1EBC6AB00066A564 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; };
-		EEBA6B1C1EBC6AB00066A564 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
-		EEBA6B1D1EBC6B160066A564 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; };
-		EEBA6B1E1EBC6B160066A564 /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EEBA6B1F1EBC6B1A0066A564 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
-		EEBA6B201EBC6B1A0066A564 /* Zip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EEBAB5A61D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBAB5A51D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m */; };
 		EEBB45EB1F622D77008EB172 /* SDBPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBB45EA1F622D77008EB172 /* SDBPProgressView.m */; };
 		EEBB45EC1F622D77008EB172 /* SDBPProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEBB45EA1F622D77008EB172 /* SDBPProgressView.m */; };
@@ -603,7 +603,6 @@
 		EEEB853E1EF7C07D00DDE316 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EE83CE371DD2AFB20031CF58 /* UIImageView+HighlightedWebCache.m */; };
 		EEEB853F1EF7C07D00DDE316 /* SMAWebDataHandleInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = EE0DDAE91DE020A900F2CDF0 /* SMAWebDataHandleInfo.m */; };
 		EEEB85401EF7C07D00DDE316 /* SMASedentEditCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EEAD8E981D9A1997009128BB /* SMASedentEditCell.m */; };
-		EEEB85411EF7C07D00DDE316 /* SMATrackDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = EEEC5E951DE42D710096DAF3 /* SMATrackDetailView.m */; };
 		EEEB85421EF7C07D00DDE316 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EEB9F68D1D64318B0011AA07 /* main.m */; };
 		EEEB85431EF7C07D00DDE316 /* TQLocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = EE2C573C1E5EBBDF00FEE9F4 /* TQLocationConverter.m */; };
 		EEEB85441EF7C07D00DDE316 /* QNUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EE57A6311E0B5FE00007BCC8 /* QNUploadManager.m */; };
@@ -619,8 +618,6 @@
 		EEEB854F1EF7C07D00DDE316 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D201E151BFD0059F8D0 /* CoreText.framework */; };
 		EEEB85501EF7C07D00DDE316 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D1E1E151BCF0059F8D0 /* Foundation.framework */; };
 		EEEB85511EF7C07D00DDE316 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D1C1E151B950059F8D0 /* ImageIO.framework */; };
-		EEEB85521EF7C07D00DDE316 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
-		EEEB85531EF7C07D00DDE316 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; };
 		EEEB85541EF7C07D00DDE316 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D1A1E151B800059F8D0 /* QuartzCore.framework */; };
 		EEEB85551EF7C07D00DDE316 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D001E14E96D0059F8D0 /* Social.framework */; };
 		EEEB85561EF7C07D00DDE316 /* linkedin-sdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10229C1E24B7BC00E0A0DF /* linkedin-sdk.framework */; };
@@ -634,7 +631,6 @@
 		EEEB855E1EF7C07D00DDE316 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14171D6708590054BE87 /* libstdc++.tbd */; };
 		EEEB855F1EF7C07D00DDE316 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A63E1E0B5FE00007BCC8 /* libcrypto.a */; };
 		EEEB85601EF7C07D00DDE316 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14151D6708520054BE87 /* CoreTelephony.framework */; };
-		EEEB85611EF7C07D00DDE316 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; };
 		EEEB85621EF7C07D00DDE316 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE10CE751DB5F7F000585B74 /* libCorePlot-CocoaTouch.a */; };
 		EEEB85631EF7C07D00DDE316 /* libsmartlinklib_7x.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6841E0B5FE00007BCC8 /* libsmartlinklib_7x.a */; };
 		EEEB85641EF7C07D00DDE316 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E14131D6708420054BE87 /* libsqlite3.tbd */; };
@@ -642,7 +638,6 @@
 		EEEB85661EF7C07D00DDE316 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E140F1D67082C0054BE87 /* SystemConfiguration.framework */; };
 		EEEB85671EF7C07D00DDE316 /* libAbleCloudLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A6961E0B5FE00007BCC8 /* libAbleCloudLib.a */; };
 		EEEB85681EF7C07D00DDE316 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E140D1D6708240054BE87 /* Security.framework */; };
-		EEEB85691EF7C07D00DDE316 /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; };
 		EEEB856A1EF7C07D00DDE316 /* libFTC_DEBUG_ARM_64.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EE57A63A1E0B5FE00007BCC8 /* libFTC_DEBUG_ARM_64.a */; };
 		EEEB856B1EF7C07D00DDE316 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB54D031E14F8400059F8D0 /* FBSDKCoreKit.framework */; };
 		EEEB856C1EF7C07D00DDE316 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EE0E140B1D6708190054BE87 /* libiconv.tbd */; };
@@ -692,8 +687,6 @@
 		EEEB859D1EF7C07D00DDE316 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = EE9AB5BB1D6EF5EA0028F8DA /* read_me.txt */; };
 		EEEB859E1EF7C07D00DDE316 /* Gotham-Bold_0.otf in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6BE1D64433B0011AA07 /* Gotham-Bold_0.otf */; };
 		EEEB859F1EF7C07D00DDE316 /* SMADeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EE8420EE1D93AAC5007DA9C6 /* SMADeviceCell.xib */; };
-		EEEB85A11EF7C07D00DDE316 /* Zip.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B1A1EBC6AB00066A564 /* Zip.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		EEEB85A21EF7C07D00DDE316 /* iOSDFULibrary.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EEEB85B11EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEEB85B01EF7C5F600DDE316 /* ZENFITLaunchScreen.storyboard */; };
 		EEEB85B81EF7CD7200DDE316 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEEB85B71EF7CD7200DDE316 /* Media.xcassets */; };
 		EEEB85B91EF7CF7200DDE316 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEB9F6981D64318B0011AA07 /* Assets.xcassets */; };
@@ -719,8 +712,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EEBA6B201EBC6B1A0066A564 /* Zip.framework in Embed Frameworks */,
-				EEBA6B1E1EBC6B160066A564 /* iOSDFULibrary.framework in Embed Frameworks */,
+				EE3D6AB41F8DA8A20059916D /* iOSDFULibrary.framework in Embed Frameworks */,
+				EE3D6AB11F8DA8930059916D /* Zip.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -731,8 +724,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EEEB85A11EF7C07D00DDE316 /* Zip.framework in Embed Frameworks */,
-				EEEB85A21EF7C07D00DDE316 /* iOSDFULibrary.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -888,6 +879,8 @@
 		EE3A32B61DA8BD060077C813 /* KSMHand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSMHand.m; sourceTree = "<group>"; };
 		EE3A32B91DA8BDB80077C813 /* SMAAlarmSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAAlarmSubViewController.h; sourceTree = "<group>"; };
 		EE3A32BA1DA8BDB80077C813 /* SMAAlarmSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAAlarmSubViewController.m; sourceTree = "<group>"; };
+		EE3D6AAF1F8DA8800059916D /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Zip.framework; sourceTree = "<group>"; };
+		EE3D6AB21F8DA89E0059916D /* iOSDFULibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = "<group>"; };
 		EE42658F1F27529400590C8D /* Alarm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Alarm.mp3; sourceTree = "<group>"; };
 		EE4265941F27567A00590C8D /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EE4265961F27568600590C8D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1458,8 +1451,6 @@
 		EEB9F6C01D6443430011AA07 /* Gotham-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Gotham-Medium.otf"; sourceTree = "<group>"; };
 		EEBA49621DFC3A0500FF6302 /* SMACalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMACalendarView.h; sourceTree = "<group>"; };
 		EEBA49631DFC3A0500FF6302 /* SMACalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMACalendarView.m; sourceTree = "<group>"; };
-		EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = "<group>"; };
-		EEBA6B1A1EBC6AB00066A564 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Zip.framework; sourceTree = "<group>"; };
 		EEBAB5A41D6D2F8700AAC710 /* SMAthirdPartyLoginTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMAthirdPartyLoginTool.h; sourceTree = "<group>"; };
 		EEBAB5A51D6D2F8700AAC710 /* SMAthirdPartyLoginTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMAthirdPartyLoginTool.m; sourceTree = "<group>"; };
 		EEBB45E91F622D77008EB172 /* SDBPProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBPProgressView.h; sourceTree = "<group>"; };
@@ -1590,8 +1581,6 @@
 				EEB54D211E151BFD0059F8D0 /* CoreText.framework in Frameworks */,
 				EEB54D1F1E151BCF0059F8D0 /* Foundation.framework in Frameworks */,
 				EEB54D1D1E151B950059F8D0 /* ImageIO.framework in Frameworks */,
-				EEBA6B1F1EBC6B1A0066A564 /* Zip.framework in Frameworks */,
-				EEBA6B1C1EBC6AB00066A564 /* Zip.framework in Frameworks */,
 				EEB54D1B1E151B800059F8D0 /* QuartzCore.framework in Frameworks */,
 				EEB54D011E14E96D0059F8D0 /* Social.framework in Frameworks */,
 				EE10229D1E24B7BC00E0A0DF /* linkedin-sdk.framework in Frameworks */,
@@ -1600,12 +1589,13 @@
 				EEB54D181E151B3B0059F8D0 /* libWeiboSDK.a in Frameworks */,
 				EE57A7541E0B5FE10007BCC8 /* libiot.a in Frameworks */,
 				EE9AB5C41D6EF6170028F8DA /* libsqlite3.0.tbd in Frameworks */,
+				EE3D6AB31F8DA8A20059916D /* iOSDFULibrary.framework in Frameworks */,
 				EE57A74C1E0B5FE10007BCC8 /* libBLEasyConfig.a in Frameworks */,
 				EE4B1DD01D64898700825E2B /* libz.tbd in Frameworks */,
 				EE0E14181D6708590054BE87 /* libstdc++.tbd in Frameworks */,
 				EE57A73A1E0B5FE10007BCC8 /* libcrypto.a in Frameworks */,
 				EE0E14161D6708520054BE87 /* CoreTelephony.framework in Frameworks */,
-				EEBA6B1D1EBC6B160066A564 /* iOSDFULibrary.framework in Frameworks */,
+				EE3D6AB01F8DA8930059916D /* Zip.framework in Frameworks */,
 				EE10CE7A1DB5F7F000585B74 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				EE57A7531E0B5FE10007BCC8 /* libsmartlinklib_7x.a in Frameworks */,
 				EE0E14141D6708420054BE87 /* libsqlite3.tbd in Frameworks */,
@@ -1613,7 +1603,6 @@
 				EE0E14101D67082C0054BE87 /* SystemConfiguration.framework in Frameworks */,
 				EE57A7591E0B5FE10007BCC8 /* libAbleCloudLib.a in Frameworks */,
 				EE0E140E1D6708240054BE87 /* Security.framework in Frameworks */,
-				EEBA6B1B1EBC6AB00066A564 /* iOSDFULibrary.framework in Frameworks */,
 				EE57A7381E0B5FE00007BCC8 /* libFTC_DEBUG_ARM_64.a in Frameworks */,
 				EEB54D071E14F8400059F8D0 /* FBSDKCoreKit.framework in Frameworks */,
 				EE0E140C1D6708190054BE87 /* libiconv.tbd in Frameworks */,
@@ -1643,14 +1632,13 @@
 				EEEB854F1EF7C07D00DDE316 /* CoreText.framework in Frameworks */,
 				EEEB85501EF7C07D00DDE316 /* Foundation.framework in Frameworks */,
 				EEEB85511EF7C07D00DDE316 /* ImageIO.framework in Frameworks */,
-				EEEB85521EF7C07D00DDE316 /* Zip.framework in Frameworks */,
-				EEEB85531EF7C07D00DDE316 /* Zip.framework in Frameworks */,
 				EEEB85541EF7C07D00DDE316 /* QuartzCore.framework in Frameworks */,
 				EEEB85551EF7C07D00DDE316 /* Social.framework in Frameworks */,
 				EEEB85561EF7C07D00DDE316 /* linkedin-sdk.framework in Frameworks */,
 				EEEB85571EF7C07D00DDE316 /* CoreLocation.framework in Frameworks */,
 				EEEB85581EF7C07D00DDE316 /* Accelerate.framework in Frameworks */,
 				EEEB85591EF7C07D00DDE316 /* libWeiboSDK.a in Frameworks */,
+				EE3D6AB61F8DA8BA0059916D /* iOSDFULibrary.framework in Frameworks */,
 				EEEB855A1EF7C07D00DDE316 /* libiot.a in Frameworks */,
 				EEEB855B1EF7C07D00DDE316 /* libsqlite3.0.tbd in Frameworks */,
 				EEEB855C1EF7C07D00DDE316 /* libBLEasyConfig.a in Frameworks */,
@@ -1658,15 +1646,14 @@
 				EEEB855E1EF7C07D00DDE316 /* libstdc++.tbd in Frameworks */,
 				EEEB855F1EF7C07D00DDE316 /* libcrypto.a in Frameworks */,
 				EEEB85601EF7C07D00DDE316 /* CoreTelephony.framework in Frameworks */,
-				EEEB85611EF7C07D00DDE316 /* iOSDFULibrary.framework in Frameworks */,
 				EEEB85621EF7C07D00DDE316 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				EEEB85631EF7C07D00DDE316 /* libsmartlinklib_7x.a in Frameworks */,
+				EE3D6AB51F8DA8B80059916D /* Zip.framework in Frameworks */,
 				EEEB85641EF7C07D00DDE316 /* libsqlite3.tbd in Frameworks */,
 				EEEB85651EF7C07D00DDE316 /* CoreGraphics.framework in Frameworks */,
 				EEEB85661EF7C07D00DDE316 /* SystemConfiguration.framework in Frameworks */,
 				EEEB85671EF7C07D00DDE316 /* libAbleCloudLib.a in Frameworks */,
 				EEEB85681EF7C07D00DDE316 /* Security.framework in Frameworks */,
-				EEEB85691EF7C07D00DDE316 /* iOSDFULibrary.framework in Frameworks */,
 				EEEB856A1EF7C07D00DDE316 /* libFTC_DEBUG_ARM_64.a in Frameworks */,
 				EEEB856B1EF7C07D00DDE316 /* FBSDKCoreKit.framework in Frameworks */,
 				EEEB856C1EF7C07D00DDE316 /* libiconv.tbd in Frameworks */,
@@ -2890,10 +2877,10 @@
 		EE6783D21E1DFC0F00B0B6E7 /* DfuUpdate */ = {
 			isa = PBXGroup;
 			children = (
+				EE3D6AB21F8DA89E0059916D /* iOSDFULibrary.framework */,
+				EE3D6AAF1F8DA8800059916D /* Zip.framework */,
 				EE6783D31E1DFC0F00B0B6E7 /* DfuUpdate.h */,
 				EE6783D41E1DFC0F00B0B6E7 /* DfuUpdate.m */,
-				EEBA6B191EBC6AB00066A564 /* iOSDFULibrary.framework */,
-				EEBA6B1A1EBC6AB00066A564 /* Zip.framework */,
 				EE6783D61E1DFC0F00B0B6E7 /* sma10b_firmware_v1.1.8.zip */,
 				EE05D6161EAB51FC00A8CA12 /* angsaz_U16.bin */,
 				EE34EE5F1E1F8C3600A8AABC /* sma07_app(pah8002)_v1.1.1.zip */,
@@ -4433,7 +4420,6 @@
 				EEEB853E1EF7C07D00DDE316 /* UIImageView+HighlightedWebCache.m in Sources */,
 				EEEB853F1EF7C07D00DDE316 /* SMAWebDataHandleInfo.m in Sources */,
 				EEEB85401EF7C07D00DDE316 /* SMASedentEditCell.m in Sources */,
-				EEEB85411EF7C07D00DDE316 /* SMATrackDetailView.m in Sources */,
 				EEEB85421EF7C07D00DDE316 /* main.m in Sources */,
 				EEEB85431EF7C07D00DDE316 /* TQLocationConverter.m in Sources */,
 				EEEB85441EF7C07D00DDE316 /* QNUploadManager.m in Sources */,
@@ -4685,7 +4671,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e7ef197a-dd9f-4072-b7e9-a8a17caeebe7";
+				PROVISIONING_PROFILE = "a5ab2782-45f2-4d03-8463-971d79871d87";
 				PROVISIONING_PROFILE_SPECIFIER = All_development_text;
 			};
 			name = Debug;

@@ -212,4 +212,22 @@
         callBack(@"finish");
     });
 }
+
++ (void)updateCylingData:(NSMutableArray *)cyList finish:(void (^)(id finish)) callBack{
+    SMADatabase *dal = [[SMADatabase alloc] init];
+    NSMutableArray *cyArr = [NSMutableArray array];
+    for (int i = 0; i < cyList.count; i ++) {
+        NSDictionary *dic = [cyList objectAtIndex:i];
+        NSString *starDate = [SMADateDaultionfos stringFormmsecIntervalSince1970:[[dic objectForKey:@"start"] doubleValue] withFormatStr:@"yyyyMMddHHmmss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        NSString *endDate = [SMADateDaultionfos stringFormmsecIntervalSince1970:[[dic objectForKey:@"end"] doubleValue] withFormatStr:@"yyyyMMddHHmmss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+        NSDictionary *starDic = @{@"DATE":starDate,@"CAL":@"0",@"HEART":@"0",@"MODE":@"0",@"WEB":@"1",@"USERID":dic[@"account"]};
+        NSDictionary *endDic = @{@"DATE":endDate,@"CAL":dic[@"cal"],@"HEART":dic[@"rate"],@"MODE":@"2",@"WEB":@"1",@"USERID":dic[@"account"]};
+        [cyArr addObject:starDic];
+        [cyArr addObject:endDic];
+    }
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+        [dal insertCylingDatas:cyArr];
+        callBack(@"finish");
+    });
+}
 @end

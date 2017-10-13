@@ -57,7 +57,7 @@ static id _instace;
     [_player prepareToPlay];
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
     [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
-    //    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
     [self getSystemVolumSlider];
 }
 
@@ -176,12 +176,10 @@ static id _instace;
 }
 
 - (void)reunionTimer:(id)sender{
-    NSLog(@"fwefwefwergrg==== %d  %ld",SmaDfuManager.dfuMode,(long)self.peripheral.state);
     self.mgr.delegate = self;//确保DFU升级后重设代理以确保通讯正常
     if (self.peripheral.state != CBPeripheralStateConnected && !SmaDfuManager.dfuMode && !_repairDfu && !_repairFont) {
         if (self.user.watchUUID && ![self.user.watchUUID isEqualToString:@""] ) {
             NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:self.user.watchUUID]]];
-            NSLog(@"2222222222wgrgg---==%@  %@",allPer, _user.watchUUID);
             [self connectBl:[allPer firstObject]];
         }
         //        NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"6E400001-B5A3-F393-E0A9-E50E24DCCA9E"],[CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"]]];
@@ -532,20 +530,18 @@ static id _instace;
     [SmaBleSend enterXmodem];
 }
 
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
-{
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error{
     NSLog(@"连接问题 %@",error);
-    SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
-    loca.allowLocation = NO;
-    loca.gatherLocation = NO;
-    [loca stopLocation];
-    SMADatabase *db = [[SMADatabase alloc] init];
-    if (loca.firstRunDic) {
-        [db deleteLocationFromTime:[loca.firstRunDic objectForKey:@"DATE"] finish:^(id finish) {
-            
-        }];
-        loca.firstRunDic = nil;
-    }
+//    SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
+//    
+//    [loca stopLocation];
+//    SMADatabase *db = [[SMADatabase alloc] init];
+//    if (loca.allowLocation && loca.firstRunDic) {
+//        loca.allowLocation = NO;
+//        loca.gatherLocation = NO;
+//        [db updateLastLocationData];
+////      loca.firstRunDic = nil;
+//    }
     
     if ([SMAAccountTool userInfo].watchUUID && ![[SMAAccountTool userInfo].watchUUID isEqualToString:@""]  && !SmaDfuManager.dfuMode && !_repairDfu && !_dfuUpdate && !_repairFont) {
         [self connectBl:peripheral];
@@ -713,14 +709,24 @@ static id _instace;
                     }];
                 });
             }
-            [SmaBleSend getBloodPressure];
+            if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) {
+                [SmaBleSend getBloodPressure];
+            }
+            else{
+                [SmaBleSend requestCuffSleepData];
+            }
             break;
         case RUNMODE:
             NSLog(@"riunfjwfiow===%@",array);
             if (array.count == 1 && [[[array firstObject] objectForKey:@"MODE"] intValue] == 34) {//代表运动中数据（用于激活定位后台，区别于下拉刷新中的运动数据）
                 SMALocatiuonManager *loca =  [SMALocatiuonManager sharedCoreBlueTool];
                 loca.runStepDic = [array firstObject];
+                if (!loca.firstRunDic) {
+                    loca.firstRunDic = [array firstObject];
+                }
+                loca.allowLocation = YES;
                 loca.gatherLocation = YES;
+                [[SMALocatiuonManager sharedCoreBlueTool] startLocation];
                 return;
             }
             if ([[[array firstObject] objectForKey:@"MODE"] intValue] == 32) {
@@ -736,6 +742,9 @@ static id _instace;
                 loca.runStepDic = [array firstObject];
                 loca.gatherLocation = YES;
                 [[SMALocatiuonManager sharedCoreBlueTool] stopLocation];
+                loca.allowLocation = NO;
+                loca.gatherLocation = NO;
+                loca.firstRunDic = nil;
             }
             break;
         case NOTIFICATION:
@@ -845,6 +854,13 @@ static id _instace;
         case BLUTDRUCK:
             if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
                 [dal insertBPDataArr:[self clearUpBPData:array]];
+            }
+            [SmaBleSend requestCyclingData];
+            
+            break;
+        case CYCLINGDATA:
+            if (![[[array firstObject] objectForKey:@"NODATA"] isEqualToString:@"NODATA"]) {
+                [dal insertCylingDatas:[self clearUpcyData:array]];
             }
             [SmaBleSend requestCuffSleepData];
             break;
@@ -1023,6 +1039,18 @@ static bool isSpMode;
 }
 
 - (NSMutableArray *)clearUpBPData:(NSMutableArray *)dataArr{
+    NSMutableArray *bp_arr = [NSMutableArray array];
+    for (int i = 0; i < dataArr.count; i ++) {
+        NSMutableDictionary *bpDic = [(NSDictionary *)dataArr[i] mutableCopy];
+        [bpDic setObject:[SMADefaultinfos getValueforKey:BANDDEVELIVE] forKey:@"INDEX"];
+        [bpDic setObject:@"0" forKey:@"WEB"];
+        [bpDic setObject:[SMAAccountTool userInfo].userID forKey:@"USERID"];
+        [bp_arr addObject:bpDic];
+    }
+    return bp_arr;
+}
+
+- (NSMutableArray *)clearUpcyData:(NSMutableArray *)dataArr{
     NSMutableArray *bp_arr = [NSMutableArray array];
     for (int i = 0; i < dataArr.count; i ++) {
         NSMutableDictionary *bpDic = [(NSDictionary *)dataArr[i] mutableCopy];

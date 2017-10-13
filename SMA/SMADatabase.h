@@ -75,6 +75,7 @@
 - (NSMutableArray *)readLocationDataWithDate:(NSString *)date toDate:(NSString *)todate;
 //删除指定轨迹数据
 - (void)deleteLocationFromTime:(NSString *)time finish:(void (^)(id finish)) success;
+- (void)updateLastLocationData;
 //获取所需要上传轨迹数据
 - (NSMutableArray *)readNeedUploadLocationData;
 
@@ -83,5 +84,9 @@
 - (NSMutableArray *)selectBPDataWihtDate:(NSString *)date;
 - (NSDictionary *)reatGatherBPDataWithDate:(NSString *)date toDate:(NSString *)toDate;
 - (NSMutableArray *)readNeedUploadBloodPressureData;
+
+- (void)insertCylingDatas:(NSMutableArray *)cylings;
+- (NSMutableArray *)readCylingDataWithDate:(NSString *)date;
+- (NSMutableArray *)readNeedUploadCylingData;
 @end
 

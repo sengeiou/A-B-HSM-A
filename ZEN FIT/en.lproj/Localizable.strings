@@ -87,8 +87,8 @@
 "device_RU_pace" = "Pace";
 "device_RU_per_meUnit" = "km/h";
 "device_RU_per_brUnit" = "mile/h";
-"device_RU_pace_meUnit" = "min/km";
-"device_RU_pace_brUnit" = "min/mile";
+"device_RU_pace_meUnit" = "/km";
+"device_RU_pace_brUnit" = "/mile";
 "device_RU_lunTime" = "Exercise time";
 "device_RU_lastHR" = "Last heart rate value";
 "device_RU_traTit" = "Exercise track";

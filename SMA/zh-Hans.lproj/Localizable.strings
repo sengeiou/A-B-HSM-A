@@ -87,8 +87,8 @@
 "device_RU_pace" = "配速";
 "device_RU_per_meUnit" = "km/h";
 "device_RU_per_brUnit" = "mile/h";
-"device_RU_pace_meUnit" = "min/km";
-"device_RU_pace_brUnit" = "min/mile";
+"device_RU_pace_meUnit" = "/km";
+"device_RU_pace_brUnit" = "/mile";
 "device_RU_lunTime" = "运动时长";
 "device_RU_lastHR" = "最后一次心率值";
 "device_RU_traTit" = "运动轨迹";
@@ -100,6 +100,8 @@
 "device_RU_Warmup" = "热身阶段";
 "device_RU_max" = "最大心率";
 "device_RU_min" = "最小心率";
+"device_RU_stride" = "步频";
+"device_RU_step" = "步数";
 "device_HR_typeF" = "正常";
 "device_HR_typeS" = "偏低";
 "device_HR_typeT" = "偏高";
@@ -200,6 +202,7 @@
 "setting_band_bindfail" = "绑定失败";
 "setting_band_remind" = "请长按设备中间按键，确认绑定";
 "setting_band_remindBand" = "请长按手环";
+"setting_band_remindWatch" = "请根据图示操作";
 "setting_band_noDevice" = "未发现设备，请保持设备有电并且贴近手机，再重新尝试";
 "setting_band_failRemind" = "抱歉，设备绑定失败";
 "setting_unband_title" = "设备管理";
@@ -221,6 +224,7 @@
 "setting_sedentary_fri" = "五";
 "setting_sedentary_sat" = "六";
 "setting_sedentary_sun" = "日";
+"setting_findDevice" = "找手表";
 "month1" = "1月";
 "month2" = "2月";
 "month3" = "3月";

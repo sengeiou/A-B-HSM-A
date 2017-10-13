@@ -49,7 +49,7 @@
              switchArr = @[@[@"remind_lost_pre",@"remind_disturb_pre",@"remind_call_pre",@"remind_message_pre",@"remind_screen_pre"],@[@"remind_lost",@"remind_disturb",@"remind_call",@"remind_message",@"remind_screen"]];
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
-            switchArr = @[@[@"remind_lost_pre",@"remind_disturb_pre",@"remind_call_pre",@"remind_message_pre",@"remind_screen_pre",@"Bright screen_pre"],@[@"remind_lost",@"remind_disturb",@"remind_call",@"remind_message",@"remind_screen",@"Bright screen"]];
+              switchArr = @[@[@"remind_lost_pre",@"remind_disturb_pre",@"remind_call_pre",@"remind_message_pre",@"Bright screen_pre"],@[@"remind_lost",@"remind_disturb",@"remind_call",@"remind_message",@"Bright screen"]];
         }
         else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
             switchArr = @[@[@"remind_lost_pre"],@[@"remind_lost"]];
@@ -158,6 +158,7 @@
     _backlightLab.text = SMALocalizedString(@"setting_backlight");
     _photoLab.text = SMALocalizedString(@"setting_photograph");
     _timingLab.text = SMALocalizedString(@"setting_timing_title");
+    _findDeviceLab.text = SMALocalizedString(@"setting_findDevice");
     _watchLab.text = SMALocalizedString(@"setting_watchface_title");
     _dfuUpdateLab.text = SMALocalizedString(@"setting_unband_dfuUpdate");
     _unPairLab.text = SMALocalizedString(@"setting_unband_remove");

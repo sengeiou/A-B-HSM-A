@@ -202,6 +202,8 @@
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;
     [app.window addSubview:calendarView];
     
+//    [SmaBleSend LoginUserWithUserID:[SMAAccountTool userInfo].userID];
+//     [SmaBleSend requestCyclingData];
     //    SmaAnalysisWebServiceTool *webSer = [[SmaAnalysisWebServiceTool alloc] init];
     //    [webSer acloudDownLDataWithAccount:[SMAAccountTool userInfo].userID];
     
@@ -504,12 +506,12 @@
             remindView.backIma.image = [UIImage imageNamed:@"home_xueya"];
             [view addSubview:remindView];
         }];
-        NSDictionary *dic = [BPArr firstObject];
-        CGFloat max = ([dic[@"SHRINK"] floatValue] - 90.0)/(240.0 - 90.0);
+        NSDictionary *dic = [BPArr lastObject];
+        CGFloat max = ([dic[@"SHRINK"] floatValue] - 00)/(240.0 - 00.0);
         if (max <= 0) {
             max = 0;
         }
-        CGFloat min = ([dic[@"RELAXATION"] floatValue] - 30.0)/(90.0 - 30.0);
+        CGFloat min = ([dic[@"RELAXATION"] floatValue] - 00)/(240.0 - 00.0);
         if (min <= 0) {
             min = 0;
         }

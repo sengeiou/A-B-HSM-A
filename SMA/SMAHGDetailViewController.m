@@ -207,6 +207,8 @@ static NSString * const reuseIdentifier = @"SMAHGDetailCollectionCell";
         stateLab.textAlignment = NSTextAlignmentCenter;
         stateLab.text = [NSString stringWithFormat:@"%@/%@",SMALocalizedString(@"device_bp_systolic"),SMALocalizedString(@"device_bp_diastolic")];
         stateLab.font = FontGothamLight(15);
+        stateLab.numberOfLines = 0;
+        stateLab.adjustsFontSizeToFitWidth = YES;
         [stateView addSubview:stateLab];
         
         [mainScroll addSubview:stateView];

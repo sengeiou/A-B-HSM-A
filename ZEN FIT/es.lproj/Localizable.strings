@@ -87,8 +87,8 @@
 "device_RU_pace"="Ritmo";
 "device_RU_per_meUnit"="km/h";
 "device_RU_per_brUnit"="millas/h";
-"device_RU_pace_meUnit"="min/km";
-"device_RU_pace_brUnit"="min/millas";
+"device_RU_pace_meUnit"="/km";
+"device_RU_pace_brUnit"="/millas";
 "device_RU_lunTime" = "Tiempo de ejercicio";
 "device_RU_lastHR" = "Último valor de frecuencia cardíaca";
 "device_RU_traTit" = "Pista de ejercicio";

@@ -87,8 +87,8 @@
 "device_RU_pace" = "配速";
 "device_RU_per_meUnit" = "km/h";
 "device_RU_per_brUnit" = "km/h(英制)";
-"device_RU_pace_meUnit" = "m/km";
-"device_RU_pace_brUnit" = "m/mile";
+"device_RU_pace_meUnit" = "/km";
+"device_RU_pace_brUnit" = "/mile";
 "device_HR_monitor" = "Pomiar rytmu pracy serca";
 "device_HR_typeF" = "Normalna";
 "device_HR_typeS" = "Lekki";

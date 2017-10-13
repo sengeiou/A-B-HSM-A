@@ -271,11 +271,9 @@ unsigned short crc16_ccitt(Byte *buf, int len)
 {
     if(bytes[1]==0x10 && bytes[0]==0xAB)
     {
-        
         return false;//应答信号
     }else
     {
-        
         return  true;//非应答信号
     }
     

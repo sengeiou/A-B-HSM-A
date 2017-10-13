@@ -62,6 +62,9 @@ static id _instace;
             result = [db executeUpdate:@"create table if not exists tb_location (id INTEGER PRIMARY KEY ASC AUTOINCREMENT ,user_id varchar(50),loca_id varchar(30),loca_date datetime, longitude float, latitude float, runstep integer,loca_mode integer,location_web integer);"];
             
             result = [db executeUpdate:@"create table if not exists tb_blutdruck (id integer primary key asc autoincrement,user_id varchar(50),bp_id varchar(30) UNIQUE,bp_date datetime,bp_time integer,shrink integer,relaxation integer,bp_web integer);"];
+            
+            //骑行
+            result = [db executeUpdate:@"create table if not exists tb_Cyling ( _id INTEGER PRIMARY KEY ASC AUTOINCREMENT,user_id varchar(50),cy_id varchar(30),cy_date datetime, cy_time integer,cy_real integer,cy_mode integer,cy_cal integer,cy_web integer);"];
             //            NSLog(@"创表 %d",result);
         }];
     }
@@ -244,7 +247,6 @@ static id _instace;
         __block BOOL result = false;
         NSLog(@"egr   %d   **\n %@",sportData.count,sportData);
         for (int i = 0; i < sportData.count; i ++) {
-            
             NSDictionary *spDic = (NSDictionary *)[sportData objectAtIndex:i];
             NSString *spID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[spDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
             NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:spID.doubleValue timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
@@ -998,7 +1000,6 @@ static id _instace;
         [db beginTransaction];
         for (int i = 0; i < locationArr.count; i ++) {
             NSDictionary *locationDic = [locationArr objectAtIndex:i];
-            
             NSString *locatID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[locationDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
             NSLog(@"定位数据时间 %@  %@",[locationDic objectForKey:@"DATE"],locatID);
             //         FMResultSet *rs = [db executeQuery:@"select * from tb_HRate where HR_date =? and HR_time=? and hr_mode=? and user_id=?",YTD,moment,[locationDic objectForKey:@"HRMODE"],[hrDic objectForKey:@"USERID"]];
@@ -1022,6 +1023,23 @@ static id _instace;
     }];
 }
 
+- (void)updateLastLocationData{
+    [self.queue inDatabase:^(FMDatabase *db) {
+        [db beginTransaction];
+         FMResultSet *reSet = [db executeQuery:@"select * from tb_location where user_id = ? order by loca_id DESC limit 1",[SMAAccountTool userInfo].userID];
+        NSDictionary *locationDic;
+        while (reSet.next) {
+            NSLog(@"fwgg %@",[reSet stringForColumn:@"loca_id"]);
+            locationDic = [NSDictionary dictionaryWithObjectsAndKeys:[reSet stringForColumn:@"user_id"],@"USERID",[reSet stringForColumn:@"loca_date"],@"DATE",[reSet stringForColumn:@"longitude"],@"LONGITUDE",[reSet stringForColumn:@"latitude"],@"LATITUDE",[reSet stringForColumn:@"runstep"],@"STEP",@"1000",@"MODE",[reSet stringForColumn:@"location_web"],@"WEB", nil];
+        }
+        if (locationDic) {
+            NSString *locatID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[locationDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+           BOOL result = [db executeUpdate:@"update tb_location set longitude = ?,latitude = ?,runstep = ?, loca_mode = ?, location_web = ? where loca_id = ? and user_id = ?",[locationDic objectForKey:@"LONGITUDE"],[locationDic objectForKey:@"LATITUDE"],[locationDic objectForKey:@"STEP"],[locationDic objectForKey:@"MODE"],[locationDic objectForKey:@"WEB"],locatID,[locationDic objectForKey:@"USERID"]];
+        NSLog(@"更新定位数据 %d",result);
+        }
+    }];
+}
+
 //读取轨迹数据
 - (NSMutableArray *)readLocationDataWithDate:(NSString *)date toDate:(NSString *)todate{
     
@@ -1036,6 +1054,7 @@ static id _instace;
             NSString *longitude = [rs stringForColumn:@"longitude"];
             NSString *latitude = [rs stringForColumn:@"latitude"];
             NSString *runStep = [rs stringForColumn:@"runstep"];
+            NSString *runMode = [rs stringForColumn:@"loca_mode"];
             CLLocationCoordinate2D coord;
             coord.latitude = latitude.doubleValue;
             coord.longitude = longitude.doubleValue;
@@ -1049,7 +1068,7 @@ static id _instace;
                 coord = [TQLocationConverter transformFromWGSToGCJ:coord];
             }
             
-            NSDictionary *locaDic = [[NSDictionary alloc]initWithObjectsAndKeys:date,@"DATE",[NSString stringWithFormat:@"%f",coord.longitude],@"LONGITUDE",[NSString stringWithFormat:@"%f",coord.latitude],@"LATITUDE",runStep,@"STEP", nil];
+            NSDictionary *locaDic = [[NSDictionary alloc]initWithObjectsAndKeys:date,@"DATE",[NSString stringWithFormat:@"%f",coord.longitude],@"LONGITUDE",[NSString stringWithFormat:@"%f",coord.latitude],@"LATITUDE",runStep,@"STEP",runMode,@"MODE", nil];
             [locationArr addObject:locaDic];
         }
     }];
@@ -1066,7 +1085,6 @@ static id _instace;
         [db commit];
         success([NSString stringWithFormat:@"%d",result]);
     }];
-    
 }
 
 //获取所需要上传轨迹数据
@@ -1164,6 +1182,102 @@ static id _instace;
         }
     }];
     return bpArr;
+}
+
+- (void)insertCylingDatas:(NSMutableArray *)cylings {
+    if (cylings.count == 0) {
+        return;
+    }
+    [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        NSDictionary *firDic = [cylings firstObject];
+        NSDictionary *lasDic = [cylings lastObject];
+        NSString *firID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[firDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+        NSString *lastID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[lasDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+        BOOL result = [db executeUpdate:@"delete from tb_Cyling where cy_id >= ? and cy_id <= ?",firID,lastID];
+        for (int i = 0; i < cylings.count; i ++) {
+            NSDictionary *cyDic = (NSDictionary *)[cylings objectAtIndex:i];
+            NSString *cyID = [NSString stringWithFormat:@"%.0f",[SMADateDaultionfos msecIntervalSince1970Withdate:[cyDic objectForKey:@"DATE"] timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]]];
+            NSString *date = [SMADateDaultionfos stringFormmsecIntervalSince1970:cyID.doubleValue timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+            NSString *YTD = [date substringToIndex:8];
+            NSString *moment = [SMADateDaultionfos minuteFormDate:date];
+            result =   [db executeUpdate:@"insert into tb_Cyling (user_id,cy_id,cy_date,cy_time,cy_real,cy_mode,cy_cal,cy_web) values(?,?,?,?,?,?,?,?)",[cyDic objectForKey:@"USERID"],cyID,YTD,moment,[cyDic objectForKey:@"HEART"],[cyDic objectForKey:@"MODE"],[cyDic objectForKey:@"CAL"],[cyDic objectForKey:@"WEB"]];
+            NSLog(@"骑行数据插入 %d",result);
+        }
+    }];
+}
+
+- (NSMutableArray *)readCylingDataWithDate:(NSString *)date{
+    NSMutableArray *cylingArr = [NSMutableArray array];
+    [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        FMResultSet *rs = [db executeQuery:@"select *from tb_Cyling where cy_date = ? and user_id = ? group by cy_time",date,[SMAAccountTool userInfo].userID];
+        int addArr = 0;
+        NSDictionary *cylingDic;
+        NSString *starTime = @"";
+        NSString *starID = @"";
+        while (rs.next) {
+           int mode = [rs intForColumn:@"cy_mode"];
+           if (mode == 0) {
+//                cylingDic = @{@"DATE":[rs stringForColumn:@"cy_date"],@"TIME":[rs stringForColumn:@"cy_time"],@"MODE":[rs stringForColumn:@"cy_mode"],@"HEART":[rs stringForColumn:@"cy_real"],@"CAL":[rs stringForColumn:@"cy_cal"]};
+               starTime = [rs stringForColumn:@"cy_time"];
+               starID = [rs stringForColumn:@"cy_id"];
+                addArr ++;
+            }
+            if (mode == 2) {
+                cylingDic = @{@"DATE":[rs stringForColumn:@"cy_date"],@"STARTTIME":starTime,@"ENDTIME":[rs stringForColumn:@"cy_time"],@"MODE":[rs stringForColumn:@"cy_mode"],@"HEART":[rs stringForColumn:@"cy_real"],@"CAL":[rs stringForColumn:@"cy_cal"],@"PRECISESTART":starID,@"PRECISEEND":[rs stringForColumn:@"cy_id"]};
+                addArr ++;
+                if (addArr == 2) {
+                    [cylingArr addObject:[cylingDic copy]];
+                    starTime = @"";
+                    starID = @"";
+                    addArr = 0;
+                }
+                else{
+                    cylingDic = nil;
+                    starTime = @"";
+                    starID = @"";
+                    addArr = 0;
+                }
+            }
+        }
+    }];
+    return cylingArr;
+}
+
+- (NSMutableArray *)readNeedUploadCylingData{
+    NSMutableArray *cylingArr = [NSMutableArray array];
+    [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
+        NSString *sql = [NSString stringWithFormat:@"select *from tb_Cyling where cy_web=0 and user_id = \'%@\'",[SMAAccountTool userInfo].userID];
+        FMResultSet *rs = [db executeQuery:sql];
+        int addArr = 0;
+        NSDictionary *cylingDic;
+        NSString *starTime = @"";
+        NSString *starID = @"";
+        while (rs.next) {
+            int mode = [rs intForColumn:@"cy_mode"];
+            if (mode == 0) {
+                starTime = [rs stringForColumn:@"cy_time"];
+                starID = [rs stringForColumn:@"cy_id"];
+                addArr ++;
+            }
+            if (mode == 2) {
+                cylingDic = @{@"account" : [SMAAccountTool userInfo].userID,@"start" : (![starID isEqualToString:@""]) ? [NSNumber numberWithLongLong:starID.longLongValue]:[NSNumber numberWithLongLong:@"".longLongValue],@"date_start": [SMADateDaultionfos stringFormmsecIntervalSince1970:[starID doubleValue] withFormatStr:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]],@"end" : [rs stringForColumn:@"cy_id"] ? [NSNumber numberWithLongLong:[rs stringForColumn:@"cy_id"].longLongValue]:[NSNumber numberWithLongLong:@"".longLongValue],@"date_end" : [SMADateDaultionfos stringFormmsecIntervalSince1970:[[rs stringForColumn:@"cy_id"] doubleValue] withFormatStr:@"yyyy-MM-dd HH:mm:ss" timeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]],@"cal" : [rs stringForColumn:@"cy_cal"] ? [NSNumber numberWithLongLong:[rs stringForColumn:@"cy_cal"].longLongValue]:[NSNumber numberWithLongLong:@"".longLongValue],@"rate" : [rs stringForColumn:@"cy_real"] ? [NSNumber numberWithLongLong:[rs stringForColumn:@"cy_real"].longLongValue]:[NSNumber numberWithLongLong:@"".longLongValue]};
+                addArr ++;
+                if (addArr == 2) {
+                    [cylingArr addObject:[cylingDic copy]];
+                    starTime = @"";
+                    starID = @"";
+                    addArr = 0;
+                }
+                else{
+                    cylingDic = nil;
+                    starTime = @"";
+                    starID = @"";
+                    addArr = 0;
+                }
+            }
+        }
+    }];
+    return cylingArr;
 }
 
 - (NSString *)getHourAndMin:(NSString *)time{

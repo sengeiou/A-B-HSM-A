@@ -26,6 +26,7 @@ typedef enum {
     CUFFSPORTDATA,  //07运动数据
     CUFFHEARTRATE,  //心率数据(05、07)
     CUFFSLEEPDATA,  //07睡眠数据
+    CYCLINGDATA,    //骑行数据（B2）
     BLUTDRUCK,      //血压
     WATCHFACE,     //获取设备表盘（10-A）
     XMODEM,          //进入XODEM模式（10-A）
@@ -78,6 +79,10 @@ typedef enum {
                         DATE: 时间
                         SHRINK：收缩压
                         RELAXATION：舒张压
+ @param CYCLINGDATA     反馈B2系列骑行模式下数据 MODE 0：开始 2：结束
+                        DATE: 时间
+                        CAL: 卡路里
+                        HEART: 心率
  @param CUFFSWITCHS     反馈10系列手表表盘编号
  @param XMODEM          10系列进入XMODE模式（用于表盘切换）
  @param RUNMODE         反馈10系列运动模式下数据 MODE 32：开始 33：运动中  47：结束 （&&&&**i-Med 定制项目 48：6m开始  49：12m开始 63：结束 **&&&&）
@@ -377,6 +382,10 @@ typedef enum {
  */
 - (void)requestLastHRData;
 
+/**
+  请求骑行数据
+ */
+- (void)requestCyclingData;
 
 /**寻找设备
  Description 寻找设备并根据鸣蜂强度促使设备播放音乐

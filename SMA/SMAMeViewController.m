@@ -235,7 +235,14 @@
 
     if (indexPath.section == 3 && indexPath.row == 0) {
 #if SMA
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.smawatch.com/page263"]];
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
+        NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
+        if (![preferredLang isEqualToString:@"zh"]){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.smawatch.com/?_l=en"]];
+        }else{
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.smawatch.com/page263"]];
+        }
 #elif ZENFIT
         SMAHelpViewController *helpVC = [[SMAHelpViewController alloc] init];
         helpVC.hidesBottomBarWhenPushed = YES;
