@@ -708,8 +708,14 @@
                 else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
                     SmaBleMgr.scanNameArr = @[@"SMA-B2",@"B2"];
                 }
+                else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B3"]){
+                    SmaBleMgr.scanNameArr = @[@"SMA-B3",@"B3"];
+                }
                 else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
                     SmaBleMgr.scanNameArr = @[@"M1",@"Technos_SR",@"MOSRAA"];
+                }
+                else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-09"]){
+                    SmaBleMgr.scanNameArr = @[@"SM09"];
                 }
 #elif ZENFIT
                 SmaBleMgr.scanNameArr = @[@"ZEN FIT"];

@@ -107,24 +107,24 @@
     }
     else{
         _weiboBut.hidden = NO;
-        if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
-            [_QQBut setImage:[UIImage imageNamed:@"icon_qq_2"] forState:UIControlStateNormal];
-        }
-        else{
+//        if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
+//            [_QQBut setImage:[UIImage imageNamed:@"icon_qq_2"] forState:UIControlStateNormal];
+//        }
+//        else{
             [_QQBut setImage:[UIImage imageNamed:@"icon_qq"] forState:UIControlStateNormal];
-        }
-        if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
-            [_weChatBut setImage:[UIImage imageNamed:@"icon_weixin_2"] forState:UIControlStateNormal];
-        }
-        else{
+//        }
+//        if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
+//            [_weChatBut setImage:[UIImage imageNamed:@"icon_weixin_2"] forState:UIControlStateNormal];
+//        }
+//        else{
             [_weChatBut setImage:[UIImage imageNamed:@"icon_weixin"] forState:UIControlStateNormal];
-        }
-        if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
-            [_weiboBut setImage:[UIImage imageNamed:@"icon_weibo_2"] forState:UIControlStateNormal];
-        }
-        else{
+//        }
+//        if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
+//            [_weiboBut setImage:[UIImage imageNamed:@"icon_weibo_2"] forState:UIControlStateNormal];
+//        }
+//        else{
             [_weiboBut setImage:[UIImage imageNamed:@"icon_weibo"] forState:UIControlStateNormal];
-        }
+//        }
     }
     CAGradientLayer * _gradientLayer = [CAGradientLayer layer];  // 设置渐变效果
     _gradientLayer.bounds = self.view.bounds;
@@ -278,10 +278,10 @@
             return;
         }
         else{
-            if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
-                [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
-                return;
-            }
+//            if (![[SMAthirdPartyLoginTool getinstance] isWXAppInstalled]) {
+//                [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
+//                return;
+//            }
             LoginProvider = ACAccountManagerLoginProviderWechat;
             [[SMAthirdPartyLoginTool getinstance] WeChatLoginController:self];
         }
@@ -294,11 +294,11 @@
             return;
         }
         else{
-            if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
-                [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
-                return;
-                
-            }
+//            if (![[SMAthirdPartyLoginTool getinstance] iphoneQQInstalled]) {
+//                [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
+//                return;
+//
+//            }
             LoginProvider = ACAccountManagerLoginProviderQQ;
             [[SMAthirdPartyLoginTool getinstance] QQlogin];
         }
@@ -307,10 +307,10 @@
         if (![preferredLang isEqualToString:@"zh"] || !custom) {
             
         }
-        if (![[SMAthirdPartyLoginTool getinstance] isWBAppInstalled]) {
-            [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
-            return;
-        }
+//        if (![[SMAthirdPartyLoginTool getinstance] isWBAppInstalled]) {
+//            [MBProgressHUD showError:SMALocalizedString(@"login_noInstal")];
+//            return;
+//        }
         LoginProvider = ACAccountManagerLoginProviderWeibo;
         [[SMAthirdPartyLoginTool getinstance] WeiboLogin];
     }

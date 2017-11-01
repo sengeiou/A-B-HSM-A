@@ -172,6 +172,8 @@ typedef enum {
  */
 -(void)setDefendLose:(BOOL)bol;
 
+- (void)setDefendLoseName:(NSString *)name phone:(NSString *)p;
+
 /** 相机开关
  *  @param bol   YES:开启；NO:关闭
  */

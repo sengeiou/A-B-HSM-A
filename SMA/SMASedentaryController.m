@@ -32,7 +32,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
         SmaBleMgr.BLdelegate = self;
         [SmaBleSend getLongTime];
     }

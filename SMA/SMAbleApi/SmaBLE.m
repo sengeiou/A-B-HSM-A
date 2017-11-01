@@ -186,7 +186,7 @@ static SmaBLE *_instace;
         }
     }else if(receive_state==ALREADY_RECEVER1)
     {
-        //        if(testBytes[0]!=0xAB)//开始接收包
+        //       if(testBytes[0]!=0xAB)//开始接收包
         if (receiveBLTimer) {
             [receiveBLTimer invalidate];
             receiveBLTimer = nil;
@@ -217,7 +217,6 @@ static SmaBLE *_instace;
     NSLog(@"checkCmdKeyType  %@",[NSData dataWithBytes:bytes length:len]);
     [self retAckAndNackBol:bol ckByte:((received_buffer[6]<<8)+received_buffer[7])];
     if ([[[self.BLInstructionArr firstObject] lastObject] isEqualToString:@"GET"]&&self.BLInstructionArr.count > 0&&self.canSend == NO  && !(bytes[8]==0x05 && bytes[10]==0x03) && !(bytes[8]==0x05 && bytes[10]==0x02) &&!(bytes[8]==0x05 &&  bytes[10]==0x05)) {
-        
         if (self.sendBLTimer) {
             [self.sendBLTimer invalidate];
             self.sendBLTimer = nil;
@@ -506,7 +505,6 @@ static SmaBLE *_instace;
     user_data.bit_field.Month = (int)[dateComponent month];
     user_data.bit_field.Year = [dateComponent year]%2000;
     
-    
     Byte buf[4];
     buf[0] = user_data.data>>24;
     buf[1] = user_data.data>>16;
@@ -540,8 +538,7 @@ static SmaBLE *_instace;
         buf[i]=0x00;
     }
     Byte results[45];
-    if(ident==0)
-    {
+    if(ident==0){
         [SmaBusinessTool getSpliceCmd:0x03 Key:0x01 bytes1:buf len:32 results:results];//绑定
     }else
     {
@@ -570,11 +567,9 @@ static SmaBLE *_instace;
     for (int i=0; i<5; i++) {
         but2[i]=results[j];
         j++;
-        
     }
     NSData * data2 = [NSData dataWithBytes:but2 length:5];
     [_p writeValue:data2 forCharacteristic:characteristic type:CBCharacteristicWriteWithResponse];
-    
 }
 
 
@@ -608,10 +603,40 @@ static SmaBLE *_instace;
         NSMutableArray *senArr = [NSMutableArray array];
         [senArr addObject:data0];
         [senArr addObject:@"SET"];
-        //        [self.BLInstructionArr addObject:senArr];
-        //        [self sendBLInstruction];
+        //  [self.BLInstructionArr addObject:senArr];
+        //  [self sendBLInstruction];
         [self arrangeBLData:data0 type:@"SET" sendNum:1];
-        //        [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+        //  [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+    }
+}
+
+- (void)setDefendLoseName:(NSString *)name phone:(NSString *)p{
+    Byte result[13 + 22 + p.length];
+    NSData *nData = [name dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *pData = [p dataUsingEncoding:NSUTF8StringEncoding];
+    Byte nByte [22] = {0};
+//    Byte pByte [p.length];
+    Byte *testByte = (Byte *)[nData bytes];
+    for (int j = 0; j < nData.length; j ++) {
+        nByte[j] = testByte[j];
+    }
+    NSMutableData *resultData = [[NSMutableData alloc] init];
+    [resultData appendData:[NSData dataWithBytes:nByte length:22]];
+    [resultData appendData:pData];
+    [SmaBusinessTool getSpliceCmd:0x02 Key:0x48 bytes1:(Byte *)[resultData bytes] len:(int)(22 + pData.length) results:result];
+    if (self.p && self.Write) {
+        int rscount = (int)(13 + 22 + p.length);
+        int degree=rscount/20;
+        int surplus=rscount%20;
+        if(surplus>0)
+            degree=degree+1;
+        for (int i=0; i<degree; i++) {
+            int alen = (((degree-1)==i && surplus > 0)?surplus:20);
+            Byte arr[alen];
+            memcpy(&arr,&result[0+(20*i)],alen);//拷贝到对应的Byte 数组中
+            NSData * data0 = [NSData dataWithBytes:arr length:alen];
+            [self arrangeBLData:data0 type:@"SET" sendNum:degree];
+        }
     }
 }
 /**
@@ -717,7 +742,6 @@ static SmaBLE *_instace;
             NSData * data0 = [NSData dataWithBytes:arr length:(((degree-1)==i)?surplus:20)];
             [self arrangeBLData:data0 type:@"SET" sendNum:degree];
             //            [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
-            
         }
     }
 }
@@ -1528,7 +1552,7 @@ static SmaBLE *_instace;
     NSData * data0 = [NSData dataWithBytes:results length:13];
     if(self.p && self.Write)
     {
-        //        [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+        //      [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
         [self arrangeBLData:data0 type:@"GET" sendNum:1];
     }
 }

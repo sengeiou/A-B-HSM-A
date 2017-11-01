@@ -38,7 +38,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
         SmaBleMgr.BLdelegate = self;
         [SmaBleSend getCuffCalarmClockList];
     }
@@ -127,7 +127,7 @@
                         [colockArry addObject:info];
                     }
                 }
-                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
                     [SmaBleSend setClockInfoV2:alarmArr];
                 }
                 else{
@@ -153,7 +153,7 @@
                         [colockArry addObject:info];
                     }
                 }
-                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
                     [SmaBleSend setClockInfoV2:alarmArr];
                 }
                 else{
@@ -178,7 +178,7 @@
             [colockArry addObject:info];
         }
     }
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
         [SmaBleSend setClockInfoV2:alarmArr];
     }
     else{

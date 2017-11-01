@@ -709,7 +709,7 @@ static id _instace;
                     }];
                 });
             }
-            if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) {
+            if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] /*|| [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B3"]*/) {
                 [SmaBleSend getBloodPressure];
             }
             else{
@@ -827,6 +827,8 @@ static id _instace;
         }
             break;
         case FINDPHONE:
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayAndRecord withOptions:AVAudioSessionCategoryOptionDefaultToSpeaker error:nil];
+            [[AVAudioSession sharedInstance] overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
             if ([[array firstObject] intValue] >= 1) {
                 [self getSystemVolumSlider].value = 1.0f;
                 [_player play];
@@ -937,7 +939,7 @@ static id _instace;
     }
     
     
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) {
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SM07"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B3"]) {
         [SmaBleSend setVertical:[SMADefaultinfos getIntValueforKey:SCREENSET]];
         //获取系统是24小时制或者12小时制
         NSString *formatStringForHours = [NSDateFormatter dateFormatFromTemplate:@"j" options:0 locale:[NSLocale currentLocale]];
@@ -946,7 +948,7 @@ static id _instace;
         [SmaBleSend setHourly:hasAMPM];
     }
     
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]) {
+    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B3"]) {
         [SmaBleSend setLiftBright:[SMADefaultinfos getIntValueforKey:LIFTBRIGHT]];
     }
     
@@ -979,14 +981,14 @@ static id _instace;
         }
     }
     
-    if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] && band){
+    if (([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-09"]) && band){
         if (setInfo){
             [SmaBleSend seatLongTimeInfoV2:setInfo];
         }
         [SmaBleSend setHRWithHR:HRInfo];
         [SmaBleSend setClockInfoV2:alarmArr];
         [SmaBleSend setPhoneSystemState:2];
-    }else if (![[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
+    }else if (![[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] && ![[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-09"]){
         if (setInfo){
             [SmaBleSend seatLongTimeInfoV2:setInfo];
         }

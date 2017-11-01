@@ -64,8 +64,14 @@
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"]){
         imageStr = @"img_queren_b2";
     }
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B3"]){
+        imageStr = @"img_queren_shouhuan_B3";
+    }
     else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]){
         imageStr = @"img_queren_r1";
+    }
+    else if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-09"]){
+       imageStr = @"img_queren_shouhuan_09";
     }
 #elif ZENFIT
     imageStr = @"img_queren_shouhuan_zen";
@@ -75,7 +81,7 @@
     [backView addSubview:deviceIma];
     
     UILabel *remindLab = [[UILabel alloc] initWithFrame:CGRectMake(18, CGRectGetMaxY(deviceIma.frame), CGRectGetWidth(backView.frame) - 36, 45)];
-    remindLab.text = [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"] ? SMALocalizedString(@"setting_band_remind"):[[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] ? SMALocalizedString(@"setting_band_remindWatch"):SMALocalizedString(@"setting_band_remindBand");
+    remindLab.text = [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-Q2"] ? SMALocalizedString(@"setting_band_remind"):[[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] ? SMALocalizedString(@"setting_band_remindWatch"):[[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-09"] ? SMALocalizedString(@"setting_band_remindWatch"):SMALocalizedString(@"setting_band_remindBand");
     remindLab.numberOfLines = 3;
     remindLab.font = FontGothamLight(14);
     remindLab.textAlignment = NSTextAlignmentCenter;

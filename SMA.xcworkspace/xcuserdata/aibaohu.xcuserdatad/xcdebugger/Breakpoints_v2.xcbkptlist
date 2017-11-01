@@ -122,7 +122,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAAlarmViewController.m"
-            timestampString = "522671212.225127"
+            timestampString = "531042254.129145"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "105"
@@ -217,24 +217,8 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SMA/SMAbleApi/SmaBusinessTool.m"
-            timestampString = "522209053.381637"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "242"
-            endingLineNumber = "242"
-            landmarkName = "+checkCRC16:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "SMA/SMASedentaryController.m"
-            timestampString = "522671212.225127"
+            timestampString = "531042254.129326"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "332"
@@ -250,7 +234,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMASedentaryController.m"
-            timestampString = "522671212.225127"
+            timestampString = "531042254.1294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "418"
@@ -330,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "529473628.223608"
+            timestampString = "531127714.85115"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "882"
-            endingLineNumber = "882"
+            startingLineNumber = "896"
+            endingLineNumber = "896"
             landmarkName = "-setClockInfoV2:"
             landmarkType = "7">
          </BreakpointContent>
@@ -352,22 +336,6 @@
             startingLineNumber = "124"
             endingLineNumber = "124"
             landmarkName = "-application:didFinishLaunchingWithOptions:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "SMA/SMAbleApi/SmaBLE.m"
-            timestampString = "529473628.224058"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
-            landmarkName = "-checkCmdKeyType:len:bol:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

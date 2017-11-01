@@ -328,7 +328,7 @@
                 [picker takePicture];
             }
             else if([[data firstObject] intValue] == 2){
-                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
+                if ([[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] || [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"]) {
                     return;
                 }
                 [self dismissViewControllerAnimated:YES completion:^{
