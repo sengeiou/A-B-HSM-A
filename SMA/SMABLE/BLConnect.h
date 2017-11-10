@@ -10,6 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <VideoToolbox/VideoToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 #import "ScannedPeripheral.h"
 #import "SmaBLE.h"
 @protocol BLConnectDelegate <NSObject>
@@ -43,7 +44,7 @@
 @property (strong, nonatomic) NSTimer *reloadTimer;
 @property (strong, nonatomic) NSTimer *scanTimer;
 @property (strong, nonatomic) SMAUserInfo *user;
-@property (nonatomic,strong)AVAudioPlayer *player;
+@property (nonatomic,strong) AVAudioPlayer *player;
 @property (nonatomic, strong)  UIImagePickerController *picker;
 @property (assign,readonly,nonatomic) int sendIdentifier;
 @property (weak,   nonatomic) id<BLConnectDelegate> BLdelegate;

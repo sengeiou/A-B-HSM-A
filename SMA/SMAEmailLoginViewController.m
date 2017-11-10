@@ -72,6 +72,12 @@
     [_resetPassBut setTitle:SMALocalizedString(@"login_resetpass") forState:UIControlStateNormal];
     [_loginBut setTitle:SMALocalizedString(@"login_login") forState:UIControlStateNormal];
     _loginBut.enabled = NO;
+    
+#if SMA
+    _logoIma.image = [UIImage imageWithName:@"logo"];
+#elif EVOLVEO
+    _logoIma.image = [UIImage imageWithName:@"eve_logo"];
+#endif
 }
 
 - (IBAction)backSelector:(id)sender{

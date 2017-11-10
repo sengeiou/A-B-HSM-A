@@ -7,6 +7,9 @@
 //
 
 #import "SMAthirdPartyLoginTool.h"
+#import <Fabric/Fabric.h>
+#import <Twitter/Twitter.h>
+#import <TwitterKit/TwitterKit.h>
 
 static SMAthirdPartyLoginTool *g_instance = nil;
 @interface SMAthirdPartyLoginTool ()

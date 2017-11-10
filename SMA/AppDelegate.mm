@@ -129,6 +129,9 @@
 //            NSLog(@"Nothing is done");
 //        }
 //    };
+#if EVOLVEO
+            [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-B2"];
+#endif
     [self.window makeKeyAndVisible];
     return YES;
 }

@@ -22,9 +22,10 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "WeiboSDK.h"
-#import <Fabric/Fabric.h>
-#import <Twitter/Twitter.h>
-#import <TwitterKit/TwitterKit.h>
+
+//#import <Fabric/Fabric.h>
+//#import <Twitter/Twitter.h>
+//#import <TwitterKit/TwitterKit.h>
 @interface SMAthirdPartyLoginTool : NSObject<FBSDKSharingDelegate>
 @property (nonatomic, strong)  UIDocumentInteractionController *documentInteractionController;
 @property (nonatomic, retain)TencentOAuth *oauth;

@@ -1,0 +1,6 @@
+framework module Pods_SMA_ZEN_FIT {
+  umbrella header "Pods-SMA-ZEN FIT-umbrella.h"
+
+  export *
+  module * { export * }
+}

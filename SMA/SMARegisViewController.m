@@ -92,6 +92,13 @@
     [attributed appendAttributedString:str1];
     [attributed appendAttributedString:str2];
     [_protocolBut setAttributedTitle:attributed forState:UIControlStateNormal];
+    
+#if SMA
+    _logoIma.image = [UIImage imageWithName:@"logo"];
+#elif EVOLVEO
+    _logoIma.image = [UIImage imageWithName:@"eve_logo"];
+#endif
+    
 #if ZENFIT
     _protocolBut.hidden = YES;
 #endif
@@ -163,7 +170,12 @@
 }
 
 - (IBAction)protocolSelector:(UIButton *)sender{
+#if SMA
      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.smawatch.com/page1000044?plg_nld=1&plg_uin=1&plg_auth=1&plg_nld=1&plg_usr=1&plg_vkey=1&plg_dev=1"]];
+#elif EVOLVEO
+         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.evolveo.com"]];
+#endif
+
 }
 
 - (IBAction)registerSelector:(id)sender{

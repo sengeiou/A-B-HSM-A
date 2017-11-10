@@ -232,9 +232,7 @@ unsigned short crc16_ccitt(Byte *buf, int len)
 
 /**
  *  <#Description#> CRC16校验方法
- *
  *  @param arrByte 传入需要CRC校验的byte数组
- *
  *  @return 返回CRC校验的结果true false;
  */
 +(BOOL)checkCRC16:(Byte [])arrByte{

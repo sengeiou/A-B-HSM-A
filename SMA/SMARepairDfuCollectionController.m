@@ -44,6 +44,8 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
     firmMsg = @"(1)";
 #elif ZENFIT
     firmMsg = @"(6)";
+#elif EVOLVEO
+    firmMsg = @"(7)";
 #endif
     if (self.repairFont) {
         [tool acloudDfuFileWithFirmwareType:firmware_smaProducts callBack:^(NSArray *finish, NSError *error) {
@@ -104,6 +106,8 @@ static NSString * const sectionHeaderIdentifier = @"SectionHeader";
     }
 #elif ZENFIT
     SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#elif EVOLVEO
+    SmaBleMgr.scanNameArr = @[@"EVOLVEO"];
 #endif
 }
 

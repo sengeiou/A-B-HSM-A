@@ -35,7 +35,12 @@
         
         s = [languageBundle localizedStringForKey:translation_key value:@"" table:nil];
     }
-    
+#elif EVOLVEO
+    if (![preferredLang isEqualToString:@"zh"] && ![preferredLang isEqualToString:@"es"] && ![preferredLang isEqualToString:@"de"] && ![preferredLang isEqualToString:@"nl"] && ![preferredLang isEqualToString:@"fr"] && ![preferredLang isEqualToString:@"tr"] && ![preferredLang isEqualToString:@"cs"] /*&& ![preferredLang isEqualToString:@"ru"] && ![preferredLang isEqualToString:@"id"]&& ![preferredLang isEqualToString:@"fi"]&& ![preferredLang isEqualToString:@"sv"]&& ![preferredLang isEqualToString:@"da"]&& ![preferredLang isEqualToString:@"uk"]&& ![preferredLang isEqualToString:@"pt"]&& ![preferredLang isEqualToString:@"hu"]&& ![preferredLang isEqualToString:@"ro"]&& ![preferredLang isEqualToString:@"pl"]*/) {
+        NSString * path = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
+        NSBundle * languageBundle = [NSBundle bundleWithPath:path];
+       s = [languageBundle localizedStringForKey:translation_key value:@"" table:nil];
+    }
 #endif
     return s;
 }
@@ -55,6 +60,12 @@
     }
 #elif ZENFIT
     if (![preferredLang isEqualToString:@"en"]) {
+        NSString * path = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
+        NSBundle * languageBundle = [NSBundle bundleWithPath:path];
+        s = [NSString localizedStringWithFormat:[languageBundle localizedStringForKey:translation_key value:@"" table:nil],comment];
+    }
+#elif EVOLVEO
+     if (![preferredLang isEqualToString:@"zh"] && ![preferredLang isEqualToString:@"es"] && ![preferredLang isEqualToString:@"de"] && ![preferredLang isEqualToString:@"nl"] && ![preferredLang isEqualToString:@"fr"] && ![preferredLang isEqualToString:@"tr"] && ![preferredLang isEqualToString:@"cs"] /*&& ![preferredLang isEqualToString:@"ru"] && ![preferredLang isEqualToString:@"id"]&& ![preferredLang isEqualToString:@"fi"]&& ![preferredLang isEqualToString:@"sv"]&& ![preferredLang isEqualToString:@"da"]&& ![preferredLang isEqualToString:@"uk"]&& ![preferredLang isEqualToString:@"pt"]&& ![preferredLang isEqualToString:@"hu"]&& ![preferredLang isEqualToString:@"ro"]&& ![preferredLang isEqualToString:@"pl"]*/) {
         NSString * path = [[NSBundle mainBundle] pathForResource:@"en" ofType:@"lproj"];
         NSBundle * languageBundle = [NSBundle bundleWithPath:path];
         s = [NSString localizedStringWithFormat:[languageBundle localizedStringForKey:translation_key value:@"" table:nil],comment];

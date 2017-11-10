@@ -27,6 +27,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+     [self.view endEditing:NO];
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     [self.view endEditing:YES];
 }
@@ -86,6 +90,12 @@
     [attributed appendAttributedString:str1];
     [attributed appendAttributedString:str2];
     [_protocolBut setAttributedTitle:attributed forState:UIControlStateNormal];
+    
+#if SMA
+    _logoIma.image = [UIImage imageWithName:@"logo"];
+#elif EVOLVEO
+    _logoIma.image = [UIImage imageWithName:@"eve_logo"];
+#endif
     
 #if ZENFIT
     _protocolBut.hidden = YES;

@@ -12,5 +12,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *titLab;
 @property (nonatomic, weak) IBOutlet UIButton *loginBut, *regisBut;
 @property (nonatomic, weak) IBOutlet UIImageView *backIma;
+@property (nonatomic, weak) IBOutlet UIImageView *logoIma;
 @end
 

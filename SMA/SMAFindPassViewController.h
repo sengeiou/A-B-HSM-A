@@ -18,4 +18,5 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *countryTop, *accW, *accH ,*accTop;
 @property (nonatomic, assign) CGFloat countryFloat;
 @property (nonatomic, assign) BOOL emailFind;
+@property (nonatomic, weak) IBOutlet UIImageView *logoIma;
 @end

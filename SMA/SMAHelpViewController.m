@@ -24,6 +24,8 @@
     UIImage *help1 = [UIImage imageNamed:@"help_zen"];
 #if ZENFIT
     help1 = [UIImage imageNamed:@"help_zen"];
+#elif EVOLVEO
+   help1 = [UIImage imageNamed:@"el_usage_help"];
 #endif
     UIImageView *help1View = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0,MainScreen.size.width, help1.size.height * MainScreen.size.width/help1.size.width)];
     help1View.image = help1;

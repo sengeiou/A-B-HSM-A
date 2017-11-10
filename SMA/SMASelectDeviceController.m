@@ -57,9 +57,11 @@
 
 - (void)initializeMethod{
 #if SMA
-    deviceArr = @[@[@"SMA-A1",SMALocalizedString(@"setting_band_07detail"),@"img_jiexie"]/*,@[@"SMA-A2",SMALocalizedString(@"setting_band_07detail"),@"img_launcher"]*/,@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-COACH",SMALocalizedString(@"setting_band_07detail"),@"img_07"],@[@"SMART BAND-02",SMALocalizedString(@"setting_band_07detail"),@"img_B2"],@[@"SMA-B3",SMALocalizedString(@"setting_band_07detail"),@"img_B3"],@[@"SMART M1",SMALocalizedString(@"setting_band_07detail"),@"img_r1"],@[@"SMA-09",SMALocalizedString(@"setting_band_07detail"),@"img_09"]];
+    deviceArr = @[@[@"SMA-A1",SMALocalizedString(@"setting_band_07detail"),@"img_jiexie"]/*,@[@"SMA-A2",SMALocalizedString(@"setting_band_07detail"),@"img_launcher"]*/,@[@"SMA-Q2",SMALocalizedString(@"setting_band_07detail"),@"img_xiaoQerdai"],@[@"SMA-07",SMALocalizedString(@"setting_band_07detail"),@"img_07"],@[@"SMA-B2",SMALocalizedString(@"setting_band_07detail"),@"img_B2"],@[@"SMA-B3",SMALocalizedString(@"setting_band_07detail"),@"img_B3"],@[@"SMART M1",SMALocalizedString(@"setting_band_07detail"),@"img_r1"],@[@"SMA-09",SMALocalizedString(@"setting_band_07detail"),@"img_09"]];
 #elif ZENFIT
     deviceArr = @[@[@"ZEN FIT",SMALocalizedString(@"setting_band_07detail"),@"img_07_zen"]];
+#elif EVOLVEO
+    deviceArr = @[@[@"EVOLVEO FitBand B2",SMALocalizedString(@"setting_band_07detail"),@"evesel_b2"]];
 #endif
 }
 - (void)createUI{
@@ -77,6 +79,8 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.smawatch.com/Store"]];
 #elif ZENFIT
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://x-view.com/zen/smartwatch.fitlink"]];
+#elif EVOLVEO
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.evolveo.com/cz/fitband-b2"]];
 #endif
 }
 
@@ -152,6 +156,10 @@
 #elif ZENFIT
     if (indexPath.row == 0) {
         [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SM07"];
+    }
+#elif EVOLVEO
+    if (indexPath.row == 0) {
+        [SMADefaultinfos putKey:BANDDEVELIVE andValue:@"SMA-B2"];
     }
 #endif
     self.navigationController.leftItemHidden = NO;

@@ -13,4 +13,5 @@
 @interface SMAEmailLoginViewController : UIViewController<UITextFieldDelegate>
 @property (nonatomic, weak) IBOutlet UITextField *accountField, *passwordField;
 @property (nonatomic, weak) IBOutlet UIButton *resetPassBut, *loginBut, *backBut;
+@property (nonatomic, weak) IBOutlet UIImageView *logoIma;
 @end

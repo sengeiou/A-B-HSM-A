@@ -71,6 +71,8 @@
     _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment: [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-A1"] ? [NSString stringWithFormat:@"%@/SMA-A2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]]:[[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B2"] ? [NSString stringWithFormat:@"%@/B2",[SMADefaultinfos getValueforKey:BANDDEVELIVE]] : [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-B3"] ? @"B3/SMA-B3": [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-R1"] ? @"M1/Technos_SR/MOSRAA": [[SMADefaultinfos getValueforKey:BANDDEVELIVE] isEqualToString:@"SMA-09"] ? @"SM09":[SMADefaultinfos getValueforKey:BANDDEVELIVE]];
 #elif ZENFIT
     _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment:@"ZEN FIT"];
+#elif EVOLVEO
+    _ignoreLab.text = [SmaLocalizeableInfo localizedStringDic:@"setting_band_remind07" comment:@"EVOLVEO"];
 #endif
     
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithRed:87/255.0 green:144/255.0 blue:249/255.0 alpha:1] size:CGSizeMake([UIScreen mainScreen].bounds.size.width, 64)] forBarMetrics:UIBarMetricsDefault];
@@ -120,6 +122,8 @@
     }
 #elif ZENFIT
     SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#elif EVOLVEO
+    SmaBleMgr.scanNameArr = @[@"EVOLVEO"];
 #endif
     [SmaBleMgr scanBL:12];
 }
@@ -155,6 +159,8 @@
         }
 #elif ZENFIT
         SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#elif EVOLVEO
+        SmaBleMgr.scanNameArr = @[@"EVOLVEO"];
 #endif
         [SmaBleMgr scanBL:12];
     }
@@ -354,6 +360,8 @@
             }
 #elif ZENFIT
             SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#elif EVOLVEO
+            SmaBleMgr.scanNameArr = @[@"EVOLVEO"];
 #endif
             [SmaBleMgr scanBL:12];
         }];
@@ -453,6 +461,8 @@
         }
 #elif ZENFIT
         SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#elif EVOLVEO
+        SmaBleMgr.scanNameArr = @[@"EVOLVEO"];
 #endif
         [SmaBleMgr scanBL:12];
     }

@@ -31,6 +31,12 @@
 #import "SMADeviceAggregate.h"
 #import "DfuUpdate.h"
 #import "SMALocatiuonManager.h"
+#import <Fabric/Fabric.h>
+#import <TwitterKit/TwitterKit.h>
+
+//#import <CoreBluetooth/CoreBluetooth.h>
+//#import <MediaPlayer/MediaPlayer.h>
+//#import <VideoToolbox/VideoToolbox.h>
 /**** Define
  */
 #define SmaBleMgr [BLConnect sharedCoreBlueTool]
@@ -40,6 +46,8 @@
 #if ZENFIT
 #define MainStoryBoard [UIStoryboard storyboardWithName:@"ZENFITMain" bundle:nil]
 #elif SMA
+#define MainStoryBoard [UIStoryboard storyboardWithName:@"Main" bundle:nil]
+#elif EVOLVEO
 #define MainStoryBoard [UIStoryboard storyboardWithName:@"Main" bundle:nil]
 #endif
 #define MainScreen [UIScreen mainScreen].bounds

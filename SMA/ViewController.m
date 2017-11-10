@@ -53,6 +53,12 @@
     }
     index = 0;
     changeBgTimer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(changeSubview) userInfo:nil repeats:YES];
+    
+#if SMA
+    _logoIma.image = [UIImage imageWithName:@"logo"];
+#elif EVOLVEO
+   _logoIma.image = [UIImage imageWithName:@"eve_logo"];
+#endif
 }
 
 - (void)changeSubview{

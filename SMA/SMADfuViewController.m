@@ -719,6 +719,8 @@
                 }
 #elif ZENFIT
                 SmaBleMgr.scanNameArr = @[@"ZEN FIT"];
+#elif EVOLVEO
+                SmaBleMgr.scanNameArr = @[@"EVOLVEO"];
 #endif
             }
             if (SmaBleMgr.repairFont && repairFontState == 0) {

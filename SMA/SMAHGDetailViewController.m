@@ -107,8 +107,11 @@ static NSString * const reuseIdentifier = @"SMAHGDetailCollectionCell";
     [backView addSubview:minLab];
     baseView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
     [baseView addSubview:backView];
-    
-    
+#if EVOLVEO
+    backView.frame = CGRectMake(0, 0, MainScreen.size.width - 50, (titRect.size.height > MainScreen.size.height/3.2 ? MainScreen.size.height/3.2:titRect.size.height) + 8);
+    backView.center = CGPointMake(MainScreen.size.width/2, MainScreen.size.height/2);
+    minLab.hidden = YES;
+#endif
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapView)];
     [baseView addGestureRecognizer:tap];

@@ -75,6 +75,8 @@
     }
 #elif ZENFIT
     imageStr = @"img_queren_shouhuan_zen";
+#elif EVOLVEO
+    imageStr = @"img_queren_eveB2";
 #endif
     deviceIma.image = [UIImage imageNamed:imageStr];
     deviceIma.center = CGPointMake(CGRectGetWidth(backView.frame)/2, deviceIma.center.y);

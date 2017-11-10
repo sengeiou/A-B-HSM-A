@@ -184,6 +184,8 @@
     return lab;
 #elif ZENFIT
     return nil;
+#elif EVOLVEO
+    return nil;
 #endif
 }
 
@@ -244,6 +246,11 @@
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.smawatch.com/page263"]];
         }
 #elif ZENFIT
+        SMAHelpViewController *helpVC = [[SMAHelpViewController alloc] init];
+        helpVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:helpVC animated:YES];
+#elif EVOLVEO
+//        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://www.evolveo.com"]];
         SMAHelpViewController *helpVC = [[SMAHelpViewController alloc] init];
         helpVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:helpVC animated:YES];

@@ -27,13 +27,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     firstLun = YES;
     [self initializeMethod:NO];
     //     [self createUI];
-    
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -259,6 +256,14 @@
         shareArr = @[SMALocalizedString(@"device_share_wechat"),SMALocalizedString(@"device_share_Timeline"),SMALocalizedString(@"device_share_qq"),SMALocalizedString(@"device_share_Qzone"),SMALocalizedString(@"device_share_webo")];
         shareImaArr = @[[UIImage imageNamed:@"icon_weixin"],[UIImage imageNamed:@"home_pyq"],[UIImage imageNamed:@"icon_qq"],[UIImage imageNamed:@"home_kongjian"],[UIImage imageNamed:@"icon_weibo"]];
     }
+#if ZENFIT
+    shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
+    shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
+#elif EVOLVEO
+    shareArr = @[SMALocalizedString(@"twitter")/*,SMALocalizedString(@"tumblr")*/,SMALocalizedString(@"instagram"),SMALocalizedString(@"facebook")];
+    shareImaArr = @[[UIImage imageNamed:@"home_twitter"]/*,[UIImage imageNamed:@"home_tumblr"]*/,[UIImage imageNamed:@"home_instagram"],[UIImage imageNamed:@"home_facebook"]];
+#endif
+
     SMAShareView *shareView = [[SMAShareView alloc] initWithButtonTitles:shareArr butImage:shareImaArr shareImage:image];
     shareView.shareVC = self;
     AppDelegate *app = (AppDelegate *)[UIApplication sharedApplication].delegate;

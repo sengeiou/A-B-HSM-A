@@ -7,8 +7,9 @@
 //
 
 #import "SMAOpinion ViewController.h"
+#import <MessageUI/MessageUI.h>
 
-@interface SMAOpinion_ViewController ()
+@interface SMAOpinion_ViewController ()<MFMailComposeViewControllerDelegate>
 
 @end
 
@@ -45,6 +46,12 @@
         [MBProgressHUD showError:SMALocalizedString(@"me_set_feedback_content")];
         return;
     }
+    
+#if EVOLVEO
+//    [MBProgressHUD showSuccess:SMALocalizedString(@"me_set_feeback_subing")];
+    NSString *thtStr = [NSString stringWithFormat:@"EVOLVEO Fit--%@",SMALocalizedString(@"me_set_feedback")];
+    [self sendEmailToGoal:@"servis@evolveo.com" titMes:thtStr];
+#else
     [MBProgressHUD showSuccess:SMALocalizedString(@"me_set_feeback_subing")];
     SmaAnalysisWebServiceTool *webservice = [[SmaAnalysisWebServiceTool alloc] init];
     [webservice acloudFeedbackContact:_contentField.text content:_detailsView.text callBack:^(BOOL isSuccess, NSError *error) {
@@ -58,10 +65,54 @@
             [MBProgressHUD showError:[NSString stringWithFormat:@"%ld %@",(long)error.code,SMALocalizedString(@"me_set_feeback_subFail")]];
         }
     }];
+#endif
+}
+
+- (void)sendEmailToGoal:(NSString *)goalMes titMes:(NSString *)tit{
+    if ([MFMailComposeViewController canSendMail]) { // 用户已设置邮件账户
+        
+    }else{
+        NSLog(@"无邮件帐户,请设置邮件帐户来发送电子邮件");
+        return;
+    }
+    if ([MFMessageComposeViewController canSendText] == YES) {
+        MFMailComposeViewController *_mailComposer = [[MFMailComposeViewController alloc]init];
+        _mailComposer.mailComposeDelegate = self;
+//        [_mailComposer setSubject:@""];
+        NSArray *arr = @[goalMes];
+        //收件人
+        [_mailComposer setToRecipients:arr];
+        // 设置邮件主题
+        [_mailComposer setSubject:tit];
+        
+        // 设置密抄送
+//        [_mailComposer setBccRecipients:@[]];
+        // 设置抄送人
+//        [_mailComposer setCcRecipients:@[@"1229436624@qq.com"]];
+        // 如使用HTML格式，则为以下代码
+        //    [_mailComposer setMessageBody:@"<html><body><p>Hello</p><p>World！</p></body></html>" isHTML:YES];
+        /*
+         //添加附件
+         UIImage *image = [UIImage imageNamed:@"image"];
+         NSData *imageData = UIImagePNGRepresentation(image);
+         [_mailComposer addAttachmentData:imageData mimeType:@"" fileName:@"custom.png"];
+         NSString *file = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"pdf"];
+         NSData *pdf = [NSData dataWithContentsOfFile:file];
+         [_mailComposer addAttachmentData:pdf mimeType:@"" fileName:@"7天精通IOS"];
+         */
+        
+        [_mailComposer setMessageBody:_detailsView.text isHTML:NO];
+        [self presentViewController:_mailComposer animated:YES completion:^{
+            for (UIView *view in _mailComposer.view.subviews) {
+                NSLog(@"viuew namne %@",view);
+            }
+        }];
+    }else{
+//        [SVProgressHUD showInfoWithStatus:@"设备不支持"];
+    }
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
-    
     NSString *realTextViewText = [textView.text stringByReplacingCharactersInRange:range withString:text];
     UITextRange *selectedRange = [textView markedTextRange];
     UITextPosition *pos = [textView positionFromPosition:selectedRange.start offset:0];
@@ -130,17 +181,33 @@
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField{
-     [textField resignFirstResponder];
+    [textField resignFirstResponder];
     return YES;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)mailComposeController:(MFMailComposeViewController *)controller
+         didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    [self dismissViewControllerAnimated:YES completion:^{
+        switch (result) {
+            case MFMailComposeResultSent:
+                [MBProgressHUD showSuccess:SMALocalizedString(@"me_set_feeback_subSucc")];
+                break;
+            case MFMailComposeResultFailed:
+                [MBProgressHUD showSuccess:SMALocalizedString(@"me_set_feeback_subFail")];
+                break;
+            default:
+                break;
+        }
+    }];
 }
-*/
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

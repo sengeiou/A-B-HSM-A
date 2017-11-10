@@ -13,5 +13,5 @@
 @property (nonatomic, weak) IBOutlet UILabel *codeLab, *countryLab;
 @property (nonatomic, weak) IBOutlet UITextField *accountField, *passwordField, *verCodeField;
 @property (nonatomic, weak) IBOutlet UIButton *emailBut, *protocolBut, *registerBut, *verCodeBut, *backBut;
-
+@property (nonatomic, weak) IBOutlet UIImageView *logoIma;
 @end

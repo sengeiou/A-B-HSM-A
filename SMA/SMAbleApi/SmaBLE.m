@@ -1552,7 +1552,7 @@ static SmaBLE *_instace;
     NSData * data0 = [NSData dataWithBytes:results length:13];
     if(self.p && self.Write)
     {
-        //      [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
+        //    [self.p writeValue:data0 forCharacteristic:self.Write type:CBCharacteristicWriteWithResponse];
         [self arrangeBLData:data0 type:@"GET" sendNum:1];
     }
 }

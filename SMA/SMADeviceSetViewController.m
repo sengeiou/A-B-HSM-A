@@ -551,6 +551,9 @@
     }
 #elif ZENFIT
     imageStr = @"SMA_07_zen";
+    
+#elif EVOLVEO
+    imageStr = @"eve_b2";
 #endif
     return imageStr;
 }

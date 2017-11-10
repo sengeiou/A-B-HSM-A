@@ -88,6 +88,12 @@
         _accH.constant = 15;
         _accTop.constant = 10;
     }
+    
+#if SMA
+    _logoIma.image = [UIImage imageWithName:@"logo"];
+#elif EVOLVEO
+    _logoIma.image = [UIImage imageWithName:@"eve_logo"];
+#endif
 }
 
 - (void)update{

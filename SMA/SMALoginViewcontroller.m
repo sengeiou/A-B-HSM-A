@@ -96,6 +96,13 @@
     NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
     NSArray * allLanguages = [defaults objectForKey:@"AppleLanguages"];
     NSString * preferredLang = [[allLanguages objectAtIndex:0] substringToIndex:2];
+    
+#if SMA
+    _logoIma.image = [UIImage imageWithName:@"logo"];
+#elif EVOLVEO
+    _logoIma.image = [UIImage imageWithName:@"eve_logo"];
+#endif
+    
     BOOL custom = NO;
 #if SMA
     custom = YES;
@@ -104,6 +111,9 @@
         [_QQBut setImage:[UIImage imageNamed:@"home_twitter"] forState:UIControlStateNormal];
         [_weChatBut setImage:[UIImage imageNamed:@"home_facebook"] forState:UIControlStateNormal];
         _weiboBut.hidden = YES;
+#if EVOLVEO
+        _QQBut.hidden = YES;
+#endif
     }
     else{
         _weiboBut.hidden = NO;
