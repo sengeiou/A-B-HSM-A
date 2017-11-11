@@ -73,6 +73,7 @@
         
     }else{
         NSLog(@"无邮件帐户,请设置邮件帐户来发送电子邮件");
+        [MBProgressHUD showError:SMALocalizedString(@"me_set_feeback_email")];
         return;
     }
     if ([MFMessageComposeViewController canSendText] == YES) {
@@ -103,12 +104,10 @@
         
         [_mailComposer setMessageBody:_detailsView.text isHTML:NO];
         [self presentViewController:_mailComposer animated:YES completion:^{
-            for (UIView *view in _mailComposer.view.subviews) {
-                NSLog(@"viuew namne %@",view);
-            }
+
         }];
     }else{
-//        [SVProgressHUD showInfoWithStatus:@"设备不支持"];
+         [MBProgressHUD showError:SMALocalizedString(@"me_set_feeback_deviceErr")];
     }
 }
 

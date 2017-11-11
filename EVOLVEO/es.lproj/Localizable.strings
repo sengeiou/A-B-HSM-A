@@ -334,6 +334,8 @@
 "me_set_feeback_subSucc"="Envío correcto";
 "me_set_feeback_subFail"="Envío incorrecto";
 "me_set_feeback_submit"="Enviar";
+"me_set_feeback_email" = "Email account is not configured. You can add or create an email account in Settings";
+"me_set_feeback_deviceErr" = "Device not supported";
 "me_set_about"="Sobre nosotros";
 "me_set_about_content1" = "EVOLVEO es una marca con más de 30 años de vida, donde puede encontrar todos aquellos productos necesarios para una vida tecnológica";
 "me_set_about_content2" = "";

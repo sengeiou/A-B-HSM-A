@@ -345,6 +345,8 @@
 "me_set_feeback_subSucc"="submit succesvol";
 "me_set_feeback_subFail"="Verzend is mislukt";
 "me_set_feeback_submit"="voorleggen";
+"me_set_feeback_email" = "Email account is not configured. You can add or create an email account in Settings";
+"me_set_feeback_deviceErr" = "Device not supported";
 "me_set_about"="Over ons";
 "me_set_about_content1" = "EVOLVEO is a brand of electronics founded in 2005. It specialises in the area of digital home, personal electronics and gaming products. The brand is aimed at men interested in electronics and information technology, who require trendy products and seek cost-effective solutions with respect to the offer of large multinational brands. Development, distribution and service of the EVOLVEO brand are provided by an international team from more than a dozen countries.";
 "me_set_about_content2" = "";
