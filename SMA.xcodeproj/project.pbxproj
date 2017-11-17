@@ -5984,7 +5984,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.smacare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "a5ab2782-45f2-4d03-8463-971d79871d87";
 				PROVISIONING_PROFILE_SPECIFIER = All_development_text;
@@ -6001,7 +6001,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = UXHZJEX24R;
+				DEVELOPMENT_TEAM = VHVLE5FL92;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6069,10 +6069,10 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.smacare;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.coach;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b05b12de-aefe-4496-9d56-3a54f3e99f35";
-				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_sub;
+				PROVISIONING_PROFILE = "b7956e09-9feb-4cde-8c33-4610f432aeb7";
+				PROVISIONING_PROFILE_SPECIFIER = liang_dis_smacare_text;
 			};
 			name = Release;
 		};
@@ -6140,7 +6140,7 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.nzenfit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.zenfit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "e7ef197a-dd9f-4072-b7e9-a8a17caeebe7";
 				PROVISIONING_PROFILE_SPECIFIER = All_development_text;
@@ -6157,7 +6157,7 @@
 				CLANG_CXX_LIBRARY = "compiler-default";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = V96N6WUHA2;
+				DEVELOPMENT_TEAM = VHVLE5FL92;
 				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -6210,10 +6210,10 @@
 					"-fobjc-arc",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.nzenfit;
+				PRODUCT_BUNDLE_IDENTIFIER = com.smawatch.zenfit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5bf6c2aa-b2ba-43b1-be12-3918866a6177";
-				PROVISIONING_PROFILE_SPECIFIER = jun_dis_newZen_sub;
+				PROVISIONING_PROFILE = "ae57af77-cd8c-4ac3-8c11-3ff3e7175fa4";
+				PROVISIONING_PROFILE_SPECIFIER = hu_dis_zenfit_text;
 			};
 			name = Release;
 		};

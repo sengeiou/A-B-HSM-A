@@ -11,3 +11,4 @@
 @interface SMAAboutUsViewController : UIViewController
 @property (nonatomic, weak) IBOutlet UITextView *aboutUsView;
 @end
+

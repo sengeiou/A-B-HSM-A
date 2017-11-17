@@ -80,7 +80,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.0.3</string>
+	<string>1.0.4</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -207,12 +207,14 @@
 	<string>Allow the app use Bluetooth</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow this app to access your camera or not</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Under sports mode. When switch to the background broadcast, it will still maintain the GPS connection</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>YES</string>
+	<string>Under sports mode. When switch to the background broadcast, it will still maintain the GPS connection</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Allow this app to access your location or not</string>
+	<string>Under sports mode. When switch to the background broadcast, it will still maintain the GPS connection</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow this app to access your location or not</string>
+	<string>Under sports mode. When switch to the background broadcast, it will still maintain the GPS connection</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow this app to access your album or not</string>
 	<key>UIAppFonts</key>

@@ -66,8 +66,8 @@
 "device_SP_goal"="Cíl aktivity";
 "device_SP_step"="krok";
 "device_SP_steps"="kroků";
-"device_SP_sit"="Lehké cvičení";
-"device_SP_walking"="Procházka";
+"device_SP_sit"="Sezení";
+"device_SP_walking"="Chůze";
 "device_SP_running"="Běh";
 "device_SP_km"="km";
 "device_SP_mile"="míle";
@@ -102,7 +102,7 @@
 "device_RU_max"="Max TF";
 "device_RU_min"="Min TF";
 "device_HR_typeF"="Normální";
-"device_HR_typeS"="Nizký";
+"device_HR_typeS"="Nízký";
 "device_HR_typeT"="Vysoký";
 "device_HR_mean"="Průměr TF";
 "device_HR_max"="Max TF";
@@ -120,7 +120,7 @@
 "device_HR_importQuiet"="Zadejte prosím klidovou TF";
 "device_SL_qualith"="Kvalita spánku";
 "device_SL_typeF"="Špatná";
-"device_SL_typeS"="Všeobecné";
+"device_SL_typeS"="Normální";
 "device_SL_typeT"="Ospalec";
 "device_SL_typeG"="Dobrá";
 "device_SL_deep"="Hluboký";
