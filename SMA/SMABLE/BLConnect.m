@@ -230,7 +230,6 @@ static id _instace;
         self.peripherals = nil;
         NSArray *SystemArr = [SmaBleMgr.mgr retrieveConnectedPeripheralsWithServices:@[[CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"]]];
         NSArray *allPer = [SmaBleMgr.mgr retrievePeripheralsWithIdentifiers:@[[[NSUUID alloc] initWithUUIDString:@"00001530-1212-EFDE-1523-785FEABCD123"]]];
-        NSLog(@"fwgwggh===%@ \n SystemArr %@",allPer,SystemArr);
         if (SystemArr.count > 0) {
             [SmaDfuManager performDFUwithManager:self.mgr periphral:[SystemArr firstObject]];
             [SmaBleMgr reunitonPeripheral:NO];
@@ -245,7 +244,6 @@ static id _instace;
 }
 
 - (void)scanPerformDFU{
-    NSLog(@"scanPerformDFU====");
     [self.mgr scanForPeripheralsWithServices:@[[CBUUID UUIDWithString:@"00001530-1212-EFDE-1523-785FEABCD123"],[CBUUID UUIDWithString:@"7905F431-B5CE-4E99-A40F-4B1E122D00D0"]] options:nil];
 }
 
